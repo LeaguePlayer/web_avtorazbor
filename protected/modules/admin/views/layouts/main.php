@@ -9,8 +9,13 @@
 	  
 		<?php
 			$menuItems = array(
-                array('label'=>'Главная', 'url'=>'/admin/start/index'),
-				array('label'=>'Настройки', 'url'=>'/admin/settings'),
+                array('label'=>'Кабинет заявок', 'url'=>'#'),
+				array('label'=>'Авто ассортимент', 'url'=>'/', 'items' => array(
+					array('label'=>'Запчасти', 'url'=>'/admin/parts'),
+					array('label'=>'Бренды', 'url'=>'/admin/carBrands'),
+					array('label'=>'Модели', 'url'=>'/admin/carModels'),
+					array('label'=>'Категории запчастей', 'url'=>'/admin/categories'),
+				)),
 				array('label'=>'Разделы', 'url'=>'#', 'items' => array(
 					array('label'=>'Пример', 'url'=>'#', 'items' => array(
 						array('label'=>'Создать', 'url'=>"/admin/brands/create"),
@@ -39,6 +44,7 @@
 				),
 			),
 		)); ?>
+		
 
 		<div class="container-fluid">
 			<div class="row-fluid">

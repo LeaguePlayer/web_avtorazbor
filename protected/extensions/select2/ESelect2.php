@@ -16,6 +16,11 @@ class ESelect2 extends CInputWidget
     public $options = array();
 
     /**
+     * @var boolean select2 select
+     */
+    public $select = true;
+
+    /**
      * @var array CHtml::dropDownList $data param
      */
     public $data = array();
@@ -66,10 +71,14 @@ class ESelect2 extends CInputWidget
             }
 
             if ($this->hasModel()) {
-                echo CHtml::activeDropDownList($this->model, $this->attribute, $this->data, $this->htmlOptions);
+                echo $this->select ?
+                    CHtml::activeDropDownList($this->model, $this->attribute, $this->data, $this->htmlOptions) :
+                    CHtml::activeHiddenField($this->model, $this->attribute);
             } else {
                 $this->htmlOptions['id'] = $this->id;
-                echo CHtml::dropDownList($this->name, $this->value, $this->data, $this->htmlOptions);
+                echo $this->select ?
+                    CHtml::dropDownList($this->name, $this->value, $this->data, $this->htmlOptions) :
+                    CHtml::hiddenField($this->name, $this->value);
             }
         }
 

@@ -12,7 +12,7 @@ require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'db.php');       // $db_c
 
 return array(
     'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-    'name'=>'Новый сайт',
+    'name'=>'Авторазбор',
     'language' => 'ru',
     'theme'=>'default',
     // preloading 'log' component
@@ -101,11 +101,11 @@ return array(
                     'class'=>'CFileLogRoute',
                     'levels'=>'error, warning',
                 ),
-                /*array(
-                    'class'=>'CWebLogRoute',
-                    'levels'=>'error, warning, trace, profile, info',
-                    'enabled'=>true,
-                ),*/
+                // array(
+                //     'class'=>'CWebLogRoute',
+                //     'levels'=>'error, warning, trace, profile, info',
+                //     'enabled'=>true,
+                // ),
             ),
         ),
     ),
