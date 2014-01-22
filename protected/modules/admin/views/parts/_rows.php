@@ -46,13 +46,12 @@
 
 	<?php echo $form->dropDownListControlGroup($model, 'status', Parts::getStatusAliases(), array('class'=>'span8', 'displaySize'=>1)); ?>
 	
+	<?php if($model->potantialAnalogs()):?>
 	<fieldset>
 		<legend>Аналоги</legend>
 		<div class="control-group">
 		<div class="controls">
-			<div class="deleted">
-				
-			</div>
+			<div class="deleted"></div>
 			<?php 
 			$this->widget('yiiwheels.widgets.select2.WhSelect2', array(
 				'asDropDownList' => true,
@@ -122,3 +121,4 @@
 		)); ?>
 	</div>
 	</fieldset>
+	<?php endif; ?>

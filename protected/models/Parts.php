@@ -151,4 +151,11 @@ class Parts extends EActiveRecord
 
         return $result;
     }
+
+    protected function afterDelete()
+    {
+        parent::afterDelete();
+
+        Analogs::model()->deleteAll('part=:p OR analog=:p', array(':p' => $this->id));
+    }
 }
