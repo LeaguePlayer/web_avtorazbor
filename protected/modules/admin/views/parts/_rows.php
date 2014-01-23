@@ -1,8 +1,4 @@
-	<style>
-	.no-float{
-		float: none !important;
-	}
-	</style>
+
 	<?php echo $form->textFieldControlGroup($model,'name',array('class'=>'span8','maxlength'=>255)); ?>
 
 	<?php echo $form->textFieldControlGroup($model,'price_sell',array('class'=>'span8','maxlength'=>6)); ?>
@@ -34,7 +30,6 @@
 				'data'=>CHtml::listData(CarModels::brandModelsList(), 'id', 'name'),
 				'options'=>array(
 					'containerCssClass' => 'span8 no-float',
-					// 'placeholder'=>'Категория',
 				)
 			)); ?>
 		</div>

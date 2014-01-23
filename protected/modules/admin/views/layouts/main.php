@@ -6,27 +6,49 @@
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
-	  
+	 <style>.no-float{float: none !important;}</style>
 		<?php
+			$map = array(
+				'parts' => array( 'parts', 'carBrands', 'carModels', 'categories', 'usedCars')
+			);
+
+			$root = 'parts';
+			$end = false;
+
+			foreach ($map as $name => $node) {
+				
+				if(is_array($node) && !$end){
+					foreach ($node as $n) {
+						if($this->getId() == $n) {
+							$root = $name;
+							$end = true;
+							break;
+						}
+					}
+				}else break;
+			}
+
 			$menuItems = array(
                 array('label'=>'Кабинет заявок', 'url'=>'#'),
-				array('label'=>'Авто ассортимент', 'url'=>'/', 'items' => array(
+				array('label'=>'Авто ассортимент', 'url'=>'/admin/parts'),
+				array('label'=>'Документы', 'url'=>'#'),
+				array('label'=>'Настройки', 'url'=>'#'),
+			);
+
+			$subItems = array(
+				'parts' => array(
 					array('label'=>'Запчасти', 'url'=>'/admin/parts'),
 					array('label'=>'Бренды', 'url'=>'/admin/carBrands'),
 					array('label'=>'Модели', 'url'=>'/admin/carModels'),
 					array('label'=>'Категории запчастей', 'url'=>'/admin/categories'),
-				)),
-				array('label'=>'Разделы', 'url'=>'#', 'items' => array(
-					array('label'=>'Пример', 'url'=>'#', 'items' => array(
-						array('label'=>'Создать', 'url'=>"/admin/brands/create"),
-						array('label'=>'Список', 'url'=>"/admin/brands/list"),
-					)),
-				)),
+					array('label'=>'Б/У автомобили', 'url'=>'/admin/usedCars'),
+					array('label'=>'Утилизированные запчасти', 'url'=>'#'),
+				)
 			);
 		?>
 		<?php $this->widget('bootstrap.widgets.TbNavbar', array(
 			'color'=>'inverse', // null or 'inverse'
-			'brandLabel'=> CHtml::encode(Yii::app()->name),
+			'brandLabel'=> '',
 			'brandUrl'=>'/',
 			'fluid' => true,
 			'collapse'=>true, // requires bootstrap-responsive.css
@@ -44,13 +66,27 @@
 				),
 			),
 		)); ?>
-		
-
+		<?php $this->widget('bootstrap.widgets.TbNavbar', array(
+			'brandLabel'=> '',
+			'brandUrl'=>'/',
+			'fluid' => true,
+			'collapse'=>true, // requires bootstrap-responsive.css
+			'items'=>array(
+				array(
+					'class'=>'bootstrap.widgets.TbNav',
+					'items'=>$subItems[$root],
+				),
+			),
+			'htmlOptions' => array(
+				'class' => 'sub-main-menu'
+			)
+		)); ?>
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span1">
 				<?php $this->widget('bootstrap.widgets.TbNav', array(
-					'type'=>'list',
+					'type' => TbHtml::NAV_TYPE_TABS,
+					'stacked' => true,
 					'items'=> $this->menu
 					)); ?>
 				</div>
@@ -59,6 +95,5 @@
 				</div>
 			</div>
 		</div>
-
 	</body>
 </html>

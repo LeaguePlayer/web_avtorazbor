@@ -1,0 +1,95 @@
+<?php
+
+/**
+* This is the model class for table "{{UsedCar_Info}}".
+*
+* The followings are the available columns in table '{{UsedCar_Info}}':
+    * @property integer $id
+    * @property string $price_sell
+    * @property integer $year
+    * @property string $model_num_engine
+    * @property string $chassis_num
+    * @property string $carcass_num
+    * @property string $color
+    * @property string $type_ts
+    * @property string $passport_ts
+    * @property string $issued_by
+    * @property integer $used_car_id
+*/
+class UsedCarInfo extends EActiveRecord
+{
+    public function tableName()
+    {
+        return '{{UsedCar_Info}}';
+    }
+
+
+    public function rules()
+    {
+        return array(
+            array('year, used_car_id', 'numerical', 'integerOnly'=>true),
+            array('price_sell', 'length', 'max'=>10),
+            array('model_num_engine, chassis_num, carcass_num, color, type_ts, passport_ts', 'length', 'max'=>255),
+            array('issued_by', 'safe'),
+            // The following rule is used by search().
+            array('id, price_sell, year, model_num_engine, chassis_num, carcass_num, color, type_ts, passport_ts, issued_by, used_car_id', 'safe', 'on'=>'search'),
+        );
+    }
+
+
+    public function relations()
+    {
+        return array(
+        );
+    }
+
+
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'price_sell' => 'Стоимость продажи',
+            'year' => 'Год выпуска',
+            'model_num_engine' => 'Модель, № двигателя',
+            'chassis_num' => 'Шасси (Рама) №',
+            'carcass_num' => 'Кузов №',
+            'color' => 'Цвет',
+            'type_ts' => 'Тип ТС',
+            'passport_ts' => 'Паспорт ТС',
+            'issued_by' => 'Кем выдан',
+            'used_car_id' => 'Б/У автомобиль',
+        );
+    }
+
+
+    public function search()
+    {
+        $criteria=new CDbCriteria;
+		$criteria->compare('id',$this->id);
+		$criteria->compare('price_sell',$this->price_sell,true);
+		$criteria->compare('year',$this->year);
+		$criteria->compare('model_num_engine',$this->model_num_engine,true);
+		$criteria->compare('chassis_num',$this->chassis_num,true);
+		$criteria->compare('carcass_num',$this->carcass_num,true);
+		$criteria->compare('color',$this->color,true);
+		$criteria->compare('type_ts',$this->type_ts,true);
+		$criteria->compare('passport_ts',$this->passport_ts,true);
+		$criteria->compare('issued_by',$this->issued_by,true);
+		$criteria->compare('used_car_id',$this->used_car_id);
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
+
+    public static function model($className=__CLASS__)
+    {
+        return parent::model($className);
+    }
+
+    public function translition()
+    {
+        return 'Доп опции Б/У автомобиля';
+    }
+
+
+}
