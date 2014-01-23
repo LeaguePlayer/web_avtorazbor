@@ -45,75 +45,73 @@
 	<fieldset>
 		<legend>Аналоги</legend>
 		<div class="control-group">
-		<div class="controls">
-			<div class="deleted"></div>
-			<?php 
-			$this->widget('yiiwheels.widgets.select2.WhSelect2', array(
-				'asDropDownList' => true,
-				'name' => 'Analogs',
-				'data'=> CHtml::listData($model->potantialAnalogs(), 'id', 'name'),
-				'values' => $model->analogsById($model->id),
-				'pluginOptions' => array(
-					'width' => '40%',
-				),
-				'htmlOptions' => array(
-					'multiple' => 'multiple',
-				)
-			));
+			<div class="controls">
+				<div class="deleted"></div>
+				<?php 
+				$this->widget('yiiwheels.widgets.select2.WhSelect2', array(
+					'asDropDownList' => true,
+					'name' => 'Analogs',
+					'data'=> CHtml::listData($model->potantialAnalogs(), 'id', 'name'),
+					'values' => $model->analogsById($model->id),
+					'pluginOptions' => array(
+						'width' => '40%',
+					),
+					'htmlOptions' => array(
+						'multiple' => 'multiple',
+					)
+				));
 
-			$cs = Yii::app()->getClientScript();
+				$cs = Yii::app()->getClientScript();
 
-			$cs->registerScript('select2-callbacks','
-				jQuery("#Analogs").on("removed", function(e){
-					var $deleted = jQuery(".deleted");
+				$cs->registerScript('select2-callbacks','
+					jQuery("#Analogs").on("removed", function(e){
+						var $deleted = jQuery(".deleted");
 
-					$deleted.append("<input class=\'a-"+e.val+"\' type=\'hidden\' name=\'Analogs_delete[]\' value=\'"+e.val+"\' >");
-				});
+						$deleted.append("<input class=\'a-"+e.val+"\' type=\'hidden\' name=\'Analogs_delete[]\' value=\'"+e.val+"\' >");
+					});
 
-				jQuery("#Analogs").on("selected", function(e){
-					jQuery(".a-" + e.val).remove();
-				});
-			',CClientScript::POS_READY);
-			?>
+					jQuery("#Analogs").on("selected", function(e){
+						jQuery(".a-" + e.val).remove();
+					});
+				',CClientScript::POS_READY);
+				?>
+			</div>
 		</div>
-		<?php 
-
+		<?php
 		$analogs = new Parts;
-
 		$this->widget('bootstrap.widgets.TbGridView',array(
 			'id'=>'parts-grid',
 			'dataProvider'=>$analogs->search_analogs($model->id),
-			//'filter'=>$analogs,
 			'type'=>TbHtml::GRID_TYPE_HOVER,
-		    // 'afterAjaxUpdate'=>"function() {sortGrid('parts')}",
-		    // 'rowHtmlOptionsExpression'=>'array(
-		    //     "id"=>"items[]_".$data->id,
-		    //     "class"=>"status_".(isset($data->status) ? $data->status : ""),
-		    // )',
 			'columns'=>array(
 				'name',
 				'price_sell',
-				// 'price_buy',
 				'category_id',
 				'car_model_id',
-				// 'location_id',
-				// 'client_id',
-				// array(
-				// 	'name'=>'create_time',
-				// 	'type'=>'raw',
-				// 	'value'=>'$data->create_time ? SiteHelper::russianDate($data->create_time).\' в \'.date(\'H:i\', strtotime($data->create_time)) : ""'
-				// ),
-				// array(
-				// 	'name'=>'status',
-				// 	'type'=>'raw',
-				// 	'value'=>'Parts::getStatusAliases($data->status)',
-				// 	'filter'=>Parts::getStatusAliases()
-				// ),
 				array(
 					'class'=>'bootstrap.widgets.TbButtonColumn',
 				),
 			),
 		)); ?>
-	</div>
 	</fieldset>
+	<fieldset>
+		<legend>Б/У автомобиль</legend>
+		<div class="control-group">
+			<div class="controls">
+				<?php 
+				// $val = isset($_POST['UsedCar']) && !empty($_POST['UsedCar']) ? $_POST['UsedCar'] : 0;
+				
+				$this->widget('yiiwheels.widgets.select2.WhSelect2', array(
+					'asDropDownList' => true,
+					'name' => 'UsedCar',
+					'data'=> CHtml::listData(UsedCars::allCars(), 'id', 'name'),
+					'values' => array($model->usedCar ? $model->usedCar[0]->id : 0),
+					'pluginOptions' => array(
+						'width' => '40%',
+					)
+				));
+				?>
+			</div>
+		</div>
+	</fieldset>	
 	<?php endif; ?>

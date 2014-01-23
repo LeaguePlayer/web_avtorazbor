@@ -33,6 +33,7 @@ class PartsController extends AdminController
 			$model->attributes = $_POST['Parts'];
 
 			if($model->save()){
+				$this->attachUsedCar($model);
 				
 				if(!$this->saveAnalogs($model))
 					$this->redirect($this->createUrl('update', array('id' => $model->id)));
@@ -76,5 +77,24 @@ class PartsController extends AdminController
 		}
 
 		return true;
+	}
+
+	//attach used car to part
+	private function attachUsedCar($model){
+
+		if(isset($_POST['UsedCar'])){
+			$db = Yii::app()->db->createCommand();
+
+			if(!empty($_POST['UsedCar'])){
+				
+				if($model->usedCar) //already add then update
+					$db->update('{{Parts_UsedCars}}', array('used_car_id' => $_POST['UsedCar']), 'parts_id=:p', array(':p' => $model->id));
+				else //not add then insert
+					$db->insert('{{Parts_UsedCars}}', array('parts_id' => $model->id, 'used_car_id' => $_POST['UsedCar']));
+			}else{ 
+				if($model->usedCar) //delete relation
+					$db->delete('{{Parts_UsedCars}}', 'parts_id=:p', array(':p' => $model->id));
+			}
+		}
 	}
 }

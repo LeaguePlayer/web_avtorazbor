@@ -17,7 +17,11 @@ $this->menu=array(
         "class"=>"status_".(isset($data->status) ? $data->status : ""),
     )',
 	'columns'=>array(
-		'car_model_id',
+		array(
+			'name' => 'car_model_id',
+			'type' => 'raw',
+			'value' => '$data->model->car_brand->name." ".$data->model->name'
+		),
 		'vin',
 		'price',
 		'comment',

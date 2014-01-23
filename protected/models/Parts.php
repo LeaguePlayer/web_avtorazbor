@@ -45,7 +45,8 @@ class Parts extends EActiveRecord
             'car_model' => array(self::BELONGS_TO, 'CarModels', 'car_model_id'),
             'location' => array(self::BELONGS_TO, 'Locations', 'location_id'),
             'client' => array(self::BELONGS_TO, 'Clients', 'client_id'),
-            'analogs' => array(self::HAS_MANY, 'Analogs', 'part')
+            'analogs' => array(self::HAS_MANY, 'Analogs', 'part'),
+            'usedCar' => array(self::MANY_MANY, 'UsedCars', '{{Parts_UsedCars}}(parts_id, used_car_id)'),
         );
     }
 
@@ -157,5 +158,8 @@ class Parts extends EActiveRecord
         parent::afterDelete();
 
         Analogs::model()->deleteAll('part=:p OR analog=:p', array(':p' => $this->id));
+
+        $db = Yii::app()->db->createCommand();
+        $db->delete('{{Parts_UsedCars}}', 'parts_id=:p', array(':p' => $this->id));
     }
 }

@@ -53,7 +53,9 @@ class UsedCars extends EActiveRecord
     public function relations()
     {
         return array(
-            'dop' => array(self::HAS_ONE, 'UsedCarInfo', 'used_car_id')
+            'dop' => array(self::HAS_ONE, 'UsedCarInfo', 'used_car_id'),
+            'model' => array(self::BELONGS_TO, 'CarModels', 'car_model_id'),
+            'part' => array(self::MANY_MANY, 'UsedCars', '{{Parts_UsedCars}}(used_car_id, parts_id)')
         );
     }
 
@@ -95,5 +97,12 @@ class UsedCars extends EActiveRecord
         return 'Б/У автомобили';
     }
 
+    public static function allCars(){
+        $data = Yii::app()->db->createCommand()
+            ->select('id, CONCAT("VIN - ", vin) as name')
+            ->from('{{UsedCars}}')
+            ->queryAll();
 
+        return array_merge(array(array('id' => '', 'name' => 'Нет')), $data);
+    }
 }
