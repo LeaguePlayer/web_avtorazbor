@@ -4,6 +4,7 @@ class PartsController extends AdminController
 {
 	public function actionCreate(){
 		$model = new Parts;
+		$analogs = new Parts;
 
 		if(isset($_POST['Parts'])){
 			$model->attributes = $_POST['Parts'];
@@ -18,12 +19,14 @@ class PartsController extends AdminController
 		}
 
 		$this->render('create', array(
-			'model' => $model
+			'model' => $model,
+			'analogs' => $analogs
 		));
 	}
 
 	public function actionUpdate($id){
 		$model = Parts::model()->findByPk($id);
+		$analogs = new Parts;
 
 		$model->price_sell = number_format($model->price_sell, 0, '', '');
 		$model->price_buy = number_format($model->price_buy, 0, '', '');
@@ -43,16 +46,64 @@ class PartsController extends AdminController
 		}
 
 		$this->render('update', array(
-			'model' => $model
+			'model' => $model,
+			'analogs' => $analogs
 		));
 	}
 
+	public function actionGetAnalogs($id){
+		$analogs = new Parts;
 
-	/*public function actionDelete($id){
-		$model = Parts::model()->findByPk($id);
+		$this->renderPartial('_analogs', array(
+			'analogs' => $analogs
+		));
+
+		Yii::app()->end();
+	}
 
 
-	}*/
+	// add analog
+	public function actionAddAnalog(){
+		$analogs = new Parts;
+		$model = new Parts;
+
+		if(isset($_POST['Analog']) && isset($_POST['Part'])) {
+			$analog = new Analogs;
+			$model = Parts::model()->findByPk($_POST['Part']);
+
+			$analog->part = $_POST['Part'];
+			$analog->analog = $_POST['Analog'];
+
+			$analog->save();
+		}
+
+		$this->renderPartial('_analogs', array(
+			'analogs' => $analogs,
+			'model' => $model
+		));
+
+		Yii::app()->end();
+	}
+
+	// delete analog
+	public function actionDeleteAnalog(){
+		$analogs = new Parts;
+		$model = new Parts;
+
+		if(isset($_POST['part']) && isset($_POST['id'])) {
+			$model = Parts::model()->findByPk($_POST['id']);
+			$a = Analogs::model()->find('part=:part AND analog=:analog', array(':part' => $_POST['part'], ':analog' => $_POST['id']));
+			
+			if($a) $a->delete();
+		}
+
+		$this->renderPartial('_analogs', array(
+			'analogs' => $analogs,
+			'model' => $model
+		));
+
+		Yii::app()->end();
+	}
 
 	private function saveAnalogs($model){
 		

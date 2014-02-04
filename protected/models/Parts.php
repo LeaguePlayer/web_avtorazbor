@@ -153,6 +153,14 @@ class Parts extends EActiveRecord
         return $result;
     }
 
+    public function beforeSave(){
+        
+        if($this->isNewRecord)
+            $this->create_time = date("Y-m-d H:i:s");
+
+        return parent::beforeSave();
+    }
+
     protected function afterDelete()
     {
         parent::afterDelete();

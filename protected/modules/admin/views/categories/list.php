@@ -27,6 +27,11 @@ $this->menu=array(
 			'type' => 'html',
 			'value' => '$data->cat_parent ? "&emsp;".$data->name : "<strong>".$data->name."</strong>"'
 		),
+		array(
+			'header' => 'Запчастей в категории',
+			'type' => 'html',
+			'value' => 'Chtml::link($data->partsCount, Yii::app()->createUrl("/admin/parts", array("Parts" => array("category_id" => $data->id))))'
+		),
 		/*array(
 			'name' => 'parent',
 			'value' => '$data->cat_parent ? $data->cat_parent->name : "Корневая категория"'

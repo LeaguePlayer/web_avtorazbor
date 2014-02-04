@@ -20,10 +20,22 @@ $this->menu=array(
 		'name',
 		'price_sell',
 		'price_buy',
-		'category_id',
-		'car_model_id',
-		'location_id',
-		'client_id',
+		array(
+			'name'=>'category_id',
+			'type'=>'raw',
+			'value'=>'$data->category->name'
+		),
+		array(
+			'name'=>'car_model_id',
+			'type'=>'raw',
+			'value'=>'$data->car_model->car_brand->name." ".$data->car_model->name'
+		),
+		array(
+			'name'=>'location_id',
+			'type'=>'raw',
+			'value'=>'$data->location->name'
+		),
+		// 'client_id',
 		array(
 			'name'=>'create_time',
 			'type'=>'raw',

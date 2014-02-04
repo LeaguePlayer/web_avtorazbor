@@ -117,7 +117,8 @@ class WhSelect2 extends CInputWidget
 
         //set values
         if(!empty($this->values)){
-            $cs->registerScript('select2_values','jQuery("'.$selector.'").select2("val", '.json_encode($this->values).');',CClientScript::POS_READY);
+            list($name, $id) = $this->resolveNameID();
+            $cs->registerScript('select2_values'.$id,'jQuery("'.$selector.'").select2("val", '.json_encode($this->values).');',CClientScript::POS_READY);
         }
 
         $this->getApi()->registerEvents($selector, $this->events, CClientScript::POS_READY);

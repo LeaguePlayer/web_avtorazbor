@@ -32,7 +32,8 @@ class Categories extends EActiveRecord
     {
         return array(
             'cat_parent' => array(self::BELONGS_TO, 'Categories', 'parent'),
-            'children' => array(self::HAS_MANY, 'Categories', 'parent')
+            'children' => array(self::HAS_MANY, 'Categories', 'parent'),
+            'partsCount' => array(self::STAT, 'Parts', 'category_id')
         );
     }
 
@@ -52,7 +53,7 @@ class Categories extends EActiveRecord
     {
         $criteria=new CDbCriteria;
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('t.name',$this->name,true);
 		$criteria->compare('parent',$this->parent);
 		$criteria->compare('sort',$this->sort);
 
