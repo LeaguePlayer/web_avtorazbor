@@ -1,7 +1,7 @@
 <?php
 $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'analogs-grid',
-	'dataProvider'=>$analogs->search_analogs($model->id),
+	'dataProvider'=>$analogs,
 	'type'=>TbHtml::GRID_TYPE_HOVER,
 	'rowHtmlOptionsExpression'=>'array(
         "data-analog"=>$data->id
@@ -9,12 +9,20 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 	'columns'=>array(
 		'name',
 		'price_sell',
-		'category_id',
-		'car_model_id',
+		array(
+			'name'=>'category_id',
+			'type'=>'raw',
+			'value'=>'$data->category->name'
+		),
+		array(
+			'name'=>'car_model_id',
+			'type'=>'raw',
+			'value'=>'$data->car_model->car_brand->name." ".$data->car_model->name'
+		),
 		// array(
 		// 	'class'=>'bootstrap.widgets.TbButtonColumn',
 		// ),
-		array(
+		/*array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
 		    'template'=>'{delete}',
 		    'buttons'=>array(
@@ -22,31 +30,31 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 		            // 'imageUrl'=> TbHtml::icon(TbHtml::ICON_REMOVE),
 		            'url'=>'#',
 		            'click'=>"function(e){
-		            	e.preventDefault();
+						e.preventDefault();
 
-		            	var analog = jQuery(this).closest('tr').data('analog');
+						// var analog = jQuery(this).closest('tr').data('analog');
 
-		            	jQuery.ajax({
-							url: '/admin/parts/deleteAnalog',
-							type: 'POST',
-							data: {id: analog, part: ".$model->id."},
-							success: function(){
-								jQuery.fn.yiiGridView.update('analogs-grid');
+						// jQuery.ajax({
+						// 	url: '/admin/parts/deleteAnalog',
+						// 	type: 'POST',
+						// 	data: {id: analog, part: ".$model->id."},
+						// 	success: function(){
+						// 		jQuery.fn.yiiGridView.update('analogs-grid');
 
-								var values = jQuery('#Analogs').select2('val');
-								var temp = [];
+						// 		var values = jQuery('#Analogs').select2('val');
+						// 		var temp = [];
 
-								for(v in values){
-									if(values[v] != analog) temp.push(values[v]);
-								}
-								jQuery('#Analogs').select2('val', temp);
-							}
-						});
+						// 		for(v in values){
+						// 			if(values[v] != analog) temp.push(values[v]);
+						// 		}
+						// 		jQuery('#Analogs').select2('val', temp);
+						// 	}
+						// });
 		            }",
 		            // 'options' => array('data-analog' => $data->id)
 		        )
 		    ),
-		)
+		)*/
 	),
 
 )); ?>

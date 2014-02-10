@@ -31,13 +31,14 @@
 			$menuItems = array(
                 array('label'=>'Кабинет заявок', 'url'=>'#'),
 				array('label'=>'Авто ассортимент', 'url'=>'/admin/parts'),
-				array('label'=>'Документы', 'url'=>'#'),
+				array('label'=>'Документы', 'url'=>'/admin/documents'),
 				array('label'=>'Настройки', 'url'=>'#'),
 			);
 
 			$subItems = array(
 				'parts' => array(
 					array('label'=>'Запчасти', 'url'=>'/admin/parts'),
+					array('label'=>'Аналоги', 'url'=>'/admin/analogs'),
 					array('label'=>'Бренды', 'url'=>'/admin/carBrands'),
 					array('label'=>'Модели', 'url'=>'/admin/carModels'),
 					array('label'=>'Категории запчастей', 'url'=>'/admin/categories'),

@@ -41,79 +41,91 @@
 
 	<?php echo $form->dropDownListControlGroup($model, 'status', Parts::getStatusAliases(), array('class'=>'span8', 'displaySize'=>1)); ?>
 	
-	<?php if($model->potantialAnalogs()):?>
-	<fieldset>
+	<?php //if($model->potantialAnalogs()):?>
+	<fieldset id="analog-block" data-id="<?=$model->id?>">
 		<legend>Аналоги</legend>
 		<div class="control-group">
 			<div class="controls">
 				<div class="deleted"></div>
 				<?php
+				$analogs_model = array();
+				if(!$model->isNewRecord){
+
+					$am = CarModels::getAnalogsModels($model->car_model_id, $model->category_id);
+					
+					foreach ($am as $a) {
+						$tmp = array();
+
+						$tmp['id'] = (int) $a->id;
+						$tmp['text'] = $a->car_brand->name." ".$a->name;
+
+						$analogs_model[] = CJavaScript::encode((object)$tmp);
+					}
+				}
+
 				$this->widget('yiiwheels.widgets.select2.WhSelect2', array(
-					'asDropDownList' => true,
 					'name' => 'Analogs',
-					'data'=> CHtml::listData($model->potantialAnalogs(), 'id', 'name'),
-					'values' => $model->analogsById($model->id),
+					'asDropDownList' => false,
 					'pluginOptions' => array(
 						'width' => '40%',
-					),
-					'htmlOptions' => array(
-						'multiple' => 'multiple',
+						'placeholder' => 'Модель',
+						'tags' => $analogs_model,
+						'multiple' => true,
+						'ajax' => array(
+							'url' => '/admin/carModels/analogModels',
+							'dataType' => 'json',
+							'data' => 'js: function(term, page){ 
+								var car_model = jQuery("#Parts_car_model_id").select2("val");
+								return {id: car_model, q: term}; 
+							}',
+							'results' => 'js: function(data, page){
+								return { results: data };
+							}'
+						)
 					)
 				));
 
 				$cs = Yii::app()->getClientScript();
 
-				if($model->isNewRecord)
-					$cs->registerScript('select2-callbacks','
-						jQuery("#Analogs").on("removed", function(e){
-							var $deleted = jQuery(".deleted");
+				$cs->registerScript('select2-Analogs-ajax','
+					jQuery("#Parts_category_id, #Parts_car_model_id").on("selected", function(e){
+						updateGrid();
 
-							$deleted.append("<input class=\'a-"+e.val+"\' type=\'hidden\' name=\'Analogs_delete[]\' value=\'"+e.val+"\' >");
+						jQuery.ajax({
+							url: "/admin/parts/getAnalogModels",
+							data: {
+								car_model_id: jQuery("#Parts_car_model_id").select2("val"), 
+								cat_id: jQuery("#Parts_category_id").select2("val")
+							},
+							success: function(data){
+								if(data.length) jQuery("#Analogs").select2("data", data);
+								else jQuery("#Analogs").select2("data", "");
+							}
 						});
+					});
+				', CClientScript::POS_READY);
 
-						jQuery("#Analogs").on("selected", function(e){
-							jQuery(".a-" + e.val).remove();
-						});
-					',CClientScript::POS_READY);
-				else
-					$cs->registerScript('select2-callbacks','
-						jQuery("#Analogs").on("removed", function(e){
-							jQuery.ajax({
-								url: "/admin/parts/deleteAnalog",
-								type: "POST",
-								data: {id: e.val, part: '.$model->id.'},
-								success: function(){
-									jQuery.fn.yiiGridView.update("analogs-grid");
-								}
-							});
-						});
+				$cs->registerScript('select2-callbacks','
+					jQuery("#Analogs").on("removed", function(e){
+						var $deleted = jQuery(".deleted");
 
-						jQuery("#Analogs").on("selected", function(e){
-							jQuery.ajax({
-								url: "/admin/parts/addAnalog",
-								type: "POST",
-								data: {Analog: e.val, Part: '.$model->id.'},
-								success: function(){
-									jQuery.fn.yiiGridView.update("analogs-grid");
-								}
-							});
-						});
-					',CClientScript::POS_READY);
+						$deleted.append("<input class=\'a-"+e.val+"\' type=\'hidden\' name=\'Analogs_delete[]\' value=\'"+e.val+"\' >");
+					});
+					jQuery("#Analogs").select2("data", ['.implode(',', $analogs_model).']);
+				',CClientScript::POS_READY);
+
 				?>
 			</div>
 		</div>
-		<?php !$model->isNewRecord ? $this->renderPartial('_analogs', array('model' => $model, 'analogs' => $analogs)) : ''; ?>
+		<?php $this->renderPartial('_analogs', array('model' => $model, 'analogs' => $analogs)); ?>
 	</fieldset>
-	<?php endif; ?>
+	<?php  //endif; ?>
 
 	<fieldset>
 		<legend>Б/У автомобиль</legend>
 		<div class="control-group">
 			<div class="controls">
-				<?php 
-				// $val = isset($_POST['UsedCar']) && !empty($_POST['UsedCar']) ? $_POST['UsedCar'] : 0;
-				
-				$this->widget('yiiwheels.widgets.select2.WhSelect2', array(
+				<?php $this->widget('yiiwheels.widgets.select2.WhSelect2', array(
 					'asDropDownList' => true,
 					'name' => 'UsedCar',
 					'data'=> CHtml::listData(UsedCars::allCars(), 'id', 'name'),
@@ -121,8 +133,37 @@
 					'pluginOptions' => array(
 						'containerCssClass' => 'span8 no-float',
 					)
-				));
-				?>
+				)); ?>
 			</div>
 		</div>
 	</fieldset>
+	<div>&nbsp;</div>
+<?
+	$cs = Yii::app()->getClientScript();
+
+	$cs->registerScript('analogs', '
+
+	window.updateGrid = function updateGrid(){
+		var cat = jQuery("#Parts_category_id").select2("val"),
+			model = jQuery("#Parts_car_model_id").select2("val");
+
+		var part = jQuery("#analog-block").data("id");
+		
+		jQuery.fn.yiiGridView.update("analogs-grid", {
+			url: "/admin/parts/getPartsByModelCat",
+			data: {cat_id: cat, model_id: model, part_id: part}
+		});
+
+		/*jQuery.ajax({
+			url: "/admin/parts/getPartsByModelCat",
+			data: {cat_id: cat, model_id: model, part_id: part},
+			success: function(){
+				
+			}
+		});*/
+	};
+
+	updateGrid();
+
+	', CClientScript::POS_READY);
+?>

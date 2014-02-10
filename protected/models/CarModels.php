@@ -30,7 +30,8 @@ class CarModels extends EActiveRecord
     public function relations()
     {
         return array(
-            'car_brand' => array(self::BELONGS_TO, 'CarBrands', 'brand')
+            'car_brand' => array(self::BELONGS_TO, 'CarBrands', 'brand'),
+            'analog_models' => array(self::HAS_MANY, 'Analogs', 'model_1')
         );
     }
 
@@ -73,5 +74,56 @@ class CarModels extends EActiveRecord
             ->join('{{CarBrands}} t2', 't2.id=t1.brand')
             // ->where('id=:id', array(':id'=>1))
             ->queryAll();
+    }
+    
+    public static function getAnalogsModels($car_model_id, $category_id){
+        
+        $analogs = self::findAllModelAnalogs($car_model_id, $category_id);
+
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition('id', $analogs);
+
+        return self::model()->findAll($criteria);
+    }
+
+    /**
+     * Рекурсивная функция возвращает массив ID аналогов модели, 
+     * относящиеся к определенной категории
+     * @param passed - те строки которые прошли
+     * @param result - найденные аналоги
+     */
+    public static function findAllModelAnalogs($car_model_id, $category_id, &$passed = array(), &$result = array()){
+        
+        // NOT IN 
+        $notIn = '';
+        if(!empty($passed)) $notIn = ' AND id NOT IN ('.implode(',', $passed).')';
+
+        //По левой стороне
+        $analogs = Analogs::model()->findAll('model_1=:m1 AND cat_id=:cat'.$notIn, array(
+            ':m1' => $car_model_id, 
+            ':cat' => $category_id
+        ));
+
+        foreach ($analogs as $item) {
+            $passed[] = $item->id;
+            $result[] = $item->model_2;
+
+            self::findAllModelAnalogs($item->model_2, $category_id, $passed, $result);
+        }
+
+        //По правой стороне
+        $analogs = Analogs::model()->findAll('model_2=:m2 AND cat_id=:cat'.$notIn, array(
+            ':m2' => $car_model_id, 
+            ':cat' => $category_id
+        ));
+
+        foreach ($analogs as $item) {
+            $passed[] = $item->id;
+            $result[] = $item->model_1;
+
+            self::findAllModelAnalogs($item->model_1, $category_id, $passed, $result);
+        }
+
+        return $result;
     }
 }

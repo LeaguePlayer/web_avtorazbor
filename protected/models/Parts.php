@@ -45,7 +45,7 @@ class Parts extends EActiveRecord
             'car_model' => array(self::BELONGS_TO, 'CarModels', 'car_model_id'),
             'location' => array(self::BELONGS_TO, 'Locations', 'location_id'),
             'client' => array(self::BELONGS_TO, 'Clients', 'client_id'),
-            'analogs' => array(self::HAS_MANY, 'Analogs', 'part'),
+            //'analogs' => array(self::HAS_MANY, 'Analogs', 'part'),
             'usedCar' => array(self::MANY_MANY, 'UsedCars', '{{Parts_UsedCars}}(parts_id, used_car_id)'),
         );
     }
@@ -91,17 +91,6 @@ class Parts extends EActiveRecord
     public function search_analogs($id)
     {
         $criteria=new CDbCriteria;
-        // $criteria->compare('id',$this->id);
-        // $criteria->compare('name',$this->name,true);
-        // $criteria->compare('price_sell',$this->price_sell,true);
-        // // $criteria->compare('price_buy',$this->price_buy,true);
-        // // $criteria->compare('comment',$this->comment,true);
-        // $criteria->compare('category_id',$this->category_id);
-        // $criteria->compare('car_model_id',$this->car_model_id);
-        // $criteria->compare('location_id',$this->location_id);
-        // $criteria->compare('client_id',$this->client_id);
-        // $criteria->compare('create_time',$this->create_time,true);
-        // $criteria->compare('status',$this->status);
         $criteria->addInCondition('id', $this->analogsById($id));
 
         return new CActiveDataProvider($this, array(
@@ -134,7 +123,9 @@ class Parts extends EActiveRecord
         return self::model()->findAll($criteria);
     }
 
-    //Get all analogs for current model
+    /**
+     * Get all analogs for current model
+     */
     public function analogsById($id){
 
         $data = Yii::app()->db->createCommand()
@@ -161,11 +152,40 @@ class Parts extends EActiveRecord
         return parent::beforeSave();
     }
 
+    /**
+     * Функция возвращает детали относящиеся
+     * к одной и той же категории и модели автомобиля
+     */
+    public function getOwnParts($car_model_id, $cat_id){
+
+        //Находим все аналогичные модели категории
+        $analogCarModels = array();
+        $analogCarModels[] = $car_model_id; // 1 уровень
+        $analogCarModels = array_merge($analogCarModels, CarModels::findAllModelAnalogs($car_model_id, $cat_id)); // 2ой
+
+        $criteria = new CDbCriteria;
+
+        $criteria->addCondition('category_id=:cat_id');
+        $criteria->addInCondition('car_model_id', $analogCarModels);
+
+        $criteria->params[':cat_id'] = $cat_id;
+        //$criteria->params[':car_model_id'] = $car_model_id;
+
+        if(!$this->isNewRecord){
+            $criteria->addCondition('id!=:part_id');
+            $criteria->params[':part_id'] = $this->id;
+        }
+
+        return new CActiveDataProvider('Parts', array(
+            'criteria'=>$criteria,
+        ));
+    }
+
     protected function afterDelete()
     {
         parent::afterDelete();
 
-        Analogs::model()->deleteAll('part=:p OR analog=:p', array(':p' => $this->id));
+        // Analogs::model()->deleteAll('model_1=:p OR model_2=:p', array(':p' => $this->id));
 
         $db = Yii::app()->db->createCommand();
         $db->delete('{{Parts_UsedCars}}', 'parts_id=:p', array(':p' => $this->id));

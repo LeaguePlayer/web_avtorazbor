@@ -4,8 +4,10 @@
 * This is the model class for table "{{Analogs}}".
 *
 * The followings are the available columns in table '{{Analogs}}':
-    * @property integer $part
-    * @property integer $analog
+    * @property integer $id
+    * @property integer $model_1
+    * @property integer $cat_id
+    * @property integer $model_2
 */
 class Analogs extends EActiveRecord
 {
@@ -18,9 +20,9 @@ class Analogs extends EActiveRecord
     public function rules()
     {
         return array(
-            array('part, analog', 'numerical', 'integerOnly'=>true),
+            array('model_1, cat_id, model_2', 'numerical', 'integerOnly'=>true),
             // The following rule is used by search().
-            array('part, analog', 'safe', 'on'=>'search'),
+            array('id, model_1, cat_id, model_2', 'safe', 'on'=>'search'),
         );
     }
 
@@ -28,7 +30,10 @@ class Analogs extends EActiveRecord
     public function relations()
     {
         return array(
-            'part_analog' => array(self::BELONGS_TO, 'Parts', 'analog')
+            'category' => array(self::BELONGS_TO, 'Categories', 'cat_id'),
+            'model1' => array(self::BELONGS_TO, 'CarModels', 'model_1'),
+            'model2' => array(self::BELONGS_TO, 'CarModels', 'model_2'),
+            'analog' => array(self::BELONGS_TO, 'CarModels', 'model_2'),
         );
     }
 
@@ -36,8 +41,10 @@ class Analogs extends EActiveRecord
     public function attributeLabels()
     {
         return array(
-            'part' => 'Запчасть',
-            'analog' => 'Аналог',
+            'id' => 'ID',
+            'model_1' => 'Модель 1',
+            'cat_id' => 'Категория',
+            'model_2' => 'Модель 2',
         );
     }
 
@@ -45,9 +52,10 @@ class Analogs extends EActiveRecord
     public function search()
     {
         $criteria=new CDbCriteria;
-		$criteria->compare('part',$this->part);
-		$criteria->compare('analog',$this->analog);
-        
+		$criteria->compare('id',$this->id);
+		$criteria->compare('model_1',$this->model_1);
+		$criteria->compare('cat_id',$this->cat_id);
+		$criteria->compare('model_2',$this->model_2);
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
         ));

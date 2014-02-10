@@ -2,9 +2,11 @@
 
 class PartsController extends AdminController
 {
+
+	//create action
 	public function actionCreate(){
 		$model = new Parts;
-		$analogs = new Parts;
+		$analogs = $model->getOwnParts($model->car_model_id, $model->category_id, $model->id);
 
 		if(isset($_POST['Parts'])){
 			$model->attributes = $_POST['Parts'];
@@ -24,9 +26,10 @@ class PartsController extends AdminController
 		));
 	}
 
+	//action update
 	public function actionUpdate($id){
 		$model = Parts::model()->findByPk($id);
-		$analogs = new Parts;
+		$analogs = $model->getOwnParts($model->car_model_id, $model->category_id, $model->id);
 
 		$model->price_sell = number_format($model->price_sell, 0, '', '');
 		$model->price_buy = number_format($model->price_buy, 0, '', '');
@@ -51,56 +54,31 @@ class PartsController extends AdminController
 		));
 	}
 
-	public function actionGetAnalogs($id){
-		$analogs = new Parts;
+	public function actionGetPartsByModelCat($model_id, $cat_id, $part_id = null){
+		
+		$model = $part_id ? Parts::model()->findByPk($part_id) : new Parts;
+		$parts = $model->getOwnParts($model_id, $cat_id);
 
-		$this->renderPartial('_analogs', array(
-			'analogs' => $analogs
-		));
+		if($parts){
+			$this->renderPartial('_analogs', array(
+				'analogs' => $parts
+			));
+		}
 
 		Yii::app()->end();
 	}
 
+	public function actionGetAnalogModels($car_model_id, $cat_id){
+		header('Content-type: application/json');
 
-	// add analog
-	public function actionAddAnalog(){
-		$analogs = new Parts;
-		$model = new Parts;
+		$result = array();
+		$analogs = CarModels::getAnalogsModels($car_model_id, $cat_id);
 
-		if(isset($_POST['Analog']) && isset($_POST['Part'])) {
-			$analog = new Analogs;
-			$model = Parts::model()->findByPk($_POST['Part']);
-
-			$analog->part = $_POST['Part'];
-			$analog->analog = $_POST['Analog'];
-
-			$analog->save();
+		foreach ($analogs as $item) {
+			$result[] = (object) array('id' => $item->id, 'text' => $item->car_brand->name." ".$item->name);
 		}
 
-		$this->renderPartial('_analogs', array(
-			'analogs' => $analogs,
-			'model' => $model
-		));
-
-		Yii::app()->end();
-	}
-
-	// delete analog
-	public function actionDeleteAnalog(){
-		$analogs = new Parts;
-		$model = new Parts;
-
-		if(isset($_POST['part']) && isset($_POST['id'])) {
-			$model = Parts::model()->findByPk($_POST['id']);
-			$a = Analogs::model()->find('part=:part AND analog=:analog', array(':part' => $_POST['part'], ':analog' => $_POST['id']));
-			
-			if($a) $a->delete();
-		}
-
-		$this->renderPartial('_analogs', array(
-			'analogs' => $analogs,
-			'model' => $model
-		));
+		echo CJSON::encode($result);
 
 		Yii::app()->end();
 	}
@@ -109,19 +87,31 @@ class PartsController extends AdminController
 		
 		if(isset($_POST['Analogs_delete']) && !$model->isNewRecord){
 			foreach ($_POST['Analogs_delete'] as $id) {
-				$a = Analogs::model()->find('part=:part AND analog=:analog', array(':part' => $model->id, ':analog' => $id));
+				$a = Analogs::model()->find('(model_1=:m AND cat_id=:cat) OR (model_2=:m AND cat_id=:cat)', array(
+					':m' => $id, 
+					':cat' => $model->category_id
+				));
 
 				if($a) $a->delete();
 			}
 		}
 
-		if(isset($_POST['Analogs'])){
+		if(isset($_POST['Analogs']) && !empty($_POST['Analogs'])){
 
-			foreach ($_POST['Analogs'] as $val) {
+			$analogs = explode(',', $_POST['Analogs']);
+
+			$exist_analogs = CarModels::findAllModelAnalogs($model->car_model_id, $model->category_id);
+
+			foreach ($analogs as $val) {
 				$analog = new Analogs;
 
-				$analog->part = $model->id;
-				$analog->analog = $val;
+				if(in_array($val, $exist_analogs)) continue;
+
+				$analog->model_1 = $model->car_model_id;
+				$analog->model_2 = $val;
+				$analog->cat_id = $model->category_id;
+
+				$analog->save();		
 
 				if(!$analog->save()) return false;
 			}
