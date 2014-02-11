@@ -58,6 +58,8 @@
 
 						$tmp['id'] = (int) $a->id;
 						$tmp['text'] = $a->car_brand->name." ".$a->name;
+						//locked: true
+						$tmp['locked'] = true;
 
 						$analogs_model[] = CJavaScript::encode((object)$tmp);
 					}
