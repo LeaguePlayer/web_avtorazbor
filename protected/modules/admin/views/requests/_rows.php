@@ -47,7 +47,6 @@
 				</div>
 			</div>
 		</div>
-		<? $this->renderPartial('/clients/_request_form', array('model' => $model->client, 'form' => $form)); ?>
 	</div>
 
 
