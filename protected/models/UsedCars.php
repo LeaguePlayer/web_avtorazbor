@@ -43,7 +43,7 @@ class UsedCars extends EActiveRecord
             array('car_model_id, status', 'numerical', 'integerOnly'=>true),
             array('vin', 'length', 'max'=>20),
             array('price', 'length', 'max'=>10),
-            array('comment', 'safe'),
+            array('comment, year, enter_date', 'safe'),
             // The following rule is used by search().
             array('id, car_model_id, vin, price, comment, status', 'safe', 'on'=>'search'),
         );
@@ -54,6 +54,7 @@ class UsedCars extends EActiveRecord
     {
         return array(
             'dop' => array(self::HAS_ONE, 'UsedCarInfo', 'used_car_id'),
+            'owner' => array(self::HAS_ONE, 'Owners', 'used_car_id'),
             'model' => array(self::BELONGS_TO, 'CarModels', 'car_model_id'),
             'part' => array(self::MANY_MANY, 'UsedCars', '{{Parts_UsedCars}}(used_car_id, parts_id)')
         );
@@ -69,6 +70,8 @@ class UsedCars extends EActiveRecord
             'price' => 'Стоимость покупки',
             'comment' => 'Комментарий',
             'status' => 'Назначение',
+            'year' => 'Год выпуска',
+            'enter_date' => 'Дата поступления'
         );
     }
 
@@ -104,5 +107,13 @@ class UsedCars extends EActiveRecord
             ->queryAll();
 
         return array_merge(array(array('id' => '', 'name' => 'Нет')), $data);
+    }
+
+    public function beforeValidate(){
+        
+        $date = \DateTime::createFromFormat('d.m.Y', $this->enter_date);
+        $this->enter_date = $date->format('Y-m-d');
+
+        return parent::beforeValidate();
     }
 }

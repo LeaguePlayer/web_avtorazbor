@@ -24,6 +24,12 @@
 			'form' => $form
 		));
 	?>
+	<?php
+		$this->renderPartial('/bankAccounts/_rows', array(
+			'models' => $accounts,
+			'form' => $form
+		));
+	?>
 	</div>
 
 	<script type="text/javascript">

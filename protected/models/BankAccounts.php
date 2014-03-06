@@ -1,35 +1,33 @@
 <?php
 
 /**
-* This is the model class for table "{{ClientsInfo}}".
+* This is the model class for table "{{BankAccounts}}".
 *
-* The followings are the available columns in table '{{ClientsInfo}}':
+* The followings are the available columns in table '{{BankAccounts}}':
     * @property integer $id
-    * @property string $inn
-    * @property string $kpp
     * @property string $bank
     * @property string $num_account
-    * @property string $name_company
-    * @property string $address
+    * @property string $bik
+    * @property string $korr
+    * @property string $city
     * @property integer $client_id
 */
-class ClientsInfo extends EActiveRecord
+class BankAccounts extends EActiveRecord
 {
     public function tableName()
     {
-        return '{{ClientsInfo}}';
+        return '{{BankAccounts}}';
     }
 
 
     public function rules()
     {
         return array(
-            array('inn', 'required'),
+            array('bank, num_account, bik', 'required'),
             array('client_id', 'numerical', 'integerOnly'=>true),
-            array('inn, kpp', 'length', 'max'=>20),
-            array('name_company, address', 'length', 'max'=>255),
+            array('bank, num_account, bik, korr, city', 'length', 'max'=>255),
             // The following rule is used by search().
-            array('id, inn, kpp, name_company, address, client_id', 'safe', 'on'=>'search'),
+            array('id, bank, num_account, bik, korr, city, client_id', 'safe', 'on'=>'search'),
         );
     }
 
@@ -45,10 +43,11 @@ class ClientsInfo extends EActiveRecord
     {
         return array(
             'id' => 'ID',
-            'inn' => 'ИНН',
-            'kpp' => 'КПП',
-            'name_company' => 'Название компании',
-            'address' => 'Адрес',
+            'bank' => 'Банк',
+            'num_account' => '№ счета',
+            'bik' => 'БИК банка',
+            'korr' => 'Корр. счет',
+            'city' => 'Город',
             'client_id' => 'Клиент',
         );
     }
@@ -58,10 +57,11 @@ class ClientsInfo extends EActiveRecord
     {
         $criteria=new CDbCriteria;
 		$criteria->compare('id',$this->id);
-		$criteria->compare('inn',$this->inn,true);
-		$criteria->compare('kpp',$this->kpp,true);
-		$criteria->compare('name_company',$this->name_company,true);
-		$criteria->compare('address',$this->address,true);
+		$criteria->compare('bank',$this->bank,true);
+		$criteria->compare('num_account',$this->num_account,true);
+		$criteria->compare('bik',$this->bik,true);
+		$criteria->compare('korr',$this->korr,true);
+		$criteria->compare('city',$this->city,true);
 		$criteria->compare('client_id',$this->client_id);
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
@@ -75,7 +75,7 @@ class ClientsInfo extends EActiveRecord
 
     public function translition()
     {
-        return 'Реквизиты';
+        return 'Счета';
     }
 
 

@@ -12,4 +12,4 @@ $this->menu=array(
 
 <h1><?php echo $model->translition(); ?> - Редактирование</h1>
 
-<?php echo $this->renderPartial('_form',array('model'=>$model, 'dop' => $dop, 'owner' => $owner)); ?>
+<?php echo $this->renderPartial('_form',array('model'=>$model)); ?>

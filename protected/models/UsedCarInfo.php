@@ -27,7 +27,7 @@ class UsedCarInfo extends EActiveRecord
     public function rules()
     {
         return array(
-            array('year, used_car_id', 'numerical', 'integerOnly'=>true),
+            array('year, used_car_id, mileage, state, transmission', 'numerical', 'integerOnly'=>true),
             array('price_sell', 'length', 'max'=>10),
             array('model_num_engine, chassis_num, carcass_num, color, type_ts, passport_ts', 'length', 'max'=>255),
             array('issued_by', 'safe'),
@@ -58,6 +58,10 @@ class UsedCarInfo extends EActiveRecord
             'passport_ts' => 'Паспорт ТС',
             'issued_by' => 'Кем выдан',
             'used_car_id' => 'Б/У автомобиль',
+            'mileage' => 'Пробег',
+            'state' => 'Состояние',
+            'transmission' => 'Тип КПП'
+
         );
     }
 
@@ -91,5 +95,26 @@ class UsedCarInfo extends EActiveRecord
         return 'Доп опции Б/У автомобиля';
     }
 
+    public static final function statesList(){
 
+        return array(
+            1 => 'Идеальное',
+            2 => 'Хорошее',
+            3 => 'Битая'
+        );
+    }
+
+    public static final function transmissionList(){
+        
+        return array(
+            1 => 'Механика',
+            2 => 'Автоматическая'
+        );
+    }
+
+    public function getTransmissionType(){
+        $type = self::transmissionList();
+
+        return $type[$this->transmission];
+    }
 }

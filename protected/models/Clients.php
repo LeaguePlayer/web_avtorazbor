@@ -20,8 +20,10 @@ class Clients extends EActiveRecord
     public function rules()
     {
         return array(
+            array('fio', 'required'),
             array('type', 'numerical', 'integerOnly'=>true),
             array('fio, email', 'length', 'max'=>255),
+            array('email', 'email'),
             array('phone', 'length', 'max'=>30),
             // The following rule is used by search().
             array('id, fio, phone, email, type', 'safe', 'on'=>'search'),
@@ -32,7 +34,8 @@ class Clients extends EActiveRecord
     public function relations()
     {
         return array(
-            'info' => array(self::HAS_ONE, 'ClientsInfo', 'client_id')
+            'info' => array(self::HAS_ONE, 'ClientsInfo', 'client_id'),
+            'bank_accounts' => array(self::HAS_MANY, 'BankAccounts', 'client_id')
         );
     }
 
@@ -78,5 +81,29 @@ class Clients extends EActiveRecord
             1 => 'Физическое лицо',
             2 => 'Юридическое лицо'
         );
+    }
+
+    public static function getList(){
+
+        $data_fiz = Yii::app()->db->createCommand()
+            ->select('id, fio as text')
+            ->from('{{Clients}}')
+            ->where('type=1')
+            ->queryAll();
+
+        $data_ur = Yii::app()->db->createCommand()
+            ->select('c.id, ci.name_company as text')
+            ->from('{{Clients}} c')
+            ->join('{{ClientsInfo}} ci', 'c.id=ci.client_id')
+            ->where('type=2')
+            ->queryAll();
+
+        $data = array_merge($data_fiz, $data_ur);
+
+        /*$result = array();
+        foreach ($data as $d) {
+            $result[] = $d['text'];
+        }*/
+        return $data;
     }
 }

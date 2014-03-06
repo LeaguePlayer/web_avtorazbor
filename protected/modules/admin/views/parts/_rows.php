@@ -1,6 +1,8 @@
 
 	<?php echo $form->textFieldControlGroup($model,'name',array('class'=>'span8','maxlength'=>255)); ?>
 
+	<?php echo $form->textFieldControlGroup($model,'artId',array('class'=>'span8','maxlength'=>255)); ?>
+
 	<?php echo $form->textFieldControlGroup($model,'price_sell',array('class'=>'span8','maxlength'=>6)); ?>
 
 	<?php echo $form->textFieldControlGroup($model,'price_buy',array('class'=>'span8','maxlength'=>6)); ?>
@@ -40,6 +42,19 @@
 	<?php echo $form->textFieldControlGroup($model,'client_id',array('class'=>'span8')); ?>
 
 	<?php echo $form->dropDownListControlGroup($model, 'status', Parts::getStatusAliases(), array('class'=>'span8', 'displaySize'=>1)); ?>
+
+	<div class='control-group'>
+		<?php echo CHtml::activeLabelEx($model, 'gallery_id'); ?>
+		<?php echo $form->hiddenField($model, 'gallery_id'); ?>
+		<?php if ($model->galleryBehaviorGallery->getGallery() === null) {
+			echo '<p class="help-block">Прежде чем загружать изображения, нужно сохранить текущее состояние</p>';
+		} else {
+			$this->widget('appext.imagesgallery.GalleryManager', array(
+				'gallery' => $model->galleryBehaviorGallery->getGallery(),
+				'controllerRoute' => '/admin/gallery',
+			));
+		} ?>
+	</div>
 	
 	<?php //if($model->potantialAnalogs()):?>
 	<fieldset id="analog-block" data-id="<?=$model->id?>">

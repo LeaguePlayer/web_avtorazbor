@@ -6,6 +6,12 @@
 
 	<?php echo $form->textFieldControlGroup($model,'year',array('class'=>'span8')); ?>
 
+	<?php echo $form->textFieldControlGroup($model,'mileage',array('class'=>'span8')); ?>
+
+	<?php echo $form->dropDownListControlGroup($model,'state', UsedCarInfo::statesList()); ?>
+
+	<?php echo $form->dropDownListControlGroup($model,'transmission', UsedCarInfo::transmissionList()); ?>
+
 	<?php echo $form->textFieldControlGroup($model,'model_num_engine',array('class'=>'span8','maxlength'=>255)); ?>
 
 	<?php echo $form->textFieldControlGroup($model,'chassis_num',array('class'=>'span8','maxlength'=>255)); ?>

@@ -28,8 +28,8 @@ class Parts extends EActiveRecord
     {
         return array(
             array('name, price_sell', 'required'),
-            array('category_id, car_model_id, location_id, client_id, status', 'numerical', 'integerOnly'=>true),
-            array('name', 'length', 'max'=>255),
+            array('category_id, car_model_id, location_id, client_id, status, gallery_id', 'numerical', 'integerOnly'=>true),
+            array('name, artId', 'length', 'max'=>255),
             array('price_sell, price_buy', 'length', 'max'=>6),
             array('comment, create_time', 'safe'),
             // The following rule is used by search().
@@ -50,6 +50,25 @@ class Parts extends EActiveRecord
         );
     }
 
+    public function behaviors()
+    {
+        return CMap::mergeArray(parent::behaviors(), array(
+            'galleryBehaviorGallery' => array(
+                'class' => 'appext.imagesgallery.GalleryBehavior',
+                'idAttribute' => 'gallery_id',
+                'versions' => array(
+                    'small' => array(
+                        'adaptiveResize' => array(135, 90),
+                    ),
+                    'medium' => array(
+                        'resize' => array(600, 400),
+                    )
+                ),
+                'name' => false,
+                'description' => false,
+            ),
+        ));
+    }
 
     public function attributeLabels()
     {
@@ -65,6 +84,8 @@ class Parts extends EActiveRecord
             'client_id' => 'Поставщик',
             'create_time' => 'Дата создания',
             'status' => 'Статус',
+            'gallery_id' => 'Галерея',
+            'artId' => 'Артикул'
         );
     }
 

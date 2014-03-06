@@ -9,7 +9,9 @@
 	 <style>.no-float{float: none !important;}</style>
 		<?php
 			$map = array(
-				'parts' => array( 'parts', 'carBrands', 'carModels', 'categories', 'usedCars')
+				'parts' => array( 'parts', 'carBrands', 'carModels', 'categories', 'usedCars'),
+				'documents' => array('documents', 'templates'),
+				'requests' => array('requests', 'clients')
 			);
 
 			$root = 'parts';
@@ -29,7 +31,7 @@
 			}
 
 			$menuItems = array(
-                array('label'=>'Кабинет заявок', 'url'=>'#'),
+                array('label'=>'Кабинет заявок', 'url'=>'/admin/requests'),
 				array('label'=>'Авто ассортимент', 'url'=>'/admin/parts'),
 				array('label'=>'Документы', 'url'=>'/admin/documents'),
 				array('label'=>'Настройки', 'url'=>'#'),
@@ -44,6 +46,14 @@
 					array('label'=>'Категории запчастей', 'url'=>'/admin/categories'),
 					array('label'=>'Б/У автомобили', 'url'=>'/admin/usedCars'),
 					array('label'=>'Утилизированные запчасти', 'url'=>'#'),
+				),
+				'documents' => array(
+					array('label'=>'Все документы', 'url'=>'/admin/documents'),
+					array('label'=>'Шаблоны', 'url'=>'/admin/templates')
+				),
+				'requests' => array(
+					array('label'=>'Заявки', 'url'=>'/admin/requests'),
+					array('label'=>'Клиенты', 'url'=>'/admin/clients')
 				)
 			);
 		?>

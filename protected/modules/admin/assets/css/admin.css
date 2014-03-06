@@ -86,3 +86,19 @@ form .line{
 .sub-main-menu{
   top: 41px;
 }
+.clients{
+  position: relative;
+}
+.client-block{
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  width: 400px;
+  -webkit-box-shadow: 3px 3px 0px 0 #ccc;
+  -moz-box-shadow: 3px 3px 0px 0 #ccc;
+  box-shadow: 3px 3px 0px 0 #ccc;
+  border: 1px solid #777;
+  background-color: #fff;
+  padding: 10px;
+}
