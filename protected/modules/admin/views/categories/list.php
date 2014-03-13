@@ -9,7 +9,7 @@ $this->menu=array(
 
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'category-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$data,
 	'filter'=>$model,
 	'type'=>TbHtml::GRID_TYPE_HOVER,
     'afterAjaxUpdate'=>"function() {sortGrid('category')}",
@@ -18,11 +18,11 @@ $this->menu=array(
         "class"=>"status_".(isset($data->status) ? $data->status : ""),
     )',
 	'columns'=>array(
-		/*array(
+		array(
 			'header' => '',
 			'type' => 'raw',
-			'value' => '$data->children ? CHtml::link(TbHtml::icon(TbHtml::ICON_PLUS), "#", array("class" => "show-sub", "data-id" => $data->id)) : ""'
-		),*/
+			'value' => '$data->parent==0 ? CHtml::link(TbHtml::icon(TbHtml::ICON_PLUS), "#", array("class" => "show-sub", "data-id" => $data->id)) : ""'
+		),
 		array(
 			'name' => 'name',
 			'type' => 'html',
@@ -47,19 +47,19 @@ $this->menu=array(
 <?php if($model->hasAttribute('sort')) Yii::app()->clientScript->registerScript('sortGrid', 'sortGrid("category");', CClientScript::POS_END) ;?>
 
 <script>
-	// jQuery('#main-content').on('click', '.show-sub', function(){
-	// 	var id = jQuery(this).data('id');
+	jQuery('#main-content').on('click', '.show-sub', function(){
+		var id = jQuery(this).data('id');
 
-	// 	jQuery('#category-grid').yiiGridView('update', {
-	// 		type: 'POST',
-	// 		url: "",
-	// 		data: {Open: id},
-	// 		success: function(data) {
+		jQuery('#category-grid').yiiGridView('update', {
+			type: 'GET',
+			url: "",
+			data: {show: id},
+			success: function(data) {
 
-	// 		},
-	// 		error: function(XHR) {
+			},
+			error: function(XHR) {
 				
-	// 		}
-	// 	});
-	// });
+			}
+		});
+	});
 </script>

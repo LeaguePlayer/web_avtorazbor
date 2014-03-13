@@ -49,19 +49,27 @@ class Categories extends EActiveRecord
     }
 
 
-    public function search()
+    public function search($show = array())
     {
         $criteria=new CDbCriteria;
 		$criteria->compare('id',$this->id);
 		$criteria->compare('t.name',$this->name,true);
-		$criteria->compare('parent',$this->parent);
-		$criteria->compare('sort',$this->sort);
+		
+        if(!$this->name)
+            $criteria->compare('parent',0);
 
+		$criteria->compare('sort',$this->sort);
         // $criteria->order = 'parent';
-        $criteria->with = 'children';
-        $criteria->together = true;
+        // $criteria->with = 'children';
+        // $criteria->together = true;
+        // $criteria->offset = 10;
+        // $criteria->limit = 10;
         // $criteria->join = 'LEFT JOIN '.$this->tableName().' as t2 ON t.id=t2.parent';
         // $criteria->addCondition('parent=0');
+
+        if(is_array($show) && !empty($show)){
+            $criteria->addInCondition('parent', $show, 'OR');
+        }
 
         // return self::getTree($criteria);
         // $criteria->order = 'sort';
@@ -92,6 +100,20 @@ class Categories extends EActiveRecord
     }
 
     public static function all($criteria=''){
-        return self::model()->findAll($criteria);
+
+        $data = Yii::app()->db->createCommand()
+            ->select('id, name, parent')
+            ->from('{{categories}}')
+            // ->where('type=1')
+            ->queryAll();
+        
+        foreach ($data as $key => $d) {
+            if($d['parent'] != 0) $data[$key]['name'] = "---- ".$d['name'];
+        }
+        // print_r($data); die();
+        // if(!$criteria) $criteria = new CDbCriteria;
+
+        // $criteria->select = 'id, name';
+        return $data;
     }
 }

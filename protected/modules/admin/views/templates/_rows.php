@@ -4,7 +4,7 @@
 	
 	<?if($model->file) :?>
 	<div class="file">
-		<?=$model->file?>
+		<?=CHtml::link($model->file, $this->createUrl('download', array('file' => $model->file)))?>
 		<?=TbHtml::button(TbHtml::icon(TbHtml::ICON_REMOVE),  array('color' => TbHtml::BUTTON_COLOR_DANGER, 'class' => 'remove-file', 'data-id' => $model->id))?>
 	</div>
 	<?endif;?>

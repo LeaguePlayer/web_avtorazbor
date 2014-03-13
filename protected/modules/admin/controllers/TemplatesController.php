@@ -19,17 +19,18 @@ class TemplatesController extends AdminController
 	public function actionUpdate($id){
 		$model = Templates::model()->findByPk($id);
 
+		//set handler
+		$model->onChangeFile = array($this, 'changeDoc');
+
 		if(isset($_POST['Templates'])){
 			$model->attributes = $_POST['Templates'];
 
 			$oldFile = $model->file;
 			$model->file = CUploadedFile::getInstance($model,'file');
 
-
 			if(!$model->file)
 				$model->file = $oldFile;
 
-			// var_dump($model->file); die();
 			if($model->save())
 				$this->redirect($this->createUrl('list'));
 		}
@@ -39,6 +40,7 @@ class TemplatesController extends AdminController
 
 	public function actionTranslit($str){
 		echo CJSON::encode(SiteHelper::translit($str));
+		Yii::app()->end();
 	}
 
 	public function actionDeleteFile($id){
@@ -47,10 +49,30 @@ class TemplatesController extends AdminController
 		if(!$model)
 			Yii::app()->end(404);
 
+		$model->removeTemplateFile();
 		$model->file='';
 		$model->save(false);
 
 		Yii::app()->end(200);
 	}
 
+	public function actionDownload($file){
+		$pathToTemplates = Yii::getPathOfAlias('application.docs.templates');
+
+		SiteHelper::downloadFile($pathToTemplates.DIRECTORY_SEPARATOR.$file);
+	}
+
+	//handler for Temmplate change
+	public function changeDoc($event){
+		Yii::import('admin.controllers.DocumentsController');
+
+		$template = $event->sender;
+		foreach ($template->docs as $doc) {
+			if($doc->type == Documents::DOC_KOMISSII){
+				if($doc->used_car){
+					DocumentBuilder::createDogovorKomissii($doc->used_car, $doc->id);
+				}
+			}
+		}
+	}
 }

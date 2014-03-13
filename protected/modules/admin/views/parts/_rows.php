@@ -145,7 +145,7 @@
 				<?php $this->widget('yiiwheels.widgets.select2.WhSelect2', array(
 					'asDropDownList' => true,
 					'name' => 'UsedCar',
-					'data'=> CHtml::listData(UsedCars::allCars(), 'id', 'name'),
+					'data'=> CHtml::listData(UsedCars::allCarsForParts(), 'id', 'name'),
 					'values' => array($model->usedCar ? $model->usedCar[0]->id : 0),
 					'pluginOptions' => array(
 						'containerCssClass' => 'span8 no-float',

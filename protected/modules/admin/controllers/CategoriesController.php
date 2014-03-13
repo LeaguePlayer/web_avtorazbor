@@ -59,4 +59,45 @@ class CategoriesController extends AdminController
 		
 		$this->render('parser');
 	}
+
+	public function actionList(){
+		$model = new Categories;
+
+		// TODO	Переписать !!!
+		$show_array = isset(Yii::app()->request->cookies['show']) ? unserialize(Yii::app()->request->cookies['show']->value) : array();
+
+		if(isset($_GET['show']) && $_GET['show'] > 0){
+			if(!in_array($_GET['show'], $show_array)) $show_array[] = $_GET['show'];
+			
+			Yii::app()->request->cookies['show'] = new CHttpCookie('show', serialize($show_array));
+		}
+        
+        if(isset($_GET['Categories']))
+            $model->attributes = $_GET['Categories'];
+        
+        $data = $model->search();
+        $result = array();
+        foreach ($data->data as $d) {
+        	$result[] = $d;
+        	if(in_array($d->id, $show_array))
+        		$result += $d->children;
+        };
+
+        $data = new CArrayDataProvider($result, array(
+        	'pagination' => false
+        ));
+
+        if(Yii::app()->request->isAjaxRequest)
+        	$this->renderPartial('list', array(
+	            'data' => $data,
+	            'model' => $model,
+	            // 'showRemoved' => $showRemoved,
+	        ));
+        else
+	        $this->render('list', array(
+	            'data' => $data,
+	            'model' => $model,
+	            // 'showRemoved' => $showRemoved,
+	        ));
+	}
 }

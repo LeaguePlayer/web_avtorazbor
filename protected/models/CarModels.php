@@ -31,7 +31,8 @@ class CarModels extends EActiveRecord
     {
         return array(
             'car_brand' => array(self::BELONGS_TO, 'CarBrands', 'brand'),
-            'analog_models' => array(self::HAS_MANY, 'Analogs', 'model_1')
+            'analog_models' => array(self::HAS_MANY, 'Analogs', 'model_1'),
+            'partsCount' => array(self::STAT, 'Parts', 'car_model_id'),
         );
     }
 

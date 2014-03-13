@@ -30,7 +30,7 @@ class UsedCarInfo extends EActiveRecord
             array('year, used_car_id, mileage, state, transmission', 'numerical', 'integerOnly'=>true),
             array('price_sell', 'length', 'max'=>10),
             array('model_num_engine, chassis_num, carcass_num, color, type_ts, passport_ts', 'length', 'max'=>255),
-            array('issued_by', 'safe'),
+            array('issued_by,dt_of_issue', 'safe'),
             // The following rule is used by search().
             array('id, price_sell, year, model_num_engine, chassis_num, carcass_num, color, type_ts, passport_ts, issued_by, used_car_id', 'safe', 'on'=>'search'),
         );
@@ -60,7 +60,8 @@ class UsedCarInfo extends EActiveRecord
             'used_car_id' => 'Б/У автомобиль',
             'mileage' => 'Пробег',
             'state' => 'Состояние',
-            'transmission' => 'Тип КПП'
+            'transmission' => 'Тип КПП',
+            'dt_of_issue' => 'Дата выдачи'
 
         );
     }
@@ -116,5 +117,22 @@ class UsedCarInfo extends EActiveRecord
         $type = self::transmissionList();
 
         return $type[$this->transmission];
+    }
+
+    public function afterFind(){
+        
+        if($this->price_sell) $this->price_sell = number_format($this->price_sell, 0, '', '');
+
+        parent::afterFind();
+    }
+
+    public function beforeValidate(){
+        
+        if($this->dt_of_issue){
+            $date = \DateTime::createFromFormat('d.m.Y', $this->dt_of_issue);
+            $this->dt_of_issue = $date->format('Y-m-d');
+        }
+
+        return parent::beforeValidate();
     }
 }

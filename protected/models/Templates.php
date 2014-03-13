@@ -32,6 +32,7 @@ class Templates extends EActiveRecord
     public function relations()
     {
         return array(
+            'docs' => array(self::HAS_MANY, 'Documents', 'template_id')
         );
     }
 
@@ -93,19 +94,24 @@ class Templates extends EActiveRecord
         }
     }
 
-    public static function getTemplateFile($name){
+    public function getTemplatePathToFile(){
+
+        return self::getTemplatePath().DIRECTORY_SEPARATOR.$this->file;
+    }
+
+    public static function findTemplateByName($name){
         $model = self::model()->find('uniqid=:uniqid', array(':uniqid' => $name));
 
         if(!$model)
             throw new Exception('Шаблон - '.$name.' не найден.');
 
-        return self::getTemplatePath().DIRECTORY_SEPARATOR.$model->file;
+        return $model;
     }
 
     //get path to templates dir
     public static function getTemplatePath(){
-        $pathToDocs = Yii::getPathOfAlias('webroot.media.docs');
-        $pathToTemplates = Yii::getPathOfAlias('webroot.media.docs.templates');
+        $pathToDocs = Yii::getPathOfAlias('application.docs');
+        $pathToTemplates = Yii::getPathOfAlias('application.docs.templates');
 
         if(!is_dir($pathToDocs))
             mkdir($pathToDocs, 0777);
@@ -128,4 +134,17 @@ class Templates extends EActiveRecord
 
         return parent::beforeSave();
     }
+
+    public function afterSave(){
+        $event = new CModelEvent($this);
+        $this->onChangeFile($event);
+
+        parent::afterSave();
+    }
+
+    // defining onNewComment event
+    public function onChangeFile($event) {
+        $this->raiseEvent('onChangeFile', $event);
+    }
+
 }

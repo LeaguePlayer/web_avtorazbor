@@ -21,12 +21,13 @@ class Clients extends EActiveRecord
     {
         return array(
             array('fio', 'required'),
-            array('type', 'numerical', 'integerOnly'=>true),
-            array('fio, email', 'length', 'max'=>255),
+            array('type, used_car_id', 'numerical', 'integerOnly'=>true),
+            array('fio, email, passport_num', 'length', 'max'=>255),
             array('email', 'email'),
             array('phone', 'length', 'max'=>30),
+            array('dt_birthday, issued_by, address, dt_of_issue', 'safe'),
             // The following rule is used by search().
-            array('id, fio, phone, email, type', 'safe', 'on'=>'search'),
+            array('id, fio, phone, email, type, dt_birthday, passport_num, issued_by, address, dt_of_issue, used_car_id', 'safe', 'on'=>'search'),
         );
     }
 
@@ -47,6 +48,11 @@ class Clients extends EActiveRecord
             'fio' => 'ФИО',
             'phone' => 'Телефон',
             'email' => 'E-mail',
+            'dt_birthday' => 'Дата рождения',
+            'passport_num' => 'Номер паспорта',
+            'issued_by' => 'Кем выдан',
+            'address' => 'Адрес регистрации',
+            'dt_of_issue' => 'Дата выдачи',
             'type' => 'Тип',
         );
     }
@@ -105,5 +111,20 @@ class Clients extends EActiveRecord
             $result[] = $d['text'];
         }*/
         return $data;
+    }
+
+    public function beforeValidate(){
+        
+        if($this->dt_birthday){
+            $date = \DateTime::createFromFormat('d.m.Y', $this->dt_birthday);
+            $this->dt_birthday = $date->format('Y-m-d');
+        }
+        
+        if($this->dt_of_issue){
+            $date = \DateTime::createFromFormat('d.m.Y', $this->dt_of_issue);
+            $this->dt_of_issue = $date->format('Y-m-d');
+        }
+
+        return parent::beforeValidate();
     }
 }

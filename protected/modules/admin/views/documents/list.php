@@ -17,8 +17,34 @@ $this->menu=array(
         "class"=>"status_".(isset($data->status) ? $data->status : ""),
     )',
 	'columns'=>array(
-		'file',
-		'type',
+
+		// 'name',		
+		array(
+			'name' => 'name',
+			'type' => 'raw',
+			'value' => 'CHtml::link($data->name, Yii::app()->createUrl("admin/documents/download", array("file" => $data->file)))'
+		),
+		array(
+			'name' => 'type',
+			'type' => 'raw',
+			'value' => '$data->getType()'
+		),
+		array(
+			'name'=>'sum',
+			'type'=>'raw',
+			'value'=>'number_format($data->sum, 0, "", " ")'
+		),
+		// 'template_id',
+		array(
+			'name'=>'create_time',
+			'type'=>'raw',
+			'value'=>'$data->create_time ? SiteHelper::russianDate($data->create_time).\' в \'.date(\'H:i\', strtotime($data->create_time)) : ""'
+		),
+		// array(
+		// 	'name'=>'update_time',
+		// 	'type'=>'raw',
+		// 	'value'=>'$data->update_time ? SiteHelper::russianDate($data->update_time).\' в \'.date(\'H:i\', strtotime($data->update_time)) : ""'
+		// ),
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
 		),

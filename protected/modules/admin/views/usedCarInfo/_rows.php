@@ -26,5 +26,21 @@
 
 	<?php echo $form->textAreaControlGroup($model,'issued_by',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
-	<?php //echo $form->textFieldControlGroup($model,'used_car_id',array('class'=>'span8')); ?>
+	<div class='control-group'>
+		<?php echo CHtml::activeLabelEx($model, 'dt_of_issue'); ?>
+		<?php $this->widget('yiiwheels.widgets.datetimepicker.WhDateTimePicker', array(
+			'model' => $model,
+			'attribute' => 'dt_of_issue',
+			'pluginOptions' => array(
+				'format' => 'dd.MM.yyyy',
+				'language' => 'ru',
+                'pickSeconds' => false,
+                'pickTime' => false
+			),
+			'htmlOptions' => array(
+				'value' => $model->dt_of_issue ? SiteHelper::formatDate($model->dt_of_issue, 'Y-m-d', 'd.m.Y') : ''
+			)
+		)); ?>
+		<?php echo $form->error($model, 'dt_of_issue'); ?>
+	</div>
 </fieldset>

@@ -54,9 +54,10 @@ class UsedCars extends EActiveRecord
     {
         return array(
             'dop' => array(self::HAS_ONE, 'UsedCarInfo', 'used_car_id'),
-            'owner' => array(self::HAS_ONE, 'Owners', 'used_car_id'),
+            'owner' => array(self::HAS_ONE, 'Clients', 'used_car_id'),
             'model' => array(self::BELONGS_TO, 'CarModels', 'car_model_id'),
-            'part' => array(self::MANY_MANY, 'UsedCars', '{{Parts_UsedCars}}(used_car_id, parts_id)')
+            'part' => array(self::MANY_MANY, 'UsedCars', '{{Parts_UsedCars}}(used_car_id, parts_id)'),
+            'document' => array(self::HAS_ONE, 'Documents', 'used_car_id')
         );
     }
 
@@ -100,10 +101,11 @@ class UsedCars extends EActiveRecord
         return 'Б/У автомобили';
     }
 
-    public static function allCars(){
+    public static function allCarsForParts(){
         $data = Yii::app()->db->createCommand()
             ->select('id, CONCAT("VIN - ", vin) as name')
             ->from('{{UsedCars}}')
+            ->where('status=1')
             ->queryAll();
 
         return array_merge(array(array('id' => '', 'name' => 'Нет')), $data);
@@ -115,5 +117,12 @@ class UsedCars extends EActiveRecord
         $this->enter_date = $date->format('Y-m-d');
 
         return parent::beforeValidate();
+    }
+
+    public function afterFind(){
+        
+        if($this->price) $this->price = number_format($this->price, 0, '', '');
+
+        parent::afterFind();
     }
 }

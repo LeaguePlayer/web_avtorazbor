@@ -19,10 +19,15 @@ $this->menu=array(
 	'columns'=>array(
 		array(
 			'name' => 'car_model_id',
-			'type' => 'raw',
-			'value' => '$data->model->car_brand->name." ".$data->model->name'
+			'type' => 'html',
+			'value' => 'CHtml::link($data->model->car_brand->name." ".$data->model->name, Yii::app()->createUrl("admin/usedCars/update", array("id" => $data->id)))'
 		),
 		'year',
+		array(
+			'header' => 'Цвет',
+			'type' => 'raw',
+			'value' => '$data->dop->color'
+		),
 		'vin',
 		'price',
 		array(
@@ -43,7 +48,24 @@ $this->menu=array(
 			'value' => 'SiteHelper::formatDate($data->enter_date, "Y-m-d", "d.m.Y")'
 		),
 		array(
+			'header' => '',
+			'type' => 'raw',
+			'value' => function ($data, $row){
+				$list_url = "admin/parts/list"; 
+				
+				if($data->status == 1){ //На запчасти
+					$params = array("Parts" => array("usedCar" => $data->id));
+					return CHtml::link("Посмотреть запчасти", Yii::app()->createUrl($list_url, $params));
+				}
+
+				$params = array("Parts" => array("car_model_id" => $data->car_model_id));
+
+				return CHtml::link("Посмотреть запчасти", Yii::app()->createUrl($list_url, $params));
+			}
+		),
+		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
+			'template' => '{update} {delete}'
 		),
 	),
 )); ?>

@@ -23,6 +23,11 @@ $this->menu=array(
 			'value' => '$data->car_brand->name'
 		),
 		array(
+			'header' => 'Запчастей в категории',
+			'type' => 'html',
+			'value' => 'Chtml::link($data->partsCount, Yii::app()->createUrl("/admin/parts", array("Parts" => array("car_model_id" => $data->id))))'
+		),
+		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
 		),
 	),

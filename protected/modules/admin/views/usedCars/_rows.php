@@ -14,7 +14,22 @@
 
 	<?php echo $form->textFieldControlGroup($model,'vin',array('class'=>'span8','maxlength'=>20)); ?>
 
-	<?php echo $form->textFieldControlGroup($model,'year',array('class'=>'span4','maxlength'=>4)); ?>
+	<div class='control-group'>
+		<?php echo CHtml::activeLabelEx($model, 'year'); ?>
+		<?php $this->widget('yiiwheels.widgets.datetimepicker.WhDateTimePicker', array(
+			'model' => $model,
+			'attribute' => 'year',
+			'pluginOptions' => array(
+				'format' => 'yyyy',
+				'language' => 'ru',
+                'pickSeconds' => false,
+                'pickTime' => false,
+                'viewMode' => 'years',
+                'minViewMode' => 'years'
+			)
+		)); ?>
+		<?php echo $form->error($model, 'enter_date'); ?>
+	</div>
 
 	<?php echo $form->textFieldControlGroup($model,'price',array('class'=>'span8','maxlength'=>10)); ?>
 
@@ -48,9 +63,9 @@
 		));
 	?>
 	</div>
-	<div class="owners">
+	<div class="owner"<?=$model->status != 2 ? ' style="display: none;"' : ''?>>
 	<?php
-		$this->renderPartial('/owners/_rows', array(
+		$this->renderPartial('/clients/_owner', array(
 			'model' => $model->owner ? $model->owner : $owner,
 			'form' => $form
 		));
@@ -58,8 +73,8 @@
 	</div>
 
 	<script type="text/javascript">
-	// jQuery('#type').on('change', function(){
-	// 	var type = jQuery(this).val();
-	// 	type == 2 ? jQuery('.dop').show() : jQuery('.dop').hide();
-	// });
+	jQuery('#type').on('change', function(){
+		var type = jQuery(this).val();
+		type == 2 ? jQuery('.owner').show() : jQuery('.owner').hide();
+	});
 	</script>

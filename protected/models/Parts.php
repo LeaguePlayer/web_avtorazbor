@@ -18,6 +18,8 @@
 */
 class Parts extends EActiveRecord
 {
+    private $_usedCar = false;
+
     public function tableName()
     {
         return '{{Parts}}';
@@ -30,8 +32,8 @@ class Parts extends EActiveRecord
             array('name, price_sell', 'required'),
             array('category_id, car_model_id, location_id, client_id, status, gallery_id', 'numerical', 'integerOnly'=>true),
             array('name, artId', 'length', 'max'=>255),
-            array('price_sell, price_buy', 'length', 'max'=>6),
-            array('comment, create_time', 'safe'),
+            array('price_sell, price_buy', 'length', 'max'=>10),
+            array('comment, create_time, usedCar', 'safe'),
             // The following rule is used by search().
             array('id, name, price_sell, price_buy, comment, category_id, car_model_id, location_id, client_id, create_time, status', 'safe', 'on'=>'search'),
         );
@@ -104,6 +106,15 @@ class Parts extends EActiveRecord
 		$criteria->compare('client_id',$this->client_id);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('status',$this->status);
+
+        if($this->usedCar){
+            // print_r($this->usedCar);
+            $criteria->with = 'usedCar';
+            $criteria->together = true;
+            $criteria->addCondition('usedCar.id=:used_id');
+            $criteria->params[':used_id'] = $this->usedCar;
+        }
+
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
         ));
@@ -210,5 +221,13 @@ class Parts extends EActiveRecord
 
         $db = Yii::app()->db->createCommand();
         $db->delete('{{Parts_UsedCars}}', 'parts_id=:p', array(':p' => $this->id));
+    }
+
+    public function getUsedCar(){
+        return $this->_usedCar;
+    }
+
+    public function setUsedCar($val){
+        $this->_usedCar = $val;
     }
 }

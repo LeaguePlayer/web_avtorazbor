@@ -41,6 +41,9 @@ return array(
                 ),
             ),
         ),
+        'swiftmail'=> array(
+            'class' => 'SwiftmailerComponent'
+        ),
         'authManager' => array(
             'class' => 'CDbAuthManager',// 'auth.components.CachedDbAuthManager',
             //'cachingDuration' => 0,
