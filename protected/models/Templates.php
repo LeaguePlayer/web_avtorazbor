@@ -121,6 +121,15 @@ class Templates extends EActiveRecord
         return $pathToTemplates;
     }
 
+    public static function getDocsPath(){
+        $pathToDocs = Yii::getPathOfAlias('application.docs');
+
+        if(!is_dir($pathToDocs))
+            mkdir($pathToDocs, 0777);
+
+        return $pathToDocs;
+    }
+
     public function beforeDelete(){
 
         $this->removeTemplateFile();

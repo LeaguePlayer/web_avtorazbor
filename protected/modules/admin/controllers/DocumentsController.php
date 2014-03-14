@@ -19,12 +19,29 @@ class DocumentsController extends AdminController
 		$this->redirect($this->createUrl('list'));
 	}
 
-	public function actionSendFile($id){
-		$document = Documents::model()->findByPk($id);
+	public function actionSendFile(){
 
-		if(!$document) throw new CHttpException(404, 'Документ не найден');
+		if(isset($_POST['Email'])){
+			if($_POST['Email']['email'] != '' && $_POST['Email']['document_id'] != 0){
 
-		echo Yii::app()->swiftmail->sendEmail('test@test.ru', 'vetalgal@yandex.ru', $document->getType(), 'Документ: '.$document->name, array($document->getFilePath()));
+				$document = Documents::model()->findByPk($_POST['Email']['document_id']);
+				if(!$document) throw new CHttpException(404, 'Документ не найден');
+
+				// print_r('Документ: '.$document->name); die();
+				try {
+					echo Yii::app()->swiftmail->sendEmail(array('test@test.ru' => 'Test'), $_POST['Email']['email'], $document->getType(), 'Документ: '.$document->name, array($document->getFilePath()));
+				} catch (Swift_RfcComplianceException $e) {
+					echo 0;
+					Yii::app()->end(200);
+				} catch (Swift_TransportException $e){
+					echo 0;
+					Yii::app()->end(200);
+				}
+				
+			}
+		}
+
+		echo 0;
 
 		Yii::app()->end(200);
 	}

@@ -44,6 +44,9 @@ return array(
         'swiftmail'=> array(
             'class' => 'SwiftmailerComponent'
         ),
+        'excel'=> array(
+            'class' => 'ExcelComponent'
+        ),
         'authManager' => array(
             'class' => 'CDbAuthManager',// 'auth.components.CachedDbAuthManager',
             //'cachingDuration' => 0,

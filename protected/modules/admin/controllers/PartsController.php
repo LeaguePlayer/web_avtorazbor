@@ -54,6 +54,48 @@ class PartsController extends AdminController
 		));
 	}
 
+	//export to Excel
+	public function actionToExcel(){
+		Yii::app()->excel->exportModel('Parts', array(), array(
+			'location_id' => '$data->location->name',
+			'car_model_id' => '$data->car_model->car_brand->name.\' \'.$data->car_model->name',
+			'status' => 'Parts::getStatusAliases($data->status)',
+			'create_time' => 'SiteHelper::russianDate($data->create_time).\' в \'.date(\'H:i\', strtotime($data->create_time))'
+		));
+
+		Yii::app()->end();
+	}
+
+	//export to Excel
+	public function actionSendExcel(){
+
+		if(isset($_POST['Email'])){
+			if($_POST['Email']['email'] != ''){
+
+				$documentPath = Yii::app()->excel->exportModel('Parts', array(), array(
+					'location_id' => '$data->location->name',
+					'car_model_id' => '$data->car_model->car_brand->name.\' \'.$data->car_model->name',
+					'status' => 'Parts::getStatusAliases($data->status)',
+					'create_time' => 'SiteHelper::russianDate($data->create_time).\' в \'.date(\'H:i\', strtotime($data->create_time))'
+				), true);
+				try {
+					echo Yii::app()->swiftmail->sendEmail(array('test@test.ru' => 'Test'), $_POST['Email']['email'], 'Excel файл запчастей.', 'Excel файл запчастей.', array($documentPath));
+				} catch (Swift_RfcComplianceException $e) {
+					echo 0;
+					Yii::app()->end(200);
+				} catch (Swift_TransportException $e){
+					echo 0;
+					Yii::app()->end(200);
+				}
+				
+			}
+		}
+
+		echo 0;
+
+		Yii::app()->end(200);
+	}
+
 	public function actionGetPartsByModelCat($model_id, $cat_id, $part_id = null){
 		
 		$model = $part_id ? Parts::model()->findByPk($part_id) : new Parts;
