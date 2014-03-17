@@ -4,7 +4,7 @@
 
 	<?php echo $form->textFieldControlGroup($model,'price_sell',array('class'=>'span8','maxlength'=>10)); ?>
 
-	<?php echo $form->textFieldControlGroup($model,'year',array('class'=>'span8')); ?>
+	<?php //echo $form->textFieldControlGroup($model,'year',array('class'=>'span8')); ?>
 
 	<?php echo $form->textFieldControlGroup($model,'mileage',array('class'=>'span8')); ?>
 

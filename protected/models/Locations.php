@@ -64,4 +64,17 @@ class Locations extends EActiveRecord
     public static function all($criteria=''){
         return self::model()->findAll($criteria);
     }
+
+    public static function getListForSelect(){
+        $data = Yii::app()->db->createCommand()
+            ->select('id, name as text')
+            ->from('{{Locations}}')
+            ->queryAll();
+
+        foreach ($data as $item) {
+            $item['id'] = (int) $item['id'];
+        }
+
+        return $data;
+    }
 }

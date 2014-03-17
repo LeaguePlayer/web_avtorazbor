@@ -16,7 +16,8 @@
 	</div>
 
 <?php $this->endWidget(); ?>
-<?php //if(Yii::app()->user->hasFlash('success')):?>
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
 <?php
 	$this->widget('bootstrap.widgets.TbModal', array(
 		'id' => 'usedCarModal',
@@ -28,7 +29,8 @@
 		),
 	));
 ?>
-<?php //endif; ?>
+<?php endif; ?>
+
 <?php $this->widget('bootstrap.widgets.TbModal', array(
 	'id' => 'sendEmail',
 	'header' => 'Форма отправки на e-mail',

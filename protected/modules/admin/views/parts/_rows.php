@@ -37,7 +37,27 @@
 		</div>
 	</div>
 
-	<?php echo $form->dropDownListControlGroup($model,'location_id', Chtml::listData(Locations::all(), 'id', 'name'),array('class'=>'span8')); ?>
+	<?php //echo $form->dropDownListControlGroup($model,'location_id', Chtml::listData(Locations::all(), 'id', 'name'),array('class'=>'span8')); ?>
+
+	<div class="control-group">
+		<label class="control-label" for="Catalog_alias"><?=$model->getAttributeLabel('location_id')?></label>
+		<div class="controls" data-url= "<?=Yii::app()->createUrl("admin/locations/addTag")?>">
+			<?php
+				$this->widget('yiiwheels.widgets.select2.WhSelect2', array(
+				'model' => $model,
+				'attribute' => 'location_id',
+				'asDropDownList' => false,
+				'pluginOptions' => array(
+					'maximumSelectionSize' => 1,
+					'formatSelectionTooBig' => 'js:function(maxSize){return "Вы можете выбрать только "+maxSize+" значение.";}',
+					'tags' => Locations::getListForSelect(),
+				    'width' => '40%',
+				),
+				'htmlOptions' => array(
+				)));
+			?>
+		</div>
+	</div>
 	
 	<div class="control-group">
 		<label class="control-label" for="Catalog_alias"><?=$model->getAttributeLabel('supplier_id')?></label>
@@ -199,7 +219,7 @@
 
 	updateGrid();
 
-	jQuery("#Parts_supplier_id").on("selected",function(e){
+	jQuery("#Parts_supplier_id, #Parts_location_id").on("selected",function(e){
 		var $this = jQuery(this),
 			val = parseInt(e.val, 10);
 
@@ -213,7 +233,12 @@
 				if(res.id.length && res.data.length){
 					var v = $this.val();
 					$this.val(v.replace(e.val, res.id));
-					$this.select2({tags: res.data, width:"40%"}).trigger("change");
+					$this.select2({
+						tags: res.data, 
+						width:"40%", 
+						maximumSelectionSize: 1,
+						formatSelectionTooBig: function(maxSize){return "Вы можете выбрать только "+maxSize+" значение.";}
+					}).trigger("change");
 				}
 			});
 		}
