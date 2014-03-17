@@ -200,4 +200,11 @@ class SiteHelper {
 	    if ($n==1) return $f1;
 	    return $f5;
 	}
+
+	public static function getDDListForModel($model, $relModel, $attr, $id='id', $value='name'){
+
+		$items = call_user_func(array($relModel, 'model'))->findAll();
+
+		return TbHtml::activeDropDownList($model, $attr, array('' => 'Нет') + CHtml::listData($items, $id, $value));
+	}
 }

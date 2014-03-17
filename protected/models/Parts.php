@@ -103,7 +103,7 @@ class Parts extends EActiveRecord
 		$criteria->compare('comment',$this->comment,true);
 		$criteria->compare('category_id',$this->category_id);
 		$criteria->compare('car_model_id',$this->car_model_id);
-		$criteria->compare('location_id',$this->location_id);
+        if($this->location_id != 0) $criteria->compare('location_id',$this->location_id);
 		$criteria->compare('supplier_id',$this->supplier_id);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('status',$this->status);

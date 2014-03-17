@@ -20,4 +20,35 @@ class LocationsController extends AdminController
 
 		Yii::app()->end();
 	}
+
+	public function actionAllJson($q){
+		header('Content-type: application/json');
+
+		$result = Yii::app()->db->createCommand()
+			->select('id, name as text')
+			->from('{{Locations}}')
+			->where(array('like', 'name', '%'.$q.'%'))
+			->queryAll();
+
+		array_unshift($result, array('id' => 0, 'text' => 'Нет'));
+
+		echo CJSON::encode($result);
+
+		Yii::app()->end();
+	}
+
+	public function actionGetOneById($id){
+		header('Content-type: application/json');
+
+		$result = Yii::app()->db->createCommand()
+			->select('id, name as text')
+			->from('{{Locations}}')
+			->where('id=:id', array(':id' => $id))
+			->queryRow();
+
+		if($result) echo CJSON::encode($result);
+		else echo CJSON::encode(array('id' => 0, 'text' => 'Нет'));
+
+		Yii::app()->end();
+	}
 }

@@ -100,4 +100,39 @@ class CategoriesController extends AdminController
 	            // 'showRemoved' => $showRemoved,
 	        ));
 	}
+
+	public function actionAllJson($q){
+		header('Content-type: application/json');
+
+		$result = Yii::app()->db->createCommand()
+			->select('id, name as text, parent')
+			->from('{{categories}}')
+			->where(array('like', 'name', '%'.$q.'%'))
+			->queryAll();
+
+		foreach ($result as $key => $d) {
+            if($d['parent'] != 0) $result[$key]['text'] = "-- ".$d['text'];
+        }
+
+		array_unshift($result, array('id' => 0, 'text' => 'Нет'));
+
+		echo CJSON::encode($result);
+
+		Yii::app()->end();
+	}
+
+	public function actionGetOneById($id){
+		header('Content-type: application/json');
+
+		$result = Yii::app()->db->createCommand()
+			->select('id, name as text')
+			->from('{{categories}}')
+			->where('id=:id', array(':id' => $id))
+			->queryRow();
+
+		if($result) echo CJSON::encode($result);
+		else echo CJSON::encode(array('id' => 0, 'text' => 'Нет'));
+
+		Yii::app()->end();
+	}
 }

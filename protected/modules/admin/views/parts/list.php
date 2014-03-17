@@ -8,15 +8,25 @@ $this->menu=array(
 
 <?php echo TbHtml::buttonDropdown('Действия', array(
     array('label' => 'Отправить по почте', 'url' => '#', 'class' => 'show-modal'),
-    array('label' => 'Скачать excel файл', 'url' => '/admin/parts/toExcel'),
+    array('label' => 'Скачать excel файл', 'url' => '/admin/parts/toExcel', 'class' => 'get-file'),
 )); ?>
+<?php
 
+?>
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'parts-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'type'=>TbHtml::GRID_TYPE_HOVER,
-    'afterAjaxUpdate'=>"function() {sortGrid('parts')}",
+    'afterAjaxUpdate'=>"function() {
+    	sortGrid('parts');
+    	jQuery('#Parts_car_model_id').select2({'width':'150px','ajax':{'url':'/admin/carModels/allJson','dataType':'json','data': function(term, page){return {q: term};},'results': function(data, page){return { results: data };}},'initSelection':function (element, callback) {var id=$(element).val(); $.getJSON('/admin/carModels/getOneById', {id: id}, function(data) { callback(data); }) }});
+    	jQuery('#Parts_category_id').select2({'width':'150px','ajax':{'url':'/admin/categories/allJson','dataType':'json','data': function(term, page){return {q: term};},'results': function(data, page){return { results: data };}},'initSelection':function (element, callback) {var id=$(element).val(); $.getJSON('/admin/categories/getOneById', {id: id}, function(data) { callback(data); }) }});
+
+    	//filter
+    	var \$filter = jQuery('.filters').find('input, select');
+    	jQuery('.get-file a').attr('href', '/admin/parts/toExcel?' + \$filter.serialize());
+    }",
     'rowHtmlOptionsExpression'=>'array(
         "id"=>"items[]_".$data->id,
         "class"=>"status_".(isset($data->status) ? $data->status : ""),
@@ -25,7 +35,7 @@ $this->menu=array(
 		array(
 			'header' => 'Фото',
 			'type' => 'html',
-			'value' => '$data->gallery->main ? TbHtml::imageCircle($data->gallery->main->getPreview()) : ""'
+			'value' => '$data->gallery->main ? TbHtml::imageRounded($data->gallery->main->getPreview()) : ""'
 		),
 		'name',
 		'price_sell',
@@ -33,17 +43,50 @@ $this->menu=array(
 		array(
 			'name'=>'category_id',
 			'type'=>'raw',
-			'value'=>'$data->category->name'
+			'value'=>'$data->category->name',
+			'filter'=>$this->widget('yiiwheels.widgets.select2.WhSelect2', array(
+				'model'=>$model,
+				'attribute'=>'category_id',
+				'asDropDownList' => false,
+				'pluginOptions' => array(
+					'width' => '150px',
+					'ajax' => array(
+						'url' => '/admin/categories/allJson',
+						'dataType' => 'json',
+						'quietMillis' => 300,
+						'data' => 'js: function(term, page){return {q: term};}',
+						'results' => 'js: function(data, page){return { results: data };}'
+					),
+					'initSelection' => 'js:function (element, callback) {var id=$(element).val(); $.getJSON("/admin/categories/getOneById", {id: id}, function(data) { callback(data); }) }'
+				)
+			), true)
 		),
 		array(
 			'name'=>'car_model_id',
 			'type'=>'raw',
-			'value'=>'$data->car_model->car_brand->name." ".$data->car_model->name'
+			'value'=>'$data->car_model->car_brand->name." ".$data->car_model->name',
+			'filter'=>$this->widget('yiiwheels.widgets.select2.WhSelect2', array(
+				'model'=>$model,
+				'attribute'=>'car_model_id',
+				'asDropDownList' => false,
+				'pluginOptions' => array(
+					'width' => '150px',
+					'ajax' => array(
+						'url' => '/admin/carModels/allJson',
+						'dataType' => 'json',
+						'quietMillis' => 300,
+						'data' => 'js: function(term, page){return {q: term};}',
+						'results' => 'js: function(data, page){return { results: data };}'
+					),
+					'initSelection' => 'js:function (element, callback) {var id=$(element).val(); $.getJSON("/admin/carModels/getOneById", {id: id}, function(data) { callback(data); }) }'
+				)
+			), true)
 		),
 		array(
 			'name'=>'location_id',
 			'type'=>'raw',
-			'value'=>'$data->location->name'
+			'value'=>'$data->location->name',
+			'filter'=> SiteHelper::getDDListForModel($model, 'Locations', 'location_id')
 		),
 		// 'client_id',
 		array(
@@ -91,18 +134,19 @@ jQuery(".show-modal").on("click", function(){
 
 jQuery("#sendEmail").on("click", ".send-file", function(){
 	var $this = jQuery(this),
-		$form = jQuery("#modal-email-form");
+		$form = jQuery("#modal-email-form"),
+		$filter = jQuery(".filters").find("input, select");
 
 	$this.button("loading");
 	jQuery("#success, #error, #error2").hide();
 
 	var email = jQuery(".user-email").val();
 
-	if(email.length)
+	if(email.length){
 		jQuery.ajax({
 			url: "/admin/parts/sendExcel",
 			type: "post",
-			data: $form.serialize(),
+			data: $form.serialize()+"&"+$filter.serialize(),
 			success: function(res){
 				if(res != 0){
 					jQuery("#success").show();
@@ -111,7 +155,7 @@ jQuery("#sendEmail").on("click", ".send-file", function(){
 				$this.button("complete");
 			}
 		});
-	else{
+	}else{
 		jQuery("#error").show();
 		$this.button("complete");
 	}

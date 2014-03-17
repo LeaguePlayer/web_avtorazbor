@@ -13,7 +13,7 @@ class ExcelComponent extends CApplicationComponent{
 	/**
 	 * Export model data to excel file
 	 */
-	public function exportModel($model, $filter = array(), $eval_attrs=array(), $return = false){
+	public function exportModel($model, $data=array(), $filter = array(), $eval_attrs=array(), $return = false){
 
 		$phpExcelPath = Yii::getPathOfAlias('ext.phpExcel.Classes');
 
@@ -29,7 +29,7 @@ class ExcelComponent extends CApplicationComponent{
 		$criteria->order = 'id';
 
 		$instance = new $model;
-		$data = $model::model()->findAll($criteria);
+		$data = !empty($data) ? $data : $model::model()->findAll($criteria);
 		$attributes = $instance->attributeNames();
 
 		$activeSheet = $objPHPExcel->setActiveSheetIndex(0);
