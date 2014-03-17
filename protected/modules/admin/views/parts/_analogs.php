@@ -3,6 +3,7 @@ $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'analogs-grid',
 	'dataProvider'=>$analogs,
 	'type'=>TbHtml::GRID_TYPE_HOVER,
+	//'filter' => (isset($filter) && $filter) ? $model : null,
 	'rowHtmlOptionsExpression'=>'array(
         "data-analog"=>$data->id
     )',

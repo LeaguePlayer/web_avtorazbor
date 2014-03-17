@@ -7,7 +7,7 @@ $this->menu=array(
 <h1>Управление <?php echo $model->translition(); ?></h1>
 
 <?php echo TbHtml::buttonDropdown('Действия', array(
-    array('label' => 'Отправить оп почте', 'url' => '#', 'class' => 'show-modal'),
+    array('label' => 'Отправить по почте', 'url' => '#', 'class' => 'show-modal'),
     array('label' => 'Скачать excel файл', 'url' => '/admin/parts/toExcel'),
 )); ?>
 
@@ -22,6 +22,11 @@ $this->menu=array(
         "class"=>"status_".(isset($data->status) ? $data->status : ""),
     )',
 	'columns'=>array(
+		array(
+			'header' => 'Фото',
+			'type' => 'html',
+			'value' => '$data->gallery->main ? TbHtml::imageCircle($data->gallery->main->getPreview()) : ""'
+		),
 		'name',
 		'price_sell',
 		'price_buy',

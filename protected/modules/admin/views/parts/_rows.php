@@ -38,8 +38,27 @@
 	</div>
 
 	<?php echo $form->dropDownListControlGroup($model,'location_id', Chtml::listData(Locations::all(), 'id', 'name'),array('class'=>'span8')); ?>
-
-	<?php echo $form->textFieldControlGroup($model,'client_id',array('class'=>'span8')); ?>
+	
+	<div class="control-group">
+		<label class="control-label" for="Catalog_alias"><?=$model->getAttributeLabel('supplier_id')?></label>
+		<div class="controls" data-url= "<?=Yii::app()->createUrl("admin/suppliers/addTag")?>">
+			<?php
+				$this->widget('yiiwheels.widgets.select2.WhSelect2', array(
+				'model' => $model,
+				'attribute' => 'supplier_id',
+				'asDropDownList' => false,
+				'pluginOptions' => array(
+					'maximumSelectionSize' => 1,
+					'formatSelectionTooBig' => 'js:function(maxSize){return "Вы можете выбрать только "+maxSize+" значение.";}',
+					'tags' => Suppliers::getListForSelect(),
+				    'width' => '40%',
+				),
+				'htmlOptions' => array(
+				)));
+			?>
+		</div>
+	</div>
+	<?php //echo $form->textFieldControlGroup($model,'client_id',array('class'=>'span8')); ?>
 
 	<?php echo $form->dropDownListControlGroup($model, 'status', Parts::getStatusAliases(), array('class'=>'span8', 'displaySize'=>1)); ?>
 
@@ -56,7 +75,6 @@
 		} ?>
 	</div>
 	
-	<?php //if($model->potantialAnalogs()):?>
 	<fieldset id="analog-block" data-id="<?=$model->id?>">
 		<legend>Аналоги</legend>
 		<div class="control-group">
@@ -136,7 +154,6 @@
 		</div>
 		<?php $this->renderPartial('_analogs', array('model' => $model, 'analogs' => $analogs)); ?>
 	</fieldset>
-	<?php  //endif; ?>
 
 	<fieldset>
 		<legend>Б/У автомобиль</legend>
@@ -181,6 +198,26 @@
 	};
 
 	updateGrid();
+
+	jQuery("#Parts_supplier_id").on("selected",function(e){
+		var $this = jQuery(this),
+			val = parseInt(e.val, 10);
+
+		if(isNaN(val)){
+			jQuery.ajax({
+				url: $this.closest(".controls").data("url"),
+				data: {Tag: e.val},
+				type: "POST",
+				dataType: "json"
+			}).done(function(res){
+				if(res.id.length && res.data.length){
+					var v = $this.val();
+					$this.val(v.replace(e.val, res.id));
+					$this.select2({tags: res.data, width:"40%"}).trigger("change");
+				}
+			});
+		}
+	});
 
 	', CClientScript::POS_READY);
 ?>

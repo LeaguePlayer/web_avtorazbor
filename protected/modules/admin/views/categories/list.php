@@ -40,6 +40,7 @@ $this->menu=array(
 		// 'sort',
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
+			'template' => '{update} {delete}'
 		),
 	),
 )); ?>

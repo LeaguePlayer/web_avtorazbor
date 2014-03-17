@@ -54,6 +54,26 @@ class PartsController extends AdminController
 		));
 	}
 
+	public function actionView($id){
+
+		$model = Parts::model()->findByPk($id);
+		if(!$model)
+			throw new CHttpException(404, 'Запчасть не найдена.');
+
+		if(isset($_POST['Parts'])){
+
+			$model->attributes = $_POST['Parts'];
+
+			$model->validate();
+			if($model->update(array('comment')))
+				$this->redirect($this->createUrl('view', array('id' => $id)));
+		}
+
+		$analogs = $model->getOwnParts($model->car_model_id, $model->category_id, $model->id);
+
+		$this->render('view', array('model' => $model, 'analogs' => $analogs));
+	}
+
 	//export to Excel
 	public function actionToExcel(){
 		Yii::app()->excel->exportModel('Parts', array(), array(
@@ -66,7 +86,7 @@ class PartsController extends AdminController
 		Yii::app()->end();
 	}
 
-	//export to Excel
+	//send Excel file by email
 	public function actionSendExcel(){
 
 		if(isset($_POST['Email'])){

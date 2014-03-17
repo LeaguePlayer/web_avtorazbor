@@ -12,7 +12,7 @@
     * @property integer $category_id
     * @property integer $car_model_id
     * @property integer $location_id
-    * @property integer $client_id
+    * @property integer $supplier_id
     * @property string $create_time
     * @property integer $status
 */
@@ -30,12 +30,12 @@ class Parts extends EActiveRecord
     {
         return array(
             array('name, price_sell', 'required'),
-            array('category_id, car_model_id, location_id, client_id, status, gallery_id', 'numerical', 'integerOnly'=>true),
+            array('category_id, car_model_id, location_id, supplier_id, status, gallery_id', 'numerical', 'integerOnly'=>true),
             array('name, artId', 'length', 'max'=>255),
             array('price_sell, price_buy', 'length', 'max'=>10),
             array('comment, create_time, usedCar', 'safe'),
             // The following rule is used by search().
-            array('id, name, price_sell, price_buy, comment, category_id, car_model_id, location_id, client_id, create_time, status', 'safe', 'on'=>'search'),
+            array('id, name, price_sell, price_buy, comment, category_id, car_model_id, location_id, supplier_id, create_time, status', 'safe', 'on'=>'search'),
         );
     }
 
@@ -46,7 +46,8 @@ class Parts extends EActiveRecord
             'category' => array(self::BELONGS_TO, 'Categories', 'category_id'),
             'car_model' => array(self::BELONGS_TO, 'CarModels', 'car_model_id'),
             'location' => array(self::BELONGS_TO, 'Locations', 'location_id'),
-            'client' => array(self::BELONGS_TO, 'Clients', 'client_id'),
+            'supplier' => array(self::BELONGS_TO, 'Suppliers', 'supplier_id'),
+            'gallery' => array(self::BELONGS_TO, 'Gallery', 'gallery_id'),
             //'analogs' => array(self::HAS_MANY, 'Analogs', 'part'),
             'usedCar' => array(self::MANY_MANY, 'UsedCars', '{{Parts_UsedCars}}(parts_id, used_car_id)'),
         );
@@ -83,7 +84,7 @@ class Parts extends EActiveRecord
             'category_id' => 'Категория',
             'car_model_id' => 'Модель автомобиля',
             'location_id' => 'Склад',
-            'client_id' => 'Поставщик',
+            'supplier_id' => 'Поставщик',
             'create_time' => 'Дата создания',
             'status' => 'Статус',
             'gallery_id' => 'Галерея',
@@ -103,7 +104,7 @@ class Parts extends EActiveRecord
 		$criteria->compare('category_id',$this->category_id);
 		$criteria->compare('car_model_id',$this->car_model_id);
 		$criteria->compare('location_id',$this->location_id);
-		$criteria->compare('client_id',$this->client_id);
+		$criteria->compare('supplier_id',$this->supplier_id);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('status',$this->status);
 

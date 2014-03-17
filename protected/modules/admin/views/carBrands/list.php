@@ -20,6 +20,7 @@ $this->menu=array(
 		'name',
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
+			'template' => '{update} {delete}'
 		),
 	),
 )); ?>
