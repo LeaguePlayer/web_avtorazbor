@@ -34,6 +34,11 @@ class EActiveRecord extends CActiveRecord
         return $aliases;
     }
 
+    public static function all(){
+        $className = get_class($this);
+        return call_user_func(array($className, 'model'))->findAll();
+    }
+
     public function behaviors()
     {
         return array();
@@ -73,6 +78,7 @@ class EActiveRecord extends CActiveRecord
 
         return true;
     }
+
 
     /**
      * default form ID for the current model. Defaults to get_class()+'-form'

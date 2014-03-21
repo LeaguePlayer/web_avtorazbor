@@ -1,35 +1,25 @@
-	<div class="clients">
+	<div class="clients" data-client-id="<?=$model->client_id?>">
 		<div class="control-group">
-			<label class="control-label" for="Requests_check_user_id"><?=$model->getAttributeLabel('client_id')?></label>
 			<div class="controls">
-				<?php //print_r(Clients::getList()); ?>
-				<?php /*$this->widget('bootstrap.widgets.TbTypeAhead', array(
-					// 'model' => $model,
-					// 'attribute' => 'client_id',
-					'name' => $model->getAttributeLabel('client_id'),
-					'source' => Clients::getList(),
-					// 'source' => array('sadf', 'asdf'),
-				)); */?>
-				<?php 
+				<strong><?=$model->getAttributeLabel('status')?>: </strong> <?php echo CHtml::encode(Requests::getStatusAliases($model->status)); ?>
+			</div>
+		</div>
+		<div class="control-group">
+			<?=$form->labelEx($model, 'client_id')?>
+			<div class="controls">
+				<?php
 					$this->widget('yiiwheels.widgets.select2.WhSelect2', array(
 					'asDropDownList' => false,
 					'model' => $model,
 					'attribute' => 'client_id',
-					// 'data' => Clients::getList(),
-					// 'name' => 'select2test',
 					'pluginOptions' => array(
-					    // 'placeholder' => 'type 2amigos',
 					    'maximumSelectionSize' => 1,
 					    'tags' => Clients::getList(),
 					    'width' => '40%',
 					    'formatSelectionTooBig' => 'js:function(maxSize){return "Вы можете выбрать только "+maxSize+" значение.";}'
-					    // 'query' => 'js:function(){
-
-					    // }'
-					    // 'tokenSeparators' => array(',', ' ')
 					)));
 				?><br><br>
-				<div class="actions-yes" style="display: none;">
+				<div class="actions-yes" style="<?if(!$model->client_id):?>display: none;<?endif;?>">
 					<?php echo TbHtml::button('Посмотреть данные', array(
 						'style' => TbHtml::BUTTON_COLOR_PRIMARY,
 						'size' => TbHtml::BUTTON_SIZE_SMALL,
@@ -47,26 +37,107 @@
 				</div>
 			</div>
 		</div>
+	</div><br>
+	<div class="control-group">
+		<?=$form->labelEx($model, 'check_user_id')?>
+		<div class="controls" data-url= "<?=Yii::app()->createUrl("admin/employees/addTag")?>">
+			<?php
+				$this->widget('yiiwheels.widgets.select2.WhSelect2', array(
+				'model' => $model,
+				'attribute' => 'check_user_id',
+				'asDropDownList' => false,
+				'pluginOptions' => array(
+					'maximumSelectionSize' => 1,
+					'formatSelectionTooBig' => 'js:function(maxSize){return "Вы можете выбрать только "+maxSize+" значение.";}',
+					'tags' => Employees::getListForSelect(),
+				    'width' => '40%',
+				),
+				'htmlOptions' => array(
+				)));
+			?>
+		</div>
+	</div><br>
+	<div class="utilization">
+		<?if(isset($_POST['Utilization'])):?>
+			<?foreach ($_POST['Utilization'] as $id):?>
+				<div class="part-<?=$id?>"><input type="hidden" name="Utilization[]" value='<?=$id?>'></div>
+			<? endforeach; ?>
+		<?endif;?>
 	</div>
-
-
-	<?php echo $form->textFieldControlGroup($model,'check_user_id',array('class'=>'span8')); ?>
-
-	<?php echo $form->dropDownListControlGroup($model,'from', Requests::getFromList()); ?>
-
-	<?php echo $form->dropDownListControlGroup($model, 'status', Requests::getStatusAliases(), array('class'=>'span8', 'displaySize'=>1)); ?>
+	<div class="requests" data-request-id="<?=$model->id?>">
+		<div class="row-fluid">
+			<div class="span10">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>№ Позиции</th>
+							<th>Название</th>
+							<th>Склад</th>
+							<th>Цена</th>
+						</tr>
+					</thead>
+					<tbody class="parts-update">
+						<? $this->renderPartial('_body_parts', array('model' => $model)); ?>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="2">
+							<?php
+								$this->widget('yiiwheels.widgets.select2.WhSelect2', array(
+									'name' => 'new_part',
+									'asDropDownList' => false,
+									'pluginOptions' => array(
+										'width' => '100%',
+										'ajax' => array(
+											'url' => '/admin/parts/allJson',
+											'dataType' => 'json',
+											'quietMillis' => 300,
+											'data' => 'js: function(term, page){var req_id = jQuery(".requests").data("request-id"); return {q: term, req_id: req_id};}',
+											'results' => 'js: function(data, page){return { results: data };}'
+										)
+									)
+								));
+							?>
+							<div class="clearfix">&nbsp;</div>
+							</td>
+							<td colspan="1"><?=TbHtml::button('Добавить', array('class' => 'add-part'))?></td>
+							<td colspan="2"><?=TbHtml::submitButton('Поставить на резерв', array('color' => TbHtml::BUTTON_COLOR_SUCCESS))?></td>
+						</tr>
+					</tfoot>
+					<?=TbHtml::activeHiddenField($model, 'id', array('ng-model' => 'request', 'ng-init' => "request_id='".$model->id."'"))?>
+				</table>
+			</div>
+		</div>
+	</div>
 
 	<div class="modal-block"></div>
 <script>
+	jQuery(document).ready(function(){
+		var client_id = jQuery('.clients').data('client-id');
+
+		if(typeof client_id === 'number' && !isNaN(client_id)){
+			jQuery.ajax({
+				url: '<?=$this->createUrl("clients/getClientForm")?>',
+				data: {id: client_id},
+				success: function(data){
+					jQuery('.modal-block').html(data);
+				}
+			});
+		}
+	});
+	jQuery('#Requests_client_id').on('removed', function(){
+		jQuery('.actions-no, .actions-yes').hide();
+	});
 	jQuery('#Requests_client_id').on('selected', function(e){
 		var val = parseInt(e.val, 10);
 
 		if(typeof val === 'number' && !isNaN(val)){ //Клиент существует
+			
 			jQuery.ajax({
 				url: '<?=$this->createUrl("clients/getClientForm")?>',
 				data: {id: val},
 				success: function(data){
-					jQuery('.modal-block').html(data);
+					jQuery('.modal-block').html(data);					
 					jQuery('.actions-no').hide();
 					jQuery('.actions-yes').show();
 				}
@@ -83,4 +154,69 @@
 			});
 		}
 	});
+
+	//add part to request
+	jQuery('.add-part').on('click', function(){
+		var part_id = parseInt(jQuery('#new_part').select2('val'), 10),
+			req_id = jQuery('.requests').data('request-id');
+
+		if(req_id && part_id && typeof part_id === 'number'){
+			jQuery('.utilization').find('.part-'+part_id).remove();
+			jQuery.ajax({
+				url: '<?=$this->createUrl("addPart")?>',
+				data: {request_id: req_id, part_id: part_id},
+				success: function(data){
+					jQuery('.parts-update').html(data);
+				}
+			});
+		}
+	});
+
+	//remove part from request
+	jQuery('.requests').on('click', '.remove-part', function(){
+		var part_id = jQuery(this).data('id'),
+			req_id = jQuery('.requests').data('request-id');
+
+		if(req_id && part_id && typeof part_id === 'number'){
+			jQuery('.utilization').append('<div class="part-'+part_id+'"><input type="hidden" name="Utilization[]" value="'+part_id+'"></div>')
+			jQuery.ajax({
+				url: '<?=$this->createUrl("deletePart")?>',
+				data: {request_id: req_id, part_id: part_id},
+				success: function(data){
+					jQuery('.parts-update').html(data);
+				}
+			});
+		}
+	});
+
+	//add employee
+	jQuery("#Requests_check_user_id").on("selected",function(e){
+		var $this = jQuery(this),
+			val = parseInt(e.val, 10);
+
+		if(isNaN(val)){
+			jQuery.ajax({
+				url: $this.closest(".controls").data("url"),
+				data: {Tag: e.val},
+				type: "POST",
+				dataType: "json"
+			}).done(function(res){
+				if(res.id.length && res.data.length){
+					var v = $this.val();
+					$this.val(v.replace(e.val, res.id));
+					$this.select2({
+						tags: res.data, 
+						width:"40%", 
+						maximumSelectionSize: 1,
+						formatSelectionTooBig: function(maxSize){return "Вы можете выбрать только "+maxSize+" значение.";}
+					}).trigger("change");
+				}
+			});
+		}
+	});
 </script>
+<?php 
+/*$cs = Yii::app()->clientScript;
+$cs->registerScriptFile($this->getAssetsUrl().'/js/angular/angular.min.js', CClientScript::POS_END);
+$cs->registerScriptFile($this->getAssetsUrl().'/js/requests/controller.js', CClientScript::POS_END);*/
+?>

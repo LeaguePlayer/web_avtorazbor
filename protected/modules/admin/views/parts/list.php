@@ -35,7 +35,7 @@ $this->menu=array(
 		array(
 			'header' => 'Фото',
 			'type' => 'html',
-			'value' => '$data->gallery->main ? TbHtml::imageRounded($data->gallery->main->getPreview()) : ""'
+			'value' => '$data->gallery->main ? TbHtml::imageRounded($data->gallery->main->getPreview(), "", array("width"=> 120)) : ""'
 		),
 		'name',
 		'price_sell',

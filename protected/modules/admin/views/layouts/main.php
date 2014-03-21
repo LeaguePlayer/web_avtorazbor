@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="razborApp">
 	<head>
 	  <meta charset="utf-8">
 	  <title><?php echo CHtml::encode(Yii::app()->name).' | Admin';?></title>
@@ -11,7 +11,7 @@
 			$map = array(
 				'parts' => array( 'parts', 'carBrands', 'carModels', 'categories', 'usedCars'),
 				'documents' => array('documents', 'templates'),
-				'requests' => array('requests', 'clients')
+				'requests' => array('requests', 'clients', 'employees')
 			);
 
 			$root = 'parts';
@@ -53,7 +53,8 @@
 				),
 				'requests' => array(
 					array('label'=>'Заявки', 'url'=>'/admin/requests'),
-					array('label'=>'Клиенты', 'url'=>'/admin/clients')
+					array('label'=>'Клиенты', 'url'=>'/admin/clients'),
+					array('label'=>'Сотрудники', 'url'=>'/admin/employees'),
 				)
 			);
 		?>

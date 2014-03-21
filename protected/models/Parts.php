@@ -20,6 +20,32 @@ class Parts extends EActiveRecord
 {
     private $_usedCar = false;
 
+    // Статусы в базе данных
+    const STATUS_CLOSED = 0;
+    const STATUS_PUBLISH = 1;
+    const STATUS_REMOVED = 3;
+    const STATUS_DEFAULT = self::STATUS_PUBLISH;
+    const STATUS_RESERVED = 4;
+    const STATUS_UTIL = 5;
+
+    public $max_sort;
+
+    public static function getStatusAliases($status = -1)
+    {
+        $aliases = array(
+            self::STATUS_CLOSED => 'Не опубликован',
+            self::STATUS_PUBLISH => 'Опубликован',
+            self::STATUS_REMOVED => 'Удален',
+            self::STATUS_RESERVED => 'Зарезервирован',
+            self::STATUS_UTIL => 'Утилизирован',
+        );
+
+        if ($status > -1)
+            return $aliases[$status];
+
+        return $aliases;
+    }
+
     public function tableName()
     {
         return '{{Parts}}';
@@ -177,6 +203,13 @@ class Parts extends EActiveRecord
         }
 
         return $result;
+    }
+
+    public function afterFind(){
+        parent::afterFind();
+
+        $this->price_sell = number_format($this->price_sell, 0, '', '');
+        $this->price_buy = number_format($this->price_buy, 0, '', '');
     }
 
     public function beforeSave(){

@@ -209,4 +209,45 @@ class PartsController extends AdminController
 			}
 		}
 	}
+
+
+	public function actionAllJson($q, $req_id){
+		header('Content-type: application/json');
+
+		$request = Requests::model()->findByPk($req_id);
+
+		if(!$request)
+			throw new CHttpException(404, 'Заявка не найдена');
+
+		$result = Yii::app()->db->createCommand()
+			->select('p.id,p.name as text')
+			->from('{{Parts}} as p')
+			->leftJoin('{{PartsInRequest}} as pr', 'p.id=pr.part_id')
+			->andWhere('pr.part_id IS NULL')
+			->andWhere('p.status != :status1 AND p.status != :status2', array(':status1' => Parts::STATUS_RESERVED, ':status2' => Parts::STATUS_UTIL))
+			->andWhere(array('like', 'name', '%'.$q.'%'))
+			->queryAll();
+
+		// var_dump($result); die();
+		//array_unshift($result, array('id' => 0, 'text' => 'Нет'));
+
+		echo CJSON::encode($result);
+
+		Yii::app()->end();
+	}
+
+	/*public function actionGetOneById($id){
+		header('Content-type: application/json');
+
+		$result = Yii::app()->db->createCommand()
+			->select('id, name as text')
+			->from('{{Parts}}')
+			->where('id=:id', array(':id' => $id))
+			->queryRow();
+
+		if($result) echo CJSON::encode($result);
+		else echo CJSON::encode(array('id' => 0, 'text' => 'Нет'));
+
+		Yii::app()->end();
+	}*/
 }

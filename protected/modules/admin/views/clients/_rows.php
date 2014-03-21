@@ -15,14 +15,22 @@
 	</div>
 
 	<?php echo $form->textFieldControlGroup($model,'email',array('class'=>'span8','maxlength'=>255)); ?>
+
+	<?php
+
+		$show_extend = ($model->dt_birthday && $model->dt_birthday != '0000-00-00') || ($model->dt_of_issue && $model->dt_of_issue != '0000-00-00') || $model->passport_num || $model->issued_by || $model->address;
+
+		$active = $show_extend ? ' active' : '';
+	?>
+
 	<div class="row">
 		<div class="clearfix span8">
-			<?php echo TbHtml::button('Расширенная анкета', array('style' => 'float: right;', 'class'=>'show-extended', 'toggle' => true, 'color' => TbHtml::BUTTON_COLOR_PRIMARY)); ?>
+			<?php echo TbHtml::button('Расширенная анкета', array('style' => 'float: right;', 'class'=>'show-extended'.$active, 'toggle' => true, 'color' => TbHtml::BUTTON_COLOR_PRIMARY)); ?>
 		</div>
 	</div>
 
 	<!-- extended -->
-	<div id="ext" style="display: none;">
+	<div id="ext" style="<? if(!$show_extend){?>display: none;<?}?>">
 		<div class='control-group'>
 			<?php echo CHtml::activeLabelEx($model, 'dt_birthday'); ?>
 			<?php $this->widget('yiiwheels.widgets.datetimepicker.WhDateTimePicker', array(
@@ -35,7 +43,7 @@
 	                'pickTime' => false
 				),
 				'htmlOptions' => array(
-					'value' => $model->dt_birthday ? SiteHelper::formatDate($model->dt_birthday, 'Y-m-d', 'd.m.Y') : ''
+					'value' => ($model->dt_birthday && $model->dt_birthday != '0000-00-00') ? SiteHelper::formatDate($model->dt_birthday, 'Y-m-d', 'd.m.Y') : ''
 				)
 			)); ?>
 			<?php echo $form->error($model, 'dt_birthday'); ?>
@@ -68,7 +76,7 @@
 	                'pickTime' => false
 				),
 				'htmlOptions' => array(
-					'value' => $model->dt_of_issue ? SiteHelper::formatDate($model->dt_of_issue, 'Y-m-d', 'd.m.Y') : ''
+					'value' => ($model->dt_of_issue && $model->dt_of_issue != '0000-00-00') ? SiteHelper::formatDate($model->dt_of_issue, 'Y-m-d', 'd.m.Y') : ''
 				)
 			)); ?>
 			<?php echo $form->error($model, 'dt_of_issue'); ?>
@@ -92,14 +100,20 @@
 		));
 	?>
 	</div>
-
-	<script type="text/javascript">
-	jQuery('.show-extended').on('click', function(){
-		jQuery('#ext').toggle();
+	<script>
+	jQuery(".show-extended").on("click", function(){
+		jQuery("#ext").toggle();
+		console.log("dfd");
 	});
 
-	jQuery('#type').on('change', function(){
+	jQuery("#type").on("change", function(){
 		var type = jQuery(this).val();
-		type == 2 ? jQuery('.info').show() : jQuery('.info').hide();
+		type == 2 ? jQuery(".info").show() : jQuery(".info").hide();
 	});
 	</script>
+<?
+$cs = Yii::app()->clientScript;
+$cs->registerScript('clients','
+
+',CClientScript::POS_READY);
+?>
