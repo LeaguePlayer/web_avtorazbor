@@ -105,3 +105,12 @@ form .line{
 
 #requests-grid .status_1{background-color: #FFF39D;}
 #requests-grid .status_2{background-color: rgb(206, 112, 112);}
+
+@media print {
+  body{
+    padding: 0;
+  }
+  .navbar, .breadcrumb, .nav-tabs, .clients, .requests tfoot, .form-actions, .remove-part{
+    display: none;
+  }
+}

@@ -21,6 +21,7 @@ class Requests extends EActiveRecord
     const STATUS_PUBLISH = 1;
     const STATUS_CANCELED = 2;
     const STATUS_PARTS_RESERVED = 3;
+    const STATUS_WAIT_BUY = 4;
     const STATUS_DEFAULT = self::STATUS_PUBLISH;
 
     private static $_fromList = array(
@@ -36,6 +37,7 @@ class Requests extends EActiveRecord
             self::STATUS_PUBLISH => 'Формирование',
             self::STATUS_CANCELED => 'Отменена',
             self::STATUS_PARTS_RESERVED => 'Стоит на резерве',
+            self::STATUS_WAIT_BUY => 'Ожидает оплаты',
             // self::STATUS_REMOVED => 'Удален',
         );
 
@@ -67,6 +69,7 @@ class Requests extends EActiveRecord
     {
         return array(
             'client' => array(self::BELONGS_TO, 'Clients', 'client_id'),
+            'employee' => array(self::BELONGS_TO, 'Employees', 'check_user_id'),
             'parts' => array(self::MANY_MANY, 'Parts', '{{PartsInRequest}}(request_id, part_id)')
         );
     }

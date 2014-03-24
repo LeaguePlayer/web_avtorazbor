@@ -119,7 +119,7 @@ class ClientsController extends AdminController
 
 		$valid = $this->validateData($model, $info, $accounts, true);
 
-		$model->type = 2;
+		// $model->type = 2;
 
 		if($name)
 			$info->name_company = $name;

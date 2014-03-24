@@ -219,12 +219,18 @@ class PartsController extends AdminController
 		if(!$request)
 			throw new CHttpException(404, 'Заявка не найдена');
 
+		$notIn = array();
+
+		$notIn[] = Parts::STATUS_RESERVED;
+		$notIn[] = Parts::STATUS_UTIL;
+
 		$result = Yii::app()->db->createCommand()
 			->select('p.id,p.name as text')
 			->from('{{Parts}} as p')
 			->leftJoin('{{PartsInRequest}} as pr', 'p.id=pr.part_id')
-			->andWhere('pr.part_id IS NULL')
-			->andWhere('p.status != :status1 AND p.status != :status2', array(':status1' => Parts::STATUS_RESERVED, ':status2' => Parts::STATUS_UTIL))
+			// ->andWhere('pr.part_id IS NULL')
+			->andWhere('pr.request_id != :req_id OR pr.request_id IS NULL', array(':req_id' => $request->id))
+			->andWhere(array('not in', 'status', $notIn))
 			->andWhere(array('like', 'name', '%'.$q.'%'))
 			->queryAll();
 
