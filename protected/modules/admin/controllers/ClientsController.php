@@ -133,15 +133,7 @@ class ClientsController extends AdminController
 		    'magic.js' => false,
 		);
 
-		if($valid){
-			$result = array('data' => array(
-				'id' => $model->id,
-				'text' => $info->name_company
-			));
-			header('Content-type: application/json');
-			echo CJSON::encode($result);
-		}else
-			$this->renderPartial('_modal', array('model'=>$model, 'info' => $info, 'accounts' => $accounts), false, true);
+		$this->renderPartial('_modal', array('model'=>$model, 'info' => $info, 'accounts' => $accounts, 'valid' => $valid), false, true);
 
 		Yii::app()->end();
 	}

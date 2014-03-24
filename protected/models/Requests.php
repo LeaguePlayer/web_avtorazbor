@@ -28,6 +28,8 @@ class Requests extends EActiveRecord
         self::FROM_ADMIN => 'Система'
     );
 
+    public $removeOnDelete = true;
+
     public static function getStatusAliases($status = -1)
     {
         $aliases = array(
