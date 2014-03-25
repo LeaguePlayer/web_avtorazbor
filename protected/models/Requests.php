@@ -204,7 +204,7 @@ class Requests extends EActiveRecord
             //print_r($job);
             $command = $job->getCommand();
             $find = '--id='.$this->id;
-            print_r($job);
+
             if($find == substr($command, -1 * strlen($find)))
                 $cron->deleteJob($k);
         }
