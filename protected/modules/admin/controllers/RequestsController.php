@@ -293,7 +293,7 @@ class RequestsController extends AdminController
 
 		$cron->eraseJobs(); // erase all previous jobs in my_crontab*/
 
-		$now = new DateTime('NOW', new DateTimeZone('Asia/Yekaterinburg'));
+		$now = new DateTime('NOW');
 
 		$request_time = Settings::getValue('request_time') ? Settings::getValue('request_time') : 24;
 		$now->modify( '+'.$request_time.' hour' );
