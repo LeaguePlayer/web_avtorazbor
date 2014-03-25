@@ -299,7 +299,7 @@ class RequestsController extends AdminController
 		$now->modify( '+'.$request_time.' hour' );
 
 		// Application console job
-		$cron->addApplicationJob('protected/yiic', 'request broken --id='.$request->id, array(), $now->format('i'), $now->format('G'), $now->format('j'), $now->format('n'));
+		$cron->addApplicationJob('yiic', 'request broken --id='.$request->id, array(), $now->format('i'), $now->format('G'), $now->format('j'), $now->format('n'));
 		// $cron->addApplicationJob('protected/yiic', 'request broken --id='.$request->id, array(), '28', '14', $now->format('j'), $now->format('n'));
 
 		// to change job values:

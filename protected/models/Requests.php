@@ -157,7 +157,7 @@ class Requests extends EActiveRecord
                 $part->status = Parts::STATUS_PUBLISH;
                 $part->update(array('status'));
             }
-            
+
             //delete task from cron
             $this->deleteTaskFromCron();
         }
@@ -201,8 +201,10 @@ class Requests extends EActiveRecord
         $jobs_obj = $cron->getJobs(); // previous jobs saved in my_crontab
 
         foreach($jobs_obj as $k => $job){
+            //print_r($job);
             $command = $job->getCommand();
             $find = '--id='.$this->id;
+            print_r($job);
             if($find == substr($command, -1 * strlen($find)))
                 $cron->deleteJob($k);
         }
