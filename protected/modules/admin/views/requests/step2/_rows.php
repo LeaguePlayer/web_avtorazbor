@@ -159,7 +159,7 @@
 			jQuery('.utilization').find('.part-'+part_id).remove();
 			jQuery.ajax({
 				url: '<?=$this->createUrl("addPart")?>',
-				data: {request_id: req_id, part_id: part_id},
+				data: {request_id: req_id, part_id: part_id, step: 2},
 				success: function(data){
 					jQuery('.parts-update').html(data);
 				}

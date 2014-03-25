@@ -22,6 +22,8 @@ class Requests extends EActiveRecord
     const STATUS_CANCELED = 2;
     const STATUS_PARTS_RESERVED = 3;
     const STATUS_WAIT_BUY = 4;
+    const STATUS_BROKEN = 5;
+    const STATUS_SUCCESS = 6;
     const STATUS_DEFAULT = self::STATUS_PUBLISH;
 
     private static $_fromList = array(
@@ -38,6 +40,8 @@ class Requests extends EActiveRecord
             self::STATUS_CANCELED => 'Отменена',
             self::STATUS_PARTS_RESERVED => 'Стоит на резерве',
             self::STATUS_WAIT_BUY => 'Ожидает оплаты',
+            self::STATUS_BROKEN => 'Расформирована',
+            self::STATUS_SUCCESS => 'Оплачено',
             // self::STATUS_REMOVED => 'Удален',
         );
 
@@ -144,5 +148,66 @@ class Requests extends EActiveRecord
 
     public static function getFromList(){
         return self::$_fromList;
+    }
+
+    public function afterSave(){
+
+        if($this->status == Requests::STATUS_BROKEN || $this->status == Requests::STATUS_CANCELED || $this->status == Requests::STATUS_PUBLISH){
+            foreach ($this->parts as $part) {
+                $part->status = Parts::STATUS_PUBLISH;
+                $part->update(array('status'));
+            }
+            
+            //delete task from cron
+            $this->deleteTaskFromCron();
+        }
+
+        parent::afterSave();
+    }
+
+    public function afterDelete(){
+
+        foreach ($this->parts as $part) {
+            if($part->status == Parts::STATUS_RESERVED){
+                $part->status = Parts::STATUS_PUBLISH;
+                $part->update(array('status'));
+            }
+        }
+
+        $dbCommand = Yii::app()->db->createCommand();
+
+        $dbCommand->delete('{{PartsInRequest}}', 'request_id=:r_id', array(':r_id' => $this->id));
+        $dbCommand->delete('{{CheckUtilization}}', 'req_id=:r_id', array(':r_id' => $this->id));
+
+        //delete task from cron
+        $this->deleteTaskFromCron();
+
+        parent::afterDelete();
+    }
+
+    public function cancel(){ //set status STATUS_CANCELED
+        $this->status = Requests::STATUS_CANCELED;
+        $this->update(array('status'));
+    }
+
+    public function publish(){ //set status STATUS_PUBLISH
+        $this->status = Requests::STATUS_PUBLISH;
+        $this->update(array('status'));
+    }
+
+    public function deleteTaskFromCron(){
+        $cron = new Crontab('cron_requests'); // my_crontab file will store all added jobs
+
+        $jobs_obj = $cron->getJobs(); // previous jobs saved in my_crontab
+
+        foreach($jobs_obj as $k => $job){
+            $command = $job->getCommand();
+            $find = '--id='.$this->id;
+            if($find == substr($command, -1 * strlen($find)))
+                $cron->deleteJob($k);
+        }
+
+        $cron->saveCronFile(); // save to my_crontab cronfile
+        $cron->saveToCrontab(); // adds all my_crontab jobs to system (replacing previous my_crontab jobs)
     }
 }

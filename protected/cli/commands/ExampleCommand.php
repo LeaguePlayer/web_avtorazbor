@@ -5,7 +5,10 @@
  */
 class ExampleCommand extends CConsoleCommand {
     public function run($args) {
-		echo "Это тестовая консольная команда.\n";
+		$part = Parts::model()->findByPk(1);
+
+		$part->name = 'Стартер111';
+		$part->update(array('name'));
     }
 }
 ?>

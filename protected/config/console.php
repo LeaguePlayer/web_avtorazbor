@@ -17,7 +17,10 @@ return array(
     'import'=>array(
         'application.models.*',
         'application.components.*',
-        //'application.behaviors.*',
+        // 'admin.behaviors.*',
+    ),
+    'aliases'=>array(
+        'appext'=>'application.extensions',
     ),
 
     // application components
@@ -70,6 +73,9 @@ return array(
             'connectionID'=>'db',
             // алиас шаблона для новых миграций
             'templateFile'=>'application.cli.migrations.MigrationTemplate',
+        ),
+        'request' => array(
+            'class' => 'application.cli.commands.RequestCommand',
         )
     ),
 );

@@ -13,6 +13,7 @@ class AdminModule extends EWebModule
             'admin.components.*',
             'admin.helpers.*',
             'appext.EPhpThumb.EPhpThumb',
+            'application.extensions.crontab.*',
         ));
 
         $this->setComponents(array(

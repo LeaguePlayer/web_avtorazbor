@@ -210,7 +210,6 @@ class PartsController extends AdminController
 		}
 	}
 
-
 	public function actionAllJson($q, $req_id){
 		header('Content-type: application/json');
 
@@ -224,6 +223,16 @@ class PartsController extends AdminController
 		$notIn[] = Parts::STATUS_RESERVED;
 		$notIn[] = Parts::STATUS_UTIL;
 
+		//get parts belongs to request
+		$req_parts = Yii::app()->db->createCommand()
+			->select('p.id')
+			->from('{{Parts}} as p')
+			->join('{{PartsInRequest}} as pr', 'p.id=pr.part_id')
+			->where('pr.request_id = :req_id', array(':req_id' => $request->id))
+			->queryColumn();
+
+		$req_parts = implode(',', $req_parts);
+
 		$result = Yii::app()->db->createCommand()
 			->select('p.id,p.name as text')
 			->from('{{Parts}} as p')
@@ -231,6 +240,7 @@ class PartsController extends AdminController
 			// ->andWhere('pr.part_id IS NULL')
 			->andWhere('pr.request_id != :req_id OR pr.request_id IS NULL', array(':req_id' => $request->id))
 			->andWhere(array('not in', 'status', $notIn))
+			->andWhere(array('not in', 'p.id', $req_parts))
 			->andWhere(array('like', 'name', '%'.$q.'%'))
 			->queryAll();
 

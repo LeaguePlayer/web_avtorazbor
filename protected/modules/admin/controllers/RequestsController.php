@@ -2,6 +2,7 @@
 
 class RequestsController extends AdminController
 {
+
 	public function actionCreate(){
 		$model = new Requests;
 
@@ -51,16 +52,7 @@ class RequestsController extends AdminController
 			$request->attributes = $_POST['Requests'];
 
 			if($request->validate()){
-				if(isset($_POST['Utilization'])){ //Есть детали на утилизацию
-
-					//записываем во временную таблицу запчасти которые могут попасть в утилизацию
-					foreach ($_POST['Utilization'] as $util_part_id) {
-						Yii::app()->db->createCommand()->insert('{{CheckUtilization}}',array(
-							'req_id' => $request->id,
-							'part_id' => $util_part_id
-						));
-					}
-				}
+				$this->checkUtilization();
 
 				//reserv parts
 				foreach ($request->parts as $part) {
@@ -70,6 +62,9 @@ class RequestsController extends AdminController
 
 				$request->status = Requests::STATUS_PARTS_RESERVED;
 				$request->save(false);
+
+				//set cron task
+				$this->addCronTask($request);
 
 				$this->redirect($this->createUrl('step2', array('id' => $request->id)));
 			}
@@ -91,16 +86,7 @@ class RequestsController extends AdminController
 			$request->attributes = $_POST['Requests'];
 
 			if($request->validate()){
-				if(isset($_POST['Utilization'])){ //Есть детали на утилизацию
-
-					//записываем во временную таблицу запчасти которые могут попасть в утилизацию
-					foreach ($_POST['Utilization'] as $util_part_id) {
-						Yii::app()->db->createCommand()->insert('{{CheckUtilization}}',array(
-							'req_id' => $request->id,
-							'part_id' => $util_part_id
-						));
-					}
-				}
+				$this->checkUtilization();
 
 				$request->status = Requests::STATUS_WAIT_BUY;
 				$request->save(false);
@@ -138,7 +124,7 @@ class RequestsController extends AdminController
 
 
 	/**
-	 * Delete action
+	 * Delete request action
 	 */
 	public function actionDelete($id){
 		$model = Requests::model()->findByPk($id);
@@ -146,24 +132,11 @@ class RequestsController extends AdminController
 		if(!$model) 
 			throw new CHttpException(404, 'Данные не найдены');
 
-		foreach ($model->parts as $part) {
-			if($part->status == Parts::STATUS_RESERVED){
-				$part->status = Parts::STATUS_PUBLISH;
-				$part->update(array('status'));
-			}
-		}
-
-		$dbCommand = Yii::app()->db->createCommand();
-
-		$dbCommand->delete('{{PartsInRequest}}', 'request_id=:r_id', array(':r_id' => $model->id));
-		$dbCommand->delete('{{CheckUtilization}}', 'req_id=:r_id', array(':r_id' => $model->id));
-
 		$model->delete();
-
 	}
 
 	/**
-	 * Action for Utilization parts
+	 * Action for Utilization parts STEP 4
 	 */
 	
 	public function actionUtilization(){
@@ -184,7 +157,7 @@ class RequestsController extends AdminController
 		$this->redirect($_SERVER['HTTP_REFERER']);
 	}
 
-	public function actionGetParts(){
+	/*public function actionGetParts(){
 		header('Content-type: application/json');
 
 		// $model = Requests::model()->findByPk($id);
@@ -192,9 +165,9 @@ class RequestsController extends AdminController
 		echo CJSON::encode(Parts::model()->findByPk(1));
 
 		Yii::app()->end();
-	}
+	}*/
 
-	public function actionAddPart($request_id, $part_id){
+	public function actionAddPart($request_id, $part_id, $step = 1){
 		
 		$model = Requests::model()->findByPk($request_id);
 		$part = Parts::model()->findByPk($part_id);
@@ -209,8 +182,10 @@ class RequestsController extends AdminController
 			'part_id' => $part_id
 		));
 
-		/*$part->status = Parts::STATUS_RESERVED;
-		$part->update(array('status'));*/
+		if($step == 2){ //сразу на резерв
+			$part->status = Parts::STATUS_RESERVED;
+			$part->update(array('status'));
+		}
 
 		$this->renderPartial('step1/_body_parts', array('model' => $model));
 
@@ -240,6 +215,10 @@ class RequestsController extends AdminController
 		Yii::app()->end();
 	}
 
+
+	/**
+	 * Change price Part
+	 */
 	public function actionChangePrice($request_id, $part_id, $price){
 		$model = Requests::model()->findByPk($request_id);
 		$part = Parts::model()->findByPk($part_id);
@@ -257,6 +236,9 @@ class RequestsController extends AdminController
 		Yii::app()->end();
 	}
 
+	/**
+	 * Cancel Request
+	 */
 	public function actionCancel($id){
 
 		$request = Requests::model()->findByPk($id);
@@ -264,43 +246,99 @@ class RequestsController extends AdminController
 		if(!$request)
 			throw new CHttpException(404, 'Данные не найдены');
 
-		foreach ($request->parts as $part) {
-			$part->status = Parts::STATUS_PUBLISH;
-			$part->update(array('status'));
-		}
-
-		$request->status = Requests::STATUS_CANCELED;
-		$request->update(array('status'));
+		$request->cancel();
 
 		$this->redirect($this->createUrl('list'));
 	}
 
+	/**
+	 * Change status Request
+	 */
 	public function actionChange($id, $status){
 		$request = Requests::model()->findByPk($id);
 
 		if(!$request)
 			throw new CHttpException(404, 'Данные не найдены');
 
-		if($status == Requests::STATUS_PUBLISH){
-
-			foreach ($request->parts as $part) {
-				$part->status = Parts::STATUS_PUBLISH;
-				$part->update(array('status'));
-			}
-
-			$request->status = Requests::STATUS_PUBLISH;
-			$request->update(array('status'));
-
-		}elseif($status == Requests::STATUS_CANCELED){
-			foreach ($request->parts as $part) {
-				$part->status = Parts::STATUS_PUBLISH;
-				$part->update(array('status'));
-			}
-
-			$request->status = Requests::STATUS_CANCELED;
-			$request->update(array('status'));
-		}
+		if($status == Requests::STATUS_PUBLISH) $request->publish();
+		elseif($status == Requests::STATUS_CANCELED) $request->cancel();
 
 		Yii::app()->end();
+	}
+
+	/**
+	 * Add Cron task for unactive Request
+	 */
+	private function addCronTask($request){
+		$cron = new Crontab('cron_requests'); // my_crontab file will store all added jobs
+
+		$request->deleteTaskFromCron();
+		//$cron->eraseJobs();
+
+		// Осуществим проход массива и выведем содержимое в виде HTML-кода вместе с номерами строк.
+		// foreach ($lines as $line) {
+		// 	var_dump($line);
+		// 	var_dump(strpos($line, '--id='.$request->id));
+		// 	if(strpos($line, '--id='.$request->id) !== false)
+		//     	echo "Строка : " . htmlspecialchars($line) . "<br />\n";
+		// }
+
+		//print_r($tmp);
+		// die();
+		
+		/*$jobs_obj = $cron->getJobs(); // previous jobs saved in my_crontab
+
+		foreach($jobs_obj as $job)
+			echo $job->getCommand();
+
+		$cron->eraseJobs(); // erase all previous jobs in my_crontab*/
+
+		$now = new DateTime('NOW', new DateTimeZone('Asia/Yekaterinburg'));
+
+		$request_time = Settings::getValue('request_time') ? Settings::getValue('request_time') : 24;
+		$now->modify( '+'.$request_time.' hour' );
+
+		// Application console job
+		$cron->addApplicationJob('protected/yiic', 'request broken --id='.$request->id, array(), $now->format('i'), $now->format('G'), $now->format('j'), $now->format('n'));
+		// $cron->addApplicationJob('protected/yiic', 'request broken --id='.$request->id, array(), '28', '14', $now->format('j'), $now->format('n'));
+
+		// to change job values:
+		/*$jobs_obj = $cron->getJobs();
+		$jobs_obj[0]->setParams(array("'datetime'"));
+		$jobs_obj[0]->setCommandName('test');
+
+		// <= adds a job with: * * * * * php /home/user/my_project/www/yiicmd.php test 'datetime'
+
+		// add an other job
+		$job = new CronApplicationJob('yiicmd', 'test', array("'datetime"), '0', '0'); // run every day
+		$job->setParams(array("'date'"));
+		$cron->add($job);
+
+		// <= adds a second job with: 0 0 * * * php /home/user/my_project/www/yiicmd.php test 'date'
+
+		// add a regular cron job
+		$cron->addJob('/home/user/myprogram.bin', '0', '0', '*', '*', '1'); // run every monday
+		$jobs_obj = $cron->getJobs();
+		echo $jobs_obj[2]->getCommand();
+		*/
+		// <= adds a third job with: 0 0 * * 1 /home/user/myprogram.bin 
+
+		//$cron->removeJob(2); // removes job with offset 2 (last added here)
+
+		$cron->saveCronFile(); // save to my_crontab cronfile
+
+		$cron->saveToCrontab(); // adds all my_crontab jobs to system (replacing previous my_crontab jobs)
+	}
+
+	private function checkUtilization(){
+		if(isset($_POST['Utilization'])){ //Есть детали на утилизацию
+			//записываем во временную таблицу запчасти которые могут попасть в утилизацию
+			foreach ($_POST['Utilization'] as $util_part_id) {
+				Yii::app()->db->createCommand()->insert('{{CheckUtilization}}',array(
+					'req_id' => $request->id,
+					'part_id' => $util_part_id
+				));
+			}
+		}
 	}
 }

@@ -18,8 +18,8 @@ $this->menu=array(
     )',
 	'columns'=>array(
 		'label',
-		'type',
-		'name',
+		/*'type',
+		'name',*/
 		array(
 			'name'=>'type_id',
 			'type'=>'raw',

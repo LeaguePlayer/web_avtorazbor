@@ -34,7 +34,7 @@
                 array('label'=>'Кабинет заявок', 'url'=>'/admin/requests'),
 				array('label'=>'Авто ассортимент', 'url'=>'/admin/parts'),
 				array('label'=>'Документы', 'url'=>'/admin/documents'),
-				array('label'=>'Настройки', 'url'=>'#'),
+				array('label'=>'Настройки', 'url'=>'/admin/settings'),
 			);
 
 			$subItems = array(
