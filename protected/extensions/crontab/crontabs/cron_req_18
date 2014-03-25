@@ -1,2 +1,0 @@
-28 14 25 3 * php /var/www/razbor/yiic.php request broken --id=18
-28 14 25 3 * php /var/www/razbor/protected/yiic.php request broken --id=18

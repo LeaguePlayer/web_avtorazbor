@@ -379,7 +379,7 @@ class Cronjob
 	 */
 	static function parseFromCommand($command)
 	{
-		$vars = split("[ \t]",ltrim($command, " \t"), 6);
+		$vars = preg_split("[ \t]",ltrim($command, " \t"), 6);
 		
 		if(count($vars) < 5)
 			return false;
@@ -510,7 +510,7 @@ class CronApplicationJob extends Cronjob
 	 */
 	static function parseFromCommand($command)
 	{
-		$vars = split("[ \t]",ltrim($command, " \t"), 6);
+		$vars = preg_split("[ \t]",ltrim($command, " \t"), 6);
 		
 		if(count($vars) < 5)
 			return false;
@@ -542,7 +542,7 @@ class CronApplicationJob extends Cronjob
 	 */
 	static function isApplicationJob($line)
 	{
-		$vars = split("[ \t]",ltrim(ltrim($line), "\t"), 6);
+		$vars = preg_split("[ \t]",ltrim(ltrim($line), "\t"), 6);
 		
 		if(count($vars) < 5)
 			return false;
