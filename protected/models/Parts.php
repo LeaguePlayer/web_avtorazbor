@@ -27,6 +27,7 @@ class Parts extends EActiveRecord
     const STATUS_DEFAULT = self::STATUS_PUBLISH;
     const STATUS_RESERVED = 4;
     const STATUS_UTIL = 5;
+    const STATUS_SUCCESS = 6;
 
     public $max_sort;
 
@@ -38,6 +39,7 @@ class Parts extends EActiveRecord
             self::STATUS_REMOVED => 'Удален',
             self::STATUS_RESERVED => 'Зарезервирован',
             self::STATUS_UTIL => 'Утилизирован',
+            self::STATUS_SUCCESS => 'Оплачен',
         );
 
         if ($status > -1)
@@ -57,7 +59,7 @@ class Parts extends EActiveRecord
         return array(
             array('name, price_sell', 'required'),
             array('category_id, car_model_id, location_id, supplier_id, status, gallery_id', 'numerical', 'integerOnly'=>true),
-            array('name, artId', 'length', 'max'=>255),
+            array('name', 'length', 'max'=>255),
             array('price_sell, price_buy', 'length', 'max'=>10),
             array('comment, create_time, usedCar', 'safe'),
             // The following rule is used by search().
@@ -102,7 +104,7 @@ class Parts extends EActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
+            'id' => 'Артикул',
             'name' => 'Название',
             'price_sell' => 'Стоимость (на продажу)',
             'price_buy' => 'Стоимость (покупка)',
@@ -113,8 +115,7 @@ class Parts extends EActiveRecord
             'supplier_id' => 'Поставщик',
             'create_time' => 'Дата создания',
             'status' => 'Статус',
-            'gallery_id' => 'Галерея',
-            'artId' => 'Артикул'
+            'gallery_id' => 'Галерея'
         );
     }
 
@@ -135,6 +136,8 @@ class Parts extends EActiveRecord
 		$criteria->compare('supplier_id',$this->supplier_id);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('status',$this->status);
+
+        $criteria->order = 'create_time DESC';
 
         if($this->usedCar){
             // print_r($this->usedCar);
@@ -218,6 +221,10 @@ class Parts extends EActiveRecord
             $this->create_time = date("Y-m-d H:i:s");
 
         return parent::beforeSave();
+    }
+
+    public function afterSave(){
+        parent::afterSave();
     }
 
     /**

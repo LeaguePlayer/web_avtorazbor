@@ -1,7 +1,7 @@
 
-	<?php echo $form->textFieldControlGroup($model,'name',array('class'=>'span8','maxlength'=>255)); ?>
+	<?php //echo $form->textFieldControlGroup($model,'name',array('class'=>'span8','maxlength'=>255)); ?>
 
-	<?php echo $form->textFieldControlGroup($model,'artId',array('class'=>'span8','maxlength'=>255)); ?>
+	<?php //echo $form->textFieldControlGroup($model,'artId',array('class'=>'span8','maxlength'=>255)); ?>
 
 	<?php echo $form->textFieldControlGroup($model,'price_sell',array('class'=>'span8','maxlength'=>6)); ?>
 
@@ -12,7 +12,7 @@
 	<div class="control-group">
 		<label class="control-label" for="Parts_category_id"><?=$model->getAttributeLabel('category_id')?></label>
 		<div class="controls">
-			<?php $this->widget('ext.select2.ESelect2', array(
+			<?php /*$this->widget('ext.select2.ESelect2', array(
 				'model'=>$model,
 				'attribute'=>'category_id',
 				'data'=>CHtml::listData(Categories::all(), 'id', 'name'),
@@ -20,7 +20,24 @@
 					'containerCssClass' => 'span8 no-float',
 					// 'placeholder'=>'Категория',
 				)
-			)); ?>
+			));*/ ?>
+
+			<?php $this->widget('yiiwheels.widgets.select2.WhSelect2', array(
+				'model'=>$model,
+				'attribute'=>'category_id',
+				'asDropDownList' => false,
+				'pluginOptions' => array(
+					'width' => '40%',
+					'ajax' => array(
+						'url' => '/admin/categories/allJson',
+						'dataType' => 'json',
+						'quietMillis' => 300,
+						'data' => 'js: function(term, page){return {q: term, emptyField: false};}',
+						'results' => 'js: function(data, page){return { results: data };}'
+					),
+					'initSelection' => 'js:function (element, callback) {var id=$(element).val(); $.getJSON("/admin/categories/getOneById", {id: id}, function(data) { callback(data); }) }'
+				)
+			));?>
 		</div>
 	</div>
 	<div class="control-group">
@@ -188,10 +205,11 @@
 						'containerCssClass' => 'span8 no-float',
 					)
 				)); ?>
+				<div>&nbsp;</div>
+				<div>&nbsp;</div>
 			</div>
 		</div>
 	</fieldset>
-	<div>&nbsp;</div>
 <?
 	$cs = Yii::app()->getClientScript();
 

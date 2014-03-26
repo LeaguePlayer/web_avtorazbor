@@ -74,7 +74,8 @@ class Requests extends EActiveRecord
         return array(
             'client' => array(self::BELONGS_TO, 'Clients', 'client_id'),
             'employee' => array(self::BELONGS_TO, 'Employees', 'check_user_id'),
-            'parts' => array(self::MANY_MANY, 'Parts', '{{PartsInRequest}}(request_id, part_id)')
+            'parts' => array(self::MANY_MANY, 'Parts', '{{PartsInRequest}}(request_id, part_id)'),
+            'parts_in_util' => array(self::MANY_MANY, 'Parts', '{{CheckUtilization}}(req_id, part_id)')
         );
     }
 
@@ -115,6 +116,8 @@ class Requests extends EActiveRecord
 		$criteria->compare('status',$this->status);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
+
+        $criteria->order = 'create_time DESC';
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
         ));
@@ -155,6 +158,17 @@ class Requests extends EActiveRecord
         if($this->status == Requests::STATUS_BROKEN || $this->status == Requests::STATUS_CANCELED || $this->status == Requests::STATUS_PUBLISH){
             foreach ($this->parts as $part) {
                 $part->status = Parts::STATUS_PUBLISH;
+                $part->update(array('status'));
+            }
+
+            //delete task from cron
+            $this->deleteTaskFromCron();
+        }
+
+        //оплачено
+        if($this->status == Requests::STATUS_SUCCESS){
+            foreach ($this->parts as $part) {
+                $part->status = Parts::STATUS_SUCCESS;
                 $part->update(array('status'));
             }
 

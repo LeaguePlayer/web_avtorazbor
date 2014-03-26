@@ -150,8 +150,8 @@
 
 	//remove part from request
 	jQuery('.requests').on('click', '.remove-part', function(){
-		var part_id = jQuery(this).data('id'),
-			req_id = jQuery('.requests').data('request-id');
+		var part_id = parseInt(jQuery(this).data('id'), 10),
+			req_id = parseInt(jQuery('.requests').data('request-id'), 10);
 
 		if(req_id && part_id && typeof part_id === 'number'){
 			jQuery('.utilization').append('<div class="part-'+part_id+'"><input type="hidden" name="Utilization[]" value="'+part_id+'"></div>');

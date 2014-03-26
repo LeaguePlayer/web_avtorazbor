@@ -39,13 +39,14 @@ class UsedCars extends EActiveRecord
     public function rules()
     {
         return array(
-            array('car_model_id, vin', 'required'),
+            array('car_model_id, vin, name', 'required'),
             array('car_model_id, status', 'numerical', 'integerOnly'=>true),
+            array('name', 'length', 'max'=>255),
             array('vin', 'length', 'max'=>20),
             array('price', 'length', 'max'=>10),
             array('comment, year, enter_date', 'safe'),
             // The following rule is used by search().
-            array('id, car_model_id, vin, price, comment, status', 'safe', 'on'=>'search'),
+            array('id, car_model_id, vin, price, comment, status, name', 'safe', 'on'=>'search'),
         );
     }
 
@@ -72,7 +73,8 @@ class UsedCars extends EActiveRecord
             'comment' => 'Комментарий',
             'status' => 'Назначение',
             'year' => 'Год выпуска',
-            'enter_date' => 'Дата поступления'
+            'enter_date' => 'Дата поступления',
+            'name' => 'Марка, модель (как в ПТС)'
         );
     }
 
@@ -82,10 +84,13 @@ class UsedCars extends EActiveRecord
         $criteria=new CDbCriteria;
         $criteria->compare('id',$this->id);
         $criteria->compare('car_model_id',$this->car_model_id);
+        $criteria->compare('name',$this->name,true);
         $criteria->compare('vin',$this->vin,true);
         $criteria->compare('price',$this->price,true);
         $criteria->compare('comment',$this->comment);
         $criteria->compare('status',$this->status);
+
+         $criteria->order = 'enter_date DESC';
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
         ));

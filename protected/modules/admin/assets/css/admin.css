@@ -106,6 +106,10 @@ form .line{
 #requests-grid .status_1{background-color: #FFF39D;}
 #requests-grid .status_2{background-color: rgb(206, 112, 112);}
 
+.select2-drop ul.select2-results{
+  max-height: 350px;
+}
+
 @media print {
   body{
     padding: 0;

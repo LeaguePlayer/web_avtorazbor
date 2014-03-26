@@ -17,6 +17,7 @@ $this->menu=array(
         "class"=>"status_".(isset($data->status) ? $data->status : ""),
     )',
 	'columns'=>array(
+		'name',
 		array(
 			'name' => 'car_model_id',
 			'type' => 'html',

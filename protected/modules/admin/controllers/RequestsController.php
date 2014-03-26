@@ -2,6 +2,7 @@
 
 class RequestsController extends AdminController
 {
+	public $layout = '/layouts/custom';
 
 	public function actionCreate(){
 		$model = new Requests;
@@ -52,7 +53,7 @@ class RequestsController extends AdminController
 			$request->attributes = $_POST['Requests'];
 
 			if($request->validate()){
-				$this->checkUtilization();
+				$this->checkUtilization($request);
 
 				//reserv parts
 				foreach ($request->parts as $part) {
@@ -86,7 +87,7 @@ class RequestsController extends AdminController
 			$request->attributes = $_POST['Requests'];
 
 			if($request->validate()){
-				$this->checkUtilization();
+				$this->checkUtilization($request);
 
 				$request->status = Requests::STATUS_WAIT_BUY;
 				$request->save(false);
@@ -108,15 +109,15 @@ class RequestsController extends AdminController
 			throw new CHttpException(404, 'Заявка не найдена!');
 
 		if(isset($_POST['Requests'])){
-			$request->attributes = $_POST['Requests'];
+			$request->status = Requests::STATUS_SUCCESS;
 
-			if($request->validate()){
+			$request->update(array('status'));
 
-				$request->status = Requests::STATUS_WAIT_BUY;
-				$request->save(false);
-
-				//$this->redirect($this->createUrl('step3', array('id' => $request->id)));
+			if($request->parts_in_util){
+				$this->redirect($this->createUrl('utilization', array('id' => $request->id)));
 			}
+
+			$this->redirect($this->createUrl('list'));
 		}
 
 		$this->render('step3/update', array('model' => $request));
@@ -139,7 +140,11 @@ class RequestsController extends AdminController
 	 * Action for Utilization parts STEP 4
 	 */
 	
-	public function actionUtilization(){
+	public function actionUtilization($id){
+		$request = Requests::model()->findByPk($id);
+
+		if(!$request)
+			throw new CHttpException(404, 'Заявка не найдена!');
 
 		if(isset($_POST['Parts']) && !empty($_POST['Parts'])){
 			foreach ($_POST['Parts'] as $part) {
@@ -152,9 +157,12 @@ class RequestsController extends AdminController
 					$part_model->update(array('status', 'comment'));
 				}
 			}
+			Yii::app()->db->createCommand()->delete('{{CheckUtilization}}', 'req_id=:r_id', array(':r_id' => $request->id));
+			$this->redirect($this->createUrl('list'));
 		}
 
-		$this->redirect($_SERVER['HTTP_REFERER']);
+		$this->render('utilization', array('parts' => $request->parts_in_util));
+		//$this->redirect($_SERVER['HTTP_REFERER']);
 	}
 
 	/*public function actionGetParts(){
@@ -330,7 +338,7 @@ class RequestsController extends AdminController
 		$cron->saveToCrontab(); // adds all my_crontab jobs to system (replacing previous my_crontab jobs)
 	}
 
-	private function checkUtilization(){
+	private function checkUtilization($request){
 		if(isset($_POST['Utilization'])){ //Есть детали на утилизацию
 			//записываем во временную таблицу запчасти которые могут попасть в утилизацию
 			foreach ($_POST['Utilization'] as $util_part_id) {

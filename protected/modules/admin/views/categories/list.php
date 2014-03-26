@@ -21,7 +21,16 @@ $this->menu=array(
 		array(
 			'header' => '',
 			'type' => 'raw',
-			'value' => '$data->parent==0 ? CHtml::link(TbHtml::icon(TbHtml::ICON_PLUS), "#", array("class" => "show-sub", "data-id" => $data->id)) : ""'
+			'value' => function($data, $row){
+
+				if($data->parent == 0){
+					return $data->inCookies() ? 
+						CHtml::link(TbHtml::icon(TbHtml::ICON_MINUS), "#", array("class" => "hide-sub", "data-id" => $data->id)) : 
+						CHtml::link(TbHtml::icon(TbHtml::ICON_PLUS), "#", array("class" => "show-sub", "data-id" => $data->id));
+				}
+
+				return '';
+			}
 		),
 		array(
 			'name' => 'name',
@@ -48,19 +57,25 @@ $this->menu=array(
 <?php if($model->hasAttribute('sort')) Yii::app()->clientScript->registerScript('sortGrid', 'sortGrid("category");', CClientScript::POS_END) ;?>
 
 <script>
+	//show
 	jQuery('#main-content').on('click', '.show-sub', function(){
 		var id = jQuery(this).data('id');
 
 		jQuery('#category-grid').yiiGridView('update', {
 			type: 'GET',
 			url: "",
-			data: {show: id},
-			success: function(data) {
+			data: {show: id}
+		});
+	});
 
-			},
-			error: function(XHR) {
-				
-			}
+	//hide
+	jQuery('#main-content').on('click', '.hide-sub', function(){
+		var id = jQuery(this).data('id');
+
+		jQuery('#category-grid').yiiGridView('update', {
+			type: 'GET',
+			url: "",
+			data: {hide: id}
 		});
 	});
 </script>

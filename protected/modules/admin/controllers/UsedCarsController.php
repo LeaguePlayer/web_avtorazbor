@@ -2,6 +2,8 @@
 
 class UsedCarsController extends AdminController
 {
+	public $layout = '/layouts/custom';
+
 	public function actionCreate(){
 		$model = new UsedCars;
 		$dop = new UsedCarInfo;

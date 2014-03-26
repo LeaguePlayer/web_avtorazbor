@@ -1,7 +1,7 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'clients-form',
 	'enableAjaxValidation'=>false,
-	'htmlOptions' => (isset($valid) && $valid) ? array('data-valid' => $valid, 'data-id' => $model->id, 'data-text' => $info->name_company) : array()
+	'htmlOptions' => (isset($valid) && $valid) ? array('data-valid' => $valid, 'data-id' => $model->id, 'data-text' => $model->info ? $model->info->name_company : $model->fio) : array()
 )); ?>
 
 	<?php echo $form->errorSummary($model); ?>

@@ -5,7 +5,6 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'requests-form',
 	'enableAjaxValidation'=>false,
-	'action' => $this->createUrl('utilization')
 )); ?>
 
 <div class="utilization">
@@ -43,7 +42,7 @@
 	</table>
 </div>
 <div class="form-actions">
-	<?php echo TbHtml::link('Пропустить щаг', $this->createUrl('update', array('id' => $model->id))); ?>
+	<?php echo TbHtml::link('Пропустить щаг', $this->createUrl('list')); ?>
 	<?php echo TbHtml::submitButton('Утилизировать', array('color' => TbHtml::BUTTON_COLOR_DANGER)); ?>
 </div>
 <?php $this->endWidget(); ?>

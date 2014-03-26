@@ -32,6 +32,7 @@ $this->menu=array(
         "class"=>"status_".(isset($data->status) ? $data->status : ""),
     )',
 	'columns'=>array(
+		'id',
 		array(
 			'header' => 'Фото',
 			'type' => 'html',

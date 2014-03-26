@@ -29,6 +29,7 @@
 			var $form = jQuery('#clients-form'),
 				valid = $form.data('valid');
 
+			console.log({id: $form.data('id'), text: $form.data('text')});
 			if(valid){
 				jQuery('#Requests_client_id').select2('data', {id: $form.data('id'), text: $form.data('text')});
 				jQuery('#client-modal').modal('hide');

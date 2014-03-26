@@ -94,18 +94,7 @@
 			)
 		)); ?>
 		<div class="container-fluid">
-			<div class="row-fluid">
-				<div class="span1">
-				<?php $this->widget('bootstrap.widgets.TbNav', array(
-					'type' => TbHtml::NAV_TYPE_TABS,
-					'stacked' => true,
-					'items'=> $this->menu
-					)); ?>
-				</div>
-				<div class="span11">
-					<?php echo $content;?>
-				</div>
-			</div>
+			<?php echo $content; ?>
 		</div>
 	</body>
 </html>

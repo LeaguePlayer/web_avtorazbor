@@ -32,7 +32,7 @@ class Categories extends EActiveRecord
     {
         return array(
             'cat_parent' => array(self::BELONGS_TO, 'Categories', 'parent'),
-            'children' => array(self::HAS_MANY, 'Categories', 'parent'),
+            'children' => array(self::HAS_MANY, 'Categories', 'parent', 'order'=>'name'),
             'partsCount' => array(self::STAT, 'Parts', 'category_id')
         );
     }
@@ -49,15 +49,11 @@ class Categories extends EActiveRecord
     }
 
 
-    public function search($show = array())
+    public function search()
     {
         $criteria=new CDbCriteria;
 		$criteria->compare('id',$this->id);
 		$criteria->compare('t.name',$this->name,true);
-		
-        if(!$this->name)
-            $criteria->compare('parent',0);
-
 		$criteria->compare('sort',$this->sort);
         // $criteria->order = 'parent';
         // $criteria->with = 'children';
@@ -66,11 +62,6 @@ class Categories extends EActiveRecord
         // $criteria->limit = 10;
         // $criteria->join = 'LEFT JOIN '.$this->tableName().' as t2 ON t.id=t2.parent';
         // $criteria->addCondition('parent=0');
-
-        if(is_array($show) && !empty($show)){
-            $criteria->addInCondition('parent', $show, 'OR');
-        }
-
         // return self::getTree($criteria);
         // $criteria->order = 'sort';
         return new CActiveDataProvider($this, array(
@@ -115,5 +106,10 @@ class Categories extends EActiveRecord
 
         // $criteria->select = 'id, name';
         return $data;
+    }
+
+    public function inCookies(){
+        $show_array = isset(Yii::app()->request->cookies['show']) ? unserialize(Yii::app()->request->cookies['show']->value) : array();
+        return in_array($this->id, $show_array);
     }
 }

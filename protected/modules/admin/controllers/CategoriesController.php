@@ -61,60 +61,112 @@ class CategoriesController extends AdminController
 	}
 
 	public function actionList(){
-		$model = new Categories;
 
-		// TODO	Переписать !!!
+		$filter = false;
+		$model = new Categories;
 		$show_array = isset(Yii::app()->request->cookies['show']) ? unserialize(Yii::app()->request->cookies['show']->value) : array();
 
+		//show GET
 		if(isset($_GET['show']) && $_GET['show'] > 0){
 			if(!in_array($_GET['show'], $show_array)) $show_array[] = $_GET['show'];
 			
 			Yii::app()->request->cookies['show'] = new CHttpCookie('show', serialize($show_array));
 		}
-        
-        if(isset($_GET['Categories']))
-            $model->attributes = $_GET['Categories'];
-        
-        $data = $model->search();
-        $result = array();
-        foreach ($data->data as $d) {
-        	$result[] = $d;
-        	if(in_array($d->id, $show_array))
-        		$result += $d->children;
-        };
 
-        $data = new CArrayDataProvider($result, array(
-        	'pagination' => false
-        ));
+		//hide GET
+		if(isset($_GET['hide']) && $_GET['hide'] > 0){
+			if(in_array($_GET['hide'], $show_array)){
+				$i = array_search($_GET['hide'], $show_array);
+
+				if($i >= 0 && isset($show_array[$i])) unset($show_array[$i]);
+			}
+			
+			Yii::app()->request->cookies['show'] = new CHttpCookie('show', serialize($show_array));
+		}
+
+		$data = null;
+
+		if(isset($_GET['Categories']) && !empty($_GET['Categories']['name'])){
+			$filter = true;
+			$model->attributes = $_GET['Categories'];
+		}
+
+		if($filter){
+			//grid filter
+			$data = $model->search();
+		}else{
+			$result = array();
+	    	$roots = Categories::model()->findAll('parent=0');
+
+			foreach ($roots as $root) {
+				$result[] = $root;
+
+				if(!empty($root->children) && $root->inCookies()) $result = array_merge($result, $root->children);
+			}
+
+			$data = new CArrayDataProvider($result, array(
+	        	'pagination' => false
+	        ));
+		}
+
 
         if(Yii::app()->request->isAjaxRequest)
         	$this->renderPartial('list', array(
 	            'data' => $data,
 	            'model' => $model,
+	            'show_array' => $show_array,
 	            // 'showRemoved' => $showRemoved,
 	        ));
         else
 	        $this->render('list', array(
 	            'data' => $data,
 	            'model' => $model,
+	            'show_array' => $show_array,
 	            // 'showRemoved' => $showRemoved,
 	        ));
 	}
 
-	public function actionAllJson($q){
+	public function actionAllJson($q, $emptyField = true){
 		header('Content-type: application/json');
 
-		$result = Yii::app()->db->createCommand()
-			->select('id, name as text, parent')
-			->from('{{categories}}')
-			->where(array('like', 'name', '%'.$q.'%'))
-			->queryAll();
+		if(!is_bool($emptyField))
+			$emptyField = ($emptyField === 'true');
+
+		$result = array();
+		if(!$q){
+			$roots = Yii::app()->db->createCommand()
+				->select('id, name as text, parent')
+				->from('{{categories}}')
+				->where('parent=0')
+				->queryAll();
+
+			foreach ($roots as $root) {
+				$result[] = $root;
+
+				$children = Yii::app()->db->createCommand()
+					->select('id, name as text, parent')
+					->from('{{categories}}')
+					->where('parent=:root', array(':root' => $root['id']))
+					->order('name')
+					->queryAll();
+
+				if(!empty($children)) $result = array_merge($result, $children);
+			}
+		}else{
+			$result = Yii::app()->db->createCommand()
+				->select('id, name as text, parent')
+				->from('{{categories}}')
+				->where(array('like', 'name', '%'.$q.'%'))
+				->order('name')
+				->queryAll();
+		}
 
 		foreach ($result as $key => $d) {
             if($d['parent'] != 0) $result[$key]['text'] = "-- ".$d['text'];
         }
 
-		array_unshift($result, array('id' => 0, 'text' => 'Нет'));
+        if($emptyField)
+			array_unshift($result, array('id' => 0, 'text' => 'Нет'));
 
 		echo CJSON::encode($result);
 

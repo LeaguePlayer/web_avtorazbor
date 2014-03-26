@@ -69,7 +69,7 @@ class DocumentBuilder{
 
 		//-----------car info
 		$document->setValue('vin', $model->vin);
-		$document->setValue('marka_model', $model->model->car_brand->name.', '.$model->model->name);
+		$document->setValue('marka_model', $model->name);
 		$document->setValue('year', $model->year);
 		$document->setValue('model_num_engine', $model->dop->model_num_engine);
 		$document->setValue('chassis_num', $model->dop->chassis_num);

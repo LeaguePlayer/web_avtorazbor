@@ -22,7 +22,7 @@ $this->menu=array(
 			array(
 				'name'=>'client_id',
 				'type'=>'raw',
-				'value'=>'$data->client ? $data->client->info->name_company : ""'
+				'value'=>'$data->client ? ($data->client->type == 2 ? $data->client->info->name_company : $data->client->fio) : ""'
 			),
 			// 'check_user_id',
 			array(
