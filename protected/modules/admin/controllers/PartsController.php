@@ -160,6 +160,81 @@ class PartsController extends AdminController
 		Yii::app()->end();
 	}
 
+	public function actionAllJson($q, $req_id){
+		header('Content-type: application/json');
+
+		$request = Requests::model()->findByPk($req_id);
+
+		if(!$request)
+			throw new CHttpException(404, 'Заявка не найдена');
+
+		$notIn = array();
+
+		$notIn[] = Parts::STATUS_RESERVED;
+		$notIn[] = Parts::STATUS_UTIL;
+		$notIn[] = Parts::STATUS_SUCCESS;
+
+		//get parts belongs to request
+		$req_parts = Yii::app()->db->createCommand()
+			->select('p.id')
+			->from('{{Parts}} as p')
+			->join('{{PartsInRequest}} as pr', 'p.id=pr.part_id')
+			->where('pr.request_id = :req_id', array(':req_id' => $request->id))
+			->queryColumn();
+
+		$req_parts = implode(',', $req_parts);
+
+		$result = Yii::app()->db->createCommand()
+			->select('p.id, CONCAT(p.id," - ",p.name) as text')
+			->setDistinct(true)
+			->from('{{Parts}} as p')
+			->leftJoin('{{PartsInRequest}} as pr', 'p.id=pr.part_id')
+			// ->andWhere('pr.part_id IS NULL')
+			->andWhere('pr.request_id != :req_id OR pr.request_id IS NULL', array(':req_id' => $request->id))
+			->andWhere(array('not in', 'status', $notIn))
+			->andWhere(array('not in', 'p.id', $req_parts))
+			->andWhere(array('like', 'name', '%'.$q.'%'))
+			->queryAll();
+
+		// var_dump($result); die();
+		//array_unshift($result, array('id' => 0, 'text' => 'Нет'));
+
+		echo CJSON::encode($result);
+
+		Yii::app()->end();
+	}
+
+	public function actionUtilizationList(){
+		$this->layout = '/layouts/custom';
+		
+		$model = new Parts;
+
+		if(isset($_GET['Parts']))
+			$model->attributes = $_GET['Parts'];
+
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('status=:s');
+		$criteria->params[':s'] = Parts::STATUS_UTIL;
+
+		$data = new CActiveDataProvider('Parts', array(
+            'criteria'=>$criteria,
+        ));
+
+		$this->render('utilization_list', array('model' => $model, 'data' => $data));
+	}
+
+	public function actionDeleteFromUtilization($id){
+
+		$model = Parts::model()->findByPk($id);
+		if(!$model)
+			throw new CHttpException(404, 'Запчасть не найдена.');
+
+		$model->status = Parts::STATUS_PUBLISH;
+		$model->update(array('status'));
+
+		Yii::app()->end();
+	}
+
 	private function saveAnalogs($model){
 		
 		if(isset($_POST['Analogs_delete']) && !$model->isNewRecord){
@@ -214,49 +289,6 @@ class PartsController extends AdminController
 					$db->delete('{{Parts_UsedCars}}', 'parts_id=:p', array(':p' => $model->id));
 			}
 		}
-	}
-
-	public function actionAllJson($q, $req_id){
-		header('Content-type: application/json');
-
-		$request = Requests::model()->findByPk($req_id);
-
-		if(!$request)
-			throw new CHttpException(404, 'Заявка не найдена');
-
-		$notIn = array();
-
-		$notIn[] = Parts::STATUS_RESERVED;
-		$notIn[] = Parts::STATUS_UTIL;
-		$notIn[] = Parts::STATUS_SUCCESS;
-
-		//get parts belongs to request
-		$req_parts = Yii::app()->db->createCommand()
-			->select('p.id')
-			->from('{{Parts}} as p')
-			->join('{{PartsInRequest}} as pr', 'p.id=pr.part_id')
-			->where('pr.request_id = :req_id', array(':req_id' => $request->id))
-			->queryColumn();
-
-		$req_parts = implode(',', $req_parts);
-
-		$result = Yii::app()->db->createCommand()
-			->select('p.id, CONCAT(p.id," - ",p.name) as text')
-			->from('{{Parts}} as p')
-			->leftJoin('{{PartsInRequest}} as pr', 'p.id=pr.part_id')
-			// ->andWhere('pr.part_id IS NULL')
-			->andWhere('pr.request_id != :req_id OR pr.request_id IS NULL', array(':req_id' => $request->id))
-			->andWhere(array('not in', 'status', $notIn))
-			->andWhere(array('not in', 'p.id', $req_parts))
-			->andWhere(array('like', 'name', '%'.$q.'%'))
-			->queryAll();
-
-		// var_dump($result); die();
-		//array_unshift($result, array('id' => 0, 'text' => 'Нет'));
-
-		echo CJSON::encode($result);
-
-		Yii::app()->end();
 	}
 
 	/*public function actionGetOneById($id){

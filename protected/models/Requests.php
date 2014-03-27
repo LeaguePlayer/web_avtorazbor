@@ -60,9 +60,9 @@ class Requests extends EActiveRecord
     public function rules()
     {
         return array(
-            array('client_id', 'required'),
+            array('client_id, date_life', 'required'),
             array('client_id, check_user_id, from, status, user_id', 'numerical', 'integerOnly'=>true),
-            array('create_time, update_time', 'safe'),
+            array('create_time, update_time, date_life', 'safe'),
             // The following rule is used by search().
             array('id, client_id, check_user_id, from, status, create_time, update_time', 'safe', 'on'=>'search'),
         );
@@ -89,6 +89,7 @@ class Requests extends EActiveRecord
             'from' => 'Источник',
             'status' => 'Состояние',
             'user_id' => 'Пользователь',
+            'date_life' => 'Дата, когда заявка будет расформирована',
             'create_time' => 'Дата создания',
             'update_time' => 'Дата последнего редактирования',
         );
@@ -98,7 +99,7 @@ class Requests extends EActiveRecord
     public function behaviors()
     {
         return CMap::mergeArray(parent::behaviors(), array(
-        			'CTimestampBehavior' => array(
+        	'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'create_time',
                 'updateAttribute' => 'update_time',
@@ -225,5 +226,24 @@ class Requests extends EActiveRecord
 
         $cron->saveCronFile(); // save to my_crontab cronfile
         $cron->saveToCrontab(); // adds all my_crontab jobs to system (replacing previous my_crontab jobs)
+    }
+
+    public function beforeValidate(){
+        
+        if($this->date_life){
+            $date = \DateTime::createFromFormat('d.m.Y H:i', $this->date_life);
+            $this->date_life = $date->format('Y-m-d H:i:s');
+        }
+
+        return parent::beforeValidate();
+    }
+
+    public function afterFind(){
+        parent::afterFind();
+
+        if($this->date_life){
+            $date = \DateTime::createFromFormat('Y-m-d H:i:s', $this->date_life);
+            $this->date_life = $date->format('d.m.Y H:i');
+        }
     }
 }

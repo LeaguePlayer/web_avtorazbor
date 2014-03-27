@@ -25,7 +25,15 @@ class RequestsController extends AdminController
 		if(!$request)
 			throw new CHttpException(404, 'Заявка не найдена!');
 
-		switch ($request->status) {
+		if($request->status == Requests::STATUS_PARTS_RESERVED){
+			$this->redirect($this->createUrl('step2', array('id' => $request->id)));
+		}elseif($request->status == Requests::STATUS_WAIT_BUY){
+			$this->redirect($this->createUrl('step3', array('id' => $request->id)));
+		}
+
+		$this->redirect($this->createUrl('step1', array('id' => $request->id)));
+
+		/*switch ($request->status) {
 			case Requests::STATUS_PUBLISH:
 				$this->redirect($this->createUrl('step1', array('id' => $request->id)));
 				break;
@@ -37,7 +45,7 @@ class RequestsController extends AdminController
 			case Requests::STATUS_WAIT_BUY:
 				$this->redirect($this->createUrl('step3', array('id' => $request->id)));
 				break;
-		}		
+		}	*/	
 	}
 
 	/**
@@ -53,7 +61,7 @@ class RequestsController extends AdminController
 			$request->attributes = $_POST['Requests'];
 
 			if($request->validate()){
-				$this->checkUtilization($request);
+				// $this->checkUtilization($request);
 
 				//reserv parts
 				foreach ($request->parts as $part) {
@@ -69,6 +77,12 @@ class RequestsController extends AdminController
 
 				$this->redirect($this->createUrl('step2', array('id' => $request->id)));
 			}
+		}
+
+		if(!$request->date_life){
+			$date = new DateTime;
+			$date->modify('+1 day');
+			$request->date_life = $date->format('d.m.Y H:i');
 		}
 
 		$this->render('step1/update', array('model' => $request));
@@ -278,64 +292,16 @@ class RequestsController extends AdminController
 	 * Add Cron task for unactive Request
 	 */
 	private function addCronTask($request){
-		$cron = new Crontab('cron_requests'); // my_crontab file will store all added jobs
+		$cron = new Crontab('cron_requests');
 
 		$request->deleteTaskFromCron();
-		//$cron->eraseJobs();
 
-		// Осуществим проход массива и выведем содержимое в виде HTML-кода вместе с номерами строк.
-		// foreach ($lines as $line) {
-		// 	var_dump($line);
-		// 	var_dump(strpos($line, '--id='.$request->id));
-		// 	if(strpos($line, '--id='.$request->id) !== false)
-		//     	echo "Строка : " . htmlspecialchars($line) . "<br />\n";
-		// }
+		$date = \DateTime::createFromFormat('Y-m-d H:i:s', $request->date_life);
 
-		//print_r($tmp);
-		// die();
-		
-		/*$jobs_obj = $cron->getJobs(); // previous jobs saved in my_crontab
+		$cron->addApplicationJob('protected/yiic', 'request broken --id='.$request->id, array(), $date->format('i'), $date->format('G'), $date->format('j'), $date->format('n'));
 
-		foreach($jobs_obj as $job)
-			echo $job->getCommand();
-
-		$cron->eraseJobs(); // erase all previous jobs in my_crontab*/
-
-		$now = new DateTime('NOW');
-
-		$request_time = Settings::getValue('request_time') ? Settings::getValue('request_time') : 24;
-		$now->modify( '+'.$request_time.' hour' );
-
-		// Application console job
-		$cron->addApplicationJob('protected/yiic', 'request broken --id='.$request->id, array(), $now->format('i'), $now->format('G'), $now->format('j'), $now->format('n'));
-		// $cron->addApplicationJob('protected/yiic', 'request broken --id='.$request->id, array(), '28', '14', $now->format('j'), $now->format('n'));
-
-		// to change job values:
-		/*$jobs_obj = $cron->getJobs();
-		$jobs_obj[0]->setParams(array("'datetime'"));
-		$jobs_obj[0]->setCommandName('test');
-
-		// <= adds a job with: * * * * * php /home/user/my_project/www/yiicmd.php test 'datetime'
-
-		// add an other job
-		$job = new CronApplicationJob('yiicmd', 'test', array("'datetime"), '0', '0'); // run every day
-		$job->setParams(array("'date'"));
-		$cron->add($job);
-
-		// <= adds a second job with: 0 0 * * * php /home/user/my_project/www/yiicmd.php test 'date'
-
-		// add a regular cron job
-		$cron->addJob('/home/user/myprogram.bin', '0', '0', '*', '*', '1'); // run every monday
-		$jobs_obj = $cron->getJobs();
-		echo $jobs_obj[2]->getCommand();
-		*/
-		// <= adds a third job with: 0 0 * * 1 /home/user/myprogram.bin 
-
-		//$cron->removeJob(2); // removes job with offset 2 (last added here)
-
-		$cron->saveCronFile(); // save to my_crontab cronfile
-
-		$cron->saveToCrontab(); // adds all my_crontab jobs to system (replacing previous my_crontab jobs)
+		$cron->saveCronFile();
+		$cron->saveToCrontab();
 	}
 
 	private function checkUtilization($request){

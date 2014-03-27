@@ -39,7 +39,7 @@ class Parts extends EActiveRecord
             self::STATUS_REMOVED => 'Удален',
             self::STATUS_RESERVED => 'Зарезервирован',
             self::STATUS_UTIL => 'Утилизирован',
-            self::STATUS_SUCCESS => 'Оплачен',
+            self::STATUS_SUCCESS => 'Продан',
         );
 
         if ($status > -1)
@@ -78,6 +78,7 @@ class Parts extends EActiveRecord
             'gallery' => array(self::BELONGS_TO, 'Gallery', 'gallery_id'),
             //'analogs' => array(self::HAS_MANY, 'Analogs', 'part'),
             'usedCar' => array(self::MANY_MANY, 'UsedCars', '{{Parts_UsedCars}}(parts_id, used_car_id)'),
+            'in_util' => array(self::MANY_MANY, 'Requests', '{{CheckUtilization}}(part_id, req_id)')
         );
     }
 
@@ -264,6 +265,9 @@ class Parts extends EActiveRecord
 
         $db = Yii::app()->db->createCommand();
         $db->delete('{{Parts_UsedCars}}', 'parts_id=:p', array(':p' => $this->id));
+        $db->delete('{{CheckUtilization}}', 'part_id=:p', array(':p' => $this->id));
+        $db->delete('{{PartsInRequest}}', 'part_id=:p', array(':p' => $this->id));
+
     }
 
     public function getUsedCar(){

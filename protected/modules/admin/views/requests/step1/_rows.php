@@ -40,6 +40,23 @@
 			<? endforeach; ?>
 		<?endif;?>
 	</div>
+	<div class="control-group">
+		<?=$form->labelEx($model, 'date_life')?>
+		<div class="controls">
+			<?php $this->widget(
+				'yiiwheels.widgets.datetimepicker.WhDateTimePicker',
+				array(
+					'model' => $model,
+					'attribute' => 'date_life',
+					'pluginOptions' => array(
+						'format' => 'dd.MM.yyyy hh:mm',
+						'language' => 'ru',
+						'startDate' => 'js:new Date()'
+					),
+				)
+			);?>
+		</div>
+	</div>
 	<div class="requests" data-request-id="<?=$model->id?>">
 		<div class="row-fluid">
 			<div class="span10">
@@ -134,7 +151,7 @@
 	//add part to request
 	jQuery('.add-part').on('click', function(){
 		var part_id = parseInt(jQuery('#new_part').select2('val'), 10),
-			req_id = jQuery('.requests').data('request-id');
+			req_id = parseInt(jQuery('.requests').data('request-id'), 10);
 
 		if(req_id && part_id && typeof part_id === 'number'){
 			jQuery('.utilization').find('.part-'+part_id).remove();
@@ -154,7 +171,7 @@
 			req_id = parseInt(jQuery('.requests').data('request-id'), 10);
 
 		if(req_id && part_id && typeof part_id === 'number'){
-			jQuery('.utilization').append('<div class="part-'+part_id+'"><input type="hidden" name="Utilization[]" value="'+part_id+'"></div>');
+			//jQuery('.utilization').append('<div class="part-'+part_id+'"><input type="hidden" name="Utilization[]" value="'+part_id+'"></div>');
 			jQuery.ajax({
 				url: '<?=$this->createUrl("deletePart")?>',
 				data: {request_id: req_id, part_id: part_id},

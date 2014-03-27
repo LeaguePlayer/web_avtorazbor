@@ -59,6 +59,12 @@
 			<? endforeach; ?>
 		<?endif;?>
 	</div>
+	<div class="control-group">
+		<?=$form->label($model, 'date_life')?>
+		<div class="controls">
+			<?php echo CHtml::encode($model->date_life); ?>
+		</div>
+	</div>
 	<div class="requests" data-request-id="<?=$model->id?>">
 		<div class="row-fluid">
 			<div class="span10">
@@ -153,7 +159,7 @@
 	//add part to request
 	jQuery('.add-part').on('click', function(){
 		var part_id = parseInt(jQuery('#new_part').select2('val'), 10),
-			req_id = jQuery('.requests').data('request-id');
+			req_id = parseInt(jQuery('.requests').data('request-id'), 10);
 
 		if(req_id && part_id && typeof part_id === 'number'){
 			jQuery('.utilization').find('.part-'+part_id).remove();
@@ -169,8 +175,8 @@
 
 	//remove part from request
 	jQuery('.requests').on('click', '.remove-part', function(){
-		var part_id = jQuery(this).data('id'),
-			req_id = jQuery('.requests').data('request-id');
+		var part_id = parseInt(jQuery(this).data('id'), 10),
+			req_id = parseInt(jQuery('.requests').data('request-id'), 10);
 
 		if(req_id && part_id && typeof part_id === 'number'){
 			jQuery('.utilization').append('<div class="part-'+part_id+'"><input type="hidden" name="Utilization[]" value="'+part_id+'"></div>')

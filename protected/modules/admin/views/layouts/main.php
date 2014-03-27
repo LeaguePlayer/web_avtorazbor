@@ -45,7 +45,7 @@
 					array('label'=>'Модели', 'url'=>'/admin/carModels'),
 					array('label'=>'Категории запчастей', 'url'=>'/admin/categories'),
 					array('label'=>'Б/У автомобили', 'url'=>'/admin/usedCars'),
-					array('label'=>'Утилизированные запчасти', 'url'=>'#'),
+					array('label'=>'Утилизированные запчасти', 'url'=>'/admin/parts/utilizationList'),
 				),
 				'documents' => array(
 					array('label'=>'Все документы', 'url'=>'/admin/documents'),
