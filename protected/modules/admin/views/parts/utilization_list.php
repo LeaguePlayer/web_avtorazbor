@@ -103,9 +103,7 @@
 			'deleteConfirmation' => 'Убрать запчасть из утилизации?',
 			'buttons' => array(
 				'delete' => array(
-					'url' => function($data, $row){
-						return $this->createUrl('deleteFromUtilization', array('id' => $data->id));
-					}
+					'url' => '"/admin/parts/deleteFromUtilization/id/" . $data->id'
 				)
 			)
 		),
