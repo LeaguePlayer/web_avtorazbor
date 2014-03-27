@@ -32,20 +32,6 @@ class RequestsController extends AdminController
 		}
 
 		$this->redirect($this->createUrl('step1', array('id' => $request->id)));
-
-		/*switch ($request->status) {
-			case Requests::STATUS_PUBLISH:
-				$this->redirect($this->createUrl('step1', array('id' => $request->id)));
-				break;
-
-			case Requests::STATUS_PARTS_RESERVED:
-				$this->redirect($this->createUrl('step2', array('id' => $request->id)));
-				break;
-
-			case Requests::STATUS_WAIT_BUY:
-				$this->redirect($this->createUrl('step3', array('id' => $request->id)));
-				break;
-		}	*/	
 	}
 
 	/**
@@ -80,7 +66,7 @@ class RequestsController extends AdminController
 		}
 
 		if(!$request->date_life){
-			$date = new DateTime;
+			$date = new DateTime('NOW', new DateTimeZone('Asia/Yekaterinburg'));
 			$date->modify('+1 day');
 			$request->date_life = $date->format('d.m.Y H:i');
 		}
@@ -124,7 +110,6 @@ class RequestsController extends AdminController
 
 		if(isset($_POST['Requests'])){
 			$request->status = Requests::STATUS_SUCCESS;
-
 			$request->update(array('status'));
 
 			if($request->parts_in_util){
@@ -178,16 +163,6 @@ class RequestsController extends AdminController
 		$this->render('utilization', array('parts' => $request->parts_in_util));
 		//$this->redirect($_SERVER['HTTP_REFERER']);
 	}
-
-	/*public function actionGetParts(){
-		header('Content-type: application/json');
-
-		// $model = Requests::model()->findByPk($id);
-
-		echo CJSON::encode(Parts::model()->findByPk(1));
-
-		Yii::app()->end();
-	}*/
 
 	public function actionAddPart($request_id, $part_id, $step = 1){
 		
