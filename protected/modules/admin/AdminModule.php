@@ -25,6 +25,8 @@ class AdminModule extends EWebModule
                 'returnUrl' => Yii::app()->createUrl('admin/start/index'),
             ),
         ));
+
+        date_default_timezone_set('Asia/Yekaterinburg');
 	}
 
 	public function beforeControllerAction($controller, $action)

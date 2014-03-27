@@ -82,7 +82,7 @@
 		array(
 			'name'=>'location_id',
 			'type'=>'raw',
-			'value'=>'$data->location->name',
+			'value'=>'$data->location ? $data->location->name : ""',
 			'filter'=> SiteHelper::getDDListForModel($model, 'Locations', 'location_id')
 		),
 		'comment',

@@ -66,7 +66,7 @@ class RequestsController extends AdminController
 		}
 
 		if(!$request->date_life){
-			$date = new DateTime('NOW', new DateTimeZone('Asia/Yekaterinburg'));
+			$date = new DateTime('NOW');
 			$date->modify('+1 day');
 			$request->date_life = $date->format('d.m.Y H:i');
 		}
