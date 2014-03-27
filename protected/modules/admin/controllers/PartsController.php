@@ -184,17 +184,18 @@ class PartsController extends AdminController
 
 		$req_parts = implode(',', $req_parts);
 
-		$result = Yii::app()->db->createCommand()
+		$command = Yii::app()->db->createCommand()
 			->select('p.id, CONCAT(p.id," - ",p.name) as text')
-			->setDistinct(true)
 			->from('{{Parts}} as p')
 			->leftJoin('{{PartsInRequest}} as pr', 'p.id=pr.part_id')
 			// ->andWhere('pr.part_id IS NULL')
 			->andWhere('pr.request_id != :req_id OR pr.request_id IS NULL', array(':req_id' => $request->id))
 			->andWhere(array('not in', 'status', $notIn))
 			->andWhere(array('not in', 'p.id', $req_parts))
-			->andWhere(array('like', 'name', '%'.$q.'%'))
-			->queryAll();
+			->andWhere(array('like', 'name', '%'.$q.'%'));
+
+		$command->setDistinct(true);
+		$result = $command->queryAll();
 
 		// var_dump($result); die();
 		//array_unshift($result, array('id' => 0, 'text' => 'Нет'));
