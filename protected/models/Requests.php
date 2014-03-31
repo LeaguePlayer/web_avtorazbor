@@ -288,7 +288,6 @@ class Requests extends EActiveRecord
         $requestLog->request_id = $this->id;
 
         foreach ($this->attributes as $attrName => $attrValue) {
-            echo $attrName.' - '.$attrValue.'<br>';
 
             if(!in_array($attrName, $exclude) && !$this->oldAttributes[$attrName] && $attrValue){ //new Instance Request
 
