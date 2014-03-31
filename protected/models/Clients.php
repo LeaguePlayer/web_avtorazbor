@@ -12,6 +12,9 @@
 */
 class Clients extends EActiveRecord
 {
+    const CLIENT_FIZ = 1;
+    const CLIENT_UR = 2;
+
     public function tableName()
     {
         return '{{Clients}}';
@@ -84,8 +87,8 @@ class Clients extends EActiveRecord
     public static function getTypes(){
 
         return array(
-            1 => 'Физическое лицо',
-            2 => 'Юридическое лицо'
+            self::CLIENT_FIZ => 'Физическое лицо',
+            self::CLIENT_UR=> 'Юридическое лицо'
         );
     }
 

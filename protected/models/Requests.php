@@ -33,6 +33,15 @@ class Requests extends EActiveRecord
 
     public $removeOnDelete = true;
 
+    private $oldAttributes = array();
+
+    public function init(){
+
+        $this->oldAttributes = $this->attributes;
+
+        parent::init();
+    }
+
     public static function getStatusAliases($status = -1)
     {
         $aliases = array(
@@ -75,7 +84,8 @@ class Requests extends EActiveRecord
             'client' => array(self::BELONGS_TO, 'Clients', 'client_id'),
             'employee' => array(self::BELONGS_TO, 'Employees', 'check_user_id'),
             'parts' => array(self::MANY_MANY, 'Parts', '{{PartsInRequest}}(request_id, part_id)'),
-            'parts_in_util' => array(self::MANY_MANY, 'Parts', '{{CheckUtilization}}(req_id, part_id)')
+            'parts_in_util' => array(self::MANY_MANY, 'Parts', '{{CheckUtilization}}(req_id, part_id)'),
+            'logs' => array(self::HAS_MANY, 'RequestLogs', 'request_id')
         );
     }
 
@@ -138,6 +148,12 @@ class Requests extends EActiveRecord
         return self::$_fromList[$this->from];
     }
 
+    public static function getValueFrom($val){
+        if(isset(self::$_fromList[$val])) return self::$_fromList[$val];
+
+        return self::$_fromList[1];
+    }
+
     public function getFromListItem($i){
         
         switch ($i) {
@@ -180,6 +196,14 @@ class Requests extends EActiveRecord
         parent::afterSave();
     }
 
+    public function beforeSave(){
+
+        //log attributes
+        $this->compareNewAndOldAttributes();
+
+        return parent::beforeSave();
+    }
+
     public function afterDelete(){
 
         foreach ($this->parts as $part) {
@@ -193,6 +217,7 @@ class Requests extends EActiveRecord
 
         $dbCommand->delete('{{PartsInRequest}}', 'request_id=:r_id', array(':r_id' => $this->id));
         $dbCommand->delete('{{CheckUtilization}}', 'req_id=:r_id', array(':r_id' => $this->id));
+        $dbCommand->delete('{{RequestLogs}}', 'request_id=:r_id', array(':r_id' => $this->id));
 
         //delete task from cron
         $this->deleteTaskFromCron();
@@ -241,9 +266,94 @@ class Requests extends EActiveRecord
     public function afterFind(){
         parent::afterFind();
 
+        //save old attributes
+        $this->oldAttributes = $this->attributes;
+
         if($this->date_life){
             $date = \DateTime::createFromFormat('Y-m-d H:i:s', $this->date_life);
             $this->date_life = $date->format('d.m.Y H:i');
         }
+    }
+
+    /**
+     * Magic function )) Hell Yeah!!!
+     * Я переписывал ее несколько раз, так что тебе не советую ее вобще трогать, работает и работает :)
+     */
+    public function compareNewAndOldAttributes($exclude = array('create_time', 'update_time', 'user_id')){
+        $result = array();
+        $msg = array();
+
+        $requestLog = new RequestLogs;
+        $requestLog->user_id = Yii::app()->user->id;
+        $requestLog->request_id = $this->id;
+
+        foreach ($this->attributes as $attrName => $attrValue) {
+            echo $attrName.' - '.$attrValue.'<br>';
+
+            if(!in_array($attrName, $exclude) && !$this->oldAttributes[$attrName] && $attrValue){ //new Instance Request
+
+                switch ($attrName) {
+                    case 'from':
+                        $msg[] = 'Установлено свойство ('.$this->getAttributeLabel($attrName).') в <strong>'.$this->getFrom().'</strong>';
+                        break;
+                    case 'status':
+                        $msg[] = 'Установлено свойство ('.$this->getAttributeLabel($attrName).') в <strong>'.self::getStatusAliases($attrValue).'</strong>';
+                        break;
+                     case 'date_life':
+                        $date = new DateTime($attrValue);
+                        $msg[] = 'Установлено свойство ('.$this->getAttributeLabel($attrName).') в <strong>'.$date->format('d.m.Y H:i').'</strong>';
+                        break;
+                    case 'client_id':
+                        //$client = Clients::model()->findByPk($attrValue);
+                        $name = $this->client->type == Clients::CLIENT_UR ? $this->client->info->name_company : $this->client->fio;
+                        $msg[] = 'Установлено свойство ('.$this->getAttributeLabel($attrName).') в <strong>'.$name.'</strong>';
+                        break;
+                    case 'check_user_id':
+                        //$client = Clients::model()->findByPk($attrValue);
+                        $name = $this->employee->fio;
+                        $msg[] = 'Установлено свойство ('.$this->getAttributeLabel($attrName).') в <strong>'.$name.'</strong>';
+                        break;
+                }
+            }elseif(!in_array($attrName, $exclude) && $this->oldAttributes[$attrName] && $attrValue){ //change request
+
+                $oldVal = $this->oldAttributes[$attrName];
+                
+                if($attrValue != $this->oldAttributes[$attrName]){
+                    switch ($attrName) {
+                        case 'from':
+                            $msg[] = 'Значение свойства ('.$this->getAttributeLabel($attrName).') изменено с <strong>'.self::getValueFrom($oldVal).'</strong> на <strong>'.$this->getFrom().'</strong>';
+                            break;
+                        case 'status':
+                            $msg[] = 'Значение свойства ('.$this->getAttributeLabel($attrName).') изменено с <strong>'.self::getStatusAliases($oldVal).'</strong> на <strong>'.self::getStatusAliases($attrValue).'</strong>';
+                            break;
+                        case 'date_life':
+                            $newDate = new DateTime($attrValue);
+                            $oldDate = new DateTime($attrValue);
+
+                            $msg[] = 'Значение свойства ('.$this->getAttributeLabel($attrName).') изменено с <strong>'.$oldDate->format('d.m.Y H:i').'</strong> на <strong>'.$newDate->format('d.m.Y H:i').'</strong>';
+                            break;
+                        case 'client_id':
+                            $oldClient = Clients::model()->findByPk($this->oldAttributes[$attrName]);
+
+                            $oldName = $oldClient->type == Clients::CLIENT_UR ? $oldClient->info->name_company : $oldClient->fio;
+                            $newName = $this->client->type == Clients::CLIENT_UR ? $this->client->info->name_company : $this->client->fio;
+
+                            $msg[] = 'Значение свойства ('.$this->getAttributeLabel($attrName).') изменено с <strong>'.$oldName.'</strong> на <strong>'.$newName.'</strong>';
+                            break;
+                        case 'check_user_id':
+                            $oldEmployee = Employees::model()->findByPk($this->oldAttributes[$attrName]);
+
+                            $newName = $this->employee->fio;
+                            $oldName = $oldEmployee->fio;
+
+                            $msg[] = 'Значение свойства ('.$this->getAttributeLabel($attrName).') изменено с <strong>'.$oldName.'</strong> на <strong>'.$newName.'</strong>';
+                            break;
+                    }  
+                }
+            }
+        }
+
+        $requestLog->message = implode("<br>\n", $msg);
+        $requestLog->save();
     }
 }

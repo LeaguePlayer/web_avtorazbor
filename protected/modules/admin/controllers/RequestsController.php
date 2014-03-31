@@ -11,6 +11,9 @@ class RequestsController extends AdminController
 		$model->user_id = Yii::app()->user->id;
 		$model->status = Requests::STATUS_PUBLISH;
 
+		//log attributes
+        //$model->compareNewAndOldAttributes();
+
 		$model->save(false);
 
 		$this->redirect($this->createUrl('step1', array('id' => $model->id)));
@@ -47,7 +50,10 @@ class RequestsController extends AdminController
 			$request->attributes = $_POST['Requests'];
 
 			if($request->validate()){
+				// print_r($_POST['Requests']); die();
 				// $this->checkUtilization($request);
+
+				//log attributes
 
 				//reserv parts
 				foreach ($request->parts as $part) {
@@ -56,6 +62,9 @@ class RequestsController extends AdminController
 				}
 
 				$request->status = Requests::STATUS_PARTS_RESERVED;
+
+				//$request->compareNewAndOldAttributes(); die();
+
 				$request->save(false);
 
 				//set cron task
@@ -133,6 +142,50 @@ class RequestsController extends AdminController
 			throw new CHttpException(404, 'Данные не найдены');
 
 		$model->delete();
+	}
+
+	public function actionView($id){
+		$model = Requests::model()->findByPk($id);
+		$requestLog = new RequestLogs;
+		$requestSave = new RequestLogs;
+
+		if(!$model) 
+			throw new CHttpException(404);
+
+		//save message
+		if(isset($_POST['RequestLogs'])){
+			$requestSave->attributes = $_POST['RequestLogs'];
+
+			$requestSave->user_id = Yii::app()->user->id;
+			$requestSave->request_id = $model->id;
+
+			if($requestSave->save())
+				$this->redirect($this->createUrl('view', array('id' => $model->id)));
+		}
+
+		$criteria = new CDbCriteria;
+
+		$criteria->join = 'LEFT JOIN {{users}} AS u ON u.id=user_id';
+		$criteria->order = 'create_time DESC';
+
+		//filter
+		if(isset($_GET['RequestLogs'])){
+			$requestLog->attributes = $_GET['RequestLogs'];
+
+			$criteria->compare('message', $requestLog->message, true);
+			$criteria->compare('type', $requestLog->type);
+		}
+
+		$dataProvider = new CActiveDataProvider('RequestLogs', array(
+            'criteria'=>$criteria,
+        ));
+
+		$this->render('view', array(
+			'model' => $model, 
+			'dataProvider' => $dataProvider,
+			'requestLog' => $requestLog,
+			'requestSave' => $requestSave
+		));
 	}
 
 	/**
