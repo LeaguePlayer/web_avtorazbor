@@ -286,6 +286,7 @@ class Requests extends EActiveRecord
         $requestLog = new RequestLogs;
         $requestLog->user_id = Yii::app()->user->id;
         $requestLog->request_id = $this->id;
+        $requestLog->type = 1;
 
         foreach ($this->attributes as $attrName => $attrValue) {
 
