@@ -67,6 +67,8 @@ class AuthModule extends EWebModule
 			'auth.controllers.*',
 			'auth.models.*',
 			'auth.widgets.*',
+			'user.models.*',
+			// 'auth.widgets.*',
 		));
 
 		$this->registerCss();

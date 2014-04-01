@@ -181,6 +181,7 @@ class PartsController extends AdminController
 
 		$req_parts = implode(',', $req_parts);
 
+
 		$command = Yii::app()->db->createCommand()
 			->select('p.id, CONCAT(p.id," - ",p.name) as text')
 			->from('{{Parts}} as p')
@@ -188,8 +189,15 @@ class PartsController extends AdminController
 			// ->andWhere('pr.part_id IS NULL')
 			->andWhere('pr.request_id != :req_id OR pr.request_id IS NULL', array(':req_id' => $request->id))
 			->andWhere(array('not in', 'status', $notIn))
-			->andWhere(array('not in', 'p.id', $req_parts))
-			->andWhere(array('like', 'name', '%'.$q.'%'));
+			->andWhere(array('not in', 'p.id', $req_parts));
+
+		if(is_numeric($q)){
+			$command->andWhere('p.id=:pid', array(':pid' => $q));
+		}else
+			$command->andWhere(array('like', 'name', '%'.$q.'%'));
+
+		// var_dump(is_numeric($q));
+		// print_r($command->query()); die();
 
 		$command->setDistinct(true);
 		$result = $command->queryAll();

@@ -193,13 +193,13 @@ class Requests extends EActiveRecord
             $this->deleteTaskFromCron();
         }
 
+        //log attributes
+        $this->compareNewAndOldAttributes();
+
         parent::afterSave();
     }
 
     public function beforeSave(){
-
-        //log attributes
-        $this->compareNewAndOldAttributes();
 
         return parent::beforeSave();
     }

@@ -165,8 +165,11 @@ class RequestsController extends AdminController
 
 		$criteria = new CDbCriteria;
 
-		$criteria->join = 'LEFT JOIN {{users}} AS u ON u.id=user_id';
-		$criteria->order = 'create_time DESC';
+		$criteria->addCondition('request_id=:r');
+		$criteria->params[':r'] = $model->id;
+
+		// $criteria->join = 'LEFT JOIN {{users}} AS u ON u.id=user_id';
+		// $criteria->order = 'create_time DESC';
 
 		//filter
 		if(isset($_GET['RequestLogs'])){
