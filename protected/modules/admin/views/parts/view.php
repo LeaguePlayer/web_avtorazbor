@@ -1,5 +1,18 @@
 <h2>Просмотр запчасти - <?=CHtml::encode($model->name)?></h2>
 
+<div class="photos">
+	<?php if($model->gallery->galleryPhotos){ 
+		if(YII_DEBUG) $model->changeConfig(); 
+	?>
+		<div class="text">Фотографии запчасти</div>
+		<? foreach ($model->gallery->galleryPhotos as $photo) { if(YII_DEBUG) $photo->updateImages(); ?>
+			<a class="fancybox" rel="part" href="<?=$photo->getUrl('big')?>"><img src="<?=$photo->getUrl('small')?>" alt=""/></a>
+		<?}?>
+		<br>
+		<br>
+	<?}?>
+</div>
+
 <?php
 $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -26,7 +39,7 @@ $this->widget('zii.widgets.CDetailView', array(
 		array(
 			'label'=>'Б/У автомобиль',
 			'type'=>'raw',
-			'value'=>$model->usedCar ? 'VIN - '.$model->usedCar->vin : 'нет',
+			'value'=>$model->usedCar[0] ? 'VIN - '.$model->usedCar[0]->vin : 'нет',
 		)
 		// 'owner.name',        // an attribute of the related object "owner"
 		// 'description:html',  // description attribute in HTML
@@ -65,3 +78,12 @@ $this->widget('zii.widgets.CDetailView', array(
 	<legend>Аналоги</legend>
 	<?php $this->renderPartial('_analogs', array('model' => $model, 'analogs' => $analogs)); ?>
 </fieldset>
+
+<?php
+Yii::app()->clientScript->registerScriptFile($this->getAssetsUrl().'/js/fancybox/source/jquery.fancybox.pack.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerCssFile($this->getAssetsUrl().'/js/fancybox/source/jquery.fancybox.css', "screen");
+
+Yii::app()->clientScript->registerScript('parts', '
+    $(".fancybox").fancybox();
+', CClientScript::POS_READY);
+?>
