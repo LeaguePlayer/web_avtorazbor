@@ -11,10 +11,9 @@ class PartsController extends AdminController
 		if(isset($_POST['Parts'])){
 			$model->attributes = $_POST['Parts'];
 
+			$model->name = $model->category->name.", ".$model->car_model->car_brand->name." ".$model->car_model->name;
 			if($model->save()){
 
-				$model->name = $model->category->name.", ".$model->car_model->car_brand->name." ".$model->car_model->name;
-				$model->update(array('name'));
 				
 				if(!$this->saveAnalogs($model))
 					$this->redirect($this->createUrl('update', array('id' => $model->id)));
@@ -41,11 +40,9 @@ class PartsController extends AdminController
 
 			$model->attributes = $_POST['Parts'];
 
+			$model->name = $model->category->name.", ".$model->car_model->car_brand->name." ".$model->car_model->name;
 			if($model->save()){
 				$this->attachUsedCar($model);
-
-				$model->name = $model->category->name.", ".$model->car_model->car_brand->name." ".$model->car_model->name;
-				$model->update(array('name'));
 				
 				if(!$this->saveAnalogs($model))
 					$this->redirect($this->createUrl('update', array('id' => $model->id)));
