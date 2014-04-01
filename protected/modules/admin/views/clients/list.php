@@ -20,7 +20,12 @@ $this->menu=array(
 		'fio',
 		'phone',
 		'email',
-		'type',
+		array(
+			'name' => 'type',
+			'type' => 'raw',
+			'value' => 'Clients::getTypes($data->type)',
+			'filter' => Clients::getTypes()
+		),
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
 		),

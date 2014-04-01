@@ -18,8 +18,11 @@ $this->menu=array(
     )',
 	'columns'=>array(
 		'name',
+		'fio',
+		'phone',
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
+			'template' => '{update} {delete}'
 		),
 	),
 )); ?>

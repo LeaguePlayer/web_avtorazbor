@@ -13,7 +13,7 @@ class PartsController extends AdminController
 
 			$model->name = $model->category->name.", ".$model->car_model->car_brand->name." ".$model->car_model->name;
 			if($model->save()){
-
+				$this->attachUsedCar($model);
 				
 				if(!$this->saveAnalogs($model))
 					$this->redirect($this->createUrl('update', array('id' => $model->id)));

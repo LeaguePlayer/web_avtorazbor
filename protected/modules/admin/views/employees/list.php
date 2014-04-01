@@ -18,8 +18,22 @@ $this->menu=array(
     )',
 	'columns'=>array(
 		'fio',
+		'phone',
+		'email',
+		array(
+			'name'=>'dt_birthday',
+			'type'=>'raw',
+			'value'=>'$data->dt_birthday && $data->dt_birthday != "0000-00-00" ? SiteHelper::russianDate($data->dt_birthday) : ""'
+		),
+		'passport_num',
+		array(
+			'name'=>'dt_of_issue',
+			'type'=>'raw',
+			'value'=>'SiteHelper::russianDate($data->dt_of_issue)'
+		),
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
+			'template' => '{update} {delete}'
 		),
 	),
 )); ?>

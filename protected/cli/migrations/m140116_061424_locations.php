@@ -8,7 +8,7 @@
 class m140116_061424_locations extends CDbMigration
 {
     // таблицы к удалению, можно использовать '{{table}}'
-	private $dropped = array('{{locationL}}');
+	private $dropped = array('{{Locations}}');
  
     public function safeUp()
     {

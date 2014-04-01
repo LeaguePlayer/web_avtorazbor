@@ -103,7 +103,6 @@
 	<script>
 	jQuery(".show-extended").on("click", function(){
 		jQuery("#ext").toggle();
-		console.log("dfd");
 	});
 
 	jQuery("#type").on("change", function(){

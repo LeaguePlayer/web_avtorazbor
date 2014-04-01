@@ -6,6 +6,9 @@
 * The followings are the available columns in table '{{Locations}}':
     * @property integer $id
     * @property string $name
+    * @property string $fio
+    * @property string $phone
+    * @property string $address
 */
 class Locations extends EActiveRecord
 {
@@ -18,9 +21,11 @@ class Locations extends EActiveRecord
     public function rules()
     {
         return array(
-            array('name', 'length', 'max'=>255),
+            array('name', 'required'),
+            array('name, fio, phone', 'length', 'max'=>255),
+            array('address', 'safe'),
             // The following rule is used by search().
-            array('id, name', 'safe', 'on'=>'search'),
+            array('id, name, fio, phone, address', 'safe', 'on'=>'search'),
         );
     }
 
@@ -37,6 +42,9 @@ class Locations extends EActiveRecord
         return array(
             'id' => 'ID',
             'name' => 'Название склада',
+            'fio' => 'Контактное лицо',
+            'phone' => 'Телефон',
+            'address' => 'Адрес',
         );
     }
 
@@ -46,6 +54,9 @@ class Locations extends EActiveRecord
         $criteria=new CDbCriteria;
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
+		$criteria->compare('fio',$this->fio,true);
+		$criteria->compare('phone',$this->phone,true);
+		$criteria->compare('address',$this->address,true);
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
         ));

@@ -84,12 +84,17 @@ class Clients extends EActiveRecord
         return 'Клиенты';
     }
 
-    public static function getTypes(){
+    public static function getTypes($i = -1){
 
-        return array(
+        $types = array(
             self::CLIENT_FIZ => 'Физическое лицо',
             self::CLIENT_UR=> 'Юридическое лицо'
         );
+
+        if($i > 0 && isset($types[$i]))
+            return $types[$i];
+
+        return $types;
     }
 
     public static function getList(){
