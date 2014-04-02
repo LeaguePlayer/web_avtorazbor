@@ -110,6 +110,10 @@ form .line{
   max-height: 350px;
 }
 
+.requests .not-availible{
+  background-color: #F78383;
+}
+
 @media print {
   body{
     padding: 0;

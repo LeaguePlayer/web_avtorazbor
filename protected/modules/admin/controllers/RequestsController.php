@@ -53,24 +53,34 @@ class RequestsController extends AdminController
 				// print_r($_POST['Requests']); die();
 				// $this->checkUtilization($request);
 
-				//log attributes
+				$availible_parts = true;
 
-				//reserv parts
+				//check parts on availible
 				foreach ($request->parts as $part) {
-					$part->status = Parts::STATUS_RESERVED;
-					$part->update(array('status'));
+					$availible_parts = $availible_parts && $part->isAvailable();
+					if(!$part->isAvailable()){
+						$request->addError('', 'Вы не можете поставить на резерв запчасть #'.$part->id.' - &laquo;'.$part->name.'&raquo; ее статус: '.Parts::getStatusAliases($part->status));
+					}
 				}
 
-				$request->status = Requests::STATUS_PARTS_RESERVED;
+				if($availible_parts){
+					//reserv parts
+					foreach ($request->parts as $part) {
+						$part->status = Parts::STATUS_RESERVED;
+						$part->update(array('status'));
+					}
 
-				//$request->compareNewAndOldAttributes(); die();
+					$request->status = Requests::STATUS_PARTS_RESERVED;
 
-				$request->save(false);
+					//$request->compareNewAndOldAttributes(); die();
 
-				//set cron task
-				$this->addCronTask($request);
+					$request->save(false);
 
-				$this->redirect($this->createUrl('step2', array('id' => $request->id)));
+					//set cron task
+					$this->addCronTask($request);
+
+					$this->redirect($this->createUrl('step2', array('id' => $request->id)));
+				}
 			}
 		}
 
@@ -240,12 +250,12 @@ class RequestsController extends AdminController
 			$part->update(array('status'));
 		}
 
-		$this->renderPartial('step1/_body_parts', array('model' => $model));
+		$this->renderPartial('step'.$step.'/_body_parts', array('model' => $model));
 
 		Yii::app()->end();
 	}
 
-	public function actionDeletePart($request_id, $part_id){
+	public function actionDeletePart($request_id, $part_id, $step = 1){
 
 		$model = Requests::model()->findByPk($request_id);
 		$part = Parts::model()->findByPk($part_id);
@@ -260,10 +270,12 @@ class RequestsController extends AdminController
 			':p_id' => $part_id
 		));
 
-		$part->status = Parts::STATUS_PUBLISH;
-		$part->update(array('status'));
+		if($step == 2){ //стоит на резерве, снять
+			$part->status = Parts::STATUS_PUBLISH;
+			$part->update(array('status'));
+		}
 
-		$this->renderPartial('step1/_body_parts', array('model' => $model));
+		$this->renderPartial('step'.$step.'/_body_parts', array('model' => $model));
 
 		Yii::app()->end();
 	}

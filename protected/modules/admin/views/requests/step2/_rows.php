@@ -74,6 +74,7 @@
 							<th>№ Позиции</th>
 							<th>Название</th>
 							<th>Склад</th>
+							<th>Статус</th>
 							<th>Цена</th>
 						</tr>
 					</thead>
@@ -182,7 +183,7 @@
 			jQuery('.utilization').append('<div class="part-'+part_id+'"><input type="hidden" name="Utilization[]" value="'+part_id+'"></div>')
 			jQuery.ajax({
 				url: '<?=$this->createUrl("deletePart")?>',
-				data: {request_id: req_id, part_id: part_id},
+				data: {request_id: req_id, part_id: part_id, step: 2},
 				success: function(data){
 					jQuery('.parts-update').html(data);
 				}

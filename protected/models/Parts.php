@@ -280,4 +280,19 @@ class Parts extends EActiveRecord
     public function setUsedCar($val){
         $this->_usedCar = $val;
     }
+
+    public function isAvailable(){
+        $statuses = array();
+
+        $statuses[] = self::STATUS_CLOSED;
+        $statuses[] = self::STATUS_REMOVED;
+        $statuses[] = self::STATUS_RESERVED;
+        $statuses[] = self::STATUS_UTIL;
+        $statuses[] = self::STATUS_SUCCESS;
+
+        if(in_array($this->status, $statuses))
+            return false;
+
+        return true;
+    }
 }

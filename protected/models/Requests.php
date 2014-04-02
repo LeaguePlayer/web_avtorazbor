@@ -131,6 +131,9 @@ class Requests extends EActiveRecord
         $criteria->order = 'create_time DESC';
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
+            'pagination' => array(
+                'pageSize' => 20
+            )
         ));
     }
 
