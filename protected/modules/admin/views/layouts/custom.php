@@ -1,4 +1,4 @@
-<?php $this->beginContent('/layouts/main'); ?>
+<?php $this->beginContent('//../modules/admin/views/layouts/main'); ?>
 <div class="row-fluid">
 	<div class="span12" id="main-content">
 		<?php $this->widget('bootstrap.widgets.TbBreadcrumb', array(

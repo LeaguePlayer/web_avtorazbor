@@ -109,8 +109,10 @@ class AuthModule extends EWebModule
 	{
 		if (parent::beforeControllerAction($controller, $action))
 		{
-            $this->registerBootstrap();
-            $this->registerCoreScripts();
+			//Yii::app()->bootstrap->register();
+			$this->registerBootstrap();
+			$this->registerCoreScripts();
+
 			$user = Yii::app()->getUser();
 
 			if ($user instanceof AuthWebUser)
@@ -126,6 +128,14 @@ class AuthModule extends EWebModule
 		}
 		throw new CHttpException(401, Yii::t('AuthModule.main', 'Access denied.'));
 	}
+
+	public function registerCoreScripts(){
+		$assetsAdmin = Yii::getPathOfAlias('admin.assets');
+        $assetsAdmin = Yii::app()->assetManager->publish($assetsAdmin, false, -1, $this->forceCopyAssets);
+
+    	Yii::app()->clientScript->registerCssFile($assetsAdmin . '/css/admin.css');
+    }
+
 
 	/**
 	 * Returns the module version number.

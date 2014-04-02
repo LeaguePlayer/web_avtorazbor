@@ -1,9 +1,8 @@
 <?php
 
-class ProfileController extends Controller
+class ProfileController extends UController
 {
 	public $defaultAction = 'profile';
-	public $layout='//layouts/column2';
 
 	/**
 	 * @var CActiveRecord the currently loaded data model instance.

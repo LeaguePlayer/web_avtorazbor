@@ -57,9 +57,9 @@ $this->breadcrumbs = array(
 
             <?php echo $form->dropDownListControlGroup($formModel, 'items', $assignmentOptions, array('label' => false)); ?>
 
-			<?php echo TbHtml::submitButton(Yii::t('AuthModule.main', 'Assign'),array(
-				'color'=>TbHtml::BUTTON_COLOR_PRIMARY,
-			)); ?>
+      			<?php echo TbHtml::submitButton(Yii::t('AuthModule.main', 'Assign'),array(
+      				'color'=>TbHtml::BUTTON_COLOR_PRIMARY,
+      			)); ?>
 
             <?php $this->endWidget(); ?>
 

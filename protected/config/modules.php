@@ -16,7 +16,9 @@ $modules = array(
 	),
 	'admin'=>array(),
 	'email'=>array(),
-	'auth'=>array(),
+	'auth'=>array(
+		'defaultLayout' => 'application.modules.admin.views.layouts.custom'
+	),
 	'user'=>array(
 		# encrypting method (php hash function)
 		'hash' => 'md5',

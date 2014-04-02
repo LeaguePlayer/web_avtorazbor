@@ -9,7 +9,6 @@ $this->breadcrumbs = array(
 
 <h1><?php echo Yii::t('AuthModule.main', 'Assignments'); ?></h1>
 
-
 <?php $this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped hover',
     'dataProvider' => $dataProvider,

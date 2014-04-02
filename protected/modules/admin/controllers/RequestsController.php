@@ -50,9 +50,6 @@ class RequestsController extends AdminController
 			$request->attributes = $_POST['Requests'];
 
 			if($request->validate()){
-				// print_r($_POST['Requests']); die();
-				// $this->checkUtilization($request);
-
 				$availible_parts = true;
 
 				//check parts on availible
@@ -63,6 +60,11 @@ class RequestsController extends AdminController
 					}
 				}
 
+				if(empty($request->parts)){
+					$request->addError('', 'Вы не добавили не одной запчасти в заявку');
+					$availible_parts = false;
+				}
+
 				if($availible_parts){
 					//reserv parts
 					foreach ($request->parts as $part) {
@@ -71,9 +73,6 @@ class RequestsController extends AdminController
 					}
 
 					$request->status = Requests::STATUS_PARTS_RESERVED;
-
-					//$request->compareNewAndOldAttributes(); die();
-
 					$request->save(false);
 
 					//set cron task
@@ -87,6 +86,9 @@ class RequestsController extends AdminController
 		if(!$request->date_life){
 			$date = new DateTime('NOW');
 			$date->modify('+1 day');
+			$request->date_life = $date->format('d.m.Y H:i');
+		}else{
+			$date = new DateTime($request->date_life);
 			$request->date_life = $date->format('d.m.Y H:i');
 		}
 

@@ -1,4 +1,4 @@
-	<h3>Связка моделей по категории</h2>
+	<h3>Связка моделей по категории</h3>
 	<div class="control-group">
 		<label class="control-label" for="Parts_category_id"><?=$model->getAttributeLabel('cat_id')?></label>
 		<div class="controls">

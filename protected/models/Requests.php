@@ -272,10 +272,10 @@ class Requests extends EActiveRecord
         //save old attributes
         $this->oldAttributes = $this->attributes;
 
-        if($this->date_life){
+        /*if($this->date_life){
             $date = \DateTime::createFromFormat('Y-m-d H:i:s', $this->date_life);
             $this->date_life = $date->format('d.m.Y H:i');
-        }
+        }*/
     }
 
     /**

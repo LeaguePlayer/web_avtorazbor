@@ -8,8 +8,9 @@
  * @version $Id: UserModule.php 132 2011-10-30 10:45:01Z mishamx $
  */
 
-class UserModule extends EWebModule
+class UserModule extends CWebModule
 {
+	public $defaultController = 'user';
 	/**
 	 * @var int
 	 * @desc items on page
@@ -99,12 +100,16 @@ class UserModule extends EWebModule
     public $defaultScope = array(
             'with'=>array('profile'),
     );
+
+    private $assetsUrl;
 	
 	static private $_user;
 	static private $_users=array();
 	static private $_userByName=array();
 	static private $_admin;
 	static private $_admins;
+
+	private $forceCopyAssets = true;
 	
 	/**
 	 * @var array
@@ -122,6 +127,8 @@ class UserModule extends EWebModule
 			'user.models.*',
 			'user.components.*',
 		));
+
+		//Yii::app()->getModule('admin')->registerCoreScripts();
 	}
 	
 	public function getBehaviorsFor($componentName){
@@ -136,13 +143,43 @@ class UserModule extends EWebModule
 	{
 		if(parent::beforeControllerAction($controller, $action))
 		{
-            $this->registerCoreScripts();
 			$this->registerBootstrap();
+			$this->registerCoreScripts();
 			return true;
 		}
 		else
 			return false;
 	}
+
+	public function registerBootstrap()
+    {
+        $this->setAliases(array(
+            'bootstrap'=>'appext.yiistrap',
+            'yiiwheels'=>'appext.yiiwheels',
+        ));
+        $this->setImport(array(
+            'bootstrap.helpers.*'
+        ));
+
+        Yii::app()->getComponent('bootstrap')->register();
+    }
+
+    public function registerCoreScripts(){
+    	$assetsAdmin = Yii::getPathOfAlias('admin.assets');
+        $assetsAdmin = Yii::app()->assetManager->publish($assetsAdmin, false, -1, $this->forceCopyAssets);
+
+    	Yii::app()->clientScript->registerCssFile($assetsAdmin . '/css/admin.css');
+    }
+
+    public function getAssetsUrl()
+    {
+        if ( !isset($this->assetsUrl) )
+        {
+            $assetsPath = Yii::getPathOfAlias($this->getName().'.assets');
+            $this->assetsUrl = Yii::app()->assetManager->publish($assetsPath, false, -1, $this->forceCopyAssets);
+        }
+        return $this->assetsUrl;
+    }
 	
 	/**
 	 * @param $str

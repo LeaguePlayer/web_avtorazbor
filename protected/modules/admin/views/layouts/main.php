@@ -8,6 +8,7 @@
 	<body>
 	 <style>.no-float{float: none !important;}</style>
 		<?php
+
 			$map = array(
 				'parts' => array( 'parts', 'carBrands', 'carModels', 'categories', 'usedCars'),
 				'documents' => array('documents', 'templates'),
@@ -30,10 +31,13 @@
 				}else break;
 			}
 
+			$module = $this->getModule()->name;
+
 			$menuItems = array(
                 array('label'=>'Кабинет заявок', 'url'=>'/admin/requests'),
 				array('label'=>'Авто ассортимент', 'url'=>'/admin/parts'),
 				array('label'=>'Документы', 'url'=>'/admin/documents'),
+				array('label'=>'Пользователи', 'url'=>'/user/admin'),
 				array('label'=>'Настройки', 'url'=>'/admin/settings'),
 			);
 
@@ -58,6 +62,10 @@
 					array('label'=>'Клиенты', 'url'=>'/admin/clients'),
 					array('label'=>'Сотрудники', 'url'=>'/admin/employees'),
 				)
+			);
+
+			$userModuleItems = array(
+				array('label'=>'Права доступа', 'url'=>'/auth/assignment')
 			);
 		?>
 		<?php $this->widget('bootstrap.widgets.TbNavbar', array(
@@ -88,7 +96,7 @@
 			'items'=>array(
 				array(
 					'class'=>'bootstrap.widgets.TbNav',
-					'items'=>$subItems[$root],
+					'items'=>($module != 'user' && $module != 'auth') ? $subItems[$root] : $userModuleItems,
 				),
 			),
 			'htmlOptions' => array(

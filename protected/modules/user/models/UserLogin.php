@@ -50,6 +50,7 @@ class UserLogin extends CFormModel
 		{
 			$identity=new UserIdentity($this->username,$this->password);
 			$identity->authenticate();
+
 			switch($identity->errorCode)
 			{
 				case UserIdentity::ERROR_NONE:
