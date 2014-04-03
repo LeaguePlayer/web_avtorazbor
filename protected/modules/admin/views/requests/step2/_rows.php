@@ -63,7 +63,8 @@
 		<?=$form->label($model, 'date_life')?>
 		<div class="controls">
 			<?php 
-			echo CHtml::encode((new DateTime($model->date_life))->format('d.m.Y H:i')); ?>
+			$date = new DateTime($model->date_life);
+			echo CHtml::encode($date->format('d.m.Y H:i')); ?>
 		</div>
 	</div>
 	<div class="requests" data-request-id="<?=$model->id?>">
