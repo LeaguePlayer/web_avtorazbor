@@ -170,6 +170,7 @@ class PartsController extends AdminController
 		$notIn[] = Parts::STATUS_RESERVED;
 		$notIn[] = Parts::STATUS_UTIL;
 		$notIn[] = Parts::STATUS_SUCCESS;
+		$notIn[] = Parts::STATUS_CLOSED;
 
 		//get parts belongs to request
 		$req_parts = Yii::app()->db->createCommand()
@@ -179,17 +180,20 @@ class PartsController extends AdminController
 			->where('pr.request_id = :req_id', array(':req_id' => $request->id))
 			->queryColumn();
 
-		$req_parts = implode(',', $req_parts);
+		//print_r($req_parts); die();
 
+		//$req_parts = implode(',', $req_parts);
 
 		$command = Yii::app()->db->createCommand()
 			->select('p.id, CONCAT(p.id," - ",p.name) as text')
 			->from('{{Parts}} as p')
 			->leftJoin('{{PartsInRequest}} as pr', 'p.id=pr.part_id')
-			// ->andWhere('pr.part_id IS NULL')
-			->andWhere('pr.request_id != :req_id OR pr.request_id IS NULL', array(':req_id' => $request->id))
-			->andWhere(array('not in', 'status', $notIn))
+			->andWhere('status=:status', array(':status' => Parts::STATUS_PUBLISH))
 			->andWhere(array('not in', 'p.id', $req_parts));
+			// ->andWhere('pr.part_id IS NULL')
+			// ->andWhere('pr.request_id != :req_id OR pr.request_id IS NULL', array(':req_id' => $request->id))
+			// ->andWhere(array('not in', 'status', $notIn))
+			
 
 		if(is_numeric($q)){
 			$command->andWhere('p.id=:pid', array(':pid' => $q));
@@ -204,7 +208,7 @@ class PartsController extends AdminController
 
 		// var_dump($result); die();
 		//array_unshift($result, array('id' => 0, 'text' => 'Нет'));
-
+		// print_r($result);
 		echo CJSON::encode($result);
 
 		Yii::app()->end();

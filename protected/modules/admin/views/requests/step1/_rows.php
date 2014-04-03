@@ -151,7 +151,7 @@
 
 	//add part to request
 	jQuery('.add-part').on('click', function(){
-		var part_id = parseInt(jQuery('#new_part').select2('val'), 10),
+		var part_id = parseInt(jQuery('#new_part').val(), 10),
 			req_id = parseInt(jQuery('.requests').data('request-id'), 10);
 
 		if(req_id && part_id && typeof part_id === 'number'){

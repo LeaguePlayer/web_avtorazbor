@@ -34,6 +34,7 @@
 		<div class='control-group'>
 			<?php echo CHtml::activeLabelEx($model, 'dt_birthday'); ?>
 			<?php $this->widget('yiiwheels.widgets.datetimepicker.WhDateTimePicker', array(
+				'id' => 'client_dt_birthday',
 				'model' => $model,
 				'attribute' => 'dt_birthday',
 				'pluginOptions' => array(
@@ -67,6 +68,7 @@
 		<div class='control-group'>
 			<?php echo CHtml::activeLabelEx($model, 'dt_of_issue'); ?>
 			<?php $this->widget('yiiwheels.widgets.datetimepicker.WhDateTimePicker', array(
+				'id' => 'client_dt_of_issue',
 				'model' => $model,
 				'attribute' => 'dt_of_issue',
 				'pluginOptions' => array(

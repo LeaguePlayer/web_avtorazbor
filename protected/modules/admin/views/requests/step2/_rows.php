@@ -62,7 +62,8 @@
 	<div class="control-group">
 		<?=$form->label($model, 'date_life')?>
 		<div class="controls">
-			<?php echo CHtml::encode($model->date_life); ?>
+			<?php 
+			echo CHtml::encode((new DateTime($model->date_life))->format('d.m.Y H:i')); ?>
 		</div>
 	</div>
 	<div class="requests" data-request-id="<?=$model->id?>">
@@ -159,7 +160,7 @@
 
 	//add part to request
 	jQuery('.add-part').on('click', function(){
-		var part_id = parseInt(jQuery('#new_part').select2('val'), 10),
+		var part_id = parseInt(jQuery('#new_part').val(), 10),
 			req_id = parseInt(jQuery('.requests').data('request-id'), 10);
 
 		if(req_id && part_id && typeof part_id === 'number'){

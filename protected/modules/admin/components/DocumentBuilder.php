@@ -123,7 +123,7 @@ class DocumentBuilder{
 
 			//set attributes
 			$arDocument->type = Documents::DOC_KOMISSII;
-			$arDocument->name = $arDocument->getType().' №'.$arDocument->id.' от '.$date_now->format('d.m.Y').' '.$model->owner->fio.' '. $model->model->car_brand->name.' '.$model->model->name;
+			$arDocument->name = $arDocument->getType().' №'.$arDocument->id.' от '.$date_now->format('d.m.Y').' '.$model->owner->fio.' '.$model->name;
 			$arDocument->file = $fileName;
 			$arDocument->used_car_id = $model->id;
 			$arDocument->template_id = $template->id;

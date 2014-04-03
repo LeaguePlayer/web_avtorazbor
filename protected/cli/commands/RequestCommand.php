@@ -10,6 +10,9 @@ class RequestCommand extends CConsoleCommand {
 
 		$request->status = Requests::STATUS_BROKEN;
 		$request->update(array('status'));
+
+		//delete task from cron
+        // $request->deleteTaskFromCron();
 	}
   //   public function run($args) {
 		// $part = Parts::model()->findByPk(1);

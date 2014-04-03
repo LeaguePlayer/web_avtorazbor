@@ -196,6 +196,12 @@ class Requests extends EActiveRecord
             $this->deleteTaskFromCron();
         }
 
+        //ожидает оплаты
+        if($this->status == Requests::STATUS_WAIT_BUY){
+            //delete task from cron
+            $this->deleteTaskFromCron();
+        }
+
         //log attributes
         $this->compareNewAndOldAttributes();
 
@@ -257,9 +263,9 @@ class Requests extends EActiveRecord
     }
 
     public function beforeValidate(){
-        
+        // var_dump($this->scenario); die();
         if($this->date_life){
-            $date = \DateTime::createFromFormat('d.m.Y H:i', $this->date_life);
+            $date = new DateTime($this->date_life);
             $this->date_life = $date->format('Y-m-d H:i:s');
         }
 
