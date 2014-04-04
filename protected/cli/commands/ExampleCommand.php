@@ -5,10 +5,7 @@
  */
 class ExampleCommand extends CConsoleCommand {
     public function run($args) {
-		$part = Parts::model()->findByPk(1);
-
-		$part->name = 'Стартер111';
-		$part->update(array('name'));
+		var_dump(Yii::app() instanceof CConsoleApplication);
     }
 }
 ?>

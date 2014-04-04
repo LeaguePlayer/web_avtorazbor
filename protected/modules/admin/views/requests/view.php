@@ -36,7 +36,7 @@ echo TbHtml::buttonGroup($buttons, array('id' => 'button-types')); ?>
 					array(
 						'name' => 'user_id',
 						'type' => 'raw',
-						'value' => '$data->getUserName()',
+						'value' => '$data->user_id == 0 ? "Планировщик задач" : $data->getUserName()',
 						'filter' => false
 					),
 					array(

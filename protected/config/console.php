@@ -26,6 +26,9 @@ return array(
 
     // application components
     'components'=>array(
+        'user' => array(
+            'class' => 'CWebUser'
+        ),
         /*'db'=>array(
             'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
         ),*/
@@ -77,6 +80,9 @@ return array(
         ),
         'request' => array(
             'class' => 'application.cli.commands.RequestCommand',
+        ),
+        'example' => array(
+            'class' => 'application.cli.commands.ExampleCommand',
         )
     ),
 );

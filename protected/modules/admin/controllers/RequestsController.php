@@ -180,8 +180,7 @@ class RequestsController extends AdminController
 		$criteria->addCondition('request_id=:r');
 		$criteria->params[':r'] = $model->id;
 
-		// $criteria->join = 'LEFT JOIN {{users}} AS u ON u.id=user_id';
-		// $criteria->order = 'create_time DESC';
+		$criteria->order = "create_time DESC";
 
 		//filter
 		if(isset($_GET['RequestLogs'])){
@@ -193,6 +192,7 @@ class RequestsController extends AdminController
 
 		$dataProvider = new CActiveDataProvider('RequestLogs', array(
             'criteria'=>$criteria,
+            'pagination' => false
         ));
 
 		$this->render('view', array(

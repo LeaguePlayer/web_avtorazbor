@@ -293,7 +293,7 @@ class Requests extends EActiveRecord
         $msg = array();
 
         $requestLog = new RequestLogs;
-        $requestLog->user_id = Yii::app()->user->id;
+        $requestLog->user_id = Yii::app() instanceof CConsoleApplication ? 0 : Yii::app()->user->id; // for console command
         $requestLog->request_id = $this->id;
         $requestLog->type = 1;
 
@@ -337,7 +337,7 @@ class Requests extends EActiveRecord
                             break;
                         case 'date_life':
                             $newDate = new DateTime($attrValue);
-                            $oldDate = new DateTime($attrValue);
+                            $oldDate = new DateTime($this->oldAttributes[$attrName]);
 
                             $msg[] = 'Значение свойства ('.$this->getAttributeLabel($attrName).') изменено с <strong>'.$oldDate->format('d.m.Y H:i').'</strong> на <strong>'.$newDate->format('d.m.Y H:i').'</strong>';
                             break;
