@@ -53,6 +53,9 @@ class DocumentsController extends AdminController
 		if(isset($_POST['Documents'])){
 			$model->attributes = $_POST['Documents'];
 
+			if(!$model->used_car_id)
+				throw new CHttpException(404, 'Не выбран автомобиль');
+
 			$usedCar = UsedCars::model()->findByPk($model->used_car_id);
 
 			$valid = true;

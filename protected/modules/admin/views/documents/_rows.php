@@ -1,4 +1,4 @@
-	<?php echo $form->dropDownListControlGroup($model,'used_car_id', CHtml::listData(UsedCars::model()->findAll(array('order' => 'enter_date DESC')), 'id', 'nameVin')); ?>
+	<?php echo $form->dropDownListControlGroup($model,'used_car_id', CHtml::listData(UsedCars::toBuyAll(), 'id', 'nameVin')); ?>
 
 	<?php
 	$checked = $model->type == Documents::DOC_KUPLI_I_PROD_BU_WITH_KOMISSII ? true : false;

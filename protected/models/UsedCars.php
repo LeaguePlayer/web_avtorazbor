@@ -137,5 +137,16 @@ class UsedCars extends EActiveRecord
         return $this->name.' '.$this->vin;
     }
 
+    public static function toBuyAll(){
+        $criteria = new CDbCriteria;
+
+        $criteria->addCondition('status=:s');
+        $criteria->params[':s'] = self::STATUS_BUY;
+
+        $criteria->order = 'enter_date DESC';
+
+        return UsedCars::model()->findAll($criteria);
+    }
+
     // public static function 
 }
