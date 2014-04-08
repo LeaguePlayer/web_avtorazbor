@@ -125,7 +125,7 @@ class Documents extends EActiveRecord
         return array(
             self::DOC_KOMISSII => 'Договор комиссии',
             self::DOC_KUPLI_I_PROD_BU_WITH_KOMISSII => 'Договор купли-продажи ТС к договору комиссии',
-            self::DOC_KUPLI_I_PROD_BU_NO_KOMISSII => 'Договор купли и продажи',
+            self::DOC_KUPLI_I_PROD_BU_NO_KOMISSII => 'Договор купли-продажи ТС без договора комиссии',
         );
     }
 }

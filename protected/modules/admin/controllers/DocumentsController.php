@@ -71,6 +71,7 @@ class DocumentsController extends AdminController
 				$usedCar->update(array('buyer_id'));
 				//create docs
 				DocumentBuilder::documentKupliProdBUWithDocKomissii($usedCar); //document save inside function
+				$this->redirect($this->createUrl('list'));
 			}elseif($valid){
 				$client->save(false);
 
@@ -78,18 +79,49 @@ class DocumentsController extends AdminController
 				$usedCar->update(array('buyer_id'));
 				//create docs
 				DocumentBuilder::documentKupliProdBUNotDocKomissii($usedCar); //document save inside function
+				$this->redirect($this->createUrl('list'));
 			}
-
-			/*if(isset($_POST['with_doc_komissii'])){
-				$model->type = Documents::DOC_KUPLI_I_PROD_BU_WITH_KOMISSII;
-				
-			}else{
-				$model->type = Documents::DOC_KUPLI_I_PROD_BU_NO_KOMISSII;
-			}*/
-			print_r('next');
-			die();
 		}
 
 		$this->render('create', array('model' => $model, 'client' => $client));
+	}
+
+	public function actionUpdate($id){
+		$model = Documents::model()->findByPk($id);
+		$client = Clients::model()->findByPk($model->used_car->buyer->id);
+		// print_r($model->type); die();
+
+		if(!$model)
+			throw new CHttpException(404, 'Документ не найден');
+
+		if(isset($_POST['Documents'])){
+			$model->attributes = $_POST['Documents'];
+
+			$usedCar = UsedCars::model()->findByPk($model->used_car_id);
+			$valid = true;
+
+			if(isset($_POST['Clients'])){
+				$client->attributes = $_POST['Clients'];
+
+				$valid = $valid && $client->validate();
+			}
+
+			if($valid && $model->type == Documents::DOC_KUPLI_I_PROD_BU_WITH_KOMISSII){
+				$client->save(false);
+				//document save inside function
+				DocumentBuilder::documentKupliProdBUWithDocKomissii($usedCar, $model->id); 
+				$this->redirect($this->createUrl('list'));
+			}elseif($valid && $model->type == Documents::DOC_KUPLI_I_PROD_BU_NO_KOMISSII){
+				$client->save(false);
+				//create docs
+				//document save inside function
+				DocumentBuilder::documentKupliProdBUNotDocKomissii($usedCar, $model->id); 
+				$this->redirect($this->createUrl('list'));
+			}
+		}
+
+		if($model->used_car->buyer){
+			$this->render('update', array('model' => $model, 'client' => $model->used_car->buyer));
+		}
 	}
 }

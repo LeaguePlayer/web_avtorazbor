@@ -1,11 +1,11 @@
-<?php
-$model->type = 2;
-?>
 	<?php echo $form->dropDownListControlGroup($model,'used_car_id', CHtml::listData(UsedCars::model()->findAll(array('order' => 'enter_date DESC')), 'id', 'nameVin')); ?>
 
-	<?php //echo $form->hiddenField($model,'type'); ?>
+	<?php
+	$checked = $model->type == Documents::DOC_KUPLI_I_PROD_BU_WITH_KOMISSII ? true : false;
+	$disabled = !$model->isNewRecord ? true : false;
+	?>
 
-	<?php echo TbHtml::checkBoxControlGroup('with_doc_komissii', false, array('label' => 'На основании договора комиссии')); ?>
+	<?php echo TbHtml::checkBoxControlGroup('with_doc_komissii', $checked, array('label' => 'На основании договора комиссии', 'disabled' => $disabled)); ?>
 
 	<?php //echo $form->textFieldControlGroup($model,'name',array('class'=>'span8','maxlength'=>255)); ?>
 
