@@ -6,7 +6,7 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<?php $tabs = array(); ?>
-	<?php $tabs[] = array('label' => 'Основные данные', 'content' => $this->renderPartial('_rows', array('form'=>$form, 'model' => $model), true), 'active' => true); ?>
+	<?php $tabs[] = array('label' => 'Основные данные', 'content' => $this->renderPartial('_rows', array('form'=>$form, 'model' => $model, 'client' => $client), true), 'active' => true); ?>
 	
 	<?php $this->widget('bootstrap.widgets.TbTabs', array( 'tabs' => $tabs)); ?>
 

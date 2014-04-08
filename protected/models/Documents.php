@@ -17,7 +17,8 @@ class Documents extends EActiveRecord
 {
 
     const DOC_KOMISSII = 1;
-    const DOC_KUPLI_I_PROD = 2;
+    const DOC_KUPLI_I_PROD_BU_WITH_KOMISSII = 2;
+    const DOC_KUPLI_I_PROD_BU_NO_KOMISSII = 3;
 
     public function tableName()
     {
@@ -123,7 +124,8 @@ class Documents extends EActiveRecord
 
         return array(
             self::DOC_KOMISSII => 'Договор комиссии',
-            self::DOC_KUPLI_I_PROD => 'Договор купли и продажи'
+            self::DOC_KUPLI_I_PROD_BU_WITH_KOMISSII => 'Договор купли-продажи ТС к договору комиссии',
+            self::DOC_KUPLI_I_PROD_BU_NO_KOMISSII => 'Договор купли и продажи',
         );
     }
 }

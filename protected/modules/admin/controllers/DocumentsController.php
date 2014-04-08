@@ -45,4 +45,51 @@ class DocumentsController extends AdminController
 
 		Yii::app()->end(200);
 	}
+
+	public function actionCreate(){
+		$model = new Documents;
+		$client = new Clients;
+
+		if(isset($_POST['Documents'])){
+			$model->attributes = $_POST['Documents'];
+
+			$usedCar = UsedCars::model()->findByPk($model->used_car_id);
+
+			$valid = true;
+
+			if(isset($_POST['Clients'])){
+				$client->attributes = $_POST['Clients'];
+				$client->type = 1; //fizik
+
+				$valid = $valid && $client->validate();
+			}
+
+			if($valid && isset($_POST['with_doc_komissii'])){
+				$client->save(false);
+
+				$usedCar->buyer_id = $client->id;
+				$usedCar->update(array('buyer_id'));
+				//create docs
+				DocumentBuilder::documentKupliProdBUWithDocKomissii($usedCar); //document save inside function
+			}elseif($valid){
+				$client->save(false);
+
+				$usedCar->buyer_id = $client->id;
+				$usedCar->update(array('buyer_id'));
+				//create docs
+				DocumentBuilder::documentKupliProdBUNotDocKomissii($usedCar); //document save inside function
+			}
+
+			/*if(isset($_POST['with_doc_komissii'])){
+				$model->type = Documents::DOC_KUPLI_I_PROD_BU_WITH_KOMISSII;
+				
+			}else{
+				$model->type = Documents::DOC_KUPLI_I_PROD_BU_NO_KOMISSII;
+			}*/
+			print_r('next');
+			die();
+		}
+
+		$this->render('create', array('model' => $model, 'client' => $client));
+	}
 }

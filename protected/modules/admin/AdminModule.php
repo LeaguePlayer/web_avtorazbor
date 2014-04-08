@@ -26,7 +26,7 @@ class AdminModule extends EWebModule
             ),
         ));
 
-        date_default_timezone_set('Asia/Yekaterinburg');
+        //date_default_timezone_set();
 	}
 
 	public function beforeControllerAction($controller, $action)

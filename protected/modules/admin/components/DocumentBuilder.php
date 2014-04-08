@@ -37,7 +37,7 @@ class DocumentBuilder{
 		$tplFile = $template->getTemplatePathToFile();
 		$document = $PHPWord->loadTemplate($tplFile);
 
-		$date_now = new DateTime();
+		$date_now = new DateTime('now', 'Asia/Yekaterinburg');
 
 		$months = array(1 => 'Января', 2 => 'Февраля', 3 => 'Марта', 	4 => 'Апреля', 5 => 'Мая', 6 => 'Июня', 7 => 'Июля', 8 => 'Августа', 9 => 'Сентября', 10 => 'Октября', 11 => 'Ноября', 12 => 'Декабря');
 
@@ -132,6 +132,285 @@ class DocumentBuilder{
 			$arDocument->save(false);
 		}
 
+	}
+
+	/**
+	 * Документ договор купли-продажи на основании договора комиссии (БУ авто)
+	 */
+	public static function documentKupliProdBUWithDocKomissii($usedCar, $update_doc_id=null){
+		$PHPWord = self::createInstancePHPWord();
+		$template = Templates::findTemplateByName('dogovor_kupli-prodaji_ts_k_dogovoru_komissii');
+
+		$tplFile = $template->getTemplatePathToFile();
+		$document = $PHPWord->loadTemplate($tplFile);
+
+		//Достаем номер договора комиссии
+		$numDoc = $usedCar->document->id;
+		// print_r($numDoc); die();
+		$document->setValue('dog_komissii_num', $numDoc);
+		
+		//Дата договора
+		$docDate = new DateTime($usedCar->document->create_time);
+
+		$document->setValue('dog_komissii_day', $docDate->format('d'));
+		$document->setValue('dog_komissii_month', self::getRussianMonth($docDate->format('n')));
+		$document->setValue('dog_komissii_year', $docDate->format('y'));
+
+		//Достаем владельца авто
+		$owner =  $usedCar->owner;
+		$document->setValue('owner_fio', $owner->fio);
+
+		//-----------buyer info
+		$document->setValue('buyer_fio', $usedCar->buyer->fio);
+
+		//num pass
+		$passport = explode(' ', $usedCar->buyer->passport_num);
+		$document->setValue('buyer_pass_seria', implode(' ', str_split($passport[0], 2)));
+		$document->setValue('buyer_pass_num', $passport[1]);
+
+		//birthday
+		$date = new DateTime($usedCar->buyer->dt_birthday);
+		$document->setValue('buyer_birthday', $date->format('d.m.Y'));
+
+		//date of issue
+		$date = new DateTime($usedCar->buyer->dt_of_issue);
+		$document->setValue('buyer_dt_of_issue', $date->format('d.m.Y'));
+
+		$document->setValue('buyer_issued_by', $usedCar->buyer->issued_by);
+		$document->setValue('buyer_address', $usedCar->buyer->address);
+
+		//-----------rotate fio
+		$fio_str = "";
+		$fio_arr = explode(' ', $usedCar->buyer->fio);
+
+		if(!empty($fio_arr)){
+			$fio_str = $fio_arr[0]; //Ф
+			isset($fio_arr[2]) ? $fio_str = mb_substr($fio_arr[2], 0, 1, 'UTF-8').'.'.$fio_str : ''; //О
+			isset($fio_arr[1]) ? $fio_str = mb_substr($fio_arr[1], 0, 1, 'UTF-8').'.'.$fio_str : ''; //И
+		}
+		$document->setValue('fio_str', $fio_str);
+		//-----------rotate fio
+		//-----------buyer info
+
+		//-----------car info
+		$document->setValue('vin', $usedCar->vin);
+		$document->setValue('marka_model', $usedCar->name);
+		$document->setValue('year', $usedCar->year);
+		$document->setValue('model_num_engine', $usedCar->dop->model_num_engine);
+		$document->setValue('chassis_num', $usedCar->dop->chassis_num);
+		$document->setValue('carcass_num', $usedCar->dop->carcass_num);
+		$document->setValue('color', $usedCar->dop->color);
+		$document->setValue('type_ts', $usedCar->dop->type_ts);
+
+		$passport_ts = explode(' ', $usedCar->dop->passport_ts);
+
+		$document->setValue('passport_ts_s', $passport_ts[0]); //серия
+		$document->setValue('passport_ts_n', $passport_ts[1]); //номер
+
+		$date = new DateTime($usedCar->dop->dt_of_issue);
+
+		$n_month = $date->format('n');
+		$document->setValue('dt_of_issue_d', $date->format('d'));
+		$document->setValue('dt_of_issue_m', self::getRussianMonth($n_month));
+		$document->setValue('dt_of_issue_y', $date->format('y'));
+
+		$document->setValue('car_issue', $usedCar->dop->issued_by);
+		$document->setValue('car_issue_date', $date->format('d.m.Y'));
+		//-----------car info
+
+		$date_now = new DateTime('now', new DateTimeZone('Asia/Yekaterinburg'));
+
+		$n_month = $date_now->format('n');
+
+		$document->setValue('date_d', $date_now->format('d'));
+		$document->setValue('date_m', self::getRussianMonth($n_month));
+		$document->setValue('date_y', $date_now->format('y'));
+
+		//-----------sum
+		$document->setValue('sum', number_format($usedCar->dop->price_sell, 0, '', ' '));
+		$document->setValue('sum_str', SiteHelper::num2str($usedCar->dop->price_sell));
+		//-----------sum
+
+		//create or update Document
+		$arDocument = $update_doc_id ? Documents::model()->findByPk($update_doc_id) : new Documents;
+
+		if($arDocument){
+			
+			if($arDocument->isNewRecord) $arDocument->save(false);
+
+			$docsPath = Yii::getPathOfAlias('application.docs');
+			$fileName = "{$template->uniqid}_{$arDocument->id}.docx";
+			$tmpName = $docsPath.DIRECTORY_SEPARATOR.$fileName;
+
+			//set document number
+			$document->setValue('dog_num', $arDocument->id);
+			$document->save($tmpName);
+
+			// SiteHelper::downloadFile($tmpName);
+
+			//set attributes
+			$arDocument->type = Documents::DOC_KUPLI_I_PROD_BU_WITH_KOMISSII;
+			$arDocument->name = $arDocument->getType().' №'.$arDocument->id.' от '.$date_now->format('d.m.Y').' '.$usedCar->owner->fio.' '.$usedCar->name;
+			$arDocument->file = $fileName;
+			$arDocument->used_car_id = $usedCar->id;
+			$arDocument->template_id = $template->id;
+			$arDocument->sum = $usedCar->dop->price_sell;
+
+			$arDocument->save(false);
+		}
+	}
+
+	/**
+	 * Документ договор купли-продажи без договора комиссии (БУ авто)
+	 */
+	public static function documentKupliProdBUNotDocKomissii($usedCar, $update_doc_id=null){
+		$PHPWord = self::createInstancePHPWord();
+		$template = Templates::findTemplateByName('dogovor_kupli-prodaji_ts_bez_dogovora_komissii');
+
+		$tplFile = $template->getTemplatePathToFile();
+		$document = $PHPWord->loadTemplate($tplFile);
+		
+		//Достаем владельца авто
+		$owner =  $usedCar->owner;
+
+		//-----------owner info
+		$document->setValue('owner_fio', $owner->fio);
+
+		//num pass
+		$passport = explode(' ', $owner->passport_num);
+		$document->setValue('owner_pass_seria', implode(' ', str_split($passport[0], 2)));
+		$document->setValue('owner_pass_num', $passport[1]);
+
+		//birthday
+		$date = new DateTime($owner->dt_birthday);
+		$document->setValue('owner_birthday', $date->format('d.m.Y'));
+
+		//date of issue
+		$date = new DateTime($owner->dt_of_issue);
+		$document->setValue('owner_dt_of_issue', $date->format('d.m.Y'));
+
+		$document->setValue('owner_issued_by', $owner->issued_by);
+		$document->setValue('owner_address', $owner->address);
+
+		//-----------rotate fio
+		$fio_str = "";
+		$fio_arr = explode(' ', $owner->fio);
+
+		if(!empty($fio_arr)){
+			$fio_str = $fio_arr[0]; //Ф
+			isset($fio_arr[2]) ? $fio_str = mb_substr($fio_arr[2], 0, 1, 'UTF-8').'.'.$fio_str : ''; //О
+			isset($fio_arr[1]) ? $fio_str = mb_substr($fio_arr[1], 0, 1, 'UTF-8').'.'.$fio_str : ''; //И
+		}
+		$document->setValue('owner_fio_str', $fio_str);
+		//-----------rotate fio
+
+		//-----------owner info
+
+
+		//-----------buyer info
+		$document->setValue('buyer_fio', $usedCar->buyer->fio);
+
+		//num pass
+		$passport = explode(' ', $usedCar->buyer->passport_num);
+		$document->setValue('buyer_pass_seria', implode(' ', str_split($passport[0], 2)));
+		$document->setValue('buyer_pass_num', $passport[1]);
+
+		//birthday
+		$date = new DateTime($usedCar->buyer->dt_birthday);
+		$document->setValue('buyer_birthday', $date->format('d.m.Y'));
+
+		//date of issue
+		$date = new DateTime($usedCar->buyer->dt_of_issue);
+		$document->setValue('buyer_dt_of_issue', $date->format('d.m.Y'));
+
+		$document->setValue('buyer_issued_by', $usedCar->buyer->issued_by);
+		$document->setValue('buyer_address', $usedCar->buyer->address);
+
+		//-----------rotate fio
+		$fio_str = "";
+		$fio_arr = explode(' ', $usedCar->buyer->fio);
+
+		if(!empty($fio_arr)){
+			$fio_str = $fio_arr[0]; //Ф
+			isset($fio_arr[2]) ? $fio_str = mb_substr($fio_arr[2], 0, 1, 'UTF-8').'.'.$fio_str : ''; //О
+			isset($fio_arr[1]) ? $fio_str = mb_substr($fio_arr[1], 0, 1, 'UTF-8').'.'.$fio_str : ''; //И
+		}
+		$document->setValue('buyer_fio_str', $fio_str);
+		//-----------rotate fio
+		//-----------buyer info
+
+		//-----------car info
+		$document->setValue('vin', $usedCar->vin);
+		$document->setValue('marka_model', $usedCar->name);
+		$document->setValue('year', $usedCar->year);
+		$document->setValue('model_num_engine', $usedCar->dop->model_num_engine);
+		$document->setValue('chassis_num', $usedCar->dop->chassis_num);
+		$document->setValue('carcass_num', $usedCar->dop->carcass_num);
+		$document->setValue('color', $usedCar->dop->color);
+		$document->setValue('type_ts', $usedCar->dop->type_ts);
+
+		$passport_ts = explode(' ', $usedCar->dop->passport_ts);
+
+		$document->setValue('passport_ts_s', $passport_ts[0]); //серия
+		$document->setValue('passport_ts_n', $passport_ts[1]); //номер
+
+		$date = new DateTime($usedCar->dop->dt_of_issue);
+
+		$n_month = $date->format('n');
+		$document->setValue('dt_of_issue_d', $date->format('d'));
+		$document->setValue('dt_of_issue_m', self::getRussianMonth($n_month));
+		$document->setValue('dt_of_issue_y', $date->format('y'));
+
+		$document->setValue('car_issue', $usedCar->dop->issued_by);
+		$document->setValue('car_issue_date', $date->format('d.m.Y'));
+		//-----------car info
+
+		$date_now = new DateTime('now', new DateTimeZone('Asia/Yekaterinburg'));
+
+		$n_month = $date_now->format('n');
+
+		$document->setValue('date_d', $date_now->format('d'));
+		$document->setValue('date_m', self::getRussianMonth($n_month));
+		$document->setValue('date_y', $date_now->format('y'));
+
+		//-----------sum
+		$document->setValue('sum', number_format($usedCar->dop->price_sell, 0, '', ' '));
+		$document->setValue('sum_str', SiteHelper::num2str($usedCar->dop->price_sell));
+		//-----------sum
+
+		//create or update Document
+		$arDocument = $update_doc_id ? Documents::model()->findByPk($update_doc_id) : new Documents;
+
+		if($arDocument){
+			
+			if($arDocument->isNewRecord) $arDocument->save(false);
+
+			$docsPath = Yii::getPathOfAlias('application.docs');
+			$fileName = "{$template->uniqid}_{$arDocument->id}.docx";
+			$tmpName = $docsPath.DIRECTORY_SEPARATOR.$fileName;
+
+			//set document number
+			$document->setValue('dog_num', $arDocument->id);
+			$document->save($tmpName);
+
+			// SiteHelper::downloadFile($tmpName);
+
+			//set attributes
+			$arDocument->type = Documents::DOC_KUPLI_I_PROD_BU_NO_KOMISSII;
+			$arDocument->name = $arDocument->getType().' №'.$arDocument->id.' от '.$date_now->format('d.m.Y').' '.$usedCar->owner->fio.' '.$usedCar->name;
+			$arDocument->file = $fileName;
+			$arDocument->used_car_id = $usedCar->id;
+			$arDocument->template_id = $template->id;
+			$arDocument->sum = $usedCar->dop->price_sell;
+
+			$arDocument->save(false);
+		}
+	}
+
+	public static function getRussianMonth($n){
+		$months = array(1 => 'Января', 2 => 'Февраля', 3 => 'Марта', 	4 => 'Апреля', 5 => 'Мая', 6 => 'Июня', 7 => 'Июля', 8 => 'Августа', 9 => 'Сентября', 10 => 'Октября', 11 => 'Ноября', 12 => 'Декабря');
+
+		return $months[$n];
 	}
 
 }

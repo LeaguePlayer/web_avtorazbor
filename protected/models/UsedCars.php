@@ -40,7 +40,7 @@ class UsedCars extends EActiveRecord
     {
         return array(
             array('car_model_id, vin, name', 'required'),
-            array('car_model_id, status', 'numerical', 'integerOnly'=>true),
+            array('car_model_id, status, buyer_id', 'numerical', 'integerOnly'=>true),
             array('name', 'length', 'max'=>255),
             array('vin', 'length', 'max'=>20),
             array('price', 'length', 'max'=>10),
@@ -56,6 +56,7 @@ class UsedCars extends EActiveRecord
         return array(
             'dop' => array(self::HAS_ONE, 'UsedCarInfo', 'used_car_id'),
             'owner' => array(self::HAS_ONE, 'Clients', 'used_car_id'),
+            'buyer' => array(self::BELONGS_TO, 'Clients', 'buyer_id'),
             'model' => array(self::BELONGS_TO, 'CarModels', 'car_model_id'),
             'part' => array(self::MANY_MANY, 'UsedCars', '{{Parts_UsedCars}}(used_car_id, parts_id)'),
             'document' => array(self::HAS_ONE, 'Documents', 'used_car_id')
@@ -73,6 +74,7 @@ class UsedCars extends EActiveRecord
             'comment' => 'Комментарий',
             'status' => 'Назначение',
             'year' => 'Год выпуска',
+            'buyer_id' => 'Покупатель',
             'enter_date' => 'Дата поступления',
             'name' => 'Марка, модель (как в ПТС)'
         );
@@ -130,4 +132,10 @@ class UsedCars extends EActiveRecord
 
         parent::afterFind();
     }
+
+    public function getNameVin(){
+        return $this->name.' '.$this->vin;
+    }
+
+    // public static function 
 }

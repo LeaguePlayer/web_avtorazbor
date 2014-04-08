@@ -36,9 +36,9 @@ class EActiveRecord extends CActiveRecord
         return $aliases;
     }
 
-    public static function all(){
+    public static function all($condition = ''){
         $className = get_class($this);
-        return call_user_func(array($className, 'model'))->findAll();
+        return call_user_func(array($className, 'model'))->findAll($condition);
     }
 
     public function behaviors()

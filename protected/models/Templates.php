@@ -151,7 +151,6 @@ class Templates extends EActiveRecord
         parent::afterSave();
     }
 
-    // defining onNewComment event
     public function onChangeFile($event) {
         $this->raiseEvent('onChangeFile', $event);
     }
