@@ -1,5 +1,7 @@
 	<?php echo $form->textFieldControlGroup($model,'fio',array('class'=>'span8','maxlength'=>255)); ?>
 
+	<?php echo $form->textFieldControlGroup($model,'post',array('class'=>'span8','maxlength'=>255)); ?>
+
 	<div class="control-group">
 		<label class="control-label" for="Locations_phone">Телефон</label>
 		<div class="controls">

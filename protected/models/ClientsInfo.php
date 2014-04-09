@@ -28,6 +28,7 @@ class ClientsInfo extends EActiveRecord
             array('client_id', 'numerical', 'integerOnly'=>true),
             array('inn, kpp', 'length', 'max'=>20),
             array('name_company, address', 'length', 'max'=>255),
+            array('ur_address', 'safe'),
             // The following rule is used by search().
             array('id, inn, kpp, name_company, address, client_id', 'safe', 'on'=>'search'),
         );
@@ -48,8 +49,9 @@ class ClientsInfo extends EActiveRecord
             'inn' => 'ИНН',
             'kpp' => 'КПП',
             'name_company' => 'Название компании',
-            'address' => 'Адрес',
+            'address' => 'Фактический адрес',
             'client_id' => 'Клиент',
+            'ur_address' => 'Юридический адрес'
         );
     }
 

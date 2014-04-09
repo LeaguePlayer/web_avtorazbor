@@ -26,7 +26,7 @@ class Employees extends EActiveRecord
     {
         return array(
             array('fio', 'required'),
-            array('fio, email, passport_num', 'length', 'max'=>255),
+            array('fio, email, passport_num, post', 'length', 'max'=>255),
             array('phone', 'length', 'max'=>30),
             array('email', 'email'),
             array('dt_birthday, issued_by, address, dt_of_issue', 'safe'),
@@ -55,6 +55,7 @@ class Employees extends EActiveRecord
             'issued_by' => 'Кем выдан',
             'address' => 'Адрес регистрации',
             'dt_of_issue' => 'Дата выдачи',
+            'post' => 'Должность'
         );
     }
 

@@ -22,8 +22,9 @@ class Locations extends EActiveRecord
     {
         return array(
             array('name', 'required'),
-            array('name, fio, phone', 'length', 'max'=>255),
+            array('name, fio, phone, email', 'length', 'max'=>255),
             array('address', 'safe'),
+            array('email', 'email'),
             // The following rule is used by search().
             array('id, name, fio, phone, address', 'safe', 'on'=>'search'),
         );
@@ -45,6 +46,7 @@ class Locations extends EActiveRecord
             'fio' => 'Контактное лицо',
             'phone' => 'Телефон',
             'address' => 'Адрес',
+            'email' => 'E-mail'
         );
     }
 

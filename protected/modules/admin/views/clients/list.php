@@ -27,6 +27,11 @@ $this->menu=array(
 			'filter' => Clients::getTypes()
 		),
 		array(
+			'header' => 'Название компании',
+			'type' => 'raw',
+			'value' => '$data->type == Clients::CLIENT_UR ? $data->info->name_company : ""'
+		),
+		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
 		),
 	),

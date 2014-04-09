@@ -20,6 +20,7 @@ $this->menu=array(
 		'fio',
 		'phone',
 		'email',
+		'post',
 		array(
 			'name'=>'dt_birthday',
 			'type'=>'raw',

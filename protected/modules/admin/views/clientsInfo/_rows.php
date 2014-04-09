@@ -8,7 +8,9 @@
 
 	<?php echo $form->textFieldControlGroup($model,'name_company',array('class'=>'span8','maxlength'=>255)); ?>
 
-	<?php echo $form->textFieldControlGroup($model,'address',array('class'=>'span8','maxlength'=>255)); ?>
+	<?php echo $form->textAreaControlGroup($model,'address',array('class'=>'span8','maxlength'=>255)); ?>
+
+	<?php echo $form->textAreaControlGroup($model,'ur_address',array('class'=>'span8','maxlength'=>255)); ?>
 
 	<?php //echo $form->textFieldControlGroup($model,'client_id',array('class'=>'span8')); ?>
 
