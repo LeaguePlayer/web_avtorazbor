@@ -40,6 +40,15 @@
 		</div>
 	</div>
 
+	<div class="documents">
+		<h3>Какие документы Вам нужны по данной заявке?</h3>
+		<ul>
+			<?foreach ($model->documents as $document):?>
+			<li><?=CHtml::link($document->getType(), $this->createUrl('documents/download', array('file' => $document->file)))?></li>
+			<?endforeach;?>
+		</ul>
+	</div>
+
 	<div class="modal-block"></div>
 <script>
 	jQuery(document).ready(function(){

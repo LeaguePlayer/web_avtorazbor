@@ -10,7 +10,7 @@
 		<?php
 
 			$map = array(
-				'parts' => array( 'parts', 'carBrands', 'carModels', 'categories', 'usedCars'),
+				'parts' => array( 'parts', 'carBrands', 'carModels', 'categories'),
 				'documents' => array('documents', 'templates'),
 				'requests' => array('requests', 'clients', 'employees')
 			);
@@ -35,7 +35,8 @@
 
 			$menuItems = array(
                 array('label'=>'Кабинет заявок', 'url'=>'/admin/requests'),
-				array('label'=>'Авто ассортимент', 'url'=>'/admin/parts'),
+				array('label'=>'Каталог автозапчасти с разбора', 'url'=>'/admin/parts'),
+				array('label'=>'Продажа авто под ремонт', 'url'=>'/admin/usedCars'),
 				array('label'=>'Документы', 'url'=>'/admin/documents'),
 				array('label'=>'Пользователи', 'url'=>'/user/admin'),
 				array('label'=>'Настройки', 'url'=>'/admin/settings'),
@@ -48,17 +49,16 @@
 					array('label'=>'Бренды', 'url'=>'/admin/carBrands'),
 					array('label'=>'Модели', 'url'=>'/admin/carModels'),
 					array('label'=>'Категории запчастей', 'url'=>'/admin/categories'),
-					array('label'=>'Б/У автомобили', 'url'=>'/admin/usedCars'),
 					array('label'=>'Утилизированные запчасти', 'url'=>'/admin/parts/utilizationList'),
 					array('label'=>'Склады', 'url'=>'/admin/locations'),
-					array('label'=>'Контрагенты', 'url'=>'/admin/suppliers'),
+					array('label'=>'Поставщики', 'url'=>'/admin/suppliers'),
 				),
 				'documents' => array(
 					array('label'=>'Все документы', 'url'=>'/admin/documents'),
 					array('label'=>'Шаблоны', 'url'=>'/admin/templates')
 				),
 				'requests' => array(
-					array('label'=>'Заявки', 'url'=>'/admin/requests'),
+					array('label'=>'Журнал заказов', 'url'=>'/admin/requests'),
 					array('label'=>'Клиенты', 'url'=>'/admin/clients'),
 					array('label'=>'Сотрудники', 'url'=>'/admin/employees'),
 				)

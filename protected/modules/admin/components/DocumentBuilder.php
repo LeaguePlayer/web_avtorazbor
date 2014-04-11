@@ -14,11 +14,12 @@ class DocumentBuilder{
 	public static function createInstancePHPWord(){
 		spl_autoload_unregister(array('YiiBase','autoload'));
 
-		Yii::import('application.extensions.PHPWord.*');
-		require_once Yii::getPathOfAlias('application.extensions.PHPWord').'/PHPWord.php';
+		Yii::import('application.extensions.PhpWord.*');
+		require_once Yii::getPathOfAlias('application.extensions.PhpWord').'/Autoloader.php';
+		PhpOffice\PhpWord\Autoloader::register();
 
 		if (self::$_instance_phpword === null) {
-            self::$_instance_phpword = new PHPWord();
+            self::$_instance_phpword = new \PhpOffice\PhpWord\PhpWord();
         }
 		
 		spl_autoload_register(array('YiiBase','autoload'));
@@ -119,7 +120,7 @@ class DocumentBuilder{
 
 			//set document number
 			$document->setValue('doc_num', $arDocument->id);
-			$document->save($tmpName);
+			$document->saveAs($tmpName);
 
 			//set attributes
 			$arDocument->type = Documents::DOC_KOMISSII;
@@ -244,7 +245,7 @@ class DocumentBuilder{
 
 			//set document number
 			$document->setValue('dog_num', $arDocument->id);
-			$document->save($tmpName);
+			$document->saveAs($tmpName);
 
 			// SiteHelper::downloadFile($tmpName);
 
@@ -391,7 +392,7 @@ class DocumentBuilder{
 
 			//set document number
 			$document->setValue('dog_num', $arDocument->id);
-			$document->save($tmpName);
+			$document->saveAs($tmpName);
 
 			// SiteHelper::downloadFile($tmpName);
 
@@ -407,10 +408,146 @@ class DocumentBuilder{
 		}
 	}
 
+	/**
+	 * Формируем товарный чек (физическое лицо)
+	 */
+	public static function tovarniyCheck($request, $update_doc_id = false){
+
+		$PHPWord = self::createInstancePHPWord();
+
+		$template = Templates::findTemplateByName('tovarnyiy_chek');
+
+		$tplFile = $template->getTemplatePathToFile();
+		$document = $PHPWord->loadTemplate($tplFile);
+
+		$date = new DateTime();
+		$document->setValue('date', $date->format('d.m.Y'));
+
+		$sum = 0;
+
+		if($request->parts){
+			$document->cloneRow('index', count($request->parts));
+			
+			//set row
+			foreach ($request->parts as $i => $part) {
+				$index = $i + 1;
+				$sum += $part->price_sell;
+				$document->setValue('index#'.$index, $index);
+				$document->setValue('name#'.$index, $part->name);
+				$document->setValue('id#'.$index, $part->id);
+				$document->setValue('count#'.$index, 1);
+				$document->setValue('price#'.$index, $part->price_sell);
+				$document->setValue('part_sum#'.$index, $part->price_sell);
+			}
+
+			$document->setValue('sum', $sum);
+			$document->setValue('sum_str', SiteHelper::num2str($sum));
+		}
+
+		//create or update Document
+		$arDocument = $update_doc_id ? Documents::model()->findByPk($update_doc_id) : new Documents;
+
+		if($arDocument){
+			
+			if($arDocument->isNewRecord) $arDocument->save(false);
+
+			$docsPath = Yii::getPathOfAlias('application.docs');
+			$fileName = "{$template->uniqid}_{$request->id}.docx";
+			$tmpName = $docsPath.DIRECTORY_SEPARATOR.$fileName;
+
+			$document->setValue('num', $arDocument->id);
+			$document->setValue('user', Yii::app()->user->first_name);
+			$document->saveAs($tmpName);
+			//set attributes
+			$arDocument->type = Documents::DOC_TOVARNIY_CHECK;
+			$arDocument->name = $arDocument->getType().' №'.$arDocument->id.' от '.$date->format('d.m.Y');
+			$arDocument->file = $fileName;
+			$arDocument->request_id = $request->id;
+			$arDocument->template_id = $template->id;
+			$arDocument->sum = $sum;
+
+			$arDocument->save(false);
+		}
+	}
+
+	/**
+	 * Формируем счет (юридическое лицо)
+	 */
+	public static function schetOplata($request, $update_doc_id = false){
+
+		$PHPWord = self::createInstancePHPWord();
+
+		$template = Templates::findTemplateByName('schet_na_oplatu');
+
+		$tplFile = $template->getTemplatePathToFile();
+		$document = $PHPWord->loadTemplate($tplFile);
+
+		$date = new DateTime();
+		$document->setValue('date', $date->format('d.m.Y'));
+
+		$sum = 0;
+
+		if($request->parts){
+			$document->cloneRow('index', count($request->parts));
+			
+			//set row
+			foreach ($request->parts as $i => $part) {
+				$index = $i + 1;
+				$sum += $part->price_sell;
+				$document->setValue('index#'.$index, $index);
+				$document->setValue('name#'.$index, $part->name);
+				$document->setValue('price#'.$index, number_format($part->price_sell, 2, ',', ' '));
+			}
+		}
+
+		$document->setValue('sum', number_format($sum, 2, ',', ' '));
+		$document->setValue('count', count($request->parts));
+		$document->setValue('sum_str', SiteHelper::num2str($sum));
+
+		//get client info
+		if($request->client){
+			$info = $request->client->info;
+			$client = array();
+
+			$client[] = $info->name_company;
+			$client[] = 'ИНН '.$info->inn;
+			$client[] = 'КПП '.$info->kpp;
+			$client[] = $info->ur_address;
+
+			$document->setValue('client', implode(', ', $client));
+		}
+
+		//create or update Document
+		$arDocument = $update_doc_id ? Documents::model()->findByPk($update_doc_id) : new Documents;
+
+		if($arDocument){
+			
+			if($arDocument->isNewRecord) $arDocument->save(false);
+
+			$docsPath = Yii::getPathOfAlias('application.docs');
+			$fileName = "{$template->uniqid}_{$request->id}.docx";
+			$tmpName = $docsPath.DIRECTORY_SEPARATOR.$fileName;
+
+			/*SiteHelper::downloadFile($tmpName);
+			die($tmpName);*/
+
+			$document->setValue('num', $arDocument->id);
+			$document->saveAs($tmpName);
+			//set attributes
+			$arDocument->type = Documents::DOC_SCHET_OPLATI;
+			$arDocument->name = $arDocument->getType().' №'.$arDocument->id.' от '.$date->format('d.m.Y');
+			$arDocument->file = $fileName;
+			$arDocument->request_id = $request->id;
+			$arDocument->template_id = $template->id;
+			$arDocument->sum = $sum;
+
+			$arDocument->save(false);
+		}
+	}
+
 	public static function getRussianMonth($n){
 		$months = array(1 => 'Января', 2 => 'Февраля', 3 => 'Марта', 	4 => 'Апреля', 5 => 'Мая', 6 => 'Июня', 7 => 'Июля', 8 => 'Августа', 9 => 'Сентября', 10 => 'Октября', 11 => 'Ноября', 12 => 'Декабря');
 
 		return $months[$n];
 	}
-
 }

@@ -85,7 +85,8 @@ class Requests extends EActiveRecord
             'employee' => array(self::BELONGS_TO, 'Employees', 'check_user_id'),
             'parts' => array(self::MANY_MANY, 'Parts', '{{PartsInRequest}}(request_id, part_id)'),
             'parts_in_util' => array(self::MANY_MANY, 'Parts', '{{CheckUtilization}}(req_id, part_id)'),
-            'logs' => array(self::HAS_MANY, 'RequestLogs', 'request_id')
+            'logs' => array(self::HAS_MANY, 'RequestLogs', 'request_id'),
+            'documents' => array(self::HAS_MANY, 'Documents', 'request_id')
         );
     }
 

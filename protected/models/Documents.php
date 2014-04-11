@@ -19,6 +19,8 @@ class Documents extends EActiveRecord
     const DOC_KOMISSII = 1;
     const DOC_KUPLI_I_PROD_BU_WITH_KOMISSII = 2;
     const DOC_KUPLI_I_PROD_BU_NO_KOMISSII = 3;
+    const DOC_TOVARNIY_CHECK = 4;
+    const DOC_SCHET_OPLATI = 5;
 
     public function tableName()
     {
@@ -28,7 +30,7 @@ class Documents extends EActiveRecord
     public function rules()
     {
         return array(
-            array('type, used_car_id, template_id', 'numerical', 'integerOnly'=>true),
+            array('type, used_car_id, template_id, request_id', 'numerical', 'integerOnly'=>true),
             array('file, name', 'length', 'max'=>255),
             array('sum', 'length', 'max'=>10),
             array('create_time, update_time', 'safe'),
@@ -41,7 +43,8 @@ class Documents extends EActiveRecord
     public function relations()
     {
         return array(
-            'used_car' => array(self::BELONGS_TO, 'UsedCars', 'used_car_id')
+            'used_car' => array(self::BELONGS_TO, 'UsedCars', 'used_car_id'),
+            'request' => array(self::BELONGS_TO, 'Requests', 'request_id')
         );
     }
 
@@ -56,6 +59,7 @@ class Documents extends EActiveRecord
             'used_car_id' => 'Бу автомобиль',
             'template_id' => 'Шаблон',
             'sum' => 'Сумма',
+            'request_id' => 'Заявка',
             'create_time' => 'Дата создания',
             'update_time' => 'Дата последнего редактирования',
         );
@@ -126,6 +130,8 @@ class Documents extends EActiveRecord
             self::DOC_KOMISSII => 'Договор комиссии',
             self::DOC_KUPLI_I_PROD_BU_WITH_KOMISSII => 'Договор купли-продажи ТС к договору комиссии',
             self::DOC_KUPLI_I_PROD_BU_NO_KOMISSII => 'Договор купли-продажи ТС без договора комиссии',
+            self::DOC_TOVARNIY_CHECK => 'Товарный чек',
+            self::DOC_SCHET_OPLATI => 'Счет на оплату'
         );
     }
 }
