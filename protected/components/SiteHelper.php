@@ -137,7 +137,7 @@ class SiteHelper {
 			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 			header('Pragma: public');
 			header('Content-Length: ' . filesize($pathToFile));
-			ob_clean();
+			if (ob_get_length()) ob_clean();
 			flush();
 			readfile($pathToFile);
 			Yii::app()->end();
