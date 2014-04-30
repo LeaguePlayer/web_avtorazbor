@@ -39,7 +39,7 @@ $this->widget('zii.widgets.CDetailView', array(
 		array(
 			'label'=>'Б/У автомобиль',
 			'type'=>'raw',
-			'value'=>$model->usedCar[0] ? 'VIN - '.$model->usedCar[0]->vin : 'нет',
+			'value'=>$model->usedCar && !empty($model->usedCar) ? 'VIN - '.$model->usedCar[0]->vin : 'нет',
 		)
 		// 'owner.name',        // an attribute of the related object "owner"
 		// 'description:html',  // description attribute in HTML
