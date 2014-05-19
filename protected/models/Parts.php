@@ -28,6 +28,7 @@ class Parts extends EActiveRecord
     const STATUS_RESERVED = 4;
     const STATUS_UTIL = 5;
     const STATUS_SUCCESS = 6;
+    const STATUS_DEVICE = 7;
 
     public $max_sort;
 
@@ -40,6 +41,7 @@ class Parts extends EActiveRecord
             self::STATUS_RESERVED => 'Зарезервирован',
             self::STATUS_UTIL => 'Утилизирован',
             self::STATUS_SUCCESS => 'Продан',
+            self::STATUS_DEVICE => 'Загружено с устройства',
         );
 
         if ($status > -1)

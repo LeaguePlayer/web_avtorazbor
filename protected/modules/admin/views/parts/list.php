@@ -44,7 +44,7 @@ $this->menu=array(
 		array(
 			'name'=>'category_id',
 			'type'=>'raw',
-			'value'=>'$data->category->name',
+			'value'=>'$data->category ? $data->category->name : ""',
 			'filter'=>$this->widget('yiiwheels.widgets.select2.WhSelect2', array(
 				'model'=>$model,
 				'attribute'=>'category_id',
@@ -65,7 +65,7 @@ $this->menu=array(
 		array(
 			'name'=>'car_model_id',
 			'type'=>'raw',
-			'value'=>'$data->car_model->car_brand->name." ".$data->car_model->name',
+			'value'=>'$data->car_model ? $data->car_model->car_brand->name." ".$data->car_model->name : ""',
 			'filter'=>$this->widget('yiiwheels.widgets.select2.WhSelect2', array(
 				'model'=>$model,
 				'attribute'=>'car_model_id',
