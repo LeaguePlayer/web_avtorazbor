@@ -96,6 +96,51 @@ class ApiController extends FrontController
 		Yii::app()->end();
 	}
 
+	/**
+	 * Get data for selects
+	 */
+	public function actionFieldsData(){
+		header('Content-Type: application/json');
+
+		//categories
+		$data = Yii::app()->db->createCommand()
+			->select('id, name')
+			->from('{{categories}}')
+			->order('name')
+			->queryAll();
+		$this->response->data['categories'] = $data;
+
+		//car models
+		$data = CarModels::brandModelsList();
+		$this->response->data['car_models'] = $data;
+
+		//locations
+		$data = Yii::app()->db->createCommand()
+			->select('id, name')
+			->from('{{Locations}}')
+			->queryAll();
+		$this->response->data['locations'] = $data;
+
+		//suppliers
+		$data = Yii::app()->db->createCommand()
+			->select('id, name')
+			->from('{{Suppliers}}')
+			->queryAll();
+		$this->response->data['suppliers'] = $data;
+
+		//used cars
+		$data = Yii::app()->db->createCommand()
+			->select('id, CONCAT("VIN - ", vin) as name')
+			->from('{{UsedCars}}')
+			->where('status=1')
+			->queryAll();
+		$this->response->data['bu_cars'] = $data;
+
+		$this->printJSON();
+
+		Yii::app()->end();
+	}
+
 	private function printJSON(){
 		echo CJSON::encode($this->response);
 	}
