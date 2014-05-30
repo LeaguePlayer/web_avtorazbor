@@ -128,9 +128,9 @@ class ApiController extends FrontController
 		Yii::import('user.components.*');
 		Yii::import('user.models.*');
 
-		// if(true){
-		// 	$identity=new UserIdentity('admin', 'admin1234');
-		// 	$identity->authenticate();
+		/*if(true){
+			$identity=new UserIdentity('admin', 'admin1234');
+			$identity->authenticate();*/
 
 		if(isset($_POST['username']) && isset($_POST['pass'])){
 			$identity=new UserIdentity($_POST['username'], $_POST['pass']);
@@ -145,7 +145,7 @@ class ApiController extends FrontController
 					$user_info->id = $user->id;
 					$user_info->fio = $user->profile->first_name." ".$user->profile->last_name;
 
-					$this->response->data['user'] = $user_info;
+					$this->response->data[]['user'] = $user_info;
 					break;
 				case UserIdentity::ERROR_EMAIL_INVALID:
 					$this->response->errors[] = 'Email is incorrect.';
