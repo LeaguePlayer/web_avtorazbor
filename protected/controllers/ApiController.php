@@ -36,6 +36,7 @@ class ApiController extends FrontController
 
 		$part->name = 'Новая запчасть';
 		$part->price_sell = 0;
+		$part->price_buy = 0;
 		$part->status = Parts::STATUS_DEVICE;
 
 		if($part->save()){
@@ -72,7 +73,7 @@ class ApiController extends FrontController
 				$part->save(false);
 				$response->data['save'] = 1;
 			}else
-				$this->response->errors = $part->getErrors();
+				$this->response->errors[] = $part->getErrors();
 		}
 
 		$this->printJSON();

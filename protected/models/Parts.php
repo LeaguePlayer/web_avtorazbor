@@ -59,7 +59,7 @@ class Parts extends EActiveRecord
     public function rules()
     {
         return array(
-            array('name, price_sell', 'required'),
+            array('name, price_sell, price_buy', 'required'),
             array('category_id, car_model_id, location_id, supplier_id, status, gallery_id', 'numerical', 'integerOnly'=>true),
             array('name', 'length', 'max'=>255),
             array('price_sell, price_buy', 'length', 'max'=>10),
