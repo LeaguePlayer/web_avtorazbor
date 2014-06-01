@@ -17,6 +17,8 @@
 
 	<?php echo $form->dropDownListControlGroup($model,'superuser',User::itemAlias('AdminStatus')); ?>
 
+	<?php echo $form->dropDownListControlGroup($model,'allow_app',User::itemAlias('AllowAppStatus')); ?>
+
 	<?php echo $form->dropDownListControlGroup($model,'status',User::itemAlias('UserStatus')); ?>
 <?php 
 		$profileFields=Profile::getFields();

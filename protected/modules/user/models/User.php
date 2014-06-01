@@ -60,8 +60,8 @@ class User extends CActiveRecord
             array('create_at', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
             array('lastvisit_at', 'default', 'value' => '0000-00-00 00:00:00', 'setOnEmpty' => true, 'on' => 'insert'),
 			array('username, email, superuser, status', 'required'),
-			array('superuser, status', 'numerical', 'integerOnly'=>true),
-			array('id, username, password, email, activkey, create_at, lastvisit_at, superuser, status', 'safe', 'on'=>'search'),
+			array('superuser, status, allow_app', 'numerical', 'integerOnly'=>true),
+			array('id, username, password, email, activkey, create_at, lastvisit_at, superuser, status, allow_app', 'safe', 'on'=>'search'),
 		):((Yii::app()->user->id==$this->id)?array(
 			array('username, email', 'required'),
 			array('username', 'length', 'max'=>20, 'min' => 3,'message' => UserModule::t("Incorrect username (length between 3 and 20 characters).")),
@@ -102,6 +102,7 @@ class User extends CActiveRecord
 			'lastvisit_at' => UserModule::t("Last visit"),
 			'superuser' => UserModule::t("Superuser"),
 			'status' => UserModule::t("Status"),
+			'allow_app' => 'Доступ к приложению'
 		);
 	}
 	
@@ -121,7 +122,7 @@ class User extends CActiveRecord
                 'condition'=>'superuser=1',
             ),
             'notsafe'=>array(
-            	'select' => 'id, username, password, email, activkey, create_at, lastvisit_at, superuser, status',
+            	'select' => 'id, username, password, email, activkey, create_at, lastvisit_at, superuser, status, allow_app',
             ),
         );
     }
@@ -144,6 +145,10 @@ class User extends CActiveRecord
 			'AdminStatus' => array(
 				'0' => UserModule::t('No'),
 				'1' => UserModule::t('Yes'),
+			),
+			'AllowAppStatus' => array(
+				0 => UserModule::t('No'),
+				1 => UserModule::t('Yes'),
 			),
 		);
 		if (isset($code))

@@ -60,16 +60,14 @@ class ApiController extends FrontController
 			//create name
 			$name = "";
 
-			if($part->category)
-				$name .= $part->category->name;
-			if($part->car_model && $part->car_model->car_brand)
-				$name .= ", ".$part->car_model->car_brand->name." ".$part->car_model->name;
+			if($part->category && $part->car_model)
+				$name .= $part->category->name.", ".$part->car_model->car_brand->name." ".$part->car_model->name;
 
 			$part->name = $name;
 
 			if($part->validate()){
 				$this->attachUsedCar($part);
-				$part->status = Parts::STATUS_PUBLISH;
+				// $part->status = Parts::STATUS_PUBLISH;
 				$part->save(false);
 				$response->data['save'] = 1;
 			}else
@@ -129,18 +127,23 @@ class ApiController extends FrontController
 		Yii::import('user.components.*');
 		Yii::import('user.models.*');
 
-		/*if(true){
+		if(true){
 			$identity=new UserIdentity('admin', 'admin1234');
-			$identity->authenticate();*/
-
-		if(isset($_POST['username']) && isset($_POST['pass'])){
-			$identity=new UserIdentity($_POST['username'], $_POST['pass']);
 			$identity->authenticate();
+
+		/*if(isset($_POST['username']) && isset($_POST['pass'])){
+			$identity=new UserIdentity($_POST['username'], $_POST['pass']);
+			$identity->authenticate();*/
 
 			switch($identity->errorCode)
 			{
 				case UserIdentity::ERROR_NONE:
-					$user = User::model()->findByPk($identity->getId());
+					$user = User::model()->notsafe()->findByPk($identity->getId());
+
+					if(!$user->allow_app){
+						$this->response->errors[] = 'Доступ запрещен!';
+						break;
+					}
 
 					$user_info = new stdClass();
 					$user_info->id = $user->id;

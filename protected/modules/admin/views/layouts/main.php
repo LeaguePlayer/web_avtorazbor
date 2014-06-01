@@ -12,7 +12,8 @@
 			$map = array(
 				'parts' => array( 'parts', 'carBrands', 'carModels', 'categories'),
 				'documents' => array('documents', 'templates'),
-				'requests' => array('requests', 'clients', 'employees')
+				'requests' => array('requests', 'clients', 'employees'),
+				'settings' => array('settings', 'download')
 			);
 
 			$root = 'parts';
@@ -61,6 +62,10 @@
 					array('label'=>'Журнал заказов', 'url'=>'/admin/requests'),
 					array('label'=>'Клиенты', 'url'=>'/admin/clients'),
 					array('label'=>'Сотрудники', 'url'=>'/admin/employees'),
+				),
+				'settings' => array(
+					array('label'=>'Все настройки', 'url'=>'/admin/settings'),
+					array('label'=>'Скачать приложение', 'url'=>'/admin/settings/downloadApp'),
 				)
 			);
 

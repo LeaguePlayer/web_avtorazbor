@@ -46,6 +46,10 @@ $this->menu=array(
 			'value' => User::itemAlias("AdminStatus",$model->superuser),
 		),
 		array(
+			'name' => 'allow_app',
+			'value' => User::itemAlias("AllowAppStatus", $model->allow_app),
+		),
+		array(
 			'name' => 'status',
 			'value' => User::itemAlias("UserStatus",$model->status),
 		)
