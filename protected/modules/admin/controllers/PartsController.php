@@ -77,6 +77,21 @@ class PartsController extends AdminController
 		$this->render('view', array('model' => $model, 'analogs' => $analogs));
 	}
 
+	public function actionDelete($id){
+
+		$model = Parts::model()->findByPk($id);
+		if(!$model)
+			throw new CHttpException(404, 'Запчасть не найдена.');
+
+		if($model->status != Parts::STATUS_REMOVED){
+			$model->status = Parts::STATUS_REMOVED;
+			$model->save(false, array('status'));
+		}else
+			$model->delete();
+
+		Yii::app()->end();
+	}
+
 	//export to Excel
 	public function actionToExcel(){
 
@@ -214,6 +229,19 @@ class PartsController extends AdminController
 		Yii::app()->end();
 	}
 
+	public function actionRemoved(){
+		$this->layout = '/layouts/custom';
+		
+		$model = new Parts;
+
+		if(isset($_GET['Parts']))
+			$model->attributes = $_GET['Parts'];
+
+		$data = $model->deleted();
+
+		$this->render('removed_list', array('model' => $model, 'data' => $data));
+	}
+
 	public function actionUtilizationList(){
 		$this->layout = '/layouts/custom';
 		
@@ -222,13 +250,7 @@ class PartsController extends AdminController
 		if(isset($_GET['Parts']))
 			$model->attributes = $_GET['Parts'];
 
-		$criteria = new CDbCriteria;
-		$criteria->addCondition('status=:s');
-		$criteria->params[':s'] = Parts::STATUS_UTIL;
-
-		$data = new CActiveDataProvider('Parts', array(
-            'criteria'=>$criteria,
-        ));
+		$data = $model->utilization();
 
 		$this->render('utilization_list', array('model' => $model, 'data' => $data));
 	}
@@ -298,6 +320,19 @@ class PartsController extends AdminController
 				if($model->usedCar) //delete relation
 					$db->delete('{{Parts_UsedCars}}', 'parts_id=:p', array(':p' => $model->id));
 			}
+		}
+	}
+
+	public function actionChangeStatus($id){
+		
+		if(isset($_POST['val']) && $_POST['val'] >= 0){
+			
+			$model = Parts::model()->findByPk($id);
+			if(!$model)
+				throw new CHttpException(404, 'Запчасть не найдена.');
+
+			$model->status = $_POST['val'];
+			$model->save(false, array('status'));
 		}
 	}
 

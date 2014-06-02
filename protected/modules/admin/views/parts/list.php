@@ -1,6 +1,7 @@
 <?php
 $this->menu=array(
 	array('label'=>'Добавить','url'=>array('create')),
+	array('label'=>'Корзина','url'=>array('removed')),
 );
 ?>
 
@@ -36,9 +37,13 @@ $this->menu=array(
 		array(
 			'header' => 'Фото',
 			'type' => 'html',
-			'value' => '$data->gallery->main ? TbHtml::imageRounded($data->gallery->main->getPreview(), "", array("width"=> 120)) : ""'
+			'value' => '$data->gallery->main ? CHtml::link(TbHtml::imageRounded($data->gallery->main->getPreview(), "", array("width"=> 120)), "/admin/parts/view/id/".$data->id) : ""'
 		),
-		'name',
+		array(
+			'name' => 'name',
+			'type' => 'raw',
+			'value' => 'CHtml::link($data->name, "/admin/parts/view/id/".$data->id)'
+		),
 		'price_sell',
 		'price_buy',
 		array(

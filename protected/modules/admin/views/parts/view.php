@@ -32,7 +32,7 @@ $this->widget('zii.widgets.CDetailView', array(
 		array(
 			'name'=>'car_model_id',
 			'type'=>'raw',
-			'value'=>$model->car_model->car_brand->name.' '.$model->car_model->name,
+			'value'=>$model->car_model ? $model->car_model->car_brand->name.' '.$model->car_model->name : "",
 		),
 		'location.name',
 		'supplier.name',

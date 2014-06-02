@@ -31,6 +31,7 @@ class Parts extends EActiveRecord
     const STATUS_DEVICE = 7;
 
     public $max_sort;
+    public $removeOnDelete = true;
 
     public static function getStatusAliases($status = -1)
     {
@@ -126,25 +127,65 @@ class Parts extends EActiveRecord
         );
     }
 
+    public function getCommonCriteria(){
+        $criteria=new CDbCriteria;
+        $criteria->compare('id',$this->id);
+        $criteria->compare('name',$this->name,true);
+        $criteria->compare('price_sell',$this->price_sell,true);
+        $criteria->compare('price_buy',$this->price_buy,true);
+        $criteria->compare('comment',$this->comment,true);
+        // $criteria->compare('category_id',$this->category_id);
+        // $criteria->compare('car_model_id',$this->car_model_id);
+        if($this->location_id != 0) $criteria->compare('location_id',$this->location_id);
+        if($this->category_id != 0) {
+
+            $category = Categories::model()->findByPk($this->category_id);
+            if($category->parent == 0){
+                $children = Yii::app()->db->createCommand()
+                    ->select('id')
+                    ->from('{{categories}}')
+                    ->where('parent=:parent', array(':parent'=>$this->category_id))
+                    ->queryColumn();
+                array_push($children, $this->category_id);
+                
+                $criteria->addInCondition('category_id', $children);
+            }else
+                $criteria->compare('category_id', $this->category_id);
+        }
+        if($this->car_model_id != 0) $criteria->compare('car_model_id',$this->car_model_id);
+        $criteria->compare('supplier_id',$this->supplier_id);
+        $criteria->compare('create_time',$this->create_time,true);
+
+        $criteria->order = 'create_time DESC';
+
+        return $criteria;
+    }
+
+    public function utilization(){
+        $criteria = $this->getCommonCriteria();
+        $criteria->compare('status', self::STATUS_UTIL);
+
+        return new CActiveDataProvider('Parts', array(
+            'criteria'=>$criteria,
+        ));
+    }
+
+    public function deleted(){
+        $criteria = $this->getCommonCriteria();
+        $criteria->compare('status', self::STATUS_REMOVED);
+
+        return new CActiveDataProvider('Parts', array(
+            'criteria'=>$criteria,
+        ));
+    }
 
     public function search()
     {
-        $criteria=new CDbCriteria;
-		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('price_sell',$this->price_sell,true);
-		$criteria->compare('price_buy',$this->price_buy,true);
-		$criteria->compare('comment',$this->comment,true);
-		// $criteria->compare('category_id',$this->category_id);
-		// $criteria->compare('car_model_id',$this->car_model_id);
-        if($this->location_id != 0) $criteria->compare('location_id',$this->location_id);
-        if($this->category_id != 0) $criteria->compare('category_id',$this->category_id);
-        if($this->car_model_id != 0) $criteria->compare('car_model_id',$this->car_model_id);
-		$criteria->compare('supplier_id',$this->supplier_id);
-		$criteria->compare('create_time',$this->create_time,true);
+        $criteria = $this->getCommonCriteria();
 		$criteria->compare('status',$this->status);
 
-        $criteria->order = 'create_time DESC';
+        $criteria->addCondition('status!=:status');
+        $criteria->params[':status'] = self::STATUS_REMOVED;
 
         if($this->usedCar){
             // print_r($this->usedCar);
@@ -263,11 +304,11 @@ class Parts extends EActiveRecord
         ));
     }
 
-    protected function afterDelete()
+    public function afterDelete()
     {
-        parent::afterDelete();
-
         // Analogs::model()->deleteAll('model_1=:p OR model_2=:p', array(':p' => $this->id));
+        // var_dump($this);die();
+        parent::afterDelete();
 
         $db = Yii::app()->db->createCommand();
         $db->delete('{{Parts_UsedCars}}', 'parts_id=:p', array(':p' => $this->id));
