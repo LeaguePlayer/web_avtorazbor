@@ -43,7 +43,7 @@
 	<div class="documents">
 		<h3>Какие документы Вам нужны по данной заявке?</h3>
 		<ul>
-			<?foreach ($model->documents as $document):?>
+			<?foreach ($model->getDocuments() as $document):?>
 			<li><?=CHtml::link($document->getType(), $this->createUrl('documents/download', array('file' => $document->file)))?></li>
 			<?endforeach;?>
 		</ul>

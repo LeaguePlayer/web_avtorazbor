@@ -245,6 +245,33 @@ class Requests extends EActiveRecord
         $this->update(array('status'));
     }
 
+    public function findDocumentType($type){
+        
+        if($this->documents){
+            foreach ($this->documents as $document) {
+                if ($document->type == $type) return $document;
+            }
+        }
+
+        return null;
+    }
+
+    public function getDocuments(){
+
+        $criteria = new CDbCriteria;
+
+        $criteria->addCondition('request_id=:request_id');
+        $criteria->params[':request_id'] = $this->id;
+
+        if($this->client->type == Clients::CLIENT_FIZ){
+            $criteria->addInCondition('type', Documents::$fizDocs);
+        }elseif($this->client->type == Clients::CLIENT_UR){
+            $criteria->addInCondition('type', Documents::$urDocs);
+        }
+
+        return Documents::model()->findAll($criteria);
+    }
+
     public function deleteTaskFromCron(){
         $cron = new Crontab('cron_requests'); // my_crontab file will store all added jobs
 

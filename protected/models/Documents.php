@@ -22,6 +22,10 @@ class Documents extends EActiveRecord
     const DOC_TOVARNIY_CHECK = 4;
     const DOC_SCHET_OPLATI = 5;
 
+    //docs for fiziks and uriks
+    public static $fizDocs = array(self::DOC_TOVARNIY_CHECK);
+    public static $urDocs = array(self::DOC_SCHET_OPLATI);
+
     public function tableName()
     {
         return '{{Documents}}';
@@ -133,5 +137,14 @@ class Documents extends EActiveRecord
             self::DOC_TOVARNIY_CHECK => 'Товарный чек',
             self::DOC_SCHET_OPLATI => 'Счет на оплату'
         );
+    }
+
+    public function beforeDelete(){
+        $fileName = $this->getFilePath();
+
+        if(is_file($fileName))
+            @unlink($fileName);
+
+        return parent::beforeDelete();
     }
 }

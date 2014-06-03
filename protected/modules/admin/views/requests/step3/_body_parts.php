@@ -5,7 +5,7 @@
 <tr>
 	<td><?=$i+1?></td>
 	<td><?=CHtml::encode($part->name)?></td>
-	<td><?=CHtml::encode($part->location->name)?></td>
+	<td><?=CHtml::encode($part->location ? $part->location->name : "")?></td>
 	<td><?=CHtml::encode($part->price_sell)?></td>
 	<?php //echo CHtml::activeHiddenField($part, 'id'); ?>
 </tr>

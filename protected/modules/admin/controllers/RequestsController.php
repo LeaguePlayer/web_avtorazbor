@@ -113,31 +113,30 @@ class RequestsController extends AdminController
 				$request->status = Requests::STATUS_WAIT_BUY;
 				$request->save(false);
 
+				//clear all docs before create new
+				/*if($request->documents){
+					foreach ($request->documents as $document) {
+						$document->delete();
+					}
+				}*/
+
 				//create documents for request
 				if($request->client->type == Clients::CLIENT_FIZ){ //Физическое лицо
-					if($request->documents){ //if docs created
-						foreach ($request->documents as $document) {
-							switch ($document->type) {
-								case Documents::DOC_TOVARNIY_CHECK:
-									DocumentBuilder::tovarniyCheck($request, $document->id);
-									break;
-							}
-						}
-					}else
-						DocumentBuilder::tovarniyCheck($request);
+
+					//create tovarnii check
+					if($document = $request->findDocumentType(Documents::DOC_TOVARNIY_CHECK))
+						DocumentBuilder::tovarniyCheck($request, $document->id);
+					else
+						DocumentBuilder::tovarniyCheck($request);					
 
 				}elseif($request->client->type == Clients::CLIENT_UR){
-					if($request->documents){
-						foreach ($request->documents as $document) {
-							switch ($document->type) {
-								case Documents::DOC_SCHET_OPLATI:
-									DocumentBuilder::schetOplata($request, $document->id);
-									break;
-							}
-						}
-					}else{
+
+					//create schet oplati
+					if($document = $request->findDocumentType(Documents::DOC_SCHET_OPLATI))
+						DocumentBuilder::schetOplata($request, $document->id);
+					else
 						DocumentBuilder::schetOplata($request);
-					}
+
 				}
 
 				$this->redirect($this->createUrl('step3', array('id' => $request->id)));
