@@ -8,7 +8,12 @@ $this->widget('bootstrap.widgets.TbGridView',array(
         "data-analog"=>$data->id
     )',
 	'columns'=>array(
-		'name',
+		'id',
+		array(
+			'name' => 'name',
+			'type' => 'raw',
+			'value' => 'CHtml::link($data->name, "/admin/parts/view/id/".$data->id)'
+		),
 		'price_sell',
 		array(
 			'name'=>'category_id',

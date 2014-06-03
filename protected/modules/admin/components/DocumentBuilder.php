@@ -7,6 +7,7 @@
 class DocumentBuilder{
 
 	protected static $_instance_phpword;
+	protected static $_instance_phpexcel;
 
 	private function __construct(){}
 	private function __clone(){}
@@ -25,6 +26,20 @@ class DocumentBuilder{
 		spl_autoload_register(array('YiiBase','autoload'));
 
 		return self::$_instance_phpword;
+	}
+
+	public static function createInstancePHPExcel(){
+		$phpExcelPath = Yii::getPathOfAlias('ext.phpExcel.Classes');
+
+		spl_autoload_unregister(array('YiiBase','autoload'));
+		require_once $phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel.php';
+		spl_autoload_register(array('YiiBase','autoload'));
+
+		if(self::$_instance_phpexcel == null) {
+			self::$_instance_phpexcel = new PHPExcel();
+		}
+
+		return self::$_instance_phpexcel;
 	}
 
 	/**
@@ -543,6 +558,174 @@ class DocumentBuilder{
 
 			$arDocument->save(false);
 		}
+	}
+
+	//tovarnaya_nakladnaya
+	public static function tovarnayNakladnay($request, $document_id = false){
+
+		$arDocument = $document_id ? Documents::model()->findByPk($document_id) : new Documents;
+
+		if($arDocument){
+			$date = new DateTime();
+			$date_create = $date->format('d.m.Y');
+
+			//save if new
+			if($arDocument->isNewRecord) $arDocument->save(false);
+
+			//work with Excel
+			$PHPExcel = self::createInstancePHPExcel();
+
+			$template = Templates::findTemplateByName('tovarnaya_nakladnaya');
+			$tplFile = $template->getTemplatePathToFile();
+
+			$objPHPExcel = PHPExcel_IOFactory::load($tplFile);
+			$objWorksheet = $objPHPExcel->getActiveSheet();
+
+			$objWorksheet->getCell('G13')->setValue($arDocument->id); //num doc
+			$objWorksheet->getCell('I13')->setValue($date_create); //date
+
+			//TODO: tomorrow
+			$objWorksheet->getCell('C10')->setValue('Договор розницы №X'); //dogovor
+
+			//set client info
+			if($request->client){
+				$info = $request->client->info;
+				$client = array();
+
+				if($info->name_company) $client[] = $info->name_company;
+				if($info->inn) $client[] = 'ИНН '.$info->inn;
+				if($info->kpp) $client[] = 'КПП '.$info->kpp;
+				if($info->ur_address) $client[] = $info->ur_address;
+
+				$objWorksheet->getCell('C7')->setValue(implode(', ', $client));
+				$objWorksheet->getCell('C9')->setValue(implode(', ', $client));
+			}
+
+			//start row number
+			$start_row = 19;
+			$count_columns = 16;
+			$count_parts = count($request->parts);
+
+			$code_OKEI = 796;
+
+			$alphabet = range('A', 'Z');
+			$objWorksheet->insertNewRowBefore($start_row + 1, $count_parts - 1);
+
+			//loop on parts
+			$sum = 0;
+
+			//center style
+			$style = array(
+				'alignment' => array(
+					'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+				)
+			);
+
+			foreach ($request->parts as $key => $part) {
+				for ($i = 1; $i <= $count_columns; $i++) {
+					switch ($i) { //cell num
+						case 1:
+							$objWorksheet->setCellValue($alphabet[$i-1].$start_row, $key+1);
+							break;
+						case 2:
+							$objWorksheet->mergeCells($alphabet[$i-1].$start_row.':'.$alphabet[$i].$start_row);
+							$objWorksheet->setCellValue($alphabet[$i-1].$start_row, $part->name);
+							break;
+						case 5:
+							// var_dump($alphabet[$i-1]);
+							$objWorksheet->setCellValue($alphabet[$i-1].$start_row, 'шт');
+							break;
+						case 6:
+							$objWorksheet->setCellValue($alphabet[$i-1].$start_row, $code_OKEI);
+							break;
+						case 11:
+							$objWorksheet->setCellValue($alphabet[$i-1].$start_row, 1);
+							break;
+						case 12:
+							$objWorksheet->setCellValue($alphabet[$i-1].$start_row, $part->price_sell);
+							break;
+						case 13:
+							$objWorksheet->setCellValue($alphabet[$i-1].$start_row, $part->price_sell);
+							break;
+						case 14:
+							$objWorksheet->setCellValue($alphabet[$i-1].$start_row, 'Без НДС');
+							break;
+						case 15:
+							$objWorksheet->setCellValue($alphabet[$i-1].$start_row, '-');
+							$objWorksheet->getStyle($alphabet[$i-1].$start_row)->applyFromArray($style);
+							break;
+						case 16:
+							$objWorksheet->setCellValue($alphabet[$i-1].$start_row, $part->price_sell);
+							break;
+						default:
+							continue;
+							break;
+					}
+				}
+				$sum += $part->price_sell;
+				$start_row++;
+			}
+			$start_row = 19;
+
+			$delta = $count_parts;
+
+			//set count
+			$objWorksheet->getCell('K'.($start_row + $count_parts))->setValue($count_parts);
+			$objWorksheet->getCell('K'.($start_row + $count_parts + 1))->setValue($count_parts);
+
+			//set summ
+			$objWorksheet->getCell('M'.($start_row + $count_parts))->setValue($sum);
+			$objWorksheet->getCell('M'.($start_row + $count_parts + 1))->setValue($sum);
+			$objWorksheet->getCell('P'.($start_row + $count_parts))->setValue($sum);
+			$objWorksheet->getCell('P'.($start_row + $count_parts + 1))->setValue($sum);
+
+			$strArr = explode(' ', SiteHelper::num2str(4));
+			$objWorksheet->getCell('D'.(23 + $delta))->setValue(ucfirst($strArr[0]));
+
+			//set price string
+			$objWorksheet->getCell('A'.(29 + $delta))->setValue('Всего отпущено на сумму '.SiteHelper::num2str($sum));
+			
+
+			// die();
+			/*for($i = $start_row; $i < $start_row + $count_parts; $i++){
+
+			}*/
+
+			// insert row
+			// var_dump(count($request->parts)); die();
+			
+			
+
+
+			//save or update document
+			$arDocument->type = Documents::DOC_TOVARNAY_NAKLADNAY;
+			$arDocument->name = $arDocument->getType().' №'.$arDocument->id.' от '.$date_create;
+			// $arDocument->file = $fileName;
+			$arDocument->request_id = $request->id;
+			$arDocument->template_id = $template->id;
+			$arDocument->sum = 0;
+
+			$arDocument->save(false);
+
+			//show document
+			header('Content-Type: application/vnd.ms-excel');
+			header('Content-Disposition: attachment;filename="'."sdfasdf".'.xlsx"');
+			header('Cache-Control: max-age=0');
+
+			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+			$objWriter->save('php://output');
+
+			Yii::app()->end();
+		}
+
+		
+
+		// $num_rows = $objPHPExcel->getActiveSheet()->getHighestRow();
+
+		// $objWorksheet->insertNewRowBefore(19, 5);
+		
+
+		
 	}
 
 	public static function getRussianMonth($n){

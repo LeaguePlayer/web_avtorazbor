@@ -21,10 +21,11 @@ class Documents extends EActiveRecord
     const DOC_KUPLI_I_PROD_BU_NO_KOMISSII = 3;
     const DOC_TOVARNIY_CHECK = 4;
     const DOC_SCHET_OPLATI = 5;
+    const DOC_TOVARNAY_NAKLADNAY = 6;
 
     //docs for fiziks and uriks
     public static $fizDocs = array(self::DOC_TOVARNIY_CHECK);
-    public static $urDocs = array(self::DOC_SCHET_OPLATI);
+    public static $urDocs = array(self::DOC_SCHET_OPLATI, self::DOC_TOVARNAY_NAKLADNAY);
 
     public function tableName()
     {
@@ -135,7 +136,8 @@ class Documents extends EActiveRecord
             self::DOC_KUPLI_I_PROD_BU_WITH_KOMISSII => 'Договор купли-продажи ТС к договору комиссии',
             self::DOC_KUPLI_I_PROD_BU_NO_KOMISSII => 'Договор купли-продажи ТС без договора комиссии',
             self::DOC_TOVARNIY_CHECK => 'Товарный чек',
-            self::DOC_SCHET_OPLATI => 'Счет на оплату'
+            self::DOC_SCHET_OPLATI => 'Счет на оплату',
+            self::DOC_TOVARNAY_NAKLADNAY => 'Товарная накладная'
         );
     }
 

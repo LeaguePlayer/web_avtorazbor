@@ -22,7 +22,7 @@ class Templates extends EActiveRecord
         return array(
             array('name, uniqid', 'length', 'max'=>255),
             array('uniqid', 'unique'),
-            array('file', 'file', 'allowEmpty' => true, 'types'=>'doc, docx'),
+            array('file', 'file', 'allowEmpty' => true, 'types'=>'doc,docx,xls,xlsx'),
             // The following rule is used by search().
             array('id, name, uniqid, file', 'safe', 'on'=>'search'),
         );

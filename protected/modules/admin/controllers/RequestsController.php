@@ -137,6 +137,11 @@ class RequestsController extends AdminController
 					else
 						DocumentBuilder::schetOplata($request);
 
+					//create tovarnay nakladnay
+					if($document = $request->findDocumentType(Documents::DOC_TOVARNAY_NAKLADNAY))
+						DocumentBuilder::tovarnayNakladnay($request, $document->id);
+					else
+						DocumentBuilder::tovarnayNakladnay($request);
 				}
 
 				$this->redirect($this->createUrl('step3', array('id' => $request->id)));

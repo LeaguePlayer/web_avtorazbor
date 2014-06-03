@@ -100,8 +100,8 @@ class PartsController extends AdminController
     		$model->attributes = $_GET['Parts'];
 
 		Yii::app()->excel->exportModel('Parts', $model->search()->data, array(), array(
-			'location_id' => '$data->location->name',
-			'car_model_id' => '$data->car_model->car_brand->name.\' \'.$data->car_model->name',
+			'location_id' => '$data->location ? $data->location->name : \'\'',
+			'car_model_id' => '$data->car_model ? $data->car_model->car_brand->name.\' \'.$data->car_model->name : \'\'',
 			'status' => 'Parts::getStatusAliases($data->status)',
 			'create_time' => 'SiteHelper::russianDate($data->create_time).\' в \'.date(\'H:i\', strtotime($data->create_time))'
 		));
@@ -120,8 +120,8 @@ class PartsController extends AdminController
             		$model->attributes = $_POST['Parts'];
 
 				$documentPath = Yii::app()->excel->exportModel('Parts', $model->search()->data, array(), array(
-					'location_id' => '$data->location->name',
-					'car_model_id' => '$data->car_model->car_brand->name.\' \'.$data->car_model->name',
+					'location_id' => '$data->location ? $data->location->name : \'\'',
+					'car_model_id' => '$data->car_model ? $data->car_model->car_brand->name.\' \'.$data->car_model->name : \'\'',
 					'status' => 'Parts::getStatusAliases($data->status)',
 					'create_time' => 'SiteHelper::russianDate($data->create_time).\' в \'.date(\'H:i\', strtotime($data->create_time))'
 				), true);

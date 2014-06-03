@@ -48,6 +48,7 @@ class ExcelComponent extends CApplicationComponent{
 					$eval_attrs[$attr] = str_replace('$', "\$", $eval_attrs[$attr]);
 
 					eval("\$val = ".$eval_attrs[$attr].';');
+
 					$activeSheet->setCellValue($this->_alphabet[$key].$startRow, str_replace('&nbsp;', ' ', $val));
 					continue;
 				}
