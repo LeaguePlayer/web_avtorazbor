@@ -1,7 +1,7 @@
 <?php
-// $this->menu=array(
-// 	array('label'=>'Добавить','url'=>array('create')),
-// );
+$this->menu=array(
+	array('label'=>'Весь список','url'=>array('list'))
+);
 ?>
 
 <h1>Корзина</h1>

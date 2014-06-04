@@ -560,12 +560,131 @@ class DocumentBuilder{
 		}
 	}
 
+	/**
+	 * Формируем договор поставки для накладной
+	 */
+	public static function dogovorPostavki($request, $update_doc_id = false){
+
+		$PHPWord = self::createInstancePHPWord();
+
+		$template = Templates::findTemplateByName('dogovor_postavki');
+
+		$tplFile = $template->getTemplatePathToFile();
+		$document = $PHPWord->loadTemplate($tplFile);
+
+		$date = new DateTime();
+
+		//set date
+		$document->setValue('day_create', $date->format('d'));
+		$document->setValue('month_create', self::getRussianMonth($date->format('n')));
+		$document->setValue('year_create', $date->format('y'));
+
+		//get client info
+		if($request->client){
+			$info = $request->client->info;
+
+			$document->setValue('company_name', $info->name_company);
+			$document->setValue('director_fio', $info->fio_rod);
+
+			//iniciali
+			$fio_str = "";
+			$fio_arr = explode(' ', $request->client->fio);
+
+			if(!empty($fio_arr)){
+				$fio_str = $fio_arr[0]; //Ф
+				isset($fio_arr[1]) ? $fio_str = $fio_str.' '.mb_substr($fio_arr[1], 0, 1, 'UTF-8').'.' : ''; //И
+				isset($fio_arr[2]) ? $fio_str = $fio_str.mb_substr($fio_arr[2], 0, 1, 'UTF-8').'.' : ''; //О
+			}
+			$document->setValue('string', $fio_str);
+
+			$document->setValue('ur_address', $info->ur_address);
+			$document->setValue('address', $info->address);
+			$document->setValue('inn_kpp', $info->inn.'/'.$info->kpp);
+
+			if($request->client->bank_accounts){
+				$bank_acc = $request->client->bank_accounts[0];
+				$rsArr = array();
+
+				if($bank_acc->num_account) $rsArr[] = $bank_acc->num_account;
+				if($bank_acc->bank) $rsArr[] = $bank_acc->bank;
+				if($bank_acc->city) $rsArr[] = $bank_acc->city;
+
+				$document->setValue('rs', implode(', ', $rsArr));
+				$document->setValue('ks',  $bank_acc->korr);
+				$document->setValue('bik', $bank_acc->bik);
+			}
+		}
+
+		//set until date
+		$until_date = $date->modify('+30 day');
+		$document->setValue('day_until', $until_date->format('d'));
+		$document->setValue('month_until', self::getRussianMonth($until_date->format('n')));
+		$document->setValue('year_until', $until_date->format('y'));
+
+		//set table parts
+		$sum = 0;
+
+		if($request->parts){
+			$document->cloneRow('index', count($request->parts));
+			
+			//set row
+			foreach ($request->parts as $i => $part) {
+				$index = $i + 1;
+				$sum += $part->price_sell;
+				$document->setValue('index#'.$index, $index);
+				$document->setValue('name#'.$index, $part->name);
+				$document->setValue('article#'.$index, $part->id);
+				$document->setValue('price#'.$index, number_format($part->price_sell, 2, ',', ' '));
+			}
+		}
+
+		$document->setValue('sum', number_format($sum, 2, ',', ' '));
+		$document->setValue('sum_str', SiteHelper::num2str($sum));
+
+		//create or update Document
+		$arDocument = $update_doc_id ? Documents::model()->findByPk($update_doc_id) : new Documents;
+
+		if($arDocument){
+			
+			if($arDocument->isNewRecord) $arDocument->save(false);
+
+			$docsPath = Yii::getPathOfAlias('application.docs');
+			$fileName = "{$template->uniqid}_{$request->id}.docx";
+			$tmpName = $docsPath.DIRECTORY_SEPARATOR.$fileName;
+
+			$document->setValue('num_dog', $arDocument->id);
+			$document->saveAs($tmpName);
+			//set attributes
+			$arDocument->type = Documents::DOC_DOGOVOR_POSTAVKI;
+			$arDocument->name = $arDocument->getType().' №'.$arDocument->id.' от '.$date->format('d.m.Y');
+			$arDocument->file = $fileName;
+			$arDocument->request_id = $request->id;
+			$arDocument->template_id = $template->id;
+			$arDocument->sum = $sum;
+
+			$arDocument->save(false);
+
+			return $arDocument->id;
+		}
+
+		return 0;
+	}
+
 	//tovarnaya_nakladnaya
 	public static function tovarnayNakladnay($request, $document_id = false){
 
+		//find dogovor postavki
+		$dogovor_postavki = $request->findDocumentType(Documents::DOC_DOGOVOR_POSTAVKI);
+		$id_dog_postavki = 0;
+
+		if($dogovor_postavki){
+			$id_dog_postavki = self::dogovorPostavki($request, $dogovor_postavki->id);
+		}else //create dogovor postavki
+			$id_dog_postavki = self::dogovorPostavki($request);
+
 		$arDocument = $document_id ? Documents::model()->findByPk($document_id) : new Documents;
 
-		if($arDocument){
+		if($arDocument && $id_dog_postavki > 0){
 			$date = new DateTime();
 			$date_create = $date->format('d.m.Y');
 
@@ -585,7 +704,7 @@ class DocumentBuilder{
 			$objWorksheet->getCell('I13')->setValue($date_create); //date
 
 			//TODO: tomorrow
-			$objWorksheet->getCell('C10')->setValue('Договор розницы №X'); //dogovor
+			$objWorksheet->getCell('C10')->setValue('Договор розницы №'.$id_dog_postavki); //dogovor
 
 			//set client info
 			if($request->client){
@@ -684,52 +803,39 @@ class DocumentBuilder{
 
 			//set price string
 			$objWorksheet->getCell('A'.(29 + $delta))->setValue('Всего отпущено на сумму '.SiteHelper::num2str($sum));
-			
 
-			// die();
-			/*for($i = $start_row; $i < $start_row + $count_parts; $i++){
+			//save document
+			$docsPath = Yii::getPathOfAlias('application.docs');
+			$fileName = "{$template->uniqid}_{$request->id}.xlsx";
+			$tmpName = $docsPath.DIRECTORY_SEPARATOR.$fileName;
 
-			}*/
-
-			// insert row
-			// var_dump(count($request->parts)); die();
-			
-			
-
+			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+			$objWriter->save($tmpName);
 
 			//save or update document
 			$arDocument->type = Documents::DOC_TOVARNAY_NAKLADNAY;
-			$arDocument->name = $arDocument->getType().' №'.$arDocument->id.' от '.$date_create;
-			// $arDocument->file = $fileName;
+			$arDocument->name = $arDocument->getType().' №'.$arDocument->id.' на основании Договора поставки №'.$dogovor_postavki->id.' от '.$date_create;
+			$arDocument->file = $fileName;
 			$arDocument->request_id = $request->id;
 			$arDocument->template_id = $template->id;
 			$arDocument->sum = 0;
 
 			$arDocument->save(false);
 
-			//show document
+			/*//show document
 			header('Content-Type: application/vnd.ms-excel');
 			header('Content-Disposition: attachment;filename="'."sdfasdf".'.xlsx"');
 			header('Cache-Control: max-age=0');
 
 			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-			$objWriter->save('php://output');
+			$objWriter->save('php://output');*/
 
-			Yii::app()->end();
+			// Yii::app()->end();
 		}
-
-		
-
-		// $num_rows = $objPHPExcel->getActiveSheet()->getHighestRow();
-
-		// $objWorksheet->insertNewRowBefore(19, 5);
-		
-
-		
 	}
 
 	public static function getRussianMonth($n){
-		$months = array(1 => 'Января', 2 => 'Февраля', 3 => 'Марта', 	4 => 'Апреля', 5 => 'Мая', 6 => 'Июня', 7 => 'Июля', 8 => 'Августа', 9 => 'Сентября', 10 => 'Октября', 11 => 'Ноября', 12 => 'Декабря');
+		$months = array(1 => 'января', 2 => 'февраля', 3 => 'марта', 	4 => 'апреля', 5 => 'мая', 6 => 'июня', 7 => 'июля', 8 => 'августа', 9 => 'сентября', 10 => 'октября', 11 => 'ноября', 12 => 'декабря');
 
 		return $months[$n];
 	}

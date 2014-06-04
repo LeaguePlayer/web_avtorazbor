@@ -1,6 +1,7 @@
 <fieldset>
  
     <legend>Реквизиты</legend>
+    <?php echo $form->textFieldControlGroup($model,'fio_rod',array('class'=>'span8','maxlength'=>255, 'placeholder' => 'Иванова Ивана Ивановича')); ?>
 
 	<?php echo $form->textFieldControlGroup($model,'inn',array('class'=>'span8','maxlength'=>20)); ?>
 

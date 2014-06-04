@@ -54,6 +54,54 @@ class Template
      */
     private $_documentXML;
 
+    /**
+     * Header1 XML
+     * Custom code by Matt Bowden (blenderstyle) 04/12/2011
+     * 
+     * @var string
+     */
+    private $_header1XML;
+    
+    /**
+     * Header2 XML
+     * Custom code by Matt Bowden (blenderstyle) 04/12/2011
+     * 
+     * @var string
+     */
+    private $_header2XML;
+    
+    /**
+     * Header3 XML
+     * Custom code by Matt Bowden (blenderstyle) 04/12/2011
+     * 
+     * @var string
+     */
+    private $_header3XML;
+    
+    /**
+     * Footer1 XML
+     * Custom code by Matt Bowden (blenderstyle) 04/12/2011
+     * 
+     * @var string
+     */
+    private $_footer1XML;
+    
+    /**
+     * Footer2 XML
+     * Custom code by Matt Bowden (blenderstyle) 04/12/2011
+     * 
+     * @var string
+     */
+    private $_footer2XML;
+    
+    /**
+     * Footer3 XML
+     * Custom code by Matt Bowden (blenderstyle) 04/12/2011
+     * 
+     * @var string
+     */
+    private $_footer3XML;
+
 
     /**
      * Create a new Template Object
@@ -77,6 +125,13 @@ class Template
         $this->_objZip->open($this->_tempFileName);
 
         $this->_documentXML = $this->_objZip->getFromName('word/document.xml');
+
+        $this->_header1XML = $this->_objZip->getFromName('word/header1.xml'); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
+        $this->_header2XML = $this->_objZip->getFromName('word/header2.xml'); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
+        $this->_header3XML = $this->_objZip->getFromName('word/header3.xml'); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
+        $this->_footer1XML = $this->_objZip->getFromName('word/footer1.xml'); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
+        $this->_footer2XML = $this->_objZip->getFromName('word/footer2.xml'); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
+        $this->_footer3XML = $this->_objZip->getFromName('word/footer3.xml'); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
     }
 
     /**
@@ -145,6 +200,14 @@ class Template
         $regExpDelim = '/';
         $escapedSearch = preg_quote($search, $regExpDelim);
         $this->_documentXML = preg_replace("{$regExpDelim}{$escapedSearch}{$regExpDelim}u", $replace, $this->_documentXML, $limit);
+
+        $this->_header1XML = preg_replace("{$regExpDelim}{$escapedSearch}{$regExpDelim}u", $replace, $this->_header1XML, $limit); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
+        $this->_header2XML = preg_replace("{$regExpDelim}{$escapedSearch}{$regExpDelim}u", $replace, $this->_header2XML, $limit); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
+        $this->_header3XML = preg_replace("{$regExpDelim}{$escapedSearch}{$regExpDelim}u", $replace, $this->_header3XML, $limit); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
+        $this->_footer1XML = preg_replace("{$regExpDelim}{$escapedSearch}{$regExpDelim}u", $replace, $this->_footer1XML, $limit); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
+        $this->_footer2XML = preg_replace("{$regExpDelim}{$escapedSearch}{$regExpDelim}u", $replace, $this->_footer2XML, $limit); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
+        $this->_footer3XML = preg_replace("{$regExpDelim}{$escapedSearch}{$regExpDelim}u", $replace, $this->_footer3XML, $limit); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
+
     }
 
     /**
@@ -266,6 +329,13 @@ class Template
     public function save()
     {
         $this->_objZip->addFromString('word/document.xml', $this->_documentXML);
+
+        $this->_objZip->addFromString('word/header1.xml', $this->_header1XML); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
+        $this->_objZip->addFromString('word/header2.xml', $this->_header2XML); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
+        $this->_objZip->addFromString('word/header3.xml', $this->_header3XML); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
+        $this->_objZip->addFromString('word/footer1.xml', $this->_footer1XML); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
+        $this->_objZip->addFromString('word/footer2.xml', $this->_footer2XML); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
+        $this->_objZip->addFromString('word/footer3.xml', $this->_footer3XML); // Custom code by Matt Bowden (blenderstyle) 04/12/2011
 
         // Close zip file
         if ($this->_objZip->close() === false) {

@@ -137,7 +137,7 @@ class RequestsController extends AdminController
 					else
 						DocumentBuilder::schetOplata($request);
 
-					//create tovarnay nakladnay
+					//create tovarnay nakladnay and dogovor postavki
 					if($document = $request->findDocumentType(Documents::DOC_TOVARNAY_NAKLADNAY))
 						DocumentBuilder::tovarnayNakladnay($request, $document->id);
 					else
