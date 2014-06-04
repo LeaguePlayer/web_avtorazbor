@@ -19,7 +19,11 @@ $this->menu=array(
 	'columns'=>array(
 		'name',
 		'uniqid',
-		'file',
+		array(
+			'name' => 'file',
+			'type' => 'raw',
+			'value' => 'CHtml::link($data->file, "/admin/templates/download/file/".$data->file)'
+		),
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
 		),

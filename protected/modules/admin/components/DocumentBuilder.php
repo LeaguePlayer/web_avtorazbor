@@ -53,7 +53,12 @@ class DocumentBuilder{
 		$tplFile = $template->getTemplatePathToFile();
 		$document = $PHPWord->loadTemplate($tplFile);
 
-		$date_now = new DateTime('now', 'Asia/Yekaterinburg');
+		//create or update Document
+		$arDocument = $update_doc_id ? Documents::model()->findByPk($update_doc_id) : new Documents;
+
+		$date_now = new DateTime('now', new DateTimeZone('Asia/Yekaterinburg'));
+		if(!$arDocument->isNewRecord) 
+			$date_now = new DateTime($arDocument->create_time);
 
 		$months = array(1 => 'Января', 2 => 'Февраля', 3 => 'Марта', 	4 => 'Апреля', 5 => 'Мая', 6 => 'Июня', 7 => 'Июля', 8 => 'Августа', 9 => 'Сентября', 10 => 'Октября', 11 => 'Ноября', 12 => 'Декабря');
 
@@ -64,23 +69,27 @@ class DocumentBuilder{
 		$document->setValue('date_y', $date_now->format('y'));
 
 		//-----------owner info
-		$document->setValue('owner_fio', $model->owner->fio);
+		$document->setValue('owner_fio', $model->owner ? $model->owner->fio : "");
 
 		//num pass
-		$passport = explode(' ', $model->owner->passport_num);
-		$document->setValue('pass_seria', implode(' ', str_split($passport[0], 2)));
-		$document->setValue('pass_num', $passport[1]);
-
+		if($model->owner){
+			$passport = explode(' ', $model->owner->passport_num);
+			if(!empty($passport)){
+				$document->setValue('pass_seria', implode(' ', str_split($passport[0], 2)));
+				$document->setValue('pass_num', $passport[1]);
+			}
+		}
+		
 		//birthday
-		$date = new DateTime($model->owner->dt_birthday);
+		$date = new DateTime($model->owner ? $model->owner->dt_birthday : "");
 		$document->setValue('dt_birthday', $date->format('d.m.Y'));
 
 		//date of issue
-		$date = new DateTime($model->owner->dt_of_issue);
+		$date = new DateTime($model->owner ? $model->owner->dt_of_issue : "");
 		$document->setValue('dt_of_issue', $date->format('d.m.Y'));
 
-		$document->setValue('issued_by', $model->owner->issued_by);
-		$document->setValue('address', $model->owner->address);
+		$document->setValue('issued_by', $model->owner ? $model->owner->issued_by : "");
+		$document->setValue('address', $model->owner ? $model->owner->address : "");
 		//-----------owner info
 
 		//-----------car info
@@ -93,6 +102,14 @@ class DocumentBuilder{
 		$document->setValue('color', $model->dop->color);
 		$document->setValue('type_ts', $model->dop->type_ts);
 		$document->setValue('passport_ts', $model->dop->passport_ts);
+		$document->setValue('mileage', $model->dop->mileage);
+
+		$passport_ts = explode(' ', $model->dop->passport_ts);
+
+		if(!empty($passport_ts) && count($passport_ts) == 2){
+			$document->setValue('passport_ts_s', $passport_ts[0]); //серия
+			$document->setValue('passport_ts_n', $passport_ts[1]); //номер
+		}
 
 		$date = new DateTime($model->dop->dt_of_issue);
 
@@ -112,7 +129,7 @@ class DocumentBuilder{
 
 		//-----------rotate fio
 		$fio_str = "";
-		$fio_arr = explode(' ', $model->owner->fio);
+		$fio_arr = explode(' ', $model->owner ? $model->owner->fio : "");
 
 		if(!empty($fio_arr)){
 			$fio_str = $fio_arr[0]; //Ф
@@ -121,9 +138,6 @@ class DocumentBuilder{
 		}
 		$document->setValue('fio_str', $fio_str);
 		//-----------rotate fio
-
-		//create or update Document
-		$arDocument = $update_doc_id ? Documents::model()->findByPk($update_doc_id) : new Documents;
 
 		if($arDocument){
 			
@@ -139,7 +153,7 @@ class DocumentBuilder{
 
 			//set attributes
 			$arDocument->type = Documents::DOC_KOMISSII;
-			$arDocument->name = $arDocument->getType().' №'.$arDocument->id.' от '.$date_now->format('d.m.Y').' '.$model->owner->fio.' '.$model->name;
+			$arDocument->name = $arDocument->getType().' №'.$arDocument->id.' от '.$date_now->format('d.m.Y').' '.($model->owner ? $model->owner->fio : "").' '.$model->name;
 			$arDocument->file = $fileName;
 			$arDocument->used_car_id = $model->id;
 			$arDocument->template_id = $template->id;
