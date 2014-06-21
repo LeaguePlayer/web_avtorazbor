@@ -29,6 +29,7 @@ class Parts extends EActiveRecord
     const STATUS_UTIL = 5;
     const STATUS_SUCCESS = 6;
     const STATUS_DEVICE = 7;
+    const STATUS_RESERVE_DEVICE = 8;
 
     public $max_sort;
     public $removeOnDelete = true;
@@ -43,6 +44,7 @@ class Parts extends EActiveRecord
             self::STATUS_UTIL => 'Утилизирован',
             self::STATUS_SUCCESS => 'Продан',
             self::STATUS_DEVICE => 'Загружено с устройства',
+            self::STATUS_RESERVE_DEVICE => 'Зарезервировано для устройства',
         );
 
         if ($status > -1)
@@ -61,7 +63,7 @@ class Parts extends EActiveRecord
     {
         return array(
             array('name, price_sell, price_buy', 'required'),
-            array('category_id, car_model_id, location_id, supplier_id, status, gallery_id', 'numerical', 'integerOnly'=>true),
+            array('category_id, car_model_id, location_id, supplier_id, status, gallery_id, user_id', 'numerical', 'integerOnly'=>true),
             array('name', 'length', 'max'=>255),
             // array('price_sell, price_buy', 'numerical', 'integerOnly'=>false, 'min' => 1),
             array('price_sell, price_buy', 'length', 'max'=>10),
@@ -104,7 +106,10 @@ class Parts extends EActiveRecord
                     ),
                     'big' => array(
                         'resize' => array(1000, 1000)
-                    )
+                    ),
+                    'original' => array(
+                        'resize' => array(1200)
+                    ),
                 ),
                 'name' => false,
                 'description' => false,
@@ -126,7 +131,8 @@ class Parts extends EActiveRecord
             'supplier_id' => 'Поставщик',
             'create_time' => 'Дата создания',
             'status' => 'Статус',
-            'gallery_id' => 'Галерея'
+            'gallery_id' => 'Галерея',
+            'user_id' => 'Пользователь'
         );
     }
 

@@ -124,6 +124,10 @@ class GalleryPhoto extends CActiveRecord
 
     public function getPreview($version = '')
     {
+        if($this->gallery->part){
+            return Yii::app()->request->baseUrl.DIRECTORY_SEPARATOR.$this->galleryDir.DIRECTORY_SEPARATOR."parts".DIRECTORY_SEPARATOR.$this->gallery->part->id.DIRECTORY_SEPARATOR."_".$this->getFileName($version).'.'.$this->ext;
+        }
+
         return Yii::app()->request->baseUrl . '/' . $this->galleryDir . '/_' . $this->getFileName($version) . '.' . $this->ext;
     }
 
@@ -139,41 +143,90 @@ class GalleryPhoto extends CActiveRecord
 
     public function setImage($path)
     {
-        /*//save image in original size
-        Yii::app()->image->load($path)->save($this->galleryDir . '/' . $this->getFileName('') . '.' . $this->galleryExt);
-        //create image preview for gallery manager
-        Yii::app()->image->load($path)->resize(300, null)->save($this->galleryDir . '/_' . $this->getFileName('') . '.' . $this->galleryExt);
+        if($this->gallery->part){
+            $mediaTypeDir = $this->galleryDir.DIRECTORY_SEPARATOR."parts";
+            if(!is_dir($mediaTypeDir))
+                mkdir($mediaTypeDir);
 
-        foreach ($this->gallery->versions as $version => $actions) {
-            $image = Yii::app()->image->load($path);
-            foreach ($actions as $method => $args) {
-                call_user_func_array(array($image, $method), is_array($args) ? $args : array($args));
-            }
-            $image->save($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->galleryExt);
-        }*/
-        //save image in original size
-        Yii::app()->phpThumb->create($path)->save($this->galleryDir . '/' . $this->getFileName('') . '.' . $this->ext);
-        //create image preview for gallery manager
-        Yii::app()->phpThumb->create($path)->resize(300)->save($this->galleryDir . '/_' . $this->getFileName('') . '.' . $this->ext);
+            $mediaTypeIdDir = $mediaTypeDir.DIRECTORY_SEPARATOR.$this->gallery->part->id;
+            if(!is_dir($mediaTypeIdDir))
+                mkdir($mediaTypeIdDir);
 
-        foreach ($this->gallery->versions as $version => $actions) {
+            $originalImage = $mediaTypeIdDir.DIRECTORY_SEPARATOR.$this->getFileName('original').'.'.$this->ext;
+
             $image = Yii::app()->phpThumb->create($path);
-            foreach ($actions as $method => $args) {
-                call_user_func_array(array($image, $method), is_array($args) ? $args : array($args));
+            $image->resize(1200)->save($originalImage);
+
+            unset($image);
+
+            $image = Yii::app()->phpThumb->create($originalImage);
+            //create preview
+            $image->resize(300)->save($mediaTypeIdDir.DIRECTORY_SEPARATOR.'_'. $this->getFileName('').'.'.$this->ext);
+
+            foreach ($this->gallery->versions as $version => $actions) {
+                if($version == 'original') continue;
+                
+                $image = Yii::app()->phpThumb->create($originalImage);
+                foreach ($actions as $method => $args) {
+                    call_user_func_array(array($image, $method), is_array($args) ? $args : array($args));
+                }
+                $image->save($mediaTypeIdDir.DIRECTORY_SEPARATOR.$this->getFileName($version).'.'.$this->ext);
             }
-            $image->save($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->ext);
+
+        }else{
+            /*//save image in original size
+            Yii::app()->image->load($path)->save($this->galleryDir . '/' . $this->getFileName('') . '.' . $this->galleryExt);
+            //create image preview for gallery manager
+            Yii::app()->image->load($path)->resize(300, null)->save($this->galleryDir . '/_' . $this->getFileName('') . '.' . $this->galleryExt);
+
+            foreach ($this->gallery->versions as $version => $actions) {
+                $image = Yii::app()->image->load($path);
+                foreach ($actions as $method => $args) {
+                    call_user_func_array(array($image, $method), is_array($args) ? $args : array($args));
+                }
+                $image->save($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->galleryExt);
+            }*/
+            //save image in original size
+            Yii::app()->phpThumb->create($path)->save($this->galleryDir . '/' . $this->getFileName('') . '.' . $this->ext);
+            //create image preview for gallery manager
+            Yii::app()->phpThumb->create($path)->resize(300)->save($this->galleryDir . '/_' . $this->getFileName('') . '.' . $this->ext);
+
+            foreach ($this->gallery->versions as $version => $actions) {
+                $image = Yii::app()->phpThumb->create($path);
+                foreach ($actions as $method => $args) {
+                    call_user_func_array(array($image, $method), is_array($args) ? $args : array($args));
+                }
+                $image->save($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->ext);
+            }
         }
     }
 
     public function delete()
     {
-        $this->removeFile($this->galleryDir . '/' . $this->getFileName('') . '.' . $this->ext);
-        //create image preview for gallery manager
-        $this->removeFile($this->galleryDir . '/_' . $this->getFileName('') . '.' . $this->ext);
+        if($this->gallery->part){
+            $mediaTypeDir = $this->galleryDir.DIRECTORY_SEPARATOR."parts";
+            if(!is_dir($mediaTypeDir))
+                mkdir($mediaTypeDir);
 
-        foreach ($this->gallery->versions as $version => $actions) {
-            $this->removeFile($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->ext);
+            $mediaTypeIdDir = $mediaTypeDir.DIRECTORY_SEPARATOR.$this->gallery->part->id;
+            if(!is_dir($mediaTypeIdDir))
+                mkdir($mediaTypeIdDir);
+
+            $this->removeFile($mediaTypeIdDir.DIRECTORY_SEPARATOR."_".$this->getFileName('').'.'.$this->ext);
+
+            foreach ($this->gallery->versions as $version => $actions) {
+                $this->removeFile($mediaTypeIdDir.DIRECTORY_SEPARATOR.$this->getFileName($version).'.'.$this->ext);
+            }
+        }else{
+            $this->removeFile($this->galleryDir . '/' . $this->getFileName('') . '.' . $this->ext);
+            //create image preview for gallery manager
+            $this->removeFile($this->galleryDir . '/_' . $this->getFileName('') . '.' . $this->ext);
+
+            foreach ($this->gallery->versions as $version => $actions) {
+                $this->removeFile($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->ext);
+            }
         }
+        
         return parent::delete();
     }
 
@@ -185,8 +238,24 @@ class GalleryPhoto extends CActiveRecord
 
     public function removeImages()
     {
-        foreach ($this->gallery->versions as $version => $actions) {
-            $this->removeFile($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->ext);
+        if($this->gallery->part){
+            $mediaTypeDir = $this->galleryDir.DIRECTORY_SEPARATOR."parts";
+            if(!is_dir($mediaTypeDir))
+                mkdir($mediaTypeDir);
+
+            $mediaTypeIdDir = $mediaTypeDir.DIRECTORY_SEPARATOR.$this->gallery->part->id;
+            if(!is_dir($mediaTypeIdDir))
+                mkdir($mediaTypeIdDir);
+
+            foreach ($this->gallery->versions as $version => $actions) {
+                if($version == 'original') continue;
+
+                $this->removeFile($mediaTypeIdDir.DIRECTORY_SEPARATOR.$this->getFileName($version).'.'.$this->ext);
+            }
+        }else{
+            foreach ($this->gallery->versions as $version => $actions) {
+                $this->removeFile($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->ext);
+            }
         }
     }
 
@@ -195,14 +264,104 @@ class GalleryPhoto extends CActiveRecord
      */
     public function updateImages()
     {
-        foreach ($this->gallery->versions as $version => $actions) {
-            $this->removeFile($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->ext);
+        if($this->gallery->part){
 
-            $image = Yii::app()->phpThumb->create($this->galleryDir . '/' . $this->getFileName('') . '.' . $this->ext);
-            foreach ($actions as $method => $args) {
-                call_user_func_array(array($image, $method), is_array($args) ? $args : array($args));
+            $mediaTypeDir = $this->galleryDir.DIRECTORY_SEPARATOR."parts";
+            if(!is_dir($mediaTypeDir))
+                mkdir($mediaTypeDir);
+
+            $mediaTypeIdDir = $mediaTypeDir.DIRECTORY_SEPARATOR.$this->gallery->part->id;
+            if(!is_dir($mediaTypeIdDir))
+                mkdir($mediaTypeIdDir);
+
+            //old version part images
+            $this->removeFile($this->galleryDir . '/_' . $this->getFileName() . '.' . $this->ext);
+            foreach ($this->gallery->versions as $version => $actions) {
+                $this->removeFile($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->ext);
             }
-            $image->save($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->ext);
+
+            //old
+            $oldOriginalImage = $this->galleryDir . '/' . $this->getFileName('') . '.' . $this->ext;
+
+            //new
+            $newOriginalImage = $mediaTypeIdDir.DIRECTORY_SEPARATOR.$this->getFileName('original').'.'.$this->ext;
+
+            if(file_exists($oldOriginalImage)){
+                $image = Yii::app()->phpThumb->create($oldOriginalImage);
+                $image->resize(1200)->save($newOriginalImage);
+
+                @unlink($oldOriginalImage);
+                unset($image);
+
+                $image = Yii::app()->phpThumb->create($newOriginalImage);
+                //create preview
+                $image->resize(300)->save($mediaTypeIdDir.DIRECTORY_SEPARATOR.'_'. $this->getFileName('').'.'.$this->ext);
+
+                foreach ($this->gallery->versions as $version => $actions) {
+                    if($version == 'original') continue;
+                    
+                    $image = Yii::app()->phpThumb->create($newOriginalImage);
+                    foreach ($actions as $method => $args) {
+                        call_user_func_array(array($image, $method), is_array($args) ? $args : array($args));
+                    }
+                    $image->save($mediaTypeIdDir.DIRECTORY_SEPARATOR.$this->getFileName($version).'.'.$this->ext);
+                }
+            }else{ //if no Old file
+
+                $newOriginalImage = $mediaTypeIdDir.DIRECTORY_SEPARATOR.$this->getFileName('original').'.'.$this->ext;
+
+                /*//remove preview
+                $this->removeFile($mediaTypeIdDir.DIRECTORY_SEPARATOR."_".$this->getFileName($version).'.'.$this->ext);
+
+                $image = Yii::app()->phpThumb->create($newOriginalImage);
+                //create preview
+                $image->resize(300)->save($mediaTypeIdDir.DIRECTORY_SEPARATOR.'_'.$this->getFileName('').'.'.$this->ext);*/
+
+                foreach ($this->gallery->versions as $version => $actions) {
+                    if($version == 'original') continue;
+
+                    $this->removeFile($mediaTypeIdDir.DIRECTORY_SEPARATOR.$this->getFileName($version).'.'.$this->ext);
+
+                    $image = Yii::app()->phpThumb->create($newOriginalImage);
+                    foreach ($actions as $method => $args) {
+                        call_user_func_array(array($image, $method), is_array($args) ? $args : array($args));
+                    }
+                    $image->save($mediaTypeIdDir.DIRECTORY_SEPARATOR.$this->getFileName($version).'.'.$this->ext);
+                }
+            }
+/*
+            
+
+            
+
+            $image = Yii::app()->phpThumb->create($path);
+            $image->resize(1200)->save($originalImage);
+
+            unset($image);
+
+            $image = Yii::app()->phpThumb->create($originalImage);
+            //create preview
+            $image->resize(300)->save($mediaTypeIdDir.DIRECTORY_SEPARATOR.'_'. $this->getFileName('').'.'.$this->ext);
+
+            foreach ($this->gallery->versions as $version => $actions) {
+                if($version == 'original') continue;
+                
+                foreach ($actions as $method => $args) {
+                    call_user_func_array(array($image, $method), is_array($args) ? $args : array($args));
+                }
+                $image->save($mediaTypeIdDir.DIRECTORY_SEPARATOR.$this->getFileName($version).'.'.$this->ext);
+            }*/
+
+        }else{
+            foreach ($this->gallery->versions as $version => $actions) {
+                $this->removeFile($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->ext);
+
+                $image = Yii::app()->phpThumb->create($this->galleryDir . '/' . $this->getFileName('') . '.' . $this->ext);
+                foreach ($actions as $method => $args) {
+                    call_user_func_array(array($image, $method), is_array($args) ? $args : array($args));
+                }
+                $image->save($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->ext);
+            }
         }
     }
 }

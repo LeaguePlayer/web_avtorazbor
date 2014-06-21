@@ -50,7 +50,11 @@ class GalleryController extends CController
         $model->ext = $imageFile->extensionName;
         $model->save();
 
-        $model->setImage($imageFile->getTempName());
+        if($model->gallery->part)
+            $model->setImage($imageFile->getTempName(), "parts", $model->gallery->part->id);
+        else
+            $model->setImage($imageFile->getTempName());
+        
         header("Content-Type: application/json");
         echo CJSON::encode(
             array(
