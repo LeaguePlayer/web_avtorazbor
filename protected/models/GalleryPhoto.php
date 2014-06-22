@@ -138,6 +138,10 @@ class GalleryPhoto extends CActiveRecord
 
     public function getUrl($version = '')
     {
+        if($this->gallery->part){
+            return Yii::app()->request->baseUrl.DIRECTORY_SEPARATOR.$this->galleryDir.DIRECTORY_SEPARATOR."parts".DIRECTORY_SEPARATOR.$this->gallery->part->id.DIRECTORY_SEPARATOR.$this->getFileName($version).'.'.$this->ext;
+        }
+
         return Yii::app()->request->baseUrl . '/' . $this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->ext;
     }
 
