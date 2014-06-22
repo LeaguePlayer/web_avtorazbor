@@ -11,6 +11,8 @@ class PartsController extends AdminController
 		if(isset($_POST['Parts'])){
 			$model->attributes = $_POST['Parts'];
 
+			$model->user_id = Yii::app()->user->id;
+
 			$model->name = $model->category->name.", ".$model->car_model->car_brand->name." ".$model->car_model->name;
 			if($model->save()){
 				$this->attachUsedCar($model);
@@ -334,6 +336,33 @@ class PartsController extends AdminController
 			$model->status = $_POST['val'];
 			$model->save(false, array('status'));
 		}
+	}
+
+	public function actionUpdateImages($start){
+		$row_count = 10;
+		$count = Yii::app()->db
+			->createCommand("SELECT COUNT(id) FROM {{Parts}}")
+			->queryScalar();
+		echo "string";
+		//ready 45
+		for($i = $start; $i < round($count / $row_count); $i++){
+			$criteria = new CDbCriteria;
+			$criteria->order = "id";
+			$criteria->limit = $row_count;
+			$criteria->offset = $i * $row_count;
+
+			//var_dump($criteria);
+
+			$parts = Parts::model()->findAll($criteria);
+			echo "----------".$i."-----------<br>";
+			foreach ($parts as $key => $part) {
+				echo $part->id."<br>";
+				$part->changeConfig();
+			}
+			unset($parts);
+			break;
+		}
+		die();
 	}
 
 	/*public function actionGetOneById($id){
