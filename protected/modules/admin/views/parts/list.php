@@ -11,13 +11,27 @@ $this->menu=array(
     array('label' => 'Отправить по почте', 'url' => '#', 'class' => 'show-modal'),
     array('label' => 'Скачать excel файл', 'url' => '/admin/parts/toExcel', 'class' => 'get-file'),
 )); ?>
-<?php
-
-?>
+<br><br>
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'parts-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=> isset($_GET['pageSize']) ? $model->search($_GET['pageSize']) : $model->search(),
 	'filter'=>$model,
+	'template' => "
+		<div class=\"row-fluid\">
+			<div class=\"span6\">{pager}</div>
+			<div class=\"span6\">
+				".TbHtml::pills(array(
+				    array('label' => '10', 'url' => '/admin/parts/', 'active' => !isset($_GET['pageSize'])),
+				    array('label' => '20', 'url' => '?pageSize=20', 'active' => isset($_GET['pageSize']) && $_GET['pageSize'] == 20),
+				    array('label' => '50', 'url' => '?pageSize=50', 'active' => isset($_GET['pageSize']) && $_GET['pageSize'] == 50),
+				    array('label' => 'все', 'url' => '?pageSize=false', 'active' => isset($_GET['pageSize']) && $_GET['pageSize'] == 'false'),
+				), array('class' => 'pull-right'))."
+			</div>
+		</div>
+		<div class=\"row-fluid\">
+			<div class=\"span12\">{summary}</div>
+		</div>
+		{items}\n<div class=\"row-fluid\"><div class=\"span6\">{pager}</div><div class=\"span6\">{summary}</div></div>",
 	'type'=>TbHtml::GRID_TYPE_HOVER,
     'afterAjaxUpdate'=>"function() {
     	sortGrid('parts');

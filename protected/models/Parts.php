@@ -188,8 +188,11 @@ class Parts extends EActiveRecord
         ));
     }
 
-    public function search()
+    public function search($pageSize = 10)
     {
+        if($pageSize == 'false') 
+            $pageSize = false;
+
         $criteria = $this->getCommonCriteria();
 		$criteria->compare('status',$this->status);
 
@@ -206,6 +209,7 @@ class Parts extends EActiveRecord
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
+            'pagination' => $pageSize ? array('pageSize' => $pageSize) : false
         ));
     }
 

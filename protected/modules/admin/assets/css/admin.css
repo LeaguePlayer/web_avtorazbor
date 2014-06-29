@@ -113,6 +113,13 @@ form .line{
 .requests .not-availible{
   background-color: #F78383;
 }
+.pagination{
+  margin: 0;
+}
+
+#parts-grid .nav{
+  margin: 0;
+}
 
 @media print {
   body{

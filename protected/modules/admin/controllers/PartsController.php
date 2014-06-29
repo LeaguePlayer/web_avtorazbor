@@ -101,7 +101,7 @@ class PartsController extends AdminController
 		if(isset($_GET['Parts']))
     		$model->attributes = $_GET['Parts'];
 
-		Yii::app()->excel->exportModel('Parts', $model->search()->data, array(), array(
+		Yii::app()->excel->exportModel('Parts', $model->search(false)->data, array(), array(
 			'location_id' => '$data->location ? $data->location->name : \'\'',
 			'car_model_id' => '$data->car_model ? $data->car_model->car_brand->name.\' \'.$data->car_model->name : \'\'',
 			'status' => 'Parts::getStatusAliases($data->status)',
@@ -121,7 +121,7 @@ class PartsController extends AdminController
 				if(isset($_POST['Parts']))
             		$model->attributes = $_POST['Parts'];
 
-				$documentPath = Yii::app()->excel->exportModel('Parts', $model->search()->data, array(), array(
+				$documentPath = Yii::app()->excel->exportModel('Parts', $model->search(false)->data, array(), array(
 					'location_id' => '$data->location ? $data->location->name : \'\'',
 					'car_model_id' => '$data->car_model ? $data->car_model->car_brand->name.\' \'.$data->car_model->name : \'\'',
 					'status' => 'Parts::getStatusAliases($data->status)',

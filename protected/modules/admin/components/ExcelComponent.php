@@ -60,9 +60,11 @@ class ExcelComponent extends CApplicationComponent{
 		// Rename sheet
 		$objPHPExcel->getActiveSheet()->setTitle('Запчасти');
 
+		$filename = strtolower($model).'_'.date('dmY_His');
+
 		if(!$return){
 			header('Content-Type: application/vnd.ms-excel');
-			header('Content-Disposition: attachment;filename="'.$model.'.xlsx"');
+			header('Content-Disposition: attachment;filename="'.$filename.'.xlsx"');
 			header('Cache-Control: max-age=0');
 
 			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
@@ -70,7 +72,7 @@ class ExcelComponent extends CApplicationComponent{
 		}else{
 			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 
-			$file = Templates::getDocsPath().DIRECTORY_SEPARATOR.$model.'.xlsx';
+			$file = Templates::getDocsPath().DIRECTORY_SEPARATOR.$filename.'.xlsx';
 			$objWriter->save($file);
 
 			return $file;
