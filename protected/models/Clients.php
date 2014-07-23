@@ -124,7 +124,7 @@ class Clients extends EActiveRecord
     public function beforeValidate(){
         
         if($this->dt_birthday){
-            $date = \DateTime::createFromFormat('d.m.Y', $this->dt_birthday);
+            $date = DateTime::createFromFormat('d.m.Y', (!empty($this->dt_birthday) ? str_replace('-', '', $this->dt_birthday)  : getdate()));
             $this->dt_birthday = $date->format('Y-m-d');
         }
         

@@ -40,7 +40,10 @@
 				array('label'=>'Продажа авто под ремонт', 'url'=>'/admin/usedCars'),
 				array('label'=>'Документы', 'url'=>'/admin/documents'),
 				array('label'=>'Пользователи', 'url'=>'/user/admin'),
-				array('label'=>'Настройки', 'url'=>'/admin/settings'),
+				array('label'=>'Компаненты', 'url'=>'/admin/companents'),
+				array('label'=>'Страницы', 'url'=>'/admin/page/list'),
+				array('label'=>'Новости', 'url'=>'/admin/news/list'),
+
 			);
 
 			$subItems = array(
@@ -48,6 +51,7 @@
 					array('label'=>'Запчасти', 'url'=>'/admin/parts'),
 					array('label'=>'Аналоги', 'url'=>'/admin/analogs'),
 					array('label'=>'Бренды', 'url'=>'/admin/carBrands'),
+					array('label'=>'Страны', 'url'=>'/admin/country'),
 					array('label'=>'Модели', 'url'=>'/admin/carModels'),
 					array('label'=>'Категории запчастей', 'url'=>'/admin/categories'),
 					array('label'=>'Утилизированные запчасти', 'url'=>'/admin/parts/utilizationList'),
@@ -66,7 +70,7 @@
 				'settings' => array(
 					array('label'=>'Все настройки', 'url'=>'/admin/settings'),
 					array('label'=>'Скачать приложение', 'url'=>'/admin/settings/downloadApp'),
-				)
+				),
 			);
 
 			$userModuleItems = array(

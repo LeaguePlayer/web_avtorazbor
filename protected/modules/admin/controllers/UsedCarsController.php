@@ -19,6 +19,9 @@ class UsedCarsController extends AdminController
 	}
 
 	public function actionUpdate($id){
+
+		// $cs = Yii::app()->clientScript;
+		// $cs->registerScriptFile($this->getAssetsUrl().'/js/', CClientScript::POS_END);
 		$model = UsedCars::model()->findByPk($id);
 		$dop = $model->dop ? $model->dop : new UsedCarInfo;
 		$owner = $model->owner ? $model->owner : new Clients;

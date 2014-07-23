@@ -16,6 +16,8 @@ class UsedCars extends EActiveRecord
     // Статусы в базе данных
     const STATUS_PARTS = 1;
     const STATUS_BUY = 2;
+    const STATUS_LIGHT = 1;
+    const STATUS_CARGO = 2;
 
     public function tableName()
     {
@@ -35,6 +37,43 @@ class UsedCars extends EActiveRecord
         return $aliases;
     }
 
+    public function join()
+    {
+        return 
+                "LEFT JOIN  `tbl_usedcar_info` ON  `tbl_usedcar_info`.used_car_id =  `t`.id
+                LEFT JOIN  `tbl_carmodels` ON  `t`.car_model_id =  `tbl_carmodels`.id
+                LEFT JOIN  `tbl_carbrands` ON  `tbl_carmodels`.brand =  `tbl_carbrands`.id
+                LEFT JOIN  `tbl_country` ON  `tbl_carbrands`.id_country =  `tbl_country`.id";
+    }
+
+    public static final function getBasketList($status = -1){
+        
+        $aliases = array(
+            1 => 'Седан',
+            2 => 'Кросровер',
+            3 => 'ХетчБэк',
+            4 => 'Внедорожник',
+            5 => 'Уневерсал',
+        );
+        
+        if ($status > -1)
+            return $aliases[$status];
+
+        return $aliases;
+    }
+
+    public static function getCarTypes($status = -1)
+    {
+        $aliases = array(
+            1 => 'Легковая',
+            2 => 'Грузовая',
+        );
+
+        if ($status > -1)
+            return $aliases[$status];
+
+        return $aliases;
+    }
 
     public function rules()
     {
@@ -44,12 +83,29 @@ class UsedCars extends EActiveRecord
             array('name', 'length', 'max'=>255),
             array('vin', 'length', 'max'=>20),
             array('price', 'length', 'max'=>10),
-            array('comment, year, enter_date', 'safe'),
+            array('comment, year, enter_date, force, img_preview, type, bascet', 'safe'),
             // The following rule is used by search().
-            array('id, car_model_id, vin, price, comment, status, name', 'safe', 'on'=>'search'),
+            array('id, car_model_id, vin, force, price, comment, bascet, status, type, name, img_preview', 'safe', 'on'=>'search'),
         );
     }
 
+    public function behaviors()
+    {
+        return CMap::mergeArray(parent::behaviors(), array(
+            'imgBehaviorPreview' => array(
+                'class' => 'application.behaviors.UploadableImageBehavior',
+                'attributeName' => 'img_preview',
+                'versions' => array(
+                    'icon' => array(
+                        'centeredpreview' => array(90, 90),
+                    ),
+                    'small' => array(
+                        'resize' => array(200, 180),
+                    )
+                ),
+            )
+        ));
+    }
 
     public function relations()
     {
@@ -76,7 +132,11 @@ class UsedCars extends EActiveRecord
             'year' => 'Год выпуска',
             'buyer_id' => 'Покупатель',
             'enter_date' => 'Дата поступления',
-            'name' => 'Марка, модель (как в ПТС)'
+            'name' => 'Марка, модель (как в ПТС)',
+            'img_preview'=>'фотом машины',
+            'bascet'=>'Тип кузова',
+            'type'=>'Тип машины  (Легковая/Грузовая)',
+            'force'=>'Мощность двигателя (л.с.)'
         );
     }
 

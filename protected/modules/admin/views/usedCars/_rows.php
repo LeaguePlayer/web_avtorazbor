@@ -1,3 +1,13 @@
+	<div class='control-group'>
+		<?php echo CHtml::activeLabelEx($model, 'img_preview'); ?>
+		<?php echo $form->fileField($model,'img_preview', array('class'=>'span3')); ?>
+		<div class='img_preview'>
+			<?php if ( !empty($model->img_preview) ) echo TbHtml::imageRounded( $model->getImageUrl('small') ) ; ?>
+			<span class='deletePhoto btn btn-danger btn-mini' data-modelname='UsedCars' data-attributename='Preview' <?php if(empty($model->img_preview)) echo "style='display:none;'"; ?>><i class='icon-remove icon-white'></i></span>
+		</div>
+		<?php echo $form->error($model, 'img_preview'); ?>
+	</div>
+
 	<?php echo $form->textFieldControlGroup($model,'name',array('class'=>'span8','maxlength'=>255)); ?>	
 
 	<div class="control-group">
@@ -15,6 +25,13 @@
 	</div>
 
 	<?php echo $form->textFieldControlGroup($model,'vin',array('class'=>'span8','maxlength'=>20)); ?>
+
+	<?php echo $form->dropDownListControlGroup($model, 'type', UsedCars::getCarTypes(), array('empty'=>'Выберите тип машины', 'class'=>'span8', 'displaySize'=>1, 'id' => 'type')); ?>
+
+	<?php echo $form->dropDownListControlGroup($model, 'bascet', UsedCars::getBasketList(), array('empty'=>'Выберите тип кузова', 'class'=>'span8', 'displaySize'=>1, 'id' => 'bascet')); ?>
+
+	<?php echo $form->textFieldControlGroup($model,'force',array('class'=>'span8','maxlength'=>20)); ?>
+
 
 	<div class='control-group'>
 		<?php echo CHtml::activeLabelEx($model, 'year'); ?>
@@ -57,6 +74,8 @@
 
 	<?php echo $form->dropDownListControlGroup($model, 'status', UsedCars::getStatusAliases(), array('class'=>'span8', 'displaySize'=>1, 'id' => 'type')); ?>
 	
+
+
 	<div class="dop">
 	<?php
 		$this->renderPartial('/usedCarInfo/_rows', array(

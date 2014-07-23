@@ -20,7 +20,8 @@ class CarBrands extends EActiveRecord
         return array(
             array('name', 'length', 'max'=>255),
             // The following rule is used by search().
-            array('id, name', 'safe', 'on'=>'search'),
+            array('id, name,id_country', 'safe', 'on'=>'search'),
+            array('id, name, id_country', 'required'),
         );
     }
 
@@ -38,6 +39,7 @@ class CarBrands extends EActiveRecord
         return array(
             'id' => 'ID',
             'name' => 'Марка',
+            'id_country' => 'Страна производитель',
         );
     }
 

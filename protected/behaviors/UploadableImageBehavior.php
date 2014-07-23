@@ -173,7 +173,7 @@ class UploadableImageBehavior extends CActiveRecordBehavior
         if ($version) {
             return '/'.$this->getThumbsUrl().'/'.$version.'_'.$this->owner->getAttribute($this->attributeName);
         } else {
-            return '/'.$this->saveUrl.'/'.$this->owner->getAttribute($this->attributeName);
+            return '/'.$this->saveUrl.'/'.strtolower(get_class($this->owner)).'/'.$this->owner->getAttribute($this->attributeName);
         }
     }
 }

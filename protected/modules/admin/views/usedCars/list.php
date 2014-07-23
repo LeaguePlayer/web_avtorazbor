@@ -25,6 +25,11 @@ $this->menu=array(
 		),
 		'year',
 		array(
+			'header' => 'Тип машины',
+			'type' => 'raw',
+			'value' => '$data->type==1 ? "Легковая" : "Грузовая"',
+		),
+		array(
 			'header' => 'Цвет',
 			'type' => 'raw',
 			'value' => '$data->dop->color'

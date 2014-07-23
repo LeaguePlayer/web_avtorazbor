@@ -186,6 +186,7 @@ class SiteHelper {
 	    $out[] = self::morph(intval($rub), $unit[1][0],$unit[1][1],$unit[1][2]); // rub
 	    $out[] = $kop.' '.self::morph($kop,$unit[0][0],$unit[0][1],$unit[0][2]); // kop
 	    return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
+
 	}
 
 	/**
@@ -206,5 +207,61 @@ class SiteHelper {
 		$items = call_user_func(array($relModel, 'model'))->findAll();
 
 		return TbHtml::activeDropDownList($model, $attr, array('' => 'Нет') + CHtml::listData($items, $id, $value));
+	}
+
+	public static function getCondition($key,$value)
+	{
+	
+		$condition="";
+		$criteria=new CDbCriteria;
+		switch ($key) {
+
+			case 'MoreEqual':
+				{
+					foreach ($value as $key_gr => $value_gr) {
+
+						if (!empty($value_gr))
+							$criteria->addCondition($key_gr .'>='. $value_gr);
+					}
+				}
+				break;
+			case 'LessEqual':
+				{
+					foreach ($value as $key_gr => $value_gr) {
+
+						if (!empty($value_gr))
+							$criteria->addCondition($key_gr .'<='. $value_gr);
+					}
+
+				}
+				break;
+			case 'equal':
+				{
+					foreach ($value as $key_gr => $value_gr) {
+
+						if (!empty($value_gr))
+							$criteria->addCondition($key_gr .'='. $value_gr);
+					}
+				}
+				break;
+		}
+
+		return $criteria->condition;
+	}
+	public static function getNestedModels($params)
+	{
+		switch ($params['model']) {
+			case 'carBrands':
+				{
+					return carBrands::model()->findAll($params['condition'],array(':id'=>$params['value']));
+				}
+				break;
+			
+			default:
+				{
+					return array();
+				}
+				break;
+		}
 	}
 }

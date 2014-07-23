@@ -19,6 +19,12 @@ $this->menu=array(
 	'columns'=>array(
 		'name',
 		array(
+			'name'=>'id_country',
+			'type'=>'raw',
+			'value'=>'Country::model()->find("id=:id",array(":id"=>$data->id_country))->name',
+			'filter'=>CHtml::listData(Country::model()->findAll(),'id','name')
+		),
+		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
 			'template' => '{update} {delete}'
 		),

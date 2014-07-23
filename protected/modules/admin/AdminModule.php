@@ -49,6 +49,9 @@ class AdminModule extends EWebModule
         Yii::app()->clientScript->registerCoreScript('jquery.ui');
 		// Yii::app()->clientScript->registerScriptFile($this->getAssetsUrl() . '/js/angular/angular.js', CClientScript::POS_END);
         Yii::app()->clientScript->registerScriptFile($this->getAssetsUrl() . '/js/magic.js', CClientScript::POS_END);
+        Yii::app()->clientScript->registerScriptFile($this->getAssetsUrl() . '/js/CirilToLat.js', CClientScript::POS_END);
+        Yii::app()->clientScript->registerScriptFile($this->getAssetsUrl() . '/js/translit.js', CClientScript::POS_END);
+
 	}
 
 

@@ -79,8 +79,9 @@ return array(
             'rules'=>array(
                 'gii'=>'gii',
                 'admin'=>'admin/start/index',
+                '<controller:page>/<alias:[\w\-]+>'=>'page/view',
+                '<controller:news>/<id:\d+>'=>'news/view',
                 '<controller:\w+>'=>'<controller>/index',
-                '<controller:\w+>/<id:\d+>'=>'<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
                 '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
             ),
@@ -88,7 +89,8 @@ return array(
         'clientScript'=>array(
             'class'=>'EClientScript',
             'scriptMap'=>array(
-                //'jquery.min.js'=>'//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js',
+        // disable yiigridview auto include
+                // 'jquery.yiiview.js'=>false,
             ),
         ),
         'date' => array(

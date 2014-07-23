@@ -1,9 +1,22 @@
 
 $(document).ready(function() {
+
+    if ($('#type').length>0)
+    {
+
+        $('#bascet').closest('.control-group').css('display','none');
+        $('#type').on('change',function(){
+
+            $('#bascet').closest('.control-group').css('display',($(this).val()==1 ? 'block' : 'none'));
+
+        });
+    }
+
     $('input[id*=img_]:file').bind('change', handleFileSelect);
     $('.control-group .img_preview .deletePhoto').one('click', function(e) {
         var $this = $(this);
         deletePhoto($this);
+
     });
 });
 
@@ -90,3 +103,4 @@ function sortGrid(gridId) {
         helper: fixHelper
     }).disableSelection();
 }
+

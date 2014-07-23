@@ -113,6 +113,8 @@ class UsedCarInfo extends EActiveRecord
         );
     }
 
+    
+
     public function getTransmissionType(){
         $type = self::transmissionList();
 
