@@ -39,7 +39,7 @@ class AjaxRequestsController extends FrontController
 		$models=CHtml::listData(SiteHelper::getNestedModels($params),'id','name');
 
 		$select=$this->renderPartial('//common/dropDownSelect',array('models'=>$models,'modelName'=>$params['model']),true);
-		$list=$this->renderPartial('//common/dropDownList',array('models'=>$models,'modelName'=>$params['model']),true);
+		$list=$this->renderPartial('//common/DropDownList',array('models'=>$models,'modelName'=>$params['model']),true);
 
 		$response=array();
 		$response['select']=$select;
