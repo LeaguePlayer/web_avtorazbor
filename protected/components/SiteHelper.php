@@ -253,7 +253,7 @@ class SiteHelper {
 		switch ($params['model']) {
 			case 'carBrands':
 				{
-					return carBrands::model()->findAll($params['condition'],array(':id'=>$params['value']));
+					return CarBrands::model()->findAll($params['condition'],array(':id'=>$params['value']));
 				}
 				break;
 			
