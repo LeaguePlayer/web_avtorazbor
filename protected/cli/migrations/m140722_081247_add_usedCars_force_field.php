@@ -10,11 +10,11 @@ class m140722_081247_add_usedCars_force_field extends CDbMigration
     // таблицы к удалению, можно использовать '{{table}}'
 	public function up()
     {
-        $this->addColumn('{{usedcars}}', 'force', 'float COMMENT "Мощность двигателя"');
+        $this->addColumn('{{UsedCars}}', 'force', 'float COMMENT "Мощность двигателя"');
     }
 
     public function down()
     {
-        $this->dropColumn('{{usedcars}}', 'force');
+        $this->dropColumn('{{UsedCars}}', 'force');
     }
 }
