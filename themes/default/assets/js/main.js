@@ -40,6 +40,7 @@ $(document).ready(function(){
 		});
 
 		var carusel=$(this).data('owlCarousel');
+
 			$(this).closest('div[id^=tabs]').find('.next').on("click",
 				function(){
 					carusel.next();
@@ -112,13 +113,14 @@ $(document).ready(function(){
 	// Табы =============================
 
 	$('.tabs ul li a').click(function(){
+
 		var tabId=$(this).attr('href');
 		if (tabId.indexOf("#")>-1)
 		{
 			var context=$(this).closest('.tabs').parent();
 			$('.tab-active',context).removeClass('tab-active');
 
-			$('li.active',context).removeClass('active');
+			$('li.active:first',context).removeClass('active');
 			$(this).parent().addClass('active')
 			
 			$(tabId).addClass("tab-active");
@@ -219,6 +221,7 @@ if ($('a.modal').length>0)
 	var fancy=$('.fancy');
 		if (fancy.length>0)
 			fancy.fancybox();
+	
 });
 
 function changeCheck(el)

@@ -68,6 +68,29 @@ class CarModels extends EActiveRecord
         return 'Модели автомобилей';
     }
 
+    public static function getHtmlOptions()
+    {
+        return array(
+                    'empty'=>'Выберите модель',
+                    'class'=>'select',
+                    'id'=>'CarModels',
+                    'name'=>'CarModels',
+                    'ajax' => array(
+                    'type'=>'GET', //request type
+                    'dataType'=>'json',
+                    'url'=>CController::createUrl('/ajaxRequests/getCarModels'), //url to call.
+                    //Style: CController::createUrl('currentController/methodToCall')
+                    'update'=>'#carModels', //selector to update
+                    'data'=>array('value'=>'js:this.value','model'=>'CarModels'),
+                    'success'=>'function(data){
+                        $("#CarModels").closest(".item").empty().html(data);
+                        $("#CarModels").selectbox();
+                        console.log(data);
+                    }'
+                    //leave out the data key to pass all form values through
+                    )); 
+    }
+
     public static function brandModelsList(){
         return Yii::app()->db->createCommand()
             ->select('t1.id, CONCAT(t2.name, " ",t1.name) as name')

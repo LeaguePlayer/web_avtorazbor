@@ -169,7 +169,21 @@
         <div class="menu">
 
         		<nav>
-	        		<ul>
+                <?$this->widget('zii.widgets.CMenu', array(
+                    'items'=>array(
+                        // Important: you need to specify url as 'controller/action',
+                        // not just as 'controller' even if default acion is used.
+                        array('label'=>'О компании', 'url'=>array('/page/about')),
+                        // 'Products' menu item will be selected no matter which tag parameter value is since it's not specified.
+                        array('label'=>'Продажа авто', 'url'=>array('/catalog')), 
+                        array('label'=>'Автозапчасти', 'url'=>array('/detail')),
+                        array('label'=>'Все услуги', 'url'=>array('/page/Vse-uslugi')),
+                        array('label'=>'Новости', 'url'=>array('/news')),
+                        array('label'=>'Контакты', 'url'=>array('/page/contacts')),
+                        array('label'=>'Акции', 'url'=>array('/promotions')),
+                    ),
+                ));?>
+	        		<!-- <ul>
 	        			<li>
 	        				<a href="/page/about">
 	        					О компании
@@ -205,7 +219,7 @@
 	        					Акции
 	        				</a>
 	        			</li>
-	        		</ul>
+	        		</ul> -->
         		</nav>
 
         		<div class="search">

@@ -1,3 +1,4 @@
 $(document).ready(function(){
-	$('#scrollbar').tinyscrollbar();
+	if ($('#scrollbar').length>0)
+		$('#scrollbar').tinyscrollbar();
 })

@@ -256,7 +256,11 @@ class SiteHelper {
 					return CarBrands::model()->findAll($params['condition'],array(':id'=>$params['value']));
 				}
 				break;
-			
+			case 'carModels':
+				{
+					return CarModels::model()->findAll($params['condition'],array(':id'=>$params['value']));
+				}
+				break;
 			default:
 				{
 					return array();

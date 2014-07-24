@@ -5,16 +5,17 @@ function NestedChanged(conteiner)
 	conteiner.on('change click',function( e ){
 
 		ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');	
-
-		
-
 	    return false;
+	    
 	});
 
 }
 
 
 $(function(){
+
+
+	ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');
 
 	$('.nested').on('change',function(){
 		
@@ -29,9 +30,9 @@ $(function(){
 			};
 
 		var htmlData = getNestedList(params,nested,NestedChanged);
-				
-	});
 
+	});
+	
 
 	$('#car_type li a').click(function(){
 		$_this=$(this);
@@ -54,41 +55,61 @@ $(function(){
 
 	})
 
-	$('#sort li a,#display li a').click(function(){
+	$('#sort li a,#display li a,#car_type li a').click(function(){
+
 		$(this).closest('ul').find('.active').removeClass('active');
 		$(this).parent().addClass('active');
 
+		ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');
 		return false;
+
 	});
 
-	$('.filter select, #minForce,#maxForce,#sort li a,#display li a, .pagination a,#car_type li a').on('change click',function( e ){
+	$('.filter select, #minForce,#maxForce, .pagination a, #car_type li a').on('change click',function( e ){
 
-		ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');	
+		ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');
+		
 		return false;
 	})
 
-	if ($('.calculate .line').length>0)
-	{
-		var value1=$('#minCost'),
-			value2=$('#maxCost');
-		$('.calculate .line,.line-2').slider({
-			range:true,
-			step:10,
-			values:[0,80],
-			slide:function(event, ui){
+	
+	$('.calculate .line').slider({
+		range:true,
+		step:1000,
+		min:1000,
+		max:3000000,
+		values:[0,3000000],
+		slide:function(event, ui){
 
-				$_max=$($(this).data('max'));
-				$_min=$($(this).data('min'));
+			$_max=$($(this).data('max'));
+			$_min=$($(this).data('min'));
 
-				$_min.text(ui.values[0]*1000).val(ui.values[0]*1000);
-				$_max.text(ui.values[1]*1000).val(ui.values[1]*1000);
+			$_min.text(ui.values[0]).val(ui.values[0]);
+			$_max.text(ui.values[1]).val(ui.values[1]);
 
-				setTimeout(function(){
-					ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');								
-				},500);
-				
+			setTimeout(function(){
+				ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');
+			},500);
+		}
+	});
 
-			}
-		});
-	}
+	$('.line-2').slider({
+		range:true,
+		step:1,
+		values:[0,1000],
+		min:0,
+		max:1000,
+		slide:function(event, ui){
+
+			$_max=$($(this).data('max'));
+			$_min=$($(this).data('min'));
+
+			$_min.text(ui.values[0]).val(ui.values[0]);
+			$_max.text(ui.values[1]).val(ui.values[1]);
+
+			setTimeout(function(){
+				ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');
+			},500);
+		}
+	});
 });

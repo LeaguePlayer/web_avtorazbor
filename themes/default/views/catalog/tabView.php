@@ -3,8 +3,7 @@
 	$this->widget('zii.widgets.CListView', array(
 	    'dataProvider'=>$dataProvider,
 	    'itemView'=>'_tabItem',   // refers to the partial view named '_post'
-	    'summaryText' => 'Всего результатов - '.
-	    	$dataProvider->totalItemCount.', показано с '.($_GET['page'] ? $_GET['page'] : 1 ).' по '.$dataProvider->itemCount*((int)$_GET['page'] ? (int)$_GET['page'] : 1),
+	    'summaryText' => 'Всего результатов - {count}, показано с {start} по {end}',
 	    'pagerCssClass' => 'pagination',
 	    'itemsTagName'=>'ul',
 	    'id'=>'ajaxListView',

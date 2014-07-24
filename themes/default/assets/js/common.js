@@ -1,5 +1,5 @@
 
-function ViewItems(conteiner,params,url)
+function ViewItems(conteiner,params,url,collback)
 {
 	$.ajax({
 		url:url,
@@ -8,7 +8,8 @@ function ViewItems(conteiner,params,url)
 		success:function(data){
 			conteiner.empty();
 			conteiner.html(data);
-			
+			if (collback)
+				collback();
 		},
 
 		error:function(data){
@@ -16,6 +17,10 @@ function ViewItems(conteiner,params,url)
 		}
 	})
 	return false;
+}
+
+function changeSliderOption(options,slider){
+	slider.option()
 }
 
 serialize = function(obj, prefix) {
@@ -33,7 +38,7 @@ function getNestedList(params,conteiner,callback)
 {
 	
 	$.ajax({
-		url:'ajaxRequests/getNestedList',
+		url:'/ajaxRequests/getNestedList',
 		dataType:'json',
 		data: {
 			data:params
@@ -72,7 +77,6 @@ var methods = {
 						transmission:$('#transmission option:selected').val(),
 						bascet:$('#bascet option:selected').val(),
 						type:$('#car_type .active a').data('type'),
-						//bascet:$('#bascet option:selected').val(),
 					}
 				},
 				pager:{
@@ -85,5 +89,29 @@ var methods = {
 		},
 		auto:function(){
 
+		},
+		MaxMin:function(conteiner,search){
+
+			var max=0;
+			var min=100000000000;
+
+			$(search,conteiner).each(function(){
+
+				var value=$(this).text()+"",
+					result=0;
+
+				if (value!=undefined)
+					result = parseInt(value.replace('цена', ''),10);
+
+				max=max<result ? result : max;
+				min=min>result ? result : min;
+				
+			});
+
+			return [min,max];
+		},
+
+		steps:function(min,max){
+			return Math.round((max-min)/1000);
 		}
 	}

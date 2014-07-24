@@ -78,7 +78,7 @@ class UsedCars extends EActiveRecord
     public function rules()
     {
         return array(
-            array('car_model_id, vin, name', 'required'),
+            array('car_model_id, vin, name, price, bascet, type, force', 'required'),
             array('car_model_id, status, buyer_id', 'numerical', 'integerOnly'=>true),
             array('name', 'length', 'max'=>255),
             array('vin', 'length', 'max'=>20),

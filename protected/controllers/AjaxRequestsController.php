@@ -23,7 +23,7 @@ class AjaxRequestsController extends FrontController
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('getNestedList'),
+				'actions'=>array('getNestedList','getCarModels','getSubCategories'),
 				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
@@ -46,6 +46,31 @@ class AjaxRequestsController extends FrontController
 		$response['list']=$list;
 
 		print(CJSON::encode($response));
+		die();
+	}
+
+	public function actionGetCarModels()
+	{
+
+		$models=$models=CHtml::listData(CarModels::model()->findAll('brand=:id',array(':id'=>$_GET['value'])),'id','name');
+		$select=$this->renderPartial('//common/dropDownSelect',array('models'=>$models,'modelName'=>$params['model'],'options'=>CarModels::getHtmlOptions()),true);
+
+		$response=array();
+		$response['select']=$select;
+
+		print(CJSON::encode($response['select']));
+		die();
+	}
+
+	public function actionGetSubCategories()
+	{
+
+		$models=$models=CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$_GET['value'])),'id','name');
+		$select=$this->renderPartial('//common/dropDownSelect',array('models'=>$models,'modelName'=>$params['model'],'options'=>Categories::getHtmlOptions()),true);
+		$response=array();
+		$response['select']=$select;
+
+		print(CJSON::encode($response['select']));
 		die();
 	}
 

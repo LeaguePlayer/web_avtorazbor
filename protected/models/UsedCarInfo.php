@@ -105,6 +105,12 @@ class UsedCarInfo extends EActiveRecord
         );
     }
 
+    public function getState(){
+        $state = self::statesList();
+
+        return $state[$this->state];
+    }
+
     public static final function transmissionList(){
         
         return array(

@@ -19,7 +19,7 @@
                                 Марка:
                             </dt>
                             <dd>
-                                <?=CHtml::dropDownList('carBrands','id', $Brands,array('empty'=>'Выберите марку','class'=>'select','id'=>'carBrands'))?>
+                                <?=CHtml::dropDownList('carBrands', 'id', $Brands, array('options' => array($brand_id=>array('selected'=>true)), 'empty'=>'Выберите марку', 'class'=>'select','id'=>'carBrands'))?>
                             </dd>
                             <dt>
                                 Цена (руб):
@@ -30,11 +30,12 @@
                                     <input type="text" id="minCost" value="0"/>
                                 </div>
                                     <label for="maxCost">-</label> 
-                                <div class="i-text"><input type="text" id="maxCost" value="1000"/>
+                                <div class="i-text">
+                                <input type="text" id="maxCost" value="3000000"/>
                                 </div>
                                 </div>
                                 <div class="sliderCont">
-                                        <div id="slider"></div>
+                                    <div id="slider"></div>
                                 </div>
 
                                 <div class="calculate">
@@ -85,7 +86,7 @@
                                     <div class="i-text">
                                     <input type="text" id="minForce" value="0"/>
                                     </div>
-                                    <label for="maxforce">-</label> <div class="i-text"><input type="text" id="maxForce" value="300"/>
+                                    <label for="maxforce">-</label> <div class="i-text"><input type="text" id="maxForce" value="1000"/>
                                     </div>
                                 </div>
                                 <div class="sliderCont">
@@ -96,14 +97,13 @@
                             </dd>
 
                             <dd class="submit">
-                                <input type="submit" class="i-submit" value="Сбросить" />
+                                <a href="/catalog" class="i-submit" >Сбросить</a>
                             </dd>
                         </dl>   
                     </div>
                 </div>
 
                 <div class="coll-right">
-
                     <div class="tabs">
                         <ul id="car_type">
                             <li class="active">
@@ -153,18 +153,18 @@
                                                     Цене
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a href="/catalog?sort=city" data-sort="city">
-                                                    Городу
+                                            <li data-sort="year">
+                                                <a href="/catalog?sort=year" >
+                                                    Год
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a href="/catalog?sort=mileage" data-sort="mileage">
+                                            <li data-sort="mileage">
+                                                <a href="/catalog?sort=mileage" >
                                                     Пробегу
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a href="/catalog?sort=brand" data-sort="carBrands">
+                                            <li data-sort="brand">
+                                                <a href="/catalog?sort=brand" >
                                                     Марке
                                                 </a>
                                             </li>
@@ -181,10 +181,6 @@
 
                             <div class="result">
 
-                                <div class="num">
-                                    Всего результатов - 41, показано с 1 по 20
-                                </div>
-
                                 <dl class="coll"> 
                                     <dt>
                                         Показывать по:
@@ -192,11 +188,6 @@
                                     <dd>
                                         <ul id="display">
                                             <li class="active">
-                                                <a href="/catalog?display=1">
-                                                    1
-                                                </a>
-                                            </li>
-                                            <li>
                                                 <a href="/catalog?display=2">
                                                     2
                                                 </a>
@@ -204,6 +195,11 @@
                                             <li>
                                                 <a href="/catalog?display=3">
                                                     3
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/catalog?display=4">
+                                                    4
                                                 </a>
                                             </li>
                                         </ul>

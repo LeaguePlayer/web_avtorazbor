@@ -39,7 +39,9 @@ class UsedCarsController extends AdminController
 
 		if(isset($_POST['UsedCars'])){
 			$model->attributes = $_POST['UsedCars'];
-
+			$model->force = $model->force ? $model->force : 0;
+			$model->price = $model->price ? $model->price : 0;
+			
 			$valid = $model->validate();
 
 			if($model->status == 2 && isset($_POST['Clients'])){

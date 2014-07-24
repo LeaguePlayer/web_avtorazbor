@@ -23,7 +23,7 @@ class CatalogController extends FrontController
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','getCars'),
+				'actions'=>array('index','view','getCars','Car'),
 				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
@@ -45,12 +45,22 @@ class CatalogController extends FrontController
 			$criteria=new CDbCriteria;
 			
 
-			$pageSize=$_GET['display'] ? (int)$_GET['display'] : 1;
+			$pageSize=$_GET['display'] ? (int)$_GET['display'] : 2;
 			$sort=$_GET['sort'] ? $_GET['sort'] : 'price';
 
 			$criteria->order=$sort.' desc';
 			$criteria->addCondition('type=1');
+			$criteria->addCondition('price<=5000000');
+			$criteria->addCondition('`t`.force<=1000');
 
+			if (isset($_GET['brand']))
+			{
+				$brand_id=CarBrands::model()->find('name=:name',array(':name'=>$_GET['brand']))->id;
+				$criteria->join=UsedCars::model()->join();
+				if (!empty($brand_id))
+					$criteria->addCondition('brand='.$brand_id);
+
+			}
 			$dataProvider=new CActiveDataProvider('UsedCars', array(
 				'criteria' => $criteria,
 				'pagination'=>array(
@@ -70,11 +80,13 @@ class CatalogController extends FrontController
 				'Countries'=>$Countries,
 				'Transmission'=>UsedCarInfo::transmissionList(),
 				'Brands'=>$Brands,
-				'Bascet'=>$Bascet
+				'Bascet'=>$Bascet,
+				'brand_id'=>$brand_id,
 			));
 		} else {
 			$this->getCars();
 		}
+		
 	}
 
 	public function GetCars()
@@ -98,23 +110,26 @@ class CatalogController extends FrontController
 			}
 		}
 
+		$pageSize=$data['pager']['display'] ? (int)$data['pager']['display'] : 2;
+
 		$criteria->join=UsedCars::model()->join();
 		$criteria->condition=str_replace('force', '`t`.force', $criteria->condition);
+
 		$dataProvider=new CActiveDataProvider('UsedCars', array(
 			'criteria' => $criteria,
 			'pagination'=>array(
-		        'pageSize'=>Yii::app()->request->getQuery('size', $data['pager']['display']),
+		        'pageSize'=>$pageSize,
 		        'pageVar'=>'page',
 		    ),
 		));
-		
+
 		CJSON::encode($this->renderPartial('//catalog/tabView',array('dataProvider'=>$dataProvider),false,false));
 	}
 
-	public function actionView($id)
+	public function actionCar($id)
 	{
-		$model=News::model()->find('id=:id',array(':id'=>$id));
-		$this->render('view',array('model'=>$model));	
+		$model=UsedCars::model()->find('id=:id',array(':id'=>$id));
+		$this->render('view',array('model'=>$model));
 	}
 
 }

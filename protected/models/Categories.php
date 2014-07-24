@@ -48,6 +48,9 @@ class Categories extends EActiveRecord
         );
     }
 
+    public static function getHtmlOptions(){
+        return array('empty'=>'Выберите подкатегорию', 'id'=>'subCategories','class'=>'select','name'=>'subCategories');
+    }
 
     public function search()
     {

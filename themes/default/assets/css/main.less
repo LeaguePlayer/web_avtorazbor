@@ -157,7 +157,6 @@ header .item .feature{
 	text-align: center;
 	display: inline-block;
 	padding:12px 16px;
-	height:16px;
 	line-height:16px;
 	font-size:14px;
 	.radius(6px);
@@ -802,6 +801,7 @@ header{
 			&.right{
 				width:220px;
 				float:right;
+				margin-top: -39px;
 			}
 		}
 		.content{
@@ -1174,6 +1174,11 @@ header{
 					&.submit{
 						text-align:center;
 						margin-top: 30px;
+						a{
+							position:relative;
+							display:block;
+							margin-top:20px;
+						}
 						input[type=submit]{
 							width:140px;
 							margin:0 auto;
@@ -1415,6 +1420,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 		.coll-right{
 			float:right;
 			width:870px;
+
 			.radius(4px);
 			.content{
 				padding:25px 30px;
@@ -1644,9 +1650,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 					}
 				}
 				.result{
-					font-family: 'segoe_uiregular';
-					font-size:14px;
-					color:#99aab7;
+					font-family: segoe_uiregular;
+					font-size: 14px;
+					color: #99aab7;
+					float: right;
+					width: 250px;
+					margin-top: 19px;
 					.num{
 						display: block;
 						height:14px;
@@ -1897,6 +1906,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 			}
 		}
 		.coll.right{
+
 			.modul{
 				&:first-child{
 					margin-top:0!important;
@@ -2483,6 +2493,7 @@ footer{
 				}
 			}
 		}
+
 	}
 }
 /*popup End*/
@@ -2877,4 +2888,64 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 }
 .full-width .items-news{
 	width: 1050px!important;
+}
+.coll.left{
+	.title{
+		font-size:18px;
+		font-weight:bold;
+		color:#99900;
+	}
+	.image{
+		display:inline-block;
+		vertical-align:top;
+		padding-right:20px;
+	}
+	.own-price{
+		margin-top:25px;
+		display:block;
+
+		span{
+			font-size:12px;
+			text-decoration:underline;
+			display:inline-block;
+			color:#2455a1!important;
+		}
+	}
+	.info{
+		display:inline-block;
+		span{
+			color:#3C3C3C;
+			line-height:31px;
+			font-size:14px;
+			font-weight:bold;
+		}
+	}
+	.comment{
+		font-size:14px;
+		p{
+			padding-top: 15px;
+			padding-bottom:5px;
+			font-weight:bold;
+			display:block;
+		}
+
+	}
+}
+.list-view .summary{
+	margin-top:20px;	
+	font-family: segoe_uiregular;
+	font-size: 14px;
+	color: #99aab7;
+	float: left;
+}
+.empty{
+	height: 100px;
+	display: block;
+	text-align: center;
+	padding-top: 100px;
+}
+.criteria {
+	.item{
+		padding-bottom:25px;
+	}
 }
