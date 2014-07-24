@@ -33,7 +33,6 @@ $this->menu=array(
 			'type' => 'html',
 			'value' => 'Chtml::link($data->partsCount, Yii::app()->createUrl("/admin/parts", array("Parts" => array("car_model_id" => $data->id))))'
 		),
-		
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
 			'template' => '{update} {delete}'

@@ -17,6 +17,11 @@
 $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
+		array(
+			'label'=>'Артикул',
+			'type'=>'raw',
+			'value'=>$model->id,
+		),
 		'name',
 		'category.name',
 		array(
