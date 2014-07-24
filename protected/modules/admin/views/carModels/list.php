@@ -25,7 +25,7 @@ $this->menu=array(
 		array(
 			'name'=>'car_type',
 			'type'=>'raw',
-			'value'=>'CarModels::getCarTypes($data->car_type)',
+			'value'=>' CarModels::getCarTypes(!empty($data->car_type) ? $data->car_type : 0)',
 			'filter'=>UsedCars::getCarTypes()
 		),
 		array(

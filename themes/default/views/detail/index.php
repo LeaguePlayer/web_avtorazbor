@@ -7,7 +7,7 @@
 
                 <div class="coll left">
 
-                    <div class="tabs">
+                    <div class="partsTabs">
                         <ul>
                             <li class="active">
                                 <a href="#light">
@@ -47,6 +47,7 @@
                             <form class="criteria" action="/detail/parts" method="post">
                                 <div class="select">
                                     <div class="item">
+                                        <input type="hidden" name="car_type" value="1">
                                         <label for="mark"> 
                                             Марка:
                                         </label>
@@ -66,20 +67,20 @@
                                             'success'=>'function(data){
                                                 $("#CarModels").closest(".item").empty().html(data);
                                                 $("#CarModels").selectbox();
-                                                console.log(data);
+                                                ShowNextSelect();
                                             }'
                                             //leave out the data key to pass all form values through
                                             ))); 
                                             //empty since it will be filled by the other dropdown
                                         ?>
                                     </div>
-                                    <div class="item">
+                                    <div class="item hide">
                                         <label for="model"> 
                                             Марка:
                                         </label>
                                         <?=CHtml::dropDownList('CarModels','id', array())?>
                                     </div>
-                                    <div class="item">
+                                    <div class="item hide">
                                         <label for="model"> 
                                             Раздел:
                                         </label>
@@ -98,125 +99,23 @@
                                             'success'=>'function(data){
                                                 $("#subCategories").closest(".item").empty().html(data);
                                                 $("#subCategories").selectbox();
-                                                console.log(data);
+                                                ShowNextSelect();
                                             }'
                                             //leave out the data key to pass all form values through
                                             ))); 
                                             //empty since it will be filled by the other dropdown
                                         ?>
                                     </div>
-                                    <div class="item">
+                                    <div class="item hide">
                                         <label for="model">
                                             Под категория:
                                         </label>
                                         <?=CHtml::dropDownList('subCategories','id', array())?>
                                     </div>
-
-                                    <input type="submit" class="i-submit" value="Найти">
+                                    <br>
+                                    <input type="submit" class="i-submit" id="sendCriteria" value="Найти">
                                 </div> 
                             </form>
-                        </div>
-                        <div class="personal" id="weight">
-
-                            <dl class="desc">
-                                <dt>
-                                    Индивидуальный подбор
-                                </dt>
-                                <dd>
-                                    Для подбора автозапчастей выберите марку, модель и раздел автомобиля.
-                                </dd>
-                            </dl>
-
-                            <div class="select">
-                                <div class="item">
-                                    <label for="mark"> 
-                                        Марка:
-                                    </label>
-                                    <select name="mark">
-                                        <option value="0">
-                                            Выберите марку
-                                        </option>
-                                        <option value="1">
-                                            BMW
-                                        </option>
-                                        <option value="2">
-                                            Audi
-                                        </option>
-                                        <option value="3">
-                                            Suzuki
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>  
-
-                        </div>
-                        <div class="personal" id="disc">
-
-                            <dl class="desc">
-                                <dt>
-                                    Индивидуальный подбор
-                                </dt>
-                                <dd>
-                                    Для подбора автозапчастей выберите марку, модель и раздел автомобиля.
-                                </dd>
-                            </dl>
-
-                            <div class="select">
-                                <div class="item">
-                                    <label for="mark"> 
-                                        Марка:
-                                    </label>
-                                    <select name="mark">
-                                        <option value="0">
-                                            Выберите марку
-                                        </option>
-                                        <option value="1">
-                                            BMW
-                                        </option>
-                                        <option value="2">
-                                            Audi
-                                        </option>
-                                        <option value="3">
-                                            Suzuki
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>  
-
-                        </div>
-                        <div class="personal" id="book">
-
-                            <dl class="desc">
-                                <dt>
-                                    Индивидуальный подбор
-                                </dt>
-                                <dd>
-                                    Для подбора автозапчастей выберите марку, модель и раздел автомобиля.
-                                </dd>
-                            </dl>
-
-                            <div class="select">
-                                <div class="item">
-                                    <label for="mark"> 
-                                        Марка:
-                                    </label>
-                                    <select name="mark">
-                                        <option value="0">
-                                            Выберите марку
-                                        </option>
-                                        <option value="1">
-                                            BMW
-                                        </option>
-                                        <option value="2">
-                                            Audi
-                                        </option>
-                                        <option value="3">
-                                            Suzuki
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>  
-
                         </div>
                     </div>
                 </div>

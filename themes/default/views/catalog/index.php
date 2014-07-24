@@ -27,7 +27,7 @@
                             <dd id="slider">
                                 <div class="formCost">
                                     <div class="i-text">
-                                    <input type="text" id="minCost" value="0"/>
+                                    <input type="text" id="minCost" value="1000"/>
                                 </div>
                                     <label for="maxCost">-</label> 
                                 <div class="i-text">

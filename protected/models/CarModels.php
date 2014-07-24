@@ -94,6 +94,7 @@ class CarModels extends EActiveRecord
     public static function getCarTypes($status = -1)
     {
         $aliases = array(
+            0 => 'Не указано',
             1 => 'Легковая',
             2 => 'Грузовая',
         );

@@ -76,7 +76,7 @@ var methods = {
 						brand:$('#carBrands option:selected').val(),
 						transmission:$('#transmission option:selected').val(),
 						bascet:$('#bascet option:selected').val(),
-						type:$('#car_type .active a').data('type'),
+						car_type:$('#car_type .active a').data('type'),
 					}
 				},
 				pager:{

@@ -1,9 +1,9 @@
 <li>
-    <!-- <a href="#"><img src="<?=$data->name?>" alt="" title="" /></a> -->
+    <a href="#" data-id="<?=$data->id?>"><img src="/<?=(count($data->getGallery()->galleryPhotos)>0 ? $data->getGallery()->galleryPhotos[0]->getUrl('small') : '/media/images/parts/default.jpg')?>" alt="" title="" /></a>
     <p class="section">
-        Раздел: Двигатель
+        Раздел: <?=$data->category->cat_parent->name?>
     </p> 
-    <a href="#" class="name">
+    <a href="#" data-id="<?=$data->id?>" class="name">
         <?=$data->name;?>
     </a>
 </li>

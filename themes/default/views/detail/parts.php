@@ -1,8 +1,4 @@
-<?$cs = Yii::app()->clientScript;
-    // $cs->registerScriptFile($this->getAssetsUrl().'/js/tinyscrollbar.js', CClientScript::POS_END);
-    $cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js', CClientScript::POS_END);
 
-?>
 <div class="page">
             <h1 class="head">
                 Двигатель без головки блока 0.8 л
@@ -25,7 +21,6 @@
                                         'template'=>'{items}',
                                         'id'=>'part_list',
                                     ));
-
                                 ?>
                         </div> 
                         </div> 
@@ -36,51 +31,8 @@
 
                     <div class="content clear">
 
-                        <div class="gallery">
-                            <div class="big-img">
-                                <img src="images/zp1.jpg" alt="" title="" />
-                            </div>
-                            <div class="min-img">
-                                <ul>
-                                    <li>
-                                        <img src="images/zp2.jpg" alt=""  title="" />
-                                    </li>
-                                    <li>
-                                        <img src="images/zp2.jpg" alt=""  title="" />
-                                    </li>
-                                    <li>
-                                        <img src="images/zp2.jpg" alt=""  title="" />
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="desc">
-
-                            <ul>
-                                <li>
-                                    Раздел: <a href="#">Двигатель</a>
-                                </li>
-                                <li>
-                                    Модель авто: <a href="#">Chevrolet Spark c 2005 - 2010 г</a>
-                                </li>
-                                <li>
-                                    Кол-во: 1
-                                </li>
-                                <li>
-                                    Артикул: 0123950
-                                </li>
-                                <li>
-                                    Комментарий: нет коленвала и двух поршней
-                                </li> 
-                                <li>
-                                    Цена: 10 000 руб.
-                                </li>     
-                            </ul>
-                            <div class="submit">
-                                <input type="submit" value="В корзину" class="i-submit" />
-                            </div>
-
+                        <div class="part">
+                         <?=$this->renderPartial('view',array('model'=>$model),true)?>
                         </div>
 
                         <div class="shared clear">
