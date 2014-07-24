@@ -36,7 +36,7 @@ class DetailController extends FrontController
 	{
 		$cs = Yii::app()->clientScript;
 		// $cs->registerScriptFile($this->getAssetsUrl().'/js/tinyscrollbar.js', CClientScript::POS_END);
-		// $cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js', CClientScript::POS_END);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js', CClientScript::POS_END);
 
 		if(!Yii::app()->request->isAjaxRequest)
 		{
@@ -48,6 +48,12 @@ class DetailController extends FrontController
 	}
 	public function actionParts()
 	{
+
+		$cs = Yii::app()->clientScript;
+    	$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
+	    
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js', CClientScript::POS_END);
+
 		$criteria=new CDbCriteria;
 		$criteria->order='id desc';
 
@@ -60,7 +66,7 @@ class DetailController extends FrontController
 			);
 
 		$allowJoin=array('CarModels'=>false,'carBrands'=>false);
-		
+
 		foreach ($params as $key => $value) {
 
 			if (!empty($_POST[$key]))
@@ -72,13 +78,15 @@ class DetailController extends FrontController
 		$criteria->join.= $joins['Categories'];
 		$criteria->join.= $joins['CarModels'];
 		$criteria->join.= $joins['carBrands'];
-		
+
+		$model=Parts::model()->find($criteria);
+
 		$dataProvider=new CActiveDataProvider('Parts', array(
 				'criteria' => $criteria,
 				'pagination'=>false,
 			));
+		$this->render('parts',array('dataProvider'=>$dataProvider,'model'=>$model));
 
-		$this->render('parts',array('dataProvider'=>$dataProvider));
 	}
 
 	public function actionView($id)

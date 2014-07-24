@@ -19,10 +19,10 @@ class CarModels extends EActiveRecord
     public function rules()
     {
         return array(
-            array('brand', 'numerical', 'integerOnly'=>true),
+            array('brand, car_type', 'numerical', 'integerOnly'=>true),
             array('name', 'length', 'max'=>255),
             // The following rule is used by search().
-            array('id, name, brand', 'safe', 'on'=>'search'),
+            array('id, name, brand, car_type', 'safe', 'on'=>'search'),
         );
     }
 
@@ -43,6 +43,7 @@ class CarModels extends EActiveRecord
             'id' => 'ID',
             'name' => 'Модель',
             'brand' => 'Марка',
+            'car_type'=>'Тип Машины (Легковая/Грузовая)',
         );
     }
 
@@ -85,10 +86,22 @@ class CarModels extends EActiveRecord
                     'success'=>'function(data){
                         $("#CarModels").closest(".item").empty().html(data);
                         $("#CarModels").selectbox();
-                        console.log(data);
                     }'
                     //leave out the data key to pass all form values through
                     )); 
+    }
+
+    public static function getCarTypes($status = -1)
+    {
+        $aliases = array(
+            1 => 'Легковая',
+            2 => 'Грузовая',
+        );
+
+        if ($status > -1)
+            return $aliases[$status];
+
+        return $aliases;
     }
 
     public static function brandModelsList(){

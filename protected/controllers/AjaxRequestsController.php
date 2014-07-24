@@ -23,7 +23,7 @@ class AjaxRequestsController extends FrontController
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('getNestedList','getCarModels','getSubCategories'),
+				'actions'=>array('getNestedList','getCarModels','getSubCategories','getDetail'),
 				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
@@ -74,10 +74,13 @@ class AjaxRequestsController extends FrontController
 		die();
 	}
 
-	public function actionView($id)
+	public function actionGetDetail()
 	{
-		$model=News::model()->find('id=:id',array(':id'=>$id));
-		$this->render('view',array('model'=>$model));	
+		$data=$_GET['data'];
+		$model=Parts::model()->find('id=:id',array(':id'=>$data['id']));
+		$DetailView=$this->renderPartial('//detail/view',array('model'=>$model),true);
+
+		echo $DetailView;
 	}
 
 }

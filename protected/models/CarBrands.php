@@ -21,7 +21,7 @@ class CarBrands extends EActiveRecord
             array('name', 'length', 'max'=>255),
             // The following rule is used by search().
             array('id, name,id_country', 'safe', 'on'=>'search'),
-            array('id, name, id_country', 'required'),
+            array('name, id_country', 'required'),
         );
     }
 

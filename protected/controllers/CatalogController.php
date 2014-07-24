@@ -49,7 +49,7 @@ class CatalogController extends FrontController
 			$sort=$_GET['sort'] ? $_GET['sort'] : 'price';
 
 			$criteria->order=$sort.' desc';
-			$criteria->addCondition('type=1');
+			$criteria->addCondition('car_type=1');
 			$criteria->addCondition('price<=5000000');
 			$criteria->addCondition('`t`.force<=1000');
 
@@ -61,6 +61,9 @@ class CatalogController extends FrontController
 					$criteria->addCondition('brand='.$brand_id);
 
 			}
+
+			$criteria->join=UsedCars::join();
+
 			$dataProvider=new CActiveDataProvider('UsedCars', array(
 				'criteria' => $criteria,
 				'pagination'=>array(

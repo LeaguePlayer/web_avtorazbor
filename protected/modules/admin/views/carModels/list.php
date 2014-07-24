@@ -23,10 +23,17 @@ $this->menu=array(
 			'value' => '$data->car_brand->name'
 		),
 		array(
+			'name'=>'car_type',
+			'type'=>'raw',
+			'value'=>'CarModels::getCarTypes($data->car_type)',
+			'filter'=>UsedCars::getCarTypes()
+		),
+		array(
 			'header' => 'Запчастей в категории',
 			'type' => 'html',
 			'value' => 'Chtml::link($data->partsCount, Yii::app()->createUrl("/admin/parts", array("Parts" => array("car_model_id" => $data->id))))'
 		),
+		
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
 			'template' => '{update} {delete}'
