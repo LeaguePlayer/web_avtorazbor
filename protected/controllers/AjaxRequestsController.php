@@ -113,7 +113,7 @@ class AjaxRequestsController extends FrontController
 	        
 	        if ($model->validate())
 	        {
-	        	$model->satus=2;
+	        	$model->status=2;
 	        	$model->save();
 	        	$response['success']=true;
 	        }
