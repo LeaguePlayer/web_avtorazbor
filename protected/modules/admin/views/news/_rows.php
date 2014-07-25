@@ -1,5 +1,6 @@
 	<div class='control-group'>
 		<?php echo CHtml::activeLabelEx($model, 'img_preview'); ?>
+		
 		<?php echo $form->fileField($model,'img_preview', array('class'=>'span3')); ?>
 		<div class='img_preview'>
 			<?php if ( !empty($model->img_preview) ) echo TbHtml::imageRounded( $model->imgBehaviorPreview->getImageUrl('small') ) ; ?>

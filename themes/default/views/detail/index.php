@@ -47,7 +47,7 @@
                             <form class="criteria" action="/detail/parts" method="post">
                                 <div class="select">
                                     <div class="item">
-                                        <input type="hidden" name="car_type" value="1">
+                                        <input type="hidden" id="car_type" name="car_type" value="1">
                                         <label for="mark"> 
                                             Марка:
                                         </label>
@@ -117,6 +117,39 @@
                                 </div> 
                             </form>
                         </div>
+                        
+                        <div id="disc">
+                            <form action="/detail/parts" method="post">
+                                <div class="formCost">
+                                    <dl class="desc">
+                                        <dt>
+                                            Индивидуальный подбор
+                                        </dt>
+                                        <dd>
+                                            Для подбора автозапчастей выберите марку, модель и раздел автомобиля.
+                                        </dd>
+                                        <dd>
+                                            Диаметр дисков (в дюймах).
+                                        </dd>
+                                    </dl>
+                                    <input type="hidden" name="disc" />
+                                    <div class="i-text">
+                                        <input type="text" id="minSize" value="14">
+                                    </div>
+                                    <label for="maxforce">-</label> 
+                                    <div class="i-text">
+                                        <input type="text" id="maxSize" value="25">
+                                    </div>
+                                </div>
+                            
+                            <div class="sliderCont">
+                                <div id="slider2"></div>
+                            </div>
+                            <div class="line" data-min="#minSize" data-max="#maxSize"></div>
+
+                                <input type="submit" class="i-submit" value="Найти"/>
+                            </form>
+                        </div>
                     </div>
                 </div>
 
@@ -142,3 +175,4 @@
                 <div class="clear"></div>
             </div>
         </div>  
+<?=$this->renderPartial('//forms/bookPart',array('model'=>new Bookpart));?>

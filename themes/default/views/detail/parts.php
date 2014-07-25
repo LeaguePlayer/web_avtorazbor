@@ -32,7 +32,9 @@
                     <div class="content clear">
 
                         <div class="part">
-                         <?=$this->renderPartial('view',array('model'=>$model),true)?>
+
+                         <? if ($model)
+                            print($this->renderPartial('view',array('model'=>$model),true));?>
                         </div>
 
                         <div class="shared clear">

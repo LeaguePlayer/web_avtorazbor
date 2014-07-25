@@ -46,6 +46,7 @@ class DetailController extends FrontController
 		}
 
 	}
+
 	public function actionParts()
 	{
 
@@ -75,6 +76,13 @@ class DetailController extends FrontController
 			}
 		}
 
+		if (isset($_POST['disc']))
+		{
+			$criteria->addCondition('`t`.category_id=295');
+			$criteria->addCondition('`t`.category_id=295');
+		}
+		else 
+			$criteria->addCondition('car_type='.$_POST['car_type']);
 		$criteria->join.= $joins['Categories'];
 		$criteria->join.= $joins['CarModels'];
 		$criteria->join.= $joins['carBrands'];
@@ -85,6 +93,7 @@ class DetailController extends FrontController
 				'criteria' => $criteria,
 				'pagination'=>false,
 			));
+
 		$this->render('parts',array('dataProvider'=>$dataProvider,'model'=>$model));
 
 	}
@@ -95,18 +104,4 @@ class DetailController extends FrontController
 		$this->render('view',array('model'=>$model));
 	}
 
-	public function getDetails($params = array())
-	{
-		if (!empty($params))
-		{
-			foreach($params['conditions'] as $key=>$value)
-			{
-				if (!empty($value))
-				{
-
-				}
-			}
-		}
-	}
-	
 }

@@ -9,6 +9,7 @@ class CreateAction extends AdminAction
         if(isset($_POST[$this->modelName]))
         {
             $model->attributes = $_POST[$this->modelName];
+
 			$success = $model->save();
             if( $success ) {
 				$this->redirect();

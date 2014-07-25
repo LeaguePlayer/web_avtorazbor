@@ -34,7 +34,12 @@
 
         				<div class="news tab-active" id="tabs-1">
                             <?
-                                $this->renderPartial('tabView',array('dataProvider'=>$dataProvider),false,false);
+                                $this->renderPartial('tabView',array('dataProvider'=>$dataProviderCurYear),false,true);
+                            ?>
+                        </div>
+                        <div class="news" id="tabs-2">
+                            <?
+                                $this->renderPartial('tabView',array('dataProvider'=>$dataProviderPrevYear),false,true);
                             ?>
                         </div>
         			</div>

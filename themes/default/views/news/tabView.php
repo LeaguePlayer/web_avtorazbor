@@ -5,6 +5,7 @@
 	    'itemView'=>'_tabItem',   // refers to the partial view named '_post'
 	    'summaryText' => '',
 	    'pagerCssClass' => 'pagination',
+	    'itemsTagName'=>'ul',
 	    'pager' => array(
             'prevPageLabel' => '',
             'firstPageLabel' => '',
@@ -12,7 +13,6 @@
             'lastPageLabel' => '',
             'header' => '',
             'cssFile' => false,
-            
        	),
 	));
 

@@ -57,6 +57,7 @@ class UploadableImageBehavior extends CActiveRecordBehavior
             }
             $this->absoluteSavePath = $path;
         }
+
         return $this->absoluteSavePath;
     }
 
@@ -70,6 +71,7 @@ class UploadableImageBehavior extends CActiveRecordBehavior
             }
             $this->absoluteThumbsPath = $path;
         }
+        
         return $this->absoluteThumbsPath;
     }
 
@@ -97,7 +99,6 @@ class UploadableImageBehavior extends CActiveRecordBehavior
         if(in_array($this->owner->scenario,$this->scenarios) &&
             ($file=CUploadedFile::getInstance($this->owner,$this->attributeName))){
             $this->processDelete(); // старые файлы удалим, потому что загружаем новый
-
             $fileName = SiteHelper::genUniqueKey().'.'.$file->extensionName;
             $this->owner->setAttribute($this->attributeName,$fileName);
             $file->saveAs($this->getAbsoluteSavePath().DIRECTORY_SEPARATOR.$fileName);

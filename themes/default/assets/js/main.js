@@ -29,6 +29,10 @@ $(document).ready(function(){
 		})
 	}
 
+	$('.fancy-form input[type=submit]').click(function(){
+		
+	})
+
 	if ($('.items-news').length>0)
 	{
 		$('.items-news').each(function(){

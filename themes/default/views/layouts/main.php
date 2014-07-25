@@ -315,62 +315,10 @@
     				<input type="submit" value="" class="i-submit"/>
     			</div>
     		</div>	
-
-    		
     	</div>
     	<div class="clear"></div>
     </footer>
-    <div id="popup" name="qst" class="qst">
-        <div class="bx">
-
-            <dl>
-                <dt>
-                    Задать вопрос
-                </dt>
-                <dd>
-                    <span class="req">*</span>
-                    - поля, обязательные для заполнения
-                </dd>
-            </dl>
-            <div class="form">
-                <ul>
-                    <li>
-                        <label for="name">Ваше Имя <span class="req">*</span></label>
-                        <input name="name" type="text" value="" class="i-text" requered/>
-                    </li>
-                    <li>
-                        <label for="tel">Контактный телефон <span class="req">*</span></label>
-                        <input name="tel" type="text" value="" class="i-text" requered/>
-                    </li>
-                    <li>
-                        <label for="email">E-mail</label>
-                        <input name="email" type="mail" value="" class="i-text"/>
-                    </li>
-                    <li class="qsts">
-                        <label for="qsts">Ваш вопрос  <span class="req">*</span></label>
-                        <textarea name="qsts" requered class="i-textarea"></textarea>
-                    </li>
-                    <li>
-                        <label>Тема письма</label>
-                        <select>
-                            <option value="0">
-                                Не выбрано
-                            </option>
-                            <option value="1">
-                                Вопрос
-                            </option>
-                            <option value="2">
-                                Заявка
-                            </option>
-                        </select>
-                    </li>
-                    <li class="sub">
-                        <input type="submit" class="i-submit" value="Отправить" />
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    <?=$this->renderPartial('//forms/question',array('model'=>new Questions),true);?>
     <div class="over" id="hide-layout"></div>
 	</body>
 </html>

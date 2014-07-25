@@ -31,7 +31,7 @@
 					}
 				}else break;
 			}
-
+			
 			$module = $this->getModule()->name;
 
 			$menuItems = array(
@@ -40,10 +40,14 @@
 				array('label'=>'Продажа авто под ремонт', 'url'=>'/admin/usedCars'),
 				array('label'=>'Документы', 'url'=>'/admin/documents'),
 				array('label'=>'Пользователи', 'url'=>'/user/admin'),
-				array('label'=>'Компаненты', 'url'=>'/admin/companents'),
-				array('label'=>'Страницы', 'url'=>'/admin/page/list'),
-				array('label'=>'Новости', 'url'=>'/admin/news/list'),
-
+				array('label'=>'Управление сайтов',
+					'items'=>array(
+						array('label'=>'Страницы', 'url'=>'/admin/page/list'),
+						array('label'=>'Новости', 'url'=>'/admin/news/list'),					
+						array('label'=>'Заказ деталей', 'url'=>'/admin/bookPart/list'),
+						array('label'=>'Вопросы', 'url'=>'/admin/questions/list'),
+					),
+				)
 			);
 
 			$subItems = array(
@@ -71,6 +75,7 @@
 					array('label'=>'Все настройки', 'url'=>'/admin/settings'),
 					array('label'=>'Скачать приложение', 'url'=>'/admin/settings/downloadApp'),
 				),
+				
 			);
 
 			$userModuleItems = array(
