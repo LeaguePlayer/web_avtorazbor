@@ -23,7 +23,7 @@ class Bookpart extends EActiveRecord
 {
     public function tableName()
     {
-        return '{{bookpart}}';
+        return '{{bookPart}}';
     }
 
 
