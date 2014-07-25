@@ -1,6 +1,6 @@
 <li>
 	<a href="/catalog/car/<?=$data->id?>">
-		<img src="<?=$data->img_preview ? $data->getImageUrl() : '/media/images/usedcars/default.jpg'?>" alt="" title="" />
+		<img src="<?=$data->img_preview ? $data->getImageUrl('small') : '/media/images/usedcars/default.jpg'?>" alt="" title="" />
 	</a>
 	<a href="/catalog/car/<?=$data->id?>" class="link">
 		<?=$data->name?>
