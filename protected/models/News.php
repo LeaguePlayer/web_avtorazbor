@@ -23,7 +23,7 @@ class News extends EActiveRecord
 
     public function tableName()
     {
-        return '{{news}}';
+        return '{{News}}';
     }
 
 
