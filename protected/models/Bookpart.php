@@ -33,7 +33,7 @@ class Bookpart extends EActiveRecord
             array('year, status, sort', 'numerical', 'integerOnly'=>true),
             array('capacity', 'numerical'),
             array('name, phone, mail, car_info, fuel, vin, parts', 'length', 'max'=>255),
-            array('create_time, update_time', 'safe'),
+            array('create_time, update_time, status', 'safe'),
             // The following rule is used by search().
             array('id, name, phone, mail, car_info, year, capacity, fuel, vin, parts, status, sort, create_time, update_time', 'safe', 'on'=>'search'),
             array('name, phone, mail, car_info, year, capacity, fuel, vin, parts', 'required'),
