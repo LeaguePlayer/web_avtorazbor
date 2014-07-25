@@ -61,9 +61,9 @@ class DetailController extends FrontController
 		$params=array ( 'carBrands' => 'brand', 'CarModels' => 'car_model_id', 'Category'=>'category_id', 'subCategories' => 'parent');
 
 		$joins=array ( 
-				'CarModels' => ' LEFT JOIN `tbl_CarModels` ON `t`.car_model_id = `tbl_CarModels`.id',
+				'CarModels' => ' LEFT JOIN `tbl_CarModels` ON `t`.car_model_id = `tbl_CarModels`.id ',
 				'Categories' => ' LEFT JOIN `tbl_categories` ON `t`.category_id = `tbl_categories`.id ',
-			 	'carBrands' => 'LEFT JOIN `tbl_CarBrands` ON `tbl_CarModels`.brand = `tbl_CarBrands`.id ',
+			 	'carBrands' => ' LEFT JOIN `tbl_CarBrands` ON `tbl_CarModels`.brand = `tbl_CarBrands`.id ',
 			);
 
 		$allowJoin=array('CarModels'=>false,'carBrands'=>false);
