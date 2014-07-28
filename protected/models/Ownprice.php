@@ -18,7 +18,7 @@ class Ownprice extends EActiveRecord
 {
     public function tableName()
     {
-        return '{{ownprice}}';
+        return '{{ownPrice}}';
     }
 
 
