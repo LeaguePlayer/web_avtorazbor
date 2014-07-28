@@ -16,22 +16,30 @@ $(function(){
 
 		var nested=$(this).data('nested');
 
-		if ($('onption:selected',this).index()==0)
-		{
-			$('onption:selected').removeAttr('selected');
-			$(this).selectbox('refresh');
-			return false;
-		}
+		// if ($('onption:selected',this).index()==0)
+		// {
+		// 	$('onption:selected').removeAttr('selected');
+		// 	$(this)
+		// 	return false;
+		// }
+		$(nested).removeAttr('selected');
+		$(nested).selectbox('refresh');
 
 		setNestedSelect.apply(this,[changeView]);
 
+		return false;
 	});
 	
 	$('select').on('change',function(){
 
+
+		var nested=$(this).data('nested');
+
+		$(nested).removeAttr('selected');
+		$(nested).selectbox('refresh');
+		
 		ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');	
-		console.log($('#carBrands').val())
-		console.log(methods['catalog'].apply(this,[]))
+		
 	})
 
 	$('#car_type li a').click(function(){

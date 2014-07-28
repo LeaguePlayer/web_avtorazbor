@@ -56,10 +56,10 @@ class DetailController extends FrontController
 	    
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js', CClientScript::POS_END);
 
-		$join=strtolower(
+		$join=
 				"LEFT JOIN  `tbl_categories` ON  `tbl_categories`.id =  `t`.category_id
                 LEFT JOIN  `tbl_CarModels` ON  `t`.car_model_id =  `tbl_CarModels`.id
-                LEFT JOIN  `tbl_CarBrands` ON  `tbl_CarModels`.brand =  `tbl_CarBrands`.id");
+                LEFT JOIN  `tbl_CarBrands` ON  `tbl_CarModels`.brand =  `tbl_CarBrands`.id";
 
 
 
@@ -150,10 +150,10 @@ class DetailController extends FrontController
 
 		$pageSize=$data['pager']['display'] ? (int)$data['pager']['display'] : 2;
 
-		$criteria->join=strtolower(
+		$criteria->join=
 				"LEFT JOIN  `tbl_categories` ON  `tbl_categories`.id =  `t`.category_id
                 LEFT JOIN  `tbl_CarModels` ON  `t`.car_model_id =  `tbl_CarModels`.id
-                LEFT JOIN  `tbl_CarBrands` ON  `tbl_CarModels`.brand =  `tbl_CarBrands`.id");
+                LEFT JOIN  `tbl_CarBrands` ON  `tbl_CarModels`.brand =  `tbl_CarBrands`.id";
 
 		$dataProvider=new CActiveDataProvider('Parts', array(
 			'criteria' => $criteria,
