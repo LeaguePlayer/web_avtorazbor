@@ -48,6 +48,13 @@ var changeView=function(){
 
 $(document).ready(function(){
 
+
+
+	changeView=function(){
+
+		ViewItems($('.auto'),methods['parts'].apply(this,[]),'/detail/ajaxUpdate');	
+	}
+
 	$('.line').slider({
 		range:true,
 		step:1,
@@ -64,10 +71,7 @@ $(document).ready(function(){
 		}
 	});
 
-	changeView=function(){
-
-		ViewItems($('.auto'),methods['parts'].apply(this,[]),'/detail/ajaxUpdate');	
-	}
+	
 
 	$('.nested').on('change',function(){
 
