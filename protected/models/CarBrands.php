@@ -25,6 +25,33 @@ class CarBrands extends EActiveRecord
         );
     }
 
+    public static function getHtmlOptions()
+    {
+       return array('empty'=>'Выберите марку',
+                    'class'=>'select nested',
+                    'data-nested'=>'#carModels', 
+                    'data-column'=>'brand', 
+                    'id'=>'carBrands',
+                    'name'=>'carBrands',
+                    'onChange'=>'setNestedSelect.apply(this,[]);'
+                );
+    }
+
+    public static function AjaxOptions(){
+        return array(
+                'dataType'=>'json',
+                'type'=>'get',
+                'url'=>'/ajaxRequests/detail',
+                'data'=>'js:this.value',
+                'success'=>'function(data){
+                    $("#carModels").closest("dd").empty(data.select);
+                    $("#carModels").selectbox();
+                }',
+                'error'=>'function(){
+                    alert("Ошибка сервера! пожалуйста повторите попытку позднее!");
+                }'
+            );
+    }
 
     public function relations()
     {

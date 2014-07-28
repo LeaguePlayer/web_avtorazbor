@@ -43,7 +43,6 @@ class CatalogController extends FrontController
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/Catalog.js', CClientScript::POS_END);
 
 			$criteria=new CDbCriteria;
-			
 
 			$pageSize=$_GET['display'] ? (int)$_GET['display'] : 2;
 			$sort=$_GET['sort'] ? $_GET['sort'] : 'price';
@@ -78,6 +77,14 @@ class CatalogController extends FrontController
 
 			$Bascet=UsedCars::getBasketList();
 
+			$Models=array();
+
+			if ($_POST['carBrands'])
+			{
+				$Models=CHtml::listData(CarBrands::model()->findByPk($_POST['carBrands'])->models(),'id','name');
+				$Model_id=$_POST['carModels'];
+			}
+
 			$this->render('index',array(
 				'dataProvider'=>$dataProvider,
 				'Countries'=>$Countries,
@@ -85,6 +92,7 @@ class CatalogController extends FrontController
 				'Brands'=>$Brands,
 				'Bascet'=>$Bascet,
 				'brand_id'=>$brand_id,
+				'Models'=>$Models
 			));
 		} else {
 			$this->getCars();
@@ -117,7 +125,6 @@ class CatalogController extends FrontController
 
 		$criteria->join=UsedCars::model()->join();
 		$criteria->condition=str_replace('force', '`t`.force', $criteria->condition);
-
 		$dataProvider=new CActiveDataProvider('UsedCars', array(
 			'criteria' => $criteria,
 			'pagination'=>array(
@@ -126,12 +133,19 @@ class CatalogController extends FrontController
 		    ),
 		));
 
-		CJSON::encode($this->renderPartial('//catalog/tabView',array('dataProvider'=>$dataProvider),false,false));
+		echo $this->renderPartial('//catalog/tabView',array('dataProvider'=>$dataProvider),true);
 	}
 
 	public function actionCar($id)
 	{
+
+		$cs = Yii::app()->clientScript;
+		
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/Catalog.js', CClientScript::POS_END);
+
 		$model=UsedCars::model()->find('id=:id',array(':id'=>$id));
+
 		$this->render('view',array('model'=>$model));
 	}
 

@@ -46,6 +46,7 @@
 						array('label'=>'Новости', 'url'=>'/admin/news/list'),					
 						array('label'=>'Заказ деталей', 'url'=>'/admin/bookPart/list'),
 						array('label'=>'Вопросы', 'url'=>'/admin/questions/list'),
+						array('label'=>'предложения', 'url'=>'/admin/ownprice/list'),
 					),
 				)
 			);

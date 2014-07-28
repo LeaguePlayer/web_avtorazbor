@@ -60,6 +60,69 @@ class CategoriesController extends AdminController
 		$this->render('parser');
 	}
 
+	public function saveAttrs($id)
+	{
+		if (isset($_POST['attr']))
+		{
+
+			foreach ($_POST['attr'] as $key => $value) {
+
+				if (!empty($value))
+				{
+					$model=new CategoryAttr;
+					$model->category_id=$id;
+					$model->attr=$value;
+					$model->type=$_POST['required'][$key] == 'on';
+					
+					var_dump($model->validate());
+					die();
+				}
+			}
+		}
+	}
+
+	public function actionCreate(){
+
+		$model=new Categories;
+
+		if (isset($_POST['Categories']))
+		{
+			$model->attributes=$_POST['Categories'];
+
+			if ($model->validate())
+			{
+				$model->save();
+				$this->saveAttrs($model->id);
+				$this->redirect(array('list'));
+			}
+		}
+
+		$this->render('create',array('model'=>$model));
+	}
+
+	public function actionUpdate($id){
+
+		$model=Categories::model()->findByPk($id);
+
+		if (isset($_POST['Categories']))
+		{
+			$model->attributes=$_POST['Categories'];
+
+			if ($model->validate())
+			{
+
+				$model->save();
+				$model->deleteAttrs();
+
+				$this->saveAttrs($model->id);
+
+				$this->redirect(array('list'));
+			}
+		}
+
+		$this->render('create',array('model'=>$model));
+	}
+
 	public function actionList(){
 
 		$filter = false;

@@ -78,14 +78,14 @@ class UsedCars extends EActiveRecord
     public function rules()
     {
         return array(
-            array('car_model_id, vin, name, price, bascet, type, force', 'required'),
+            array('car_model_id, vin, name, price, force', 'required'),
             array('car_model_id, status, buyer_id', 'numerical', 'integerOnly'=>true),
             array('name', 'length', 'max'=>255),
             array('vin', 'length', 'max'=>20),
             array('price', 'length', 'max'=>10),
-            array('comment, year, enter_date, force, img_preview, type, bascet', 'safe'),
+            array('comment, year, enter_date, force, img_preview, bascet', 'safe'),
             // The following rule is used by search().
-            array('id, car_model_id, vin, force, price, comment, bascet, status, type, name, img_preview', 'safe', 'on'=>'search'),
+            array('id, car_model_id, vin, force, price, comment, bascet, status, name, img_preview', 'safe', 'on'=>'search'),
         );
     }
 
@@ -95,12 +95,16 @@ class UsedCars extends EActiveRecord
             'imgBehaviorPreview' => array(
                 'class' => 'application.behaviors.UploadableImageBehavior',
                 'attributeName' => 'img_preview',
+
                 'versions' => array(
                     'icon' => array(
                         'centeredpreview' => array(90, 90),
                     ),
+                    'medium' => array(
+                        'centeredpreview' => array(400, 267),
+                    ),
                     'small' => array(
-                        'resize' => array(200, 180),
+                        'resize' => array(140, 100),
                     )
                 ),
             )
@@ -135,7 +139,6 @@ class UsedCars extends EActiveRecord
             'name' => 'Марка, модель (как в ПТС)',
             'img_preview'=>'фотом машины',
             'bascet'=>'Тип кузова',
-            'type'=>'Тип машины  (Легковая/Грузовая)',
             'force'=>'Мощность двигателя (л.с.)'
         );
     }

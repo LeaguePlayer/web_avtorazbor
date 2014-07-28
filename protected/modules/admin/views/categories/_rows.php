@@ -14,7 +14,23 @@
 			)); ?>
 		</div>
 	</div>
-
+	
 	<style>
+	
 	.tab-content{overflow: visible;}
+
+	tr td{
+		text-align: center;
+	}
+
+	table{
+		width: 660px;
+	}
 	</style>
+
+
+<?
+
+	
+
+?>

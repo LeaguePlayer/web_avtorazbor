@@ -29,7 +29,15 @@ class SiteController extends FrontController
 	 */
 	public function actionIndex()
 	{
-		$this->render('index');
+
+		$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
+		$Bascet=UsedCars::getBasketList();
+		$Transmission=UsedCarInfo::transmissionList();
+		$State=UsedCarInfo::statesList();
+
+		$News=News::model()->findAll();
+
+		$this->render('index',array('Brands'=>$Brands,'Bascet'=>$Bascet,'Transmission'=>$Transmission,'State'=>$State));
 	}
 
 	/**

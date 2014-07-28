@@ -1,24 +1,26 @@
 <?php
 /**
- * Миграция m140725_084518_category_attr_values
+ * Миграция m140725_094721_ownPrice
  *
  * @property string $prefix
  */
  
-class m140725_084518_category_attr_values extends CDbMigration
+class m140725_094721_ownPrice extends CDbMigration
 {
     // таблицы к удалению, можно использовать '{{table}}'
-	private $dropped = array('{{category_attr_values}}');
+	private $dropped = array('{{ownPrice}}');
  
     public function safeUp()
     {
         $this->_checkTables();
  
-        $this->createTable('{{category_attr_values}}', array(
+        $this->createTable('{{ownPrice}}', array(
             'id' => 'pk', // auto increment
 
-			'attr_id' => "integer COMMENT 'Характеристика'",
-            'value' => "string COMMENT 'Значение'",
+			'name' => "string COMMENT 'Ваше имя'",
+            'phone' => "string COMMENT 'Контактный телефон'",
+            'mail' => "string COMMENT 'Электронная почта'",
+            'own_price' => "string COMMENT 'Ваша цена(руб.)'",
 			
 			'status' => "tinyint COMMENT 'Статус'",
 			'sort' => "integer COMMENT 'Вес для сортировки'",

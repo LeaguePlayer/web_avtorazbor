@@ -1,25 +1,31 @@
 <?php
 /**
- * Миграция m140725_084518_category_attr_values
+ * Миграция m140727_121517_evackuator
  *
  * @property string $prefix
  */
  
-class m140725_084518_category_attr_values extends CDbMigration
+class m140727_121517_evackuator extends CDbMigration
 {
     // таблицы к удалению, можно использовать '{{table}}'
-	private $dropped = array('{{category_attr_values}}');
+	private $dropped = array('{{evackuator}}');
  
     public function safeUp()
     {
         $this->_checkTables();
  
-        $this->createTable('{{category_attr_values}}', array(
+        $this->createTable('{{evackuator}}', array(
             'id' => 'pk', // auto increment
+            
+			'name' => "string COMMENT 'Ваше имя'",
+			'phone' => "string COMMENT 'Контактный телефон'",
+            'mail' => "string COMMENT 'E-mail'",
+            'brand' => "string COMMENT 'Марка авто'",
+            'car_model_id' => "string COMMENT 'Модель авто'",
+            'name' => "string COMMENT 'Адрес загрузки'",
+            'mass' => "string COMMENT 'Масса авто'",
+            'distance' => "float COMMENT 'КМ'",
 
-			'attr_id' => "integer COMMENT 'Характеристика'",
-            'value' => "string COMMENT 'Значение'",
-			
 			'status' => "tinyint COMMENT 'Статус'",
 			'sort' => "integer COMMENT 'Вес для сортировки'",
             'create_time' => "datetime COMMENT 'Дата создания'",

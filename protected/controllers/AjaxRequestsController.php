@@ -3,7 +3,7 @@
 class AjaxRequestsController extends FrontController
 {
 	public $layout = '//layouts/simple';
-	
+		
 	/**
 	 * Declares class-based actions.
 	 */
@@ -23,7 +23,7 @@ class AjaxRequestsController extends FrontController
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('getNestedList','getCarModels','getSubCategories','getDetail','saveQuestion','saveBookPart'),
+				'actions'=>array('getNestedList','getCarModels','getSubCategories','getDetail','saveQuestion','saveBookPart','saveOwnPrice'),
 				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
@@ -35,38 +35,46 @@ class AjaxRequestsController extends FrontController
 	public function actionGetNestedList()
 	{
 
-		$params=$_GET['data'];
-		$models=CHtml::listData(SiteHelper::getNestedModels($params),'id','name');
 
-		$select=$this->renderPartial('//common/dropDownSelect',array('models'=>$models,'modelName'=>$params['model']),true);
-		$list=$this->renderPartial('//common/DropDownList',array('models'=>$models,'modelName'=>$params['model']),true);
+		$data=$_GET['data'];
 
-		$response=array();
-		$response['select']=$select;
-		$response['list']=$list;
+		$models=CHtml::listData(SiteHelper::getNestedModels($data),'id','name');
 
-		print(CJSON::encode($response));
-		die();
+		$htmlOptions=SiteHelper::getHtmlOptions($data['model']);		
+		
+		if ($data['onchange'])
+			$htmlOptions['onchange']=$data['onchange'];
+
+		$select=$this->renderPartial('//common/dropDownSelect',array( 'models'=>$models, 'Options'=>$htmlOptions ),true);
+		$response['data']=$_GET;
+		$response['success']=$select;
+		
+		echo CJSON::encode($response);
+		
+		
 	}
 
 	public function actionGetCarModels()
 	{
 
-		$models=$models=CHtml::listData(CarModels::model()->findAll('brand=:id',array(':id'=>$_GET['value'])),'id','name');
-		$select=$this->renderPartial('//common/dropDownSelect',array('models'=>$models,'modelName'=>$params['model'],'options'=>CarModels::getHtmlOptions()),true);
+		$models=CHtml::listData(CarModels::model()->findAll('brand=:id',array(':id'=>$_GET['value'])),'id','name');
+
+		$select=$this->renderPartial('//common/dropDownSelect',array('models'=>$models,'Options'=>CarModels::getHtmlOptions()),true);
 
 		$response=array();
 		$response['select']=$select;
 
 		print(CJSON::encode($response['select']));
+		
 		die();
+
 	}
 
 	public function actionGetSubCategories()
 	{
 
 		$models=$models=CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$_GET['value'])),'id','name');
-		$select=$this->renderPartial('//common/dropDownSelect',array('models'=>$models,'modelName'=>$params['model'],'options'=>Categories::getHtmlOptions()),true);
+		$select=$this->renderPartial('//common/dropDownSelect',array('models'=>$models,'Options'=>Categories::getHtmlOptions()),true);
 		$response=array();
 		$response['select']=$select;
 
@@ -121,6 +129,30 @@ class AjaxRequestsController extends FrontController
 	        	$response['error']=$this->renderPartial('//forms/bookPart',array('model'=>$model),true);
 	        }
 	    }
+	    echo CJSON::encode($response);
+	}
+
+	public function actionsaveOwnPrice()
+	{
+	    $model=new Ownprice;
+
+	    $response=array();
+
+	    if(isset($_POST['Ownprice']))
+	    {
+	        $model->attributes=$_POST['Ownprice'];
+	        
+	        if ($model->validate())
+	        {
+	        	$model->status=2;
+	        	$model->save();
+	        	$response['success']=true;
+	        }
+	        else {
+	        	$response['error']=$this->renderPartial('//forms/bookPart',array('model'=>$model),true);
+	        }
+	    }
+
 	    echo CJSON::encode($response);
 	}
 

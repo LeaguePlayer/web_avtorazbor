@@ -17,7 +17,9 @@ class m140725_084525_category_attr extends CDbMigration
         $this->createTable('{{category_attr}}', array(
             'id' => 'pk', // auto increment
 
-			'category' => "<type> COMMENT 'Комментарий'",
+			'category_id' => "integer COMMENT 'Комментарий'",
+            'attr' => "string COMMENT 'Характеристика'",
+            'type' => "integer COMMENT 'тип поля'",
 			
 			'status' => "tinyint COMMENT 'Статус'",
 			'sort' => "integer COMMENT 'Вес для сортировки'",

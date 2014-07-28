@@ -5,6 +5,9 @@ class UsedCarsController extends AdminController
 	public $layout = '/layouts/custom';
 
 	public function actionCreate(){
+
+
+
 		$model = new UsedCars;
 		$dop = new UsedCarInfo;
 		$owner = new Clients;
@@ -20,20 +23,36 @@ class UsedCarsController extends AdminController
 
 	public function actionUpdate($id){
 
-		// $cs = Yii::app()->clientScript;
-		// $cs->registerScriptFile($this->getAssetsUrl().'/js/', CClientScript::POS_END);
+		$cs = Yii::app()->clientScript;
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/usedcars.js', CClientScript::POS_END);
+
 		$model = UsedCars::model()->findByPk($id);
 		$dop = $model->dop ? $model->dop : new UsedCarInfo;
 		$owner = $model->owner ? $model->owner : new Clients;
 
 		$this->saveModels($model, $dop, $owner);
 
+		$displayBascet=($model->model->car_type==1 ? 'display:none' : 'display:block');
+
 		$this->render('update', array(
 			'model' => $model,
 			'dop' => $dop,
-			'owner' => $owner
+			'owner' => $owner,
+			'displayBascet'=>$displayBascet
 		));
 	}
+
+	public function actionAjaxDisplayBascet($id){
+
+		$car_type=CarModels::model()->find('brand=:id',array(':id'=>$id))->car_type;
+
+		$responce=array();
+
+		$responce['success']=$car_type==1;
+
+		echo CJSON::encode($responce);
+
+	}	
 
 	private function saveModels(&$model, &$dop, &$owner){
 

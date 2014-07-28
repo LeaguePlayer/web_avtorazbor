@@ -26,7 +26,6 @@ class CarModels extends EActiveRecord
         );
     }
 
-
     public function relations()
     {
         return array(
@@ -74,21 +73,9 @@ class CarModels extends EActiveRecord
         return array(
                     'empty'=>'Выберите модель',
                     'class'=>'select',
-                    'id'=>'CarModels',
-                    'name'=>'CarModels',
-                    'ajax' => array(
-                    'type'=>'GET', //request type
-                    'dataType'=>'json',
-                    'url'=>CController::createUrl('/ajaxRequests/getCarModels'), //url to call.
-                    //Style: CController::createUrl('currentController/methodToCall')
-                    'update'=>'#carModels', //selector to update
-                    'data'=>array('value'=>'js:this.value','model'=>'CarModels'),
-                    'success'=>'function(data){
-                        $("#CarModels").closest(".item").empty().html(data);
-                        $("#CarModels").selectbox();
-                    }'
-                    //leave out the data key to pass all form values through
-                    )); 
+                    'id'=>'carModels',
+                    'name'=>'carModels',
+                    ); 
     }
 
     public static function getCarTypes($status = -1)

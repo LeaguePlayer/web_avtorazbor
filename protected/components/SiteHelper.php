@@ -232,7 +232,6 @@ class SiteHelper {
 						if (!empty($value_gr))
 							$criteria->addCondition($key_gr .'<='. $value_gr);
 					}
-
 				}
 				break;
 			case 'equal':
@@ -248,17 +247,39 @@ class SiteHelper {
 
 		return $criteria->condition;
 	}
+
 	public static function getNestedModels($params)
 	{
 		switch ($params['model']) {
 			case 'carBrands':
 				{
-					return CarBrands::model()->findAll($params['condition'],array(':id'=>$params['value']));
+					return CarBrands::model()->findAll($params['column'].'=:id',array(':id'=>$params['value']));
 				}
 				break;
 			case 'carModels':
 				{
-					return CarModels::model()->findAll($params['condition'],array(':id'=>$params['value']));
+					return CarModels::model()->findAll($params['column'].'=:id',array(':id'=>$params['value']));
+				}
+				break;
+			default:
+				{
+					return array();
+				}
+				break;
+		}
+	}
+
+	public static function getHtmlOptions($modelName)
+	{
+		switch ($modelName) {
+			case 'carBrands':
+				{
+					return CarBrands::getHtmlOptions();
+				}
+				break;
+			case 'carModels':
+				{
+					return CarModels::getHtmlOptions();
 				}
 				break;
 			default:

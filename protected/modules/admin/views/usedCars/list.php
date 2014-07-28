@@ -27,7 +27,7 @@ $this->menu=array(
 		array(
 			'header' => 'Тип машины',
 			'type' => 'raw',
-			'value' => '$data->type==1 ? "Легковая" : "Грузовая"',
+			'value' => 'UsedCars::getCarTypes($data->model->car_type)',
 		),
 		array(
 			'header' => 'Цвет',

@@ -33,10 +33,20 @@ class Categories extends EActiveRecord
         return array(
             'cat_parent' => array(self::BELONGS_TO, 'Categories', 'parent'),
             'children' => array(self::HAS_MANY, 'Categories', 'parent', 'order'=>'name'),
-            'partsCount' => array(self::STAT, 'Parts', 'category_id')
+            'partsCount' => array(self::STAT, 'Parts', 'category_id'),
+            'attrs' => array(self::HAS_MANY, 'CategoryAttr', 'category_id')
         );
     }
 
+
+    public function deleteAttrs(){
+
+        foreach($this->attrs as $key=>$attr)
+        {
+            $attr->delete();
+        }
+
+    }
 
     public function attributeLabels()
     {

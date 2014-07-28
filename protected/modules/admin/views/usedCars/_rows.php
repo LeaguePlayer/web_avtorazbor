@@ -20,14 +20,15 @@
 				'data'=>CHtml::listData(CarModels::brandModelsList(), 'id', 'name'),
 				'options'=>array(
 					'containerCssClass' => 'span8 no-float',
-				)
+				),
+				'htmlOptions'=>array(
+					),
+						
 			)); ?>
 		</div>
 	</div>
 
 	<?php echo $form->textFieldControlGroup($model,'vin',array('class'=>'span8','maxlength'=>20)); ?>
-
-	<?php echo $form->dropDownListControlGroup($model, 'type', UsedCars::getCarTypes(), array('empty'=>'Выберите тип машины', 'class'=>'span8', 'displaySize'=>1, 'id' => 'type')); ?>
 
 	<?php echo $form->dropDownListControlGroup($model, 'bascet', UsedCars::getBasketList(), array('empty'=>'Выберите тип кузова', 'class'=>'span8', 'displaySize'=>1, 'id' => 'bascet')); ?>
 
