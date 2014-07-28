@@ -1,7 +1,6 @@
 <div class="page">
 	<h1 class="head">
 		<?=$model->model->car_brand->name?> <?=$model->model->name?>
-
 	</h1>
 
 	<div class="wr">
@@ -9,7 +8,9 @@
 		<div class="coll left">
 			<div class="content">
     			<div class="image">
-				<img src="<?= ($model->getImageUrl()!=null ? $model->getImageUrl() : '/media/images/usedcars/default.jpg' ) ?>" width="400" height="267" alt="" title=""/>
+	    			<a href="<?= ($model->img_preview ? $model->getImageUrl() : '/media/images/usedcars/default.jpg' ) ?>">
+						<img src="<?= ($model->img_preview ? $model->getImageUrl('medium') : '/media/images/usedcars/default.jpg' ) ?>" alt="" title=""/>
+					</a>
 				</div>
 				<div class="info">
 					<p><span>Марка: </span><a href="/catalog/?brand=<?=$model->model->car_brand->name?>"><?=$model->model->car_brand->name?></a></p>
@@ -19,7 +20,7 @@
 					<p><span>Коробка передач: </span><?=$model->dop->getTransmissionType()?></p>
 					<p><span>Тип кузова: </span><?=$model->bascet?></p>
 					<p><span>Цена: </span><?=$model->price?></p>
-					<a href="#" class="own-price"><span>Предложить свою цену</span></a>
+					<a href="#own-price" class="own-price"><span>Предложить свою цену</span></a>
 				</div>
 				<div class="comment">
 				<p class="comment">Коментарий:</p><?=$model->comment?>
@@ -49,3 +50,4 @@
 		<div class="clear"></div>
 	</div>
 </div>
+<?=$this->renderPartial('//forms/ownPrice',array('model'=>new Ownprice),true);?>

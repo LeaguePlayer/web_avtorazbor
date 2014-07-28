@@ -23,12 +23,13 @@
 	Yii::app()->clientScript->registerScript('search',
 	    "
 		
-		$('.pagination a').click(function(){
+		$.fn.yiiListView.update('car_list');
+		// $('.pagination a').click(function(){
 
-			var data=methods['catalog'].apply(this,[])
+		// 	var data=methods['catalog'].apply(this,[])
 
-	    	$.fn.yiiListView.update('car_list',data);
-		})
+	 //    	$.fn.yiiListView.update('car_list',data);
+		// })
 	    		
 	"
 	);

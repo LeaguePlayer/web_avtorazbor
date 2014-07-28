@@ -1,35 +1,29 @@
 
-function NestedChanged(conteiner)
-{
-
-	conteiner.on('change click',function( e ){
-
-		ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');	
-	    return false;
-	    
-	});
+var changeView=function(){
 
 }
-
 
 $(function(){
 
 
-	ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');
+	changeView=function(){
+
+		ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');	
+	} 
 
 	$('.nested').on('change',function(){
-		
-		var nested=$('#'+$(this).data('nested'));
-			nested.empty();
-		$_this=$(this);
 
-		var params={
-				model:$_this.data('nested'),
-				condition:'id_'+$_this.attr('id')+'=:id',
-				value:$_this.val()
-			};
 
-		var htmlData = getNestedList(params,nested,NestedChanged);
+		var nested=$(this).data('nested');
+
+		if ($('onption:selected',this).index()==0)
+		{
+			$('onption:first:').attr('selected','selected');
+			$(this).selectbox('refresh');
+			return false;
+		}
+
+		setNestedSelect.apply(this,[changeView]);
 
 	});
 	
@@ -40,20 +34,28 @@ $(function(){
 
 		if (type!='1')
 		{
-
 			$('#bascet,#transmission').closest('dd').css('display','none');
 			$('#bascet-label,#transmission-label').css('display','none');
-			$('#bascet,#transmission').children().eq(0).attr('selected','selected');
+			$('#bascet,#transmission').children().eq(0).removeAttr('selected');
 			$('#bascet,#transmission').trigger('refresh');
-
 		} else {
 
 			$('#bascet,#transmission').closest('dd').css('display','block');
 			$('#bascet-label,#transmission-label').css('display','block');
-
 		}
 
-	})
+	});
+
+	$('.own-price').fancybox({
+		fitToView	: false,
+		wrapCSS		: "questionForm",
+		height		: 450,
+		width		: 590,
+		autoSize	: false,
+		closeClick	: false,
+		openEffect	: 'none',
+		closeEffect	: 'none'
+	});
 
 	$('#sort li a,#display li a,#car_type li a').click(function(){
 
@@ -65,7 +67,7 @@ $(function(){
 
 	});
 
-	$('.filter select, #minForce,#maxForce, .pagination a, #car_type li a').on('change click',function( e ){
+	$('.filter select, #minForce,#maxForce,#minCost,#maxCost, .pagination a, #car_type li a').on('change click keyup',function( e ){
 
 		ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');
 		

@@ -67,44 +67,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="modal" style="display:none">
-                <p class="caption">Задать вопрос</p>
-                <p class="rules">
-                    <span>*</span> - поля обязательные для заполнения
-                </p>
-                <hr>
-                <div class="row">
-                    <label for="fio">Ваше ФИО <span>*</span></label>
-                    <input type="text" placeholder="Ваше ФИО">
-                </div>
-                <div class="row">
-                    <label for="fio">Контактный телефон <span>*</span></label>
-                    <input type="text" placeholder="Ваше ФИО">
-                </div>
-                <div class="row">
-                    <label for="fio">E-mail </label>
-                    <input type="text" placeholder="Ваше ФИО">
-                </div>
-                <div class="row">
-                    <label for="fio">Ваш вопрос<span>*</span></label>
-                    <textarea type="text" placeholder="Ваше вопрос..."></textarea>
-                </div>
-                <div class="row">
-                    <label for="mail-theme">Тема письма</label>
-                    <select id="mail-theme">
-                        <option>Не выбранно</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                    </select>
-                </div>
-
-                <div class="row send">
-                    <input class="i-submit" type="button" name="send" data-type="" value="Отправить">
-                </div>
-            </div>
+           <?=$this->renderPartial('//forms/question',array('model'=>new Questions),true);?>
             <div class="parametr tab-active" id="tabs-1">
 
                 <div class="search-text">
@@ -121,17 +84,8 @@
                                 Марка
                             </dt>
                             <dd>
-                                <select name="Mark">
-                                    <option value="0">
-                                        Alfa Romeo
-                                    </option>
-                                    <option value="1">
-                                        BMW
-                                    </option>
-                                    <option value="2">
-                                        Audi
-                                    </option>
-                                </select>
+                                <?=CHtml::dropDownList('carBrands', 'id', $Brands, array( 
+                                                        'empty'=>'Выберите марку', 'class'=>'select', 'id'=>'carBrands'));?>
                             </dd>
                         </dl>
 
@@ -182,39 +136,15 @@
                                 Тип кузова:
                             </dt>
                             <dd>
-                                <select name="Country">
-                                    <option value="0">
-                                        Выберите тип кузова
-                                    </option>
-                                    <option value="1">
-                                        Седан
-                                    </option>
-                                    <option value="2">
-                                        Хэтчбэк
-                                    </option>
-                                    <option value="3">
-                                        Универсал
-                                    </option>
-                                </select>
+                                <?=CHtml::dropDownList('bascet', 'id', $Bascet, array( 
+                                                        'empty'=>'Выберите тип кузова', 'class'=>'select', 'id'=>'Bascet'));?>
                             </dd>
                             <dt>
                                 Состояние:
                             </dt>
                             <dd>
-                                <select name="Sost">
-                                    <option value="0">
-                                        Состояние
-                                    </option>
-                                    <option value="1">
-                                        Отлично
-                                    </option>
-                                    <option value="2">
-                                        Хорошее
-                                    </option>
-                                    <option value="3">
-                                        Среднее
-                                    </option>
-                                </select>
+                                <?=CHtml::dropDownList('state', 'id', $State, array( 
+                                                        'empty'=>'Состояние', 'class'=>'select', 'id'=>'state'));?>
                             </dd>
                         </dl>
                         <dl>
@@ -290,17 +220,8 @@
                                 Марка
                             </dt>
                             <dd>
-                                <select name="Mark">
-                                    <option value="0">
-                                        Alfa Romeo
-                                    </option>
-                                    <option value="1">
-                                        BMW
-                                    </option>
-                                    <option value="2">
-                                        Audi
-                                    </option>
-                                </select>
+                                <?=CHtml::dropDownList('carBrands', 'id', $Brands, array( 
+                                                        'empty'=>'Выберите марку', 'class'=>'select', 'id'=>'carBrands'));?>
                             </dd>
                         </dl>
 
@@ -352,20 +273,8 @@
                                 Состояние:
                             </dt>
                             <dd>
-                                <select name="Sost">
-                                    <option value="0">
-                                        Состояние
-                                    </option>
-                                    <option value="1">
-                                        Отлично
-                                    </option>
-                                    <option value="2">
-                                        Хорошее
-                                    </option>
-                                    <option value="3">
-                                        Среднее
-                                    </option>
-                                </select>
+                                <?=CHtml::dropDownList('state', 'id', $State, array( 
+                                                        'empty'=>'Выберите марку', 'class'=>'select', 'id'=>'state'));?>
                             </dd>
                         </dl>
                         <dl>
@@ -423,7 +332,7 @@
                                 Тип
                             </dt>
                             <dd>
-                                <select name="Mark">
+                                <select name="Mark" id="car_type">
                                     <option value="0">
                                         Запчасти для легковых авто машин
                                     </option>

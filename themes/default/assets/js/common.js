@@ -1,4 +1,3 @@
-
 function ViewItems(conteiner,params,url,collback)
 {
 	$.ajax({
@@ -8,8 +7,10 @@ function ViewItems(conteiner,params,url,collback)
 		success:function(data){
 			conteiner.empty();
 			conteiner.html(data);
+
 			if (collback)
 				collback();
+
 		},
 
 		error:function(data){
@@ -19,44 +20,52 @@ function ViewItems(conteiner,params,url,collback)
 	return false;
 }
 
-function changeSliderOption(options,slider){
-	slider.option()
-}
-
-serialize = function(obj, prefix) {
-  var str = [];
-  for(var p in obj) {
-    var k = prefix ? prefix + "[" + p + "]" : p, v = obj[p];
-    str.push(typeof v == "object" ?
-      serialize(v, k) :
-      encodeURIComponent(k) + "=" + encodeURIComponent(v));
-  }
-  return str.join("&");
-}
-
-function getNestedList(params,conteiner,callback)
+function setNestedSelect(callback)
 {
-	
-	$.ajax({
-		url:'/ajaxRequests/getNestedList',
-		dataType:'json',
-		data: {
-			data:params
-		},
+		var params={
+			data:{
+				value:this.value,
+				model:$($(this).data('nested')).attr('name'),
+				column:$(this).data('column'),
+				onchange:'changeView();',
+			}
+		};
 
-		success:function(data){
+		var $_this=$(this);
 
-			var nestedSelect=conteiner.closest('dd').empty().html(data.select).find('select');
-				nestedSelect.selectbox();
-			if (callback)
-				callback(nestedSelect);
-		},
+		$.ajax({
+			url:'/ajaxRequests/getNestedList',
+			data:params,
+			dataType:"json",
+			success:function(data){
 
-		error:function(data){
-			console.log(data)
-		}
-	});
+				var nested=$_this.data('nested'),
+					select=$(nested);
+
+				var $_parent=select.closest('dd');
+					$_parent.
+						empty().
+						html(data.success);
+
+				select = $('select',$_parent);
+				select.selectbox();
+
+				if (callback)
+				{
+					select.on('change',function(){
+						callback();
+					});
+				}
+			console.log(data);
+
+				return false;
+			},
+			error:function(data){
+				alert('Ошиибка! повторите попытку позднее!');
+			}
+		});
 }
+
 
 var methods = {
 
@@ -72,11 +81,14 @@ var methods = {
 						force:$('#maxForce').val()
 					},
 					equal:{
+
 						id_country:$('#country option:selected').val(),
-						brand:$('#carBrands option:selected').val(),
+						brand:$('#country option:selected').index()>0 ? $('#carBrands option:selected').val() : 0,
 						transmission:$('#transmission option:selected').val(),
+						car_model_id:$('#country option:selected').index()>0 ? $('#carModels option:selected').val() : 0,
 						bascet:$('#bascet option:selected').val(),
 						car_type:$('#car_type .active a').data('type'),
+
 					}
 				},
 				pager:{
@@ -84,34 +96,39 @@ var methods = {
 					display:parseInt($('#display .active').text(),10),	
 				},
 				page:$('.yiiPager .selected').index()
+
 			}
 			return params;
 		},
-		auto:function(){
+		parts:function(){
+			var params={
+				conditions:{
 
-		},
-		MaxMin:function(conteiner,search){
+					MoreEqual:{
+						price_buy:$('#minCost').val(),
+					},
 
-			var max=0;
-			var min=100000000000;
+					LessEqual:{
+						price_buy:$('#maxCost').val(),
+					},
 
-			$(search,conteiner).each(function(){
+					equal:{
+						brand:$('#country option:selected').index()>0 ? $('#carBrands option:selected').val() : 0,
+						id_country:$('#country option:selected').val(),
+						car_model_id:$('#country option:selected').index()>0 ? $('#carModels option:selected').val() : 0,
+						car_type:$('#car_type .active a').data('type'),
+						category_id:$('#Categories option:selected').val(),
+						parent:$('#Categories option:selected').val()>0 ? $('#subCategories option:selected').val() : 0,
+					}
 
-				var value=$(this).text()+"",
-					result=0;
-
-				if (value!=undefined)
-					result = parseInt(value.replace('цена', ''),10);
-
-				max=max<result ? result : max;
-				min=min>result ? result : min;
+				},
+				pager:{
+					sort:$('#sort .active').data('sort'),
+					display:parseInt($('#display .active').text(),10),	
+				},
+				page:$('.yiiPager .selected').index(),
 				
-			});
-
-			return [min,max];
+			}
+			return params;
 		},
-
-		steps:function(min,max){
-			return Math.round((max-min)/1000);
-		}
 	}

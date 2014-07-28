@@ -125,15 +125,15 @@
         	</dl>
 
         	<dl class="qst">
-        		<dt>
-        			<strong>Есть вопросы?</strong>
-        		</dt>
-        		<dd>
-        			<a href="#popup" name="qst" class="i-submit">
-        				Задать вопрос
-        			</a>
-        		</dd>
-        	</dl>
+                <dt>
+                    <strong>Есть вопросы?</strong>
+                </dt>
+                <dd>
+                    <a href="#popup" name="qst" class="i-submit">
+                        Задать вопрос
+                    </a>
+                </dd>
+            </dl>
 
         	<div class="reg">
         			<ul>

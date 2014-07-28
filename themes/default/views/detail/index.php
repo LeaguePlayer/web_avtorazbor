@@ -63,11 +63,15 @@
                                             'url'=>CController::createUrl('/ajaxRequests/getCarModels'), //url to call.
                                             //Style: CController::createUrl('currentController/methodToCall')
                                             'update'=>'#carModels', //selector to update
-                                            'data'=>array('value'=>'js:this.value','model'=>'CarModels'),
+                                            'data'=>array('value'=>'js:this.value','model'=>'carModels'),
                                             'success'=>'function(data){
-                                                $("#CarModels").closest(".item").empty().html(data);
-                                                $("#CarModels").selectbox();
+
+                                                $_parent=$("#carModels").closest(".item");
+                                                $_parent.empty().html(data);
+                                                $("select",$_parent).selectbox();
+
                                                 ShowNextSelect();
+
                                             }'
                                             //leave out the data key to pass all form values through
                                             ))); 
@@ -78,7 +82,7 @@
                                         <label for="model"> 
                                             Марка:
                                         </label>
-                                        <?=CHtml::dropDownList('CarModels','id', array())?>
+                                        <?=CHtml::dropDownList('carModels','id', array())?>
                                     </div>
                                     <div class="item hide">
                                         <label for="model"> 
@@ -97,8 +101,11 @@
                                             'update'=>'#subCategoies', //selector to update
                                             'data'=>array('value'=>'js:this.value','model'=>'subCategories'),
                                             'success'=>'function(data){
-                                                $("#subCategories").closest(".item").empty().html(data);
-                                                $("#subCategories").selectbox();
+
+                                                $_parent=$("#subCategories").closest(".item");
+                                                $_parent.empty().html(data);
+                                                $("select",$_parent).selectbox();
+
                                                 ShowNextSelect();
                                             }'
                                             //leave out the data key to pass all form values through

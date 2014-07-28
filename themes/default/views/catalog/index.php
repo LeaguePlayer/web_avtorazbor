@@ -12,14 +12,22 @@
                             <dt>
                                 Страна:
                             </dt>
-                            <dd>
-                                <?=CHtml::dropDownList('country','id', $Countries,array('empty'=>'Выберите страну','class'=>'select nested','data-nested'=>'carBrands','id'=>'country'))?>
+                            <dd >
+                                <?=CHtml::dropDownList('country','id', $Countries,
+                                            array('empty'=>'Выберите страну','class'=>'select nested','data-nested'=>'#carBrands', 'data-column'=>'id_country', 'id'=>'country','style'=>'display'))?>
                             </dd>
                             <dt>
                                 Марка:
                             </dt>
                             <dd>
-                                <?=CHtml::dropDownList('carBrands', 'id', $Brands, array('options' => array($brand_id=>array('selected'=>true)), 'empty'=>'Выберите марку', 'class'=>'select','id'=>'carBrands'))?>
+                                <?=CHtml::dropDownList('carBrands', 'id', $Brands, array( 'options' => array($Brands_id=>array('selected'=>true)), 
+                                                        'empty'=>'Выберите марку', 'class'=>'select nested','data-nested'=>'#carModels','data-column'=>'brand', 'id'=>'carBrands'))?>
+                            </dd>
+                            <dt>
+                                Модель автомобиля:
+                            </dt>
+                            <dd>
+                                <?=CHtml::dropDownList('carModels','id', $Models, array( 'options' => array($Model_id=>array('selected'=>true)),'empty'=>'Выберите модель','class'=>'select'))?>
                             </dd>
                             <dt>
                                 Цена (руб):

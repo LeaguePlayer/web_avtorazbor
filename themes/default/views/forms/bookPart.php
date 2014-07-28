@@ -19,7 +19,6 @@
                 'validateOnType' => true,
                 'validateOnSubmit' => true,
                 'afterValidate' => "js: function(form, data, hasError) {
-                    
                     if ( hasError ) return;
                     form = $('#BookPart-form');
                     var action = form.attr('action');
