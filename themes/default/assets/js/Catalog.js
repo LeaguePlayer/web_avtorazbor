@@ -1,6 +1,6 @@
 
 var changeView=function(){
-
+	ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');	
 }
 
 $(function(){
@@ -9,16 +9,16 @@ $(function(){
 	changeView=function(){
 
 		ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');	
+
 	} 
 
 	$('.nested').on('change',function(){
-
 
 		var nested=$(this).data('nested');
 
 		if ($('onption:selected',this).index()==0)
 		{
-			$('onption:first:').attr('selected','selected');
+			$('onption:selected').removeAttr('selected');
 			$(this).selectbox('refresh');
 			return false;
 		}
@@ -27,6 +27,12 @@ $(function(){
 
 	});
 	
+	$('select').on('change',function(){
+
+		ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');	
+		console.log($('#carBrands').val())
+		console.log(methods['catalog'].apply(this,[]))
+	})
 
 	$('#car_type li a').click(function(){
 		$_this=$(this);
