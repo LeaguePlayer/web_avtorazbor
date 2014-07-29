@@ -31,16 +31,9 @@ function ShowNextSelect()
 	});
 }
 
+function convertObjToStr(){
 
-
-// var nestedChanged=function(){
-
-// 	$(this).closest('dl').find('select').on('change',function(){
-
-// 		ViewItems($('.auto'),methods['parts'].apply(this,[]),'/detail/ajaxUpdate');
-
-// 	})
-// }
+}
 
 var changeView=function(){
 
@@ -49,11 +42,35 @@ var changeView=function(){
 $(document).ready(function(){
 
 
+	var linkHref=[];
 
 	changeView=function(){
 
-		ViewItems($('.auto'),methods['parts'].apply(this,[]),'/detail/ajaxUpdate');	
+		var params=methods['parts'].apply(this,[]);
+		var url=$.param(params);
+
+		ViewItems($('.auto'),params,'/detail/ajaxUpdate');	
+
+		// $('#part_list a').each(function(){
+		// 	var href=$(this).attr('href'),
+		// 		index=$(this).index();
+
+		// 	if (linkHref[index]==undefined)
+		// 		linkHref.push(href);
+
+		// 	$(this).attr('href',linkHref[index]+"?"+url);
+		// })
 	}
+
+
+	$('#part_list a ').click(function(){
+
+		var href=$(this).attr('href');
+		var params=methods['parts'].apply(this,[]);
+
+		$(this).attr('href',href+'&'+params);
+		return false;
+	})
 
 	$('.line').slider({
 		range:true,
@@ -71,7 +88,6 @@ $(document).ready(function(){
 		}
 	});
 
-	
 
 	$('.nested').on('change',function(){
 

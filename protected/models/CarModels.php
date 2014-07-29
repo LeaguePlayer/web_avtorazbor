@@ -18,12 +18,14 @@ class CarModels extends EActiveRecord
 
     public function rules()
     {
+        
         return array(
             array('brand, car_type', 'numerical', 'integerOnly'=>true),
             array('name', 'length', 'max'=>255),
             // The following rule is used by search().
             array('id, name, brand, car_type', 'safe', 'on'=>'search'),
         );
+
     }
 
     public function relations()
@@ -34,7 +36,6 @@ class CarModels extends EActiveRecord
             'partsCount' => array(self::STAT, 'Parts', 'car_model_id'),
         );
     }
-
 
     public function attributeLabels()
     {

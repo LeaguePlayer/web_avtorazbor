@@ -44,7 +44,7 @@
                                     Для подбора автозапчастей выберите марку, модель и раздел автомобиля.
                                 </dd>
                             </dl>
-                            <form class="criteria" action="/detail/parts" method="post">
+                            <form class="criteria" action="/detail/parts" method="get">
                                 <div class="select">
                                     <div class="item">
                                         <input type="hidden" id="car_type" name="car_type" value="1">

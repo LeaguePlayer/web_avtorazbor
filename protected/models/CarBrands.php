@@ -38,6 +38,7 @@ class CarBrands extends EActiveRecord
     }
 
     public static function AjaxOptions(){
+
         return array(
                 'dataType'=>'json',
                 'type'=>'get',
@@ -50,7 +51,8 @@ class CarBrands extends EActiveRecord
                 'error'=>'function(){
                     alert("Ошибка сервера! пожалуйста повторите попытку позднее!");
                 }'
-            );
+        );
+        
     }
 
     public function relations()

@@ -101,6 +101,9 @@ class Parts extends EActiveRecord
                     'medium' => array(
                         'resize' => array(600, 400),
                     ),
+                    'view'=>array(
+                        'resize' => array(331)
+                    ),
                     'normal' => array(
                         'resize' => array(800, 600)
                     ),
