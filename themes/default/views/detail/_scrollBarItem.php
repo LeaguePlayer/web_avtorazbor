@@ -1,7 +1,7 @@
 <?
+	$data=Parts::model()->findByPk($data['id']);
 	$gallery=$data->getGallery()->galleryPhotos;
 	$image=$gallery ? $gallery[0]->getUrl('small') : '/media/images/parts/default.jpg';
-	$data=Parts::model()->findByPk($data['id']);
 ?>
 <li>
 
