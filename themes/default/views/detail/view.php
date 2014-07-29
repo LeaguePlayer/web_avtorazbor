@@ -7,16 +7,7 @@
             <div class="wr">
 
                 <div class="coll-left">
-                    <div class="modul zp" id="scrollbar">
-                        <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
-                        <div class="viewport">
-                             <div class="overview">
-                            <ul>
-                                <?=$this->renderPartial('//detail/scrollBar',array('dataProvider'=>$dataProvider),true);?>
-                            </ul>
-                        </div> 
-                        </div> 
-                    </div>
+                    <?=$this->renderPartial('//detail/scrollBar',array('dataProvider'=>$dataProvider),true);?>
                 </div>
 
                 <div class="coll-right">
@@ -28,8 +19,10 @@
                                 <?
                                     $gallery=$model->getGallery()->galleryPhotos;
                                     $image=$gallery ? $gallery[0]->getUrl('normal') : '/media/images/parts/default.jpg';
+
                                 ?>
-                                <img width="331" height="192" src="<?=$image?>" alt="" title="" />
+
+                                <a href="<??>"><img width="331" height="192" src="<?=$image?>" alt="" title="" />
                             </div>
                             <div class="min-img">
                             <?
@@ -44,12 +37,11 @@
                                             if (($counter+=1)<6)
                                             {
                                                 ?>
-                                                <a href="<?=$value->getUrl('big')?>">
+                                                <a class="imgFancy" href="<?=$value->getUrl('big')?>">
                                                     <img width="100" height="60" src="<?=$value->getUrl('small')?>" />
                                                 </a>
                                                 <?
                                             }
-
                                         }
                                     ?>
                                 </ul>
@@ -64,7 +56,7 @@
                                     Раздел: <a href="#"><?=$model->category->name;?></a>
                                 </li>
                                 <li>
-                                    Модель авто: <a href="#"><?=$model->car_model->name;?></a>
+                                    Модель авто: <a href="/detail/parts?carModel=<?=$model->car_model->id?>"><?=$model->car_model->name;?></a>
                                 </li>
                                 <li>
                                     Кол-во: нет поля

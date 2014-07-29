@@ -31,10 +31,6 @@ function ShowNextSelect()
 	});
 }
 
-function convertObjToStr(){
-
-}
-
 var changeView=function(){
 
 }
@@ -62,6 +58,7 @@ $(document).ready(function(){
 		// })
 	}
 
+	$('.imgFancy').fancybox();
 
 	$('#part_list a ').click(function(){
 
