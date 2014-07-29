@@ -25,20 +25,29 @@
 
                         <div class="gallery">
                             <div class="big-img">
-                                <img width="331" height="192" src="images/zp1.jpg" alt="" title="" />
+                                <?
+                                    $gallery=$model->getGallery()->galleryPhotos;
+                                    $image=$gallery ? $gallery[0]->getUrl('normal') : '/media/images/parts/default.jpg';
+                                ?>
+                                <img width="331" height="192" src="<?=$image?>" alt="" title="" />
                             </div>
                             <div class="min-img">
+                            <?
+                                if ($gallery)
+                                {
+                            ?>
                                 <ul>
-                                    <li>
-                                        <img src="images/zp2.jpg" alt=""  title="" />
-                                    </li>
-                                    <li>
-                                        <img src="images/zp2.jpg" alt=""  title="" />
-                                    </li>
-                                    <li>
-                                        <img src="images/zp2.jpg" alt=""  title="" />
-                                    </li>
+                                    <?
+                                        foreach ($gallery as $key => $value) {
+                                            ?>
+                                            <a href="<?=$value->getUrl('big')?>">
+                                                <img src="<?=$value->getUrl('small')?>" />
+                                            </a>
+                                            <?
+                                        }
+                                    ?>
                                 </ul>
+                            <?}?>
                             </div>
                         </div>
 
