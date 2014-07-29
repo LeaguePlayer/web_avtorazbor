@@ -38,10 +38,13 @@
                             ?>
                                 <ul>
                                     <?
+                                    $counter=0;
                                         foreach ($gallery as $key => $value) {
+                                            if (($counter+=1)<6)
                                             ?>
+
                                             <a href="<?=$value->getUrl('big')?>">
-                                                <img src="<?=$value->getUrl('small')?>" />
+                                                <img width="100" height="60"> src="<?=$value->getUrl('small')?>" />
                                             </a>
                                             <?
                                         }
