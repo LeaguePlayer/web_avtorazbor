@@ -86,8 +86,6 @@ class DetailController extends FrontController
 			$Models=CHtml::listData(CarBrands::model()->findByPk($_GET['carBrands'])->models(),'id','name');
 			$Model_id=$_GET['carModels'];
 		}
-		
-		
 
 		if (!empty($_GET['subCategories']));
 		{
@@ -108,6 +106,7 @@ class DetailController extends FrontController
 								'subCategories'=>$subCategories,
 								'subCategory_id'=>$_GET['subCategories'],
 								'dataProvider'=>$dataProvider,
+								'car_type'=>$data['car_type']
 							));
 	}
 

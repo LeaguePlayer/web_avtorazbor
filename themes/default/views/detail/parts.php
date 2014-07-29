@@ -95,12 +95,12 @@
                 <div class="coll-right">
                     <div class="tabs parts">
                         <ul id="car_type">
-                            <li <?=$_POST['car_type']==1 ? 'class="active"' : '' ?>>
+                            <li <?=$_GET['car_type']==1 ? 'class="active"' : '' ?>>
                                 <a href="#" data-type="1">
                                     Легковые
                                 </a>
                             </li>
-                            <li <?=$_POST['car_type']==2 ? 'class="active"' : '' ?>>
+                            <li <?=$_GET['car_type']==2 ? 'class="active"' : '' ?>>
                                 <a href="#" data-type="2">
                                     Грузовые
                                 </a>    
@@ -170,18 +170,18 @@
                                     <dd>
                                         <ul id="display">
                                             <li class="active">
-                                                <a href="/detail/ajaxUpdate?display=2">
-                                                    2
+                                                <a href="/detail/ajaxUpdate?display=20">
+                                                    20
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="/detail/ajaxUpdate?display=3">
-                                                    3
+                                                <a href="/detail/ajaxUpdate?display=40">
+                                                    40
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="/detail/ajaxUpdate?display=4">
-                                                    4
+                                                <a href="/detail/ajaxUpdate?display=60">
+                                                    60
                                                 </a>
                                             </li>
                                         </ul>
