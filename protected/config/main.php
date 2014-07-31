@@ -89,7 +89,6 @@ return array(
         'clientScript'=>array(
             'class'=>'EClientScript',
             'scriptMap'=>array(
-        // disable yiigridview auto include
                 // 'jquery.yiiview.js'=>false,
             ),
         ),

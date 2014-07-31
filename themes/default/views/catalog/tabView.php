@@ -20,17 +20,4 @@
       	),
 	));
 
-	Yii::app()->clientScript->registerScript('search',
-	    "
-		
-		$.fn.yiiListView.update('car_list');
-		// $('.pagination a').click(function(){
-
-		// 	var data=methods['catalog'].apply(this,[])
-
-	 //    	$.fn.yiiListView.update('car_list',data);
-		// })
-	    		
-	"
-	);
 ?>

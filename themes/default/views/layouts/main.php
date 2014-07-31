@@ -9,6 +9,7 @@
 	$cs->registerCssFile($this->getAssetsUrl().'/css/main.css');
 	$cs->registerCssFile($this->getAssetsUrl().'/css/style.css');
 	$cs->registerCssFile($this->getAssetsUrl().'/css/jquery.ui/overcast/jquery-ui-1.10.3.custom.min.css');
+
 	//$cs->registerCssFile($this->getAssetsUrl().'/css/fancybox/jquery.fancybox-buttons.css');
 	
 	$cs->registerCoreScript('jquery');
@@ -20,15 +21,15 @@
 	// $cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.timepicker.addon.js', CClientScript::POS_END);
 	// $cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.ui.timepicker.ru.js', CClientScript::POS_END);
 	// $cs->registerScriptFile('https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', CClientScript::POS_END);
+
 	$cs->registerScriptFile('http://fotorama.s3.amazonaws.com/4.4.9/fotorama.js', CClientScript::POS_END);
     $cs->registerScriptFile($this->getAssetsUrl().'/js/tinyscrollbar.js', CClientScript::POS_END);
-	$cs->registerScriptFile($this->getAssetsUrl().'/js/jquery-ui.js', CClientScript::POS_END);
 	$cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.maphilight.js', CClientScript::POS_END);
 	$cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.selectbox.min.js', CClientScript::POS_END);
 	$cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.fancybox.js', CClientScript::POS_END);
     $cs->registerScriptFile($this->getAssetsUrl().'/js/owl.carousel.min.js', CClientScript::POS_END);
 
-	$cs->registerScriptFile($this->getAssetsUrl().'/js/main.js', CClientScript::POS_END);
+	$cs->registerScriptFile($this->getAssetsUrl().'/js/script.js', CClientScript::POS_END);
 	
 	$assetUrl=$this->getAssetsUrl();
 ?><!DOCTYPE html>

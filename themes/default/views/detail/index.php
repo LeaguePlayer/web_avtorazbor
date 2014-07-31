@@ -70,8 +70,6 @@
                                                 $_parent.empty().html(data);
                                                 $("select",$_parent).selectbox();
 
-                                                ShowNextSelect();
-
                                             }'
                                             //leave out the data key to pass all form values through
                                             ))); 
@@ -105,8 +103,10 @@
                                                 $_parent=$("#subCategories").closest(".item");
                                                 $_parent.empty().html(data);
                                                 $("select",$_parent).selectbox();
-
-                                                ShowNextSelect();
+                                                $("#subCategories").on("change",function(){
+                                                    changeView(); 
+                                                    console.log(123)   
+                                                })
                                             }'
                                             //leave out the data key to pass all form values through
                                             ))); 

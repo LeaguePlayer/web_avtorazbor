@@ -73,7 +73,14 @@ class AjaxRequestsController extends FrontController
 	public function actionGetSubCategories()
 	{
 
-		$models=$models=CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$_GET['value'])),'id','name');
+
+		if (!empty($_GET['value']))
+		{
+			$models=$models=CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$_GET['value'])),'id','name');
+		} else {
+			$models=array();
+		}
+
 		$select=$this->renderPartial('//common/dropDownSelect',array('models'=>$models,'Options'=>Categories::getHtmlOptions()),true);
 		$response=array();
 		$response['select']=$select;

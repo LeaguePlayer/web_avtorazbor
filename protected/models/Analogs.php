@@ -26,7 +26,6 @@ class Analogs extends EActiveRecord
         );
     }
 
-
     public function relations()
     {
         return array(
@@ -37,7 +36,6 @@ class Analogs extends EActiveRecord
         );
     }
 
-
     public function attributeLabels()
     {
         return array(
@@ -47,7 +45,6 @@ class Analogs extends EActiveRecord
             'model_2' => 'Модель 2',
         );
     }
-
 
     public function search()
     {
@@ -70,6 +67,5 @@ class Analogs extends EActiveRecord
     {
         return 'Аналоги';
     }
-
 
 }

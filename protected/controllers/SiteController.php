@@ -30,14 +30,53 @@ class SiteController extends FrontController
 	public function actionIndex()
 	{
 
+		$cs = Yii::app()->clientScript;
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/main.js', CClientScript::POS_END);
+		//данные для списоков 
 		$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
 		$Bascet=UsedCars::getBasketList();
 		$Transmission=UsedCarInfo::transmissionList();
 		$State=UsedCarInfo::statesList();
 
-		$News=News::model()->findAll();
 
-		$this->render('index',array('Brands'=>$Brands,'Bascet'=>$Bascet,'Transmission'=>$Transmission,'State'=>$State));
+		//дата провайдер для каруселей
+
+		$criteriaNews=new CDbCriteria;
+		$criteriaNews->order='create_time desc';
+
+		$currentYear=date('Y');
+
+		$criteriaNews->
+			addCondition("DATE_FORMAT(`create_time`,'%Y-%m-%d')<='".$currentYear."-12-31' and DATE_FORMAT(`create_time`,'%Y-%m-%d')>='".$currentYear."-01-01'");
+
+		$dataProviderNews=new CActiveDataProvider('News', array(
+			'criteria' => $criteriaNews,
+			'pagination'=>false
+		));
+	
+		////////////////
+
+
+		$criteriaCar=new CDbCriteria;
+		$criteriaCar->order='id desc';
+
+
+		$dataProviderCar=new CActiveDataProvider('UsedCars', array(
+			'criteria' => $criteriaCar,
+			'pagination'=>false
+		));
+
+		$this->render('index',
+			array(
+				'Brands'=>$Brands,
+				'Bascet'=>$Bascet,
+				'Transmission'=>$Transmission,
+				'State'=>$State,
+				'dataProviderNews'=>$dataProviderNews,
+				'dataProviderCar'=>$dataProviderCar,
+			)
+		);
 	}
 
 	/**

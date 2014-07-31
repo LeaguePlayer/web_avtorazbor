@@ -1,5 +1,4 @@
 	<?
-		$data=Parts::model()->findByPk($data['id']);
 		$glrExist=!empty($data->getGallery()->galleryPhotos)
 	?>
 <li>

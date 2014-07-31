@@ -129,7 +129,7 @@ class CarModels extends EActiveRecord
             ':m1' => $car_model_id, 
             ':cat' => $category_id
         ));
-
+        
         foreach ($analogs as $item) {
             $passed[] = $item->id;
             $result[] = $item->model_2;

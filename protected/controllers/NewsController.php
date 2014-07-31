@@ -57,6 +57,7 @@ class NewsController extends FrontController
 		));
 
 		
+		
 		$criteriaPrevYear->
 			addCondition("DATE_FORMAT(`create_time`,'%Y-%m-%d')<='".$prevYear."-12-31' and DATE_FORMAT(`create_time`,'%Y-%m-%d')>='".$prevYear."-01-01'");
 

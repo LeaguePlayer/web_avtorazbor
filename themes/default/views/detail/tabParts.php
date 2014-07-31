@@ -22,10 +22,7 @@ if (!empty($dataProvider))
     ));
 
     Yii::app()->clientScript->registerScript('search',
-        "
-        
-        changeView();                
-    "
+        "changeView();"
     );
 }
 ?>

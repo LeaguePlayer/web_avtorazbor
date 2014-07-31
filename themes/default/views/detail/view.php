@@ -55,7 +55,7 @@
                                     Раздел: <a href="#"><?=$model->category->name;?></a>
                                 </li>
                                 <li>
-                                    Модель авто: <a href="/detail/parts?carModel=<?=$model->car_model->id?>"><?=$model->car_model->name;?></a>
+                                    Модель авто: <a href="#"><?=$model->car_model->name;?></a>
                                 </li>
                                 <li>
                                     Кол-во: нет поля

@@ -1,7 +1,7 @@
 
 <div class="page">
             <h1 class="head">
-                Каталог
+                Каталог автозапчастей
             </h1>
 
             <div class="wr">
@@ -51,8 +51,9 @@
                                                     $_parent=$("#subCategories").closest("dd");
                                                     $_parent.empty().html(data);
                                                     $("select",$_parent).selectbox();
-
-                                                    ShowNextSelect();
+                                                    $("select").on("change",function(){
+                                                        changeView();
+                                                    })
                                                 }'
                                                 //leave out the data key to pass all form values through
                                                 ))); 

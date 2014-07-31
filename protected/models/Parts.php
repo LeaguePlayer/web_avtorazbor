@@ -193,7 +193,7 @@ class Parts extends EActiveRecord
 
     public function search($pageSize = 10)
     {
-        if($pageSize == 'false') 
+        if ($pageSize == 'false')
             $pageSize = false;
 
         $criteria = $this->getCommonCriteria();
@@ -279,6 +279,22 @@ class Parts extends EActiveRecord
         $this->price_buy = number_format($this->price_buy, 0, '', '');
     }
 
+    public function getJoin($key)
+    {
+        $joins=array(
+                'brand'=>'
+                    inner join {{CarModels}} cr on `cr`.id=`t`.car_model_id
+                    inner join {{CarBrands}} cb on `cb`.id=`cr`.brand',
+                'car_model_id'=>'inner join {{CarModels}} cr on `cr`.id=`t`.car_model_id',
+                'id_country'=>
+                    'inner join {{CarBrands}} cb on `cb`.id=`cr`.brand
+                     inner join {{country}} c on `c`.id=`cb`.id_country',
+                'category_id'=>
+                     'inner join {{categories}} ca on `ca`.id=`t`.category_id',
+            );
+        return $joins[$key];
+    }
+
     public function beforeSave(){
         
         if($this->isNewRecord)
@@ -295,29 +311,184 @@ class Parts extends EActiveRecord
      * Функция возвращает детали относящиеся
      * к одной и той же категории и модели автомобиля
      */
-    public function getOwnParts($car_model_id, $cat_id){
 
-        //Находим все аналогичные модели категории
+    public function getPartSearchCriteria($car_model_id, $cat_id,$addCatInCondition=true)
+    {
+
         $analogCarModels = array();
         $analogCarModels[] = $car_model_id; // 1 уровень
         $analogCarModels = array_merge($analogCarModels, CarModels::findAllModelAnalogs($car_model_id, $cat_id)); // 2ой
 
         $criteria = new CDbCriteria;
 
-        $criteria->addCondition('category_id=:cat_id');
+        
         $criteria->addInCondition('car_model_id', $analogCarModels);
 
-        $criteria->params[':cat_id'] = $cat_id;
-        //$criteria->params[':car_model_id'] = $car_model_id;
-
-        if(!$this->isNewRecord){
+        if ($addCatInCondition)
+        {
+            $criteria->params[':cat_id'] = $cat_id;
+            $criteria->addCondition('category_id=:cat_id');
+        }
+        if(!empty($this->id)){
             $criteria->addCondition('id!=:part_id');
             $criteria->params[':part_id'] = $this->id;
         }
 
+        return $criteria;
+    }
+
+    public function getOwnParts($car_model_id, $cat_id){
+
+        //Находим все аналогичные модели категории
+        $criteria=$this->getPartSearchCriteria($car_model_id, $cat_id);
         return new CActiveDataProvider('Parts', array(
             'criteria'=>$criteria,
         ));
+    }
+
+    public function findAllModelsWithAnalogs($model_id)
+    {
+
+        $categories = Yii::app()->db->createCommand()
+            ->select('distinct(part.category_id)')
+            ->from('{{Parts}} part')
+            ->where('part.car_model_id = :id', array(':id' => $model_id))
+            ->queryAll();
+        
+        $data=array();
+
+        foreach ($categories as $key => $cat_id) {
+
+            $subCriteria=$this->getPartSearchCriteria($model_id,$cat_id['category_id']);
+            $models=$this->findAll($subCriteria);
+
+            foreach($models as $key=>$value)
+            {
+                $data[$value->car_model_id]=$value->car_model_id;
+            }
+        }
+
+        $criteria=new CDbCriteria;
+        $criteria->addInCondition('car_model_id',$data);
+        $result['criteria']=$criteria;
+        $result['models']=$data;
+
+        return $result;
+    }
+
+    public function getModelsByCountry($country_id,$pagination=false, $car_type=1)
+    {
+
+        $criteria=new CDbCriteria;
+        $countryBrands=Yii::app()->db->createCommand()
+            ->select('cb.id')
+            ->from('{{CarBrands}} cb')
+            ->where('cb.id_country = :id', array(':id' => $country_id))
+            ->queryAll();
+
+        $brandModels=array();
+        $data=array();
+
+        foreach ($countryBrands as $key => $value) {
+
+            $result=$this->getModelsByBrand($value['id'],$pagination);
+
+            // $models=Parts::model()->findAll($subCriteria);
+            $data=array_merge($data,$result['models']);
+            
+        }
+
+        if ($data)
+            $criteria->addInCondition('car_model_id',$data);
+        else 
+            $criteria->addCondition('car_model_id=0');
+
+        return $criteria;
+    }
+
+    public function getModelsByBrand($brand_id,$pagination=false, $car_type=1)
+    {
+
+        $criteria=new CDbCriteria;
+
+            $brandModels = Yii::app()->db->createCommand()
+                ->select('cm.id')
+                ->from('{{CarModels}} cm')
+                ->leftJoin('{{CarBrands}} cb','cb.id = cm.brand')
+                ->where('cm.brand = :id', array(':id' => $brand_id))
+                ->queryAll();
+        
+        $criteria->join=$this->getJoin('brand');
+        $data=array();
+
+        foreach ($brandModels as $key => $model) {
+
+            $result=$this->findAllModelsWithAnalogs($model['id']);
+
+            if (!empty($result['models']))
+            {
+                $data=array_merge($data,$result['models']);
+
+            }
+        }
+
+        if ($data)
+            $criteria->addInCondition('car_model_id',$data);
+        else 
+            $criteria->addCondition('car_model_id=0');
+
+        $result['criteria']=$criteria;
+        $result['models']=$data;
+
+        return $result;
+    }
+
+    public function search_parts($searchType,$value)
+    {
+        $criteria=new CDbCriteria;
+
+        $criteria->join=
+            $this->getJoin('category_id');
+
+        switch ($searchType) {
+            case 'id_country':
+                {
+                    $criteria->join.=' '.$this->getJoin('car_model_id');
+                    $criteria->mergeWith($this->getModelsByCountry($value));
+
+                    return $criteria;
+                }
+                break;
+            case 'brand':
+                {   
+                    $result=$this->getModelsByBrand($value);
+                    $criteria->mergeWith($result['criteria']);
+
+                    return $criteria;
+                }
+                break;
+            case 'car_model_id':
+                {
+
+                    $result=$this->findAllModelsWithAnalogs($value);
+                    $criteria->join.=' '.$this->getJoin('car_model_id');
+                    $criteria->mergeWith($result['criteria']);
+                    return $criteria;
+                }
+                break;
+            case 'model_cat':
+                    $criteria->join.=' '.$this->getJoin('car_model_id');
+                    $criteria->mergeWith($this->getPartSearchCriteria($value['model_id'],$value['cat_id'],false));
+                    return $criteria;
+                break;
+            default:
+                {
+                    $criteria->join.=' '.$this->getJoin('car_model_id');
+                    return $criteria;
+                }
+                break;
+        }
+
     }
 
     public function afterDelete()
