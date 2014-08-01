@@ -200,7 +200,7 @@ class DetailController extends FrontController
 		$category_id=$model->category->id;
 
 		$criteria=Parts::model()->search_parts('model_cat',array('model_id'=>$car_model,'cat_id'=>$category_id));
-		// $criteria->addCondition('category_id='.$category_id);
+		$criteria->addCondition('category_id='.$category_id);
 		$dataProvider=new CActiveDataProvider('Parts',
 			array(
 				'criteria'=>$criteria,
