@@ -197,7 +197,7 @@ class DetailController extends FrontController
 
 		$brand=$model->car_model->car_brand->id;
 		$car_model=$model->car_model->id;
-		$category_id=!empty($model->category->parent) ? $model->category->parent : $model->category->id;
+		$category_id=$model->category->id;
 
 		$criteria=Parts::model()->search_parts('model_cat',array('model_id'=>$car_model,'cat_id'=>$category_id));
 		// $criteria->addCondition('category_id='.$category_id);
