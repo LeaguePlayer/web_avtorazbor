@@ -6,7 +6,7 @@
 	$cs->registerCssFile('http://fotorama.s3.amazonaws.com/4.4.9/fotorama.css');
 	$cs->registerCssFile($this->getAssetsUrl().'/css/fancybox/jquery.fancybox.css');
 	$cs->registerCssFile($this->getAssetsUrl().'/css/compactmenu.css');
-	$cs->registerCssFile($this->getAssetsUrl().'/css/main.css');
+	$cs->registerCssFile($this->getAssetsUrl().'/css/main.css?v1');
 	$cs->registerCssFile($this->getAssetsUrl().'/css/style.css');
 	$cs->registerCssFile($this->getAssetsUrl().'/css/jquery.ui/overcast/jquery-ui-1.10.3.custom.min.css');
 
