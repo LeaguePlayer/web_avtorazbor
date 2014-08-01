@@ -52,10 +52,10 @@
 
                             <ul>
                                 <li>
-                                    Раздел: <a href="#"><?=$model->category->name;?></a>
+                                    Раздел: <a href="/detail/parts?Categories=<?=$model->category->id;?>&subCategories=<?=$model->category->parent;?>"><?=$model->category->name;?></a>
                                 </li>
                                 <li>
-                                    Модель авто: <a href="#"><?=$model->car_model->name;?></a>
+                                    Модель авто: <a href="/detail/parts?carModels=<?=$model->car_model->id;?>"><?=$model->car_model->name;?></a>
                                 </li>
                                 
                                 <li>

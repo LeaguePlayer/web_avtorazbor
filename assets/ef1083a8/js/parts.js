@@ -11,7 +11,7 @@ function ShowNextSelect()
 				items.addClass('hide');
 
 			$_parent.removeClass('hide');
-
+			
 			for(var i = 1; i<items.length;i++)
 			{
 				$('select option:first',items.eq(i)).attr('selected','selected');
@@ -80,19 +80,16 @@ $(document).ready(function(){
 	});
 
 	$('select').on('change',function(){
+
+		$_current=$(this);
+		$('select').removeAttr('selected');
+
 		changeView.apply(this,[]);
 	});
 
-	$('#country').on('change',function(){
-		var emptyOption=$("#carModels option:first");
-		
-		$("select").eq(2).removeAttr('selected');
-		$("select").selectbox('refresh');
-		
-	})
-
 	$('.nested').on('change',function(){
-
+		
+		$(nested).selectbox('refresh');
 		setNestedSelect.apply(this,[changeView]);
 
 	});

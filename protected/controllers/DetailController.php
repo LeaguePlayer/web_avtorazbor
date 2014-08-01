@@ -65,14 +65,22 @@ class DetailController extends FrontController
 				$params['value']=$_GET[$key];
 			}
 		}
-
 		
 		$category=!empty($_GET['Categories']) ? $_GET['Categories'] : !empty($_GET['subCategories']) ? $_GET['subCategories'] : '';
 
 		$Countries=CHtml::listData(Country::model()->findAll(),'id','name');
 		$Categories=CHtml::listData(Categories::model()->findAll('parent=0'),'id','name');
 
-		$Brands_id=$_GET['carBrands'];
+		if (!empty($_GET['carModels']))
+		{
+			$car_model=CarModels::model()->findByPk($_GET['carModels']);
+			$Brands_id=$car_model->car_brand->id;
+			$_GET['carBrands']=$Brands_id;
+
+		} else {
+			$Brands_id=$_GET['carBrands'];
+		}
+
 		$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
 		
 		$Model_id=$_GET['carModels'];
@@ -80,7 +88,7 @@ class DetailController extends FrontController
 		
 		$subCategories=$_GET['subCategories'];
 		$subCategories=!empty($subCategories) ? CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$_GET['Categories'])),'id','name') : array();
-
+		print_r($_GET['subCategories'].' '.$_GET['Categories']);
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('car_model_id=0');
 
@@ -90,7 +98,6 @@ class DetailController extends FrontController
 					'pageSize'=>20
 				),
 		));
-
 		$this->render('parts',
 			array(
 				'model'=>$model,
