@@ -88,7 +88,6 @@ class DetailController extends FrontController
 		
 		$subCategories=$_GET['subCategories'];
 		$subCategories=!empty($subCategories) ? CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$_GET['Categories'])),'id','name') : array();
-		print_r($_GET['subCategories'].' '.$_GET['Categories']);
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('car_model_id=0');
 
