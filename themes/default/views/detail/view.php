@@ -36,7 +36,7 @@
                                             if (($counter+=1)<6)
                                             {
                                                 ?>
-                                                <a class="imgFancy" href="<?=$value->getUrl('big')?>">
+                                                <a class="imgFancy" rel="1" href="<?=$value->getUrl('big')?>">
                                                     <img width="100" height="60" src="<?=$value->getUrl('small')?>" />
                                                 </a>
                                                 <?
