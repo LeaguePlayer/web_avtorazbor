@@ -30,7 +30,7 @@
                                 <?=CHtml::dropDownList('carModels','id', $Models, array( 'options' => array($Model_id=>array('selected'=>true)),'empty'=>'Выберите модель','class'=>'select'))?>
                             </dd>
                             <dt> 
-                               Асб Раздел:
+                               Раздел:
                             </dt>
                             <dd>
                                         <?=CHtml::dropDownList('Categories','id', $Categories,

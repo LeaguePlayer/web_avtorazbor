@@ -73,10 +73,10 @@ class DetailController extends FrontController
 		$Categories=CHtml::listData(Categories::model()->findAll('parent=0'),'id','name');
 
 		$Brands_id=$_GET['carBrands'];
-		$Brands=!empty($Brands_id) ? CHtml::listData(CarBrands::model()->findAll(),'id','name') : array();
+		$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
 		
 		$Model_id=$_GET['carModels'];
-		$Models=!empty($Model_id) ? CHtml::listData(CarBrands::model()->findByPk($_GET['carBrands'])->models(),'id','name') : array();
+		$Models=!empty($Brands_id) ? CHtml::listData(CarBrands::model()->findByPk($_GET['carBrands'])->models(),'id','name') : array();
 		
 		$subCategories=$_GET['subCategories'];
 		$subCategories=!empty($subCategories) ? CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$_GET['Categories'])),'id','name') : array();
