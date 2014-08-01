@@ -60,14 +60,19 @@
                 <div class="coll-right">
                     <div class="tabs parts">
                         <ul id="car_type">
-                            <li <?=$_GET['car_type']==1 ? 'class="active"' : '' ?>>
+                            <li >
                                 <a href="#" data-type="1">
                                     Легковые
                                 </a>
                             </li>
-                            <li <?=$_GET['car_type']==2 ? 'class="active"' : '' ?>>
+                            <li >
                                 <a href="#" data-type="2">
                                     Грузовые
+                                </a>    
+                            </li>
+                            <li class="active">
+                                <a href="#" data-type="2">
+                                    Диски
                                 </a>    
                             </li>
                         </ul>
@@ -103,18 +108,18 @@
                                     <dd>
                                         <ul id="sort">
                                             <li class="active" data-sort="price_buy">
-                                                <a href="/detail/parts?sort=price_buy">
+                                                <a href="/detail/parts">
                                                     Цене
                                                 </a>
                                             </li>
                                             <li data-sort="name">
-                                                <a href="/detail/parts?sort=year" >
+                                                <a href="/detail/parts?car_type=2" >
                                                     Названию
                                                 </a>
                                             </li>
                                             <li data-sort="brand">
-                                                <a href="/detail/parts?sort=category" >
-                                                    Разделу
+                                                <a href="/detail/parts?sort=year" >
+                                                    Диаметру
                                                 </a>
                                             </li>
                                         </ul>

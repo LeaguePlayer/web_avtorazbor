@@ -69,7 +69,7 @@
                                                 $_parent=$("#carModels").closest(".item");
                                                 $_parent.empty().html(data);
                                                 $("select",$_parent).selectbox();
-
+                                                ShowNextSelect();
                                             }'
                                             //leave out the data key to pass all form values through
                                             ))); 
@@ -105,7 +105,7 @@
                                                 $("select",$_parent).selectbox();
                                                 $("#subCategories").on("change",function(){
                                                     changeView(); 
-                                                    console.log(123)   
+                                                    ShowNextSelect(); 
                                                 })
                                             }'
                                             //leave out the data key to pass all form values through
@@ -126,7 +126,7 @@
                         </div>
                         
                         <div id="disc">
-                            <form action="/detail/parts" method="post">
+                            <form action="/detail/disc" method="get">
                                 <div class="formCost">
                                     <dl class="desc">
                                         <dt>

@@ -30,7 +30,7 @@
                                 <?=CHtml::dropDownList('carModels','id', $Models, array( 'options' => array($Model_id=>array('selected'=>true)),'empty'=>'Выберите модель','class'=>'select'))?>
                             </dd>
                             <dt> 
-                                Раздел:
+                               Асб Раздел:
                             </dt>
                             <dd>
                                         <?=CHtml::dropDownList('Categories','id', $Categories,
@@ -87,7 +87,7 @@
                             </dd>
                             
                             <dd class="submit">
-                                <a href="/catalog" class="i-submit" >Сбросить</a>
+                                <a href="/detail/parts" class="i-submit" >Сбросить</a>
                             </dd>
                         </dl>   
                     </div>

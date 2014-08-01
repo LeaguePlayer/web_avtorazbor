@@ -79,19 +79,23 @@ $(document).ready(function(){
 		}
 	});
 
+	$('select').on('change',function(){
+		changeView.apply(this,[]);
+	});
+
+	$('#country').on('change',function(){
+		var emptyOption=$("#carModels option:first");
+		
+		$("select").eq(2).removeAttr('selected');
+		$("select").selectbox('refresh');
+		
+	})
 
 	$('.nested').on('change',function(){
 
 		setNestedSelect.apply(this,[changeView]);
 
 	});
-
-	$('select').on('change',function(){
-
-		
-		changeView.apply(this,[]);
-
-	})
 
 	$('.partPrice').slider({
 		range:true,

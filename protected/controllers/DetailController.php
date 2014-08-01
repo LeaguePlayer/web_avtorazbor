@@ -152,7 +152,7 @@ class DetailController extends FrontController
 		}
 		else {
 			
-			$criteria=Parts::model()->search_parts('model_cat',array('model_id'=>$model_id,'cat_id'=>$category_id));
+			$criteria=Parts::model()->search_parts('model_cat',array('model_id'=>$model_id,'cat_id'=>$parent));
 		}
 		
 		$criteria->addCondition('price_buy>='.$data['conditions']['MoreEqual']['price_buy'].
@@ -176,6 +176,7 @@ class DetailController extends FrontController
 			)
 		);
 
+		
 		echo $this->renderPartial('//detail/tabParts',array('dataProvider'=>$dataProvider),true);
 
 	}

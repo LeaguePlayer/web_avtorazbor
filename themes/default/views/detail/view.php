@@ -1,7 +1,7 @@
 <div class="page">
 
             <h1 class="head">
-                Двигатель без головки блока 0.8 л
+                <?=$model->name?>
             </h1>
 
             <div class="wr">
@@ -57,9 +57,7 @@
                                 <li>
                                     Модель авто: <a href="#"><?=$model->car_model->name;?></a>
                                 </li>
-                                <li>
-                                    Кол-во: нет поля
-                                </li>
+                                
                                 <li>
                                     Артикул: <?=$model->id?>
                                 </li>
@@ -104,7 +102,7 @@
                         </div>
 
                         <div class="readmore">
-                            <a href="#">
+                            <a href="javascript:history.back(1)">
                                 Вернуться к результатам поиска
                             </a>
                         </div>

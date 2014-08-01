@@ -477,8 +477,11 @@ class Parts extends EActiveRecord
                 }
                 break;
             case 'model_cat':
+                    // $criteria->join.=' '.$this->getJoin('car_model_id');
+                    // $criteria->mergeWith($this->getPartSearchCriteria($value['model_id'],$value['cat_id'],false));
+                    $result=$this->findAllModelsWithAnalogs($value['model_id']);
                     $criteria->join.=' '.$this->getJoin('car_model_id');
-                    $criteria->mergeWith($this->getPartSearchCriteria($value['model_id'],$value['cat_id'],false));
+                    $criteria->mergeWith($result['criteria']);
                     return $criteria;
                 break;
             default:
@@ -488,7 +491,6 @@ class Parts extends EActiveRecord
                 }
                 break;
         }
-
     }
 
     public function afterDelete()
