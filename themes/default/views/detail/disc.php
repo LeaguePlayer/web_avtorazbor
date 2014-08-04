@@ -8,6 +8,7 @@
 
                 <div class="coll-left">
                     <div class="modul filter">
+                    <form id="disc-form">
                         <dl>
                             
                             <dt>
@@ -16,11 +17,11 @@
                             <dd id="slider">
                                 <div class="formCost">
                                     <div class="i-text">
-                                    <input type="text" id="minSize" value="14"/>
+                                    <input type="text" id="min" name="min" value="14"/>
                                 </div>
                                     <label for="maxCost">-</label> 
                                 <div class="i-text">
-                                <input type="text" id="maxSize" value="30"/>
+                                <input type="text" id="max" name="max" value="30"/>
                                 </div>
                                 </div>
 
@@ -36,11 +37,11 @@
                             <dd id="slider-2">
                                 <div class="formCost">
                                     <div class="i-text">
-                                    <input type="text" id="minCost" value="100"/>
+                                    <input type="text" id="minCost" name="minCost" value="100"/>
                                 </div>
                                     <label for="maxCost">-</label> 
                                 <div class="i-text">
-                                <input type="text" id="maxCost" value="500000"/>
+                                <input type="text" id="maxCost" name="maxCost" value="500000"/>
                                 </div>
                                 </div>
 
@@ -51,9 +52,10 @@
                             </dd>
                             
                             <dd class="submit">
-                                <a href="/catalog" class="i-submit" >Сбросить</a>
+                                <a href="/detail/disc" class="i-submit" >Сбросить</a>
                             </dd>
-                        </dl>   
+                        </dl> 
+                        </form>  
                     </div>
                 </div>
 
@@ -108,17 +110,17 @@
                                     <dd>
                                         <ul id="sort">
                                             <li class="active" data-sort="price_buy">
-                                                <a href="/detail/parts">
+                                                <a href="/detail/disc?sort=price_buy">
                                                     Цене
                                                 </a>
                                             </li>
                                             <li data-sort="name">
-                                                <a href="/detail/parts?car_type=2" >
+                                                <a href="/detail/disc?sort=name" >
                                                     Названию
                                                 </a>
                                             </li>
-                                            <li data-sort="brand">
-                                                <a href="/detail/parts?sort=year" >
+                                            <li data-sort="value">
+                                                <a href="/detail/disc?sort=value" >
                                                     Диаметру
                                                 </a>
                                             </li>

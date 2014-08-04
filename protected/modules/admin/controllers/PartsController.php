@@ -5,6 +5,7 @@ class PartsController extends AdminController
 
 	//create action
 	public function actionCreate(){
+
 		$model = new Parts;
 		$analogs = $model->getOwnParts($model->car_model_id, $model->category_id, $model->id);
 
@@ -32,6 +33,12 @@ class PartsController extends AdminController
 
 	//action update
 	public function actionUpdate($id){
+
+
+		$cs = Yii::app()->clientScript;
+		// $cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.ui-slider.js', CClientScript::POS_END);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js', CClientScript::POS_END);
+
 		$model = Parts::model()->findByPk($id);
 		$analogs = $model->getOwnParts($model->car_model_id, $model->category_id, $model->id);
 
@@ -39,11 +46,13 @@ class PartsController extends AdminController
 		$model->price_buy = number_format($model->price_buy, 0, '', '');
 
 		if(isset($_POST['Parts'])){
-
 			$model->attributes = $_POST['Parts'];
 
 			$model->name = $model->category->name.", ".$model->car_model->car_brand->name." ".$model->car_model->name;
 			if($model->save()){
+				
+				$this->saveAttrsWithValues($model->id);
+				
 				$this->attachUsedCar($model);
 				
 				if(!$this->saveAnalogs($model))
@@ -269,6 +278,20 @@ class PartsController extends AdminController
 		Yii::app()->end();
 	}
 
+	public function saveAttrsWithValues($id)
+	{
+		if (!empty($_POST['attr']))
+		{
+			foreach ($_POST['attr'] as $key => $attr) {
+				$catAttValue=new CategoryAttrValues;
+				$catAttValue->value=$attr['value'];
+				$catAttValue->model_id=$id;
+				$catAttValue->attr_id=$key;
+				$catAttValue->save();
+			}
+		}
+	}
+
 	private function saveAnalogs($model){
 		
 		if(isset($_POST['Analogs_delete']) && !$model->isNewRecord){
@@ -363,6 +386,14 @@ class PartsController extends AdminController
 			break;
 		}
 		die();
+	}
+
+	public function actionGetCategoryAttrs()
+	{
+		$id=$_GET['id'];
+		$model_id=$_GET['model_id'];
+		$category=Categories::model()->findByPk($id);
+		print_r($this->renderPartial('categoryAttrs',array('category'=>$category,'model_id'=>$model_id),true));
 	}
 
 	/*public function actionGetOneById($id){

@@ -8,12 +8,13 @@
 	$cs->registerCssFile($this->getAssetsUrl().'/css/compactmenu.css');
 	$cs->registerCssFile($this->getAssetsUrl().'/css/main.css?v1');
 	$cs->registerCssFile($this->getAssetsUrl().'/css/style.css');
-	$cs->registerCssFile($this->getAssetsUrl().'/css/jquery.ui/overcast/jquery-ui-1.10.3.custom.min.css');
+	// $cs->registerCssFile($this->getAssetsUrl().'/css/jquery.ui/overcast/jquery-ui-1.10.3.custom.min.css');
+    $cs->registerCssFile($this->getAssetsUrl().'/css/jquery-ui.min.css');
 
 	//$cs->registerCssFile($this->getAssetsUrl().'/css/fancybox/jquery.fancybox-buttons.css');
 	
 	$cs->registerCoreScript('jquery');
-	$cs->registerCoreScript('jquery.ui');
+	// $cs->registerCoreScript('jquery.ui');
 	
 	//$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.fancybox-buttons.js', CClientScript::POS_END);
 	//$cs->registerScriptFile('http://api-maps.yandex.ru/2.0.27/?load=package.standard&lang=ru-RU', CClientScript::POS_HEAD);
@@ -24,6 +25,7 @@
 
 	$cs->registerScriptFile('http://fotorama.s3.amazonaws.com/4.4.9/fotorama.js', CClientScript::POS_END);
     $cs->registerScriptFile($this->getAssetsUrl().'/js/tinyscrollbar.js', CClientScript::POS_END);
+    $cs->registerScriptFile($this->getAssetsUrl().'/js/jquery-ui.min.js', CClientScript::POS_END);
 	$cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.maphilight.js', CClientScript::POS_END);
 	$cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.selectbox.min.js', CClientScript::POS_END);
 	$cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.fancybox.js', CClientScript::POS_END);
@@ -91,7 +93,7 @@
 		<!--header-->
         <header>
         	<a href="/" class="logo">
-                <img src="../<?=$assetUrl?>/images/lights.png" alt="" title="">
+                <img src="<?=$assetUrl?>/images/lights.png" alt="" title="">
             </a>
 
         	<dl class="tel">

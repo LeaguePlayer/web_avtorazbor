@@ -27,6 +27,12 @@ $(document).ready(function(){
       loop: true,
 	});
 
+	$('select').selectmenu({
+		change:function(){
+			alert(1)
+		}
+	});
+	
 	var carusel=$('.news-items').data('owlCarousel');
 
 		// $(this).closest('div[id^=tabs]').find('.next').on("click",

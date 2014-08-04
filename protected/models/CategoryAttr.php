@@ -36,9 +36,21 @@ class CategoryAttr extends EActiveRecord
     public function relations()
     {
         return array(
+            'attrValue'=>array(self::HAS_ONE,'CategoryAttrValues','attr_id')
         );
     }
 
+    public function getValue($id=null)
+    {
+        if (empty($id))
+            return '';
+        else 
+            {
+
+                $catAttValue=CategoryAttrValues::model()->find('attr_id=:attr and model_id=:model_id',array(':attr'=>$this->id,':model_id'=>$id));
+                return $catAttValue->value;
+            }            
+    }
 
     public function attributeLabels()
     {

@@ -1399,6 +1399,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 						height:600px;
 						overflow: hidden;
 					}
+					li.active
+					{
+						img{
+							border:2px solid #f6821c;
+							box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+						}
+					}
+
 					li{
 						font-family: 'segoe_uiregular';
 						display:block;
@@ -1485,7 +1493,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 					li{
 						font:14px/16px 'segoe_uiregular';
 						color:#76838d;
-						padding-top:19px;
+						padding-top:10px;
 						&:first-child{
 							padding-top:0;
 						}
@@ -1506,7 +1514,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 					}
 				}
 				.shared{
-					padding-top:235px;
+					padding-top:75px;
 					dt{
 						padding-bottom: 5px;
 						font:14px/16px 'segoe_uiregular';
@@ -1647,6 +1655,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 							height:14px;
 							line-height:14px;
 							background:none;
+							padding: 5px 9px;
 						}
 						&.first{
 							background:none;
@@ -1673,7 +1682,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 						&.selected{
 							a{
 								color:#fff;
-								padding: 1px 5px;
 								background: #99aab7;
 								border-radius: 3px;
 							}
@@ -1703,6 +1711,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 						}
 						dd{
 							padding-left:140px;
+
 							ul{
 								li{
 									display: inline-block;
@@ -1729,6 +1738,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 				}
 				.auto{
 					margin-left:-20px;
+					min-height:300px;
 					li{
 						display: inline-block;
 						vertical-align: top;
@@ -3078,4 +3088,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 }
 .ui-slider .ui-slider-handle{
 	z-index:1!important;
+}
+.loader{
+	position: absolute;
+	display:none;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+.catalog{
+	position:relative;
+	min-height:300px;
 }

@@ -40,6 +40,9 @@
 			));?>
 		</div>
 	</div>
+	<div class="catgory-attrs" data-articul="<?=$model->id?>">
+		<?=$this->renderPartial('categoryAttrs',array('category'=>$model->category,'model_id'=>$model->id),true)?>
+	</div>
 	<div class="control-group">
 		<label class="control-label" for="Parts_category_id"><?=$model->getAttributeLabel('car_model_id')?></label>
 		<div class="controls">
@@ -49,11 +52,12 @@
 				'data'=>CHtml::listData(CarModels::brandModelsList(), 'id', 'name'),
 				'options'=>array(
 					'containerCssClass' => 'span8 no-float',
-				)
+				),
+				
 			)); ?>
 		</div>
 	</div>
-
+	
 	<?php //echo $form->dropDownListControlGroup($model,'location_id', Chtml::listData(Locations::all(), 'id', 'name'),array('class'=>'span8')); ?>
 
 	<div class="control-group">
@@ -264,3 +268,12 @@
 
 	', CClientScript::POS_READY);
 ?>
+<style type="text/css">
+	ul{
+		list-style: none;
+		margin: 0;
+	}
+
+</style>
+
+

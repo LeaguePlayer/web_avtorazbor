@@ -70,10 +70,10 @@ class CategoriesController extends AdminController
 				if (!empty($value))
 				{
 					$model=new CategoryAttr;
-					$model->type=$_POST['required'][$key] == 'on';
-					
-					var_dump($model->save());
-					die();
+					$model->category_id=$id;
+					$model->attr=$value;
+					$model->type=$_POST['required'][$key] == 'on' ? 1 : 0;
+					$model->save();
 				}
 			}
 		}

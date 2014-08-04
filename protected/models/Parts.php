@@ -30,7 +30,7 @@ class Parts extends EActiveRecord
     const STATUS_SUCCESS = 6;
     const STATUS_DEVICE = 7;
     const STATUS_RESERVE_DEVICE = 8;
-
+    const DISC = 16;
     public $max_sort;
     public $removeOnDelete = true;
 
@@ -58,6 +58,36 @@ class Parts extends EActiveRecord
         return '{{Parts}}';
     }
 
+    public function afterSave(){
+        parent::afterSave();
+        $this->removeAllAttr();
+    }
+
+    public function removeAllAttr()
+    {
+        if ($this->id)
+        {
+            CategoryAttrValues::model()->deleteAll('model_id=:id',array(':id'=>$this->id));
+            return true;
+        }
+        return false;
+    }
+
+    public function Disc($min,$max,$pagination=false)
+    {
+        $criteria=new CDbCriteria;
+
+        $criteria->join = "inner join `tbl_category_attr` attr on `attr`.category_id=`t`.category_id
+                           inner join `tbl_category_attr_values` attrVal on `attrVal`.attr_id=`attr`.id";
+        if ($min)
+            $criteria->addCondition('CAST(`attrVal`.value as SIGNED)>='.$min.' and '.'CAST(`attrVal`.value as SIGNED)<='.$max);
+
+        return new CActiveDataProvider('Parts',array(
+            'criteria'=>$criteria,
+            'pagination'=>$pagination
+            )
+        );
+    }
 
     public function rules()
     {
@@ -301,10 +331,6 @@ class Parts extends EActiveRecord
             $this->create_time = date("Y-m-d H:i:s");
 
         return parent::beforeSave();
-    }
-
-    public function afterSave(){
-        parent::afterSave();
     }
 
     /**

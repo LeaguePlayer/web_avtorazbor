@@ -141,19 +141,18 @@
                                     </dl>
                                     <input type="hidden" name="disc" />
                                     <div class="i-text">
-                                        <input type="text" id="minSize" value="14">
+                                        <input type="text" id="minSize" name="min" value="14">
                                     </div>
                                     <label for="maxforce">-</label> 
                                     <div class="i-text">
-                                        <input type="text" id="maxSize" value="25">
+                                        <input type="text" id="maxSize" name="max" value="25">
                                     </div>
                                 </div>
                             
                             <div class="sliderCont">
                                 <div id="slider2"></div>
                             </div>
-                            <div class="line" data-min="#minSize" data-max="#maxSize"></div>
-
+                            <div class="line"></div>
                                 <input type="submit" class="i-submit" value="Найти"/>
                             </form>
                         </div>

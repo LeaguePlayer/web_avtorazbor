@@ -8,6 +8,7 @@
 
                 <div class="coll-left">
                     <div class="modul filter">
+                    <form id="criteria-form">
                         <dl>
                             <dt>
                                 Страна:
@@ -61,7 +62,7 @@
                                         ?>
                             </dd>
                             <dt> 
-                                Под раздел:
+                                Подраздел:
                             </dt>
                             <dd>
                                 <?=CHtml::dropDownList('subCategories','id', $subCategories, array('options' => array($subCategory_id=>array('selected'=>true)),'empty'=>'Выберите под категорию'))?>
@@ -72,11 +73,11 @@
                             <dd id="slider">
                                 <div class="formCost">
                                     <div class="i-text">
-                                    <input type="text" id="minCost" value="100"/>
+                                    <input type="text" id="minCost" value="10"/>
                                 </div>
                                     <label for="maxCost">-</label> 
                                 <div class="i-text">
-                                <input type="text" id="maxCost" value="500000"/>
+                                <input type="text" id="maxCost" value="10000"/>
                                 </div>
                                 </div>
 
@@ -89,7 +90,8 @@
                             <dd class="submit">
                                 <a href="/detail/parts" class="i-submit" >Сбросить</a>
                             </dd>
-                        </dl>   
+                        </dl> 
+                        </form>  
                     </div>
                 </div>
 
@@ -111,13 +113,13 @@
                     <div class="content clear">
 
                         <div class="catalog">
-
+                            <img class="loader" src="/media/images/loader.gif"/>
                             <div class="pag">
 
                                 <ul>
                                     <li class="active">
                                         <a href="#">
-                                            Все(41)
+                                            Все(<?=$dataProvider->totalItemCount?>)
                                         </a>
                                     </li>
                                     <li>    
@@ -160,6 +162,7 @@
 
                             <div class="auto">
                                 <?=$this->renderPartial('tabParts',array('dataProvider'=>$dataProvider));?>
+                                
                             </div>
 
                             <div class="result">

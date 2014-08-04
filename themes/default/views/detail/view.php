@@ -7,7 +7,7 @@
             <div class="wr">
 
                 <div class="coll-left">
-                    <?=$this->renderPartial('//detail/scrollBar',array('dataProvider'=>$dataProvider),true);?>
+                    <?=$this->renderPartial('//detail/scrollBar',array('dataProvider'=>$dataProvider,'model_id'=>$model->id),true);?>
                 </div>
 
                 <div class="coll-right">
@@ -31,8 +31,11 @@
                                 <ul>
                                     <?
                                     $counter=0;
-                                        foreach ($gallery as $key => $value) {
+                                    if (count($gallery)>1)
+                                    {
+                                        for($i=1;$i<count($gallery); $i++){
 
+                                            $value=$gallery[$i];
                                             if (($counter+=1)<6)
                                             {
                                                 ?>
@@ -42,6 +45,7 @@
                                                 <?
                                             }
                                         }
+                                    }
                                     ?>
                                 </ul>
                             <?}?>
@@ -61,15 +65,24 @@
                                 <li>
                                     Артикул: <?=$model->id?>
                                 </li>
+                                <?
+                                    foreach ($model->category->attrs as $key => $value) {
+                                        ?>
+                                            <li>
+                                                <?=$value->attr?>: <?=$value->getValue($model->id)?>
+                                            </li>
+                                        <?
+                                    }
+                                ?>
                                 <li>
                                     Комментарий: <?=$model->comment?>
                                 </li> 
                                 <li>
-                                    Цена: <?=$model->price_sell?> руб.
-                                </li>     
+                                    Цена: <?=number_format($model->price_sell,3,' ',' ')?> руб.
+                                </li>  
                             </ul>
                             <div class="submit">
-                                <input type="submit" value="В корзину" class="i-submit" />
+                                <input  type="submit" value="В корзину" class="i-submit inCart" />
                             </div>
 
                         </div>
@@ -102,7 +115,7 @@
                         </div>
 
                         <div class="readmore">
-                            <a href="javascript:history.back(1)">
+                            <a href="/detail/parts?<?=Yii::app()->session->get("backToResultUrl");?>">
                                 Вернуться к результатам поиска
                             </a>
                         </div>

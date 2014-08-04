@@ -27,7 +27,7 @@ class CategoryAttrValues extends EActiveRecord
             array('value', 'length', 'max'=>255),
             array('create_time, update_time', 'safe'),
             // The following rule is used by search().
-            array('id, attr_id, value, status, sort, create_time, update_time', 'safe', 'on'=>'search'),
+            array('id, model_id, attr_id, value, status, sort, create_time, update_time', 'safe', 'on'=>'search'),
         );
     }
 
@@ -35,6 +35,7 @@ class CategoryAttrValues extends EActiveRecord
     public function relations()
     {
         return array(
+            
         );
     }
 

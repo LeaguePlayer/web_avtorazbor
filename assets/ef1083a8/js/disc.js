@@ -1,4 +1,32 @@
+
+var changeView=function (){
+
+}
+
 $(function(){
+
+
+	changeView=function(){
+		ViewItems($('.auto'),methods['disc'].apply(this,[]),'/detail/disc');
+		return false;
+	}
+
+	$('#sort li a,#display li a').on('click',function(){
+
+		$(this).closest('ul').find('.active').removeClass('active');
+		$(this).closest('li').addClass('active');
+
+		changeView();
+		return false;
+	})
+
+	$('#min,#max,#minCost,#maxCost').on('change keyup',function(){
+		changeView();
+		return false;
+	})
+
+
+
 
 	$('#slider .calculate').slider({
 		range:true,
@@ -8,8 +36,8 @@ $(function(){
 		values:[14,30],
 		slide:function(event, ui){
 
-			$_max=$('#maxSize');
-			$_min=$('#minSize');
+			$_max=$('#max');
+			$_min=$('#min');
 
 			$_min.text(ui.values[0]).val(ui.values[0]);
 			$_max.text(ui.values[1]).val(ui.values[1]);
@@ -36,7 +64,7 @@ $(function(){
 			$_max.text(ui.values[1]).val(ui.values[1]);
 
 			setTimeout(function(){
-				
+				changeView();
 			},1000);
 		}
 	});

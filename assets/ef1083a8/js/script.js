@@ -16,7 +16,7 @@ $(function(){
 
 	})
 
-	$('select').selectbox(); 
+	 
 
 	$('a[name=qst]').click(function(e) {
         e.preventDefault();
@@ -45,7 +45,7 @@ $(function(){
 		$(this).find('.niceCheck').css('background-position','-10px 0');
 	},function(){
 		$(this).find('.niceCheck').css('background-position','0 0');
-	})	
+	});
 
 	$('.fotorama').fotorama({
 	  width: '100%',

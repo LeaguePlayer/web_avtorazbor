@@ -27,18 +27,25 @@ class SiteController extends FrontController
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
 	 */
+
+
+
 	public function actionIndex()
 	{
 
 		$cs = Yii::app()->clientScript;
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/main.js', CClientScript::POS_END);
-		//данные для списоков 
-		$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
-		$Bascet=UsedCars::getBasketList();
-		$Transmission=UsedCarInfo::transmissionList();
-		$State=UsedCarInfo::statesList();
 
+		//данные для списоков
+
+		$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
+
+		$Bascet=UsedCars::getBasketList();
+
+		$Transmission=UsedCarInfo::transmissionList();
+
+		$State=UsedCarInfo::statesList();
 
 		//дата провайдер для каруселей
 
@@ -79,9 +86,12 @@ class SiteController extends FrontController
 		);
 	}
 
-	/**
-	 * This is the action to handle external exceptions.
-	 */
+	public function actionUpdateSelect()
+	{
+		
+	}
+
+	
 	public function actionError()
 	{
 		if($error=Yii::app()->errorHandler->error)

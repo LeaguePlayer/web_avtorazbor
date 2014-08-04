@@ -23,7 +23,7 @@ class DetailController extends FrontController
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','parts','AjaxUpdate','disc'),
+				'actions'=>array('index','view','parts','AjaxUpdate','disc','addToCart'),
 				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
@@ -41,18 +41,45 @@ class DetailController extends FrontController
 
 		if(!Yii::app()->request->isAjaxRequest)
 		{
-
 			$Brand=CHtml::listData(CarBrands::model()->findAll(),'id','name');
 			$this->render('index',array('Brand'=>$Brand));
 		}
 	}
 
+	public function actionDisc()
+	{
+
+		$cs = Yii::app()->clientScript;
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
+    	$cs->registerScriptFile($this->getAssetsUrl().'/js/disc.js', CClientScript::POS_END);
+    	
+    	if( !Yii::app()->request->isAjaxRequest )
+    	{
+    		$dataProvider=Parts::model()->Disc($_GET['min'],$_GET['max']);
+			$this->render('disc',array('dataProvider'=>$dataProvider));
+		}
+		else {
+
+			$data=$_GET['data'];
+
+			$pagination=array('pageSize'=>$data['display']);
+
+			$dataProvider=Parts::model()->Disc($data['min'],$data['max']);
+			
+			$dataProvider->criteria->addCondition('price_buy>='.$data['minCost'].' and price_buy<='.$data['maxCost']);
+			$dataProvider->criteria->order=$data['sort'].' desc';
+
+			print($this->renderPartial('tabParts',array('dataProvider'=>$dataProvider),true));
+		}
+
+	}
+	
 	public function actionParts()
 	{
 		$_GET['car_type']= $_GET['car_type'] ? $_GET['car_type'] : 1;
 		$cs = Yii::app()->clientScript;
     	$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
-	    
+	    $cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.scrollTo.min.js', CClientScript::POS_END);
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js', CClientScript::POS_END);
 
 		$params=array('car_type'=>$_GET['car_type']);
@@ -112,13 +139,6 @@ class DetailController extends FrontController
 				'dataProvider'=>$dataProvider,
 				'car_type'=>$data['car_type']
 			));
-	}
-
-	public function actionDisc()
-	{
-		$cs = Yii::app()->clientScript;
-    	$cs->registerScriptFile($this->getAssetsUrl().'/js/disc.js', CClientScript::POS_END);
-		$this->render('disc');
 	}
 
 	public function actionAjaxUpdate()
@@ -187,12 +207,26 @@ class DetailController extends FrontController
 
 	}
 
-	public function actionView($id)
+	public function actionAddToCart($id)
 	{
-		
+		if (!empty($id))
+	}
+
+	public function actionView()
+	{
+
+
 		$cs = Yii::app()->clientScript;
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/partsView.js', CClientScript::POS_END);
-		
+		$id=$_GET['id'];
+
+		if (!Yii::app()->session->get("backToResultUrl"))
+		{
+			$backToResultUrl='carBrands='.$_GET['carBrands'].'&carModels='.
+					$_GET['carModels'].'&Categories='.$_GET['Categories'].'&subCategories='.$_GET['subCategories'];
+			Yii::app()->session->add("backToResultUrl",$backToResultUrl);
+		}
+
 		$model=Parts::model()->findByPk($id);
 
 		$brand=$model->car_model->car_brand->id;
@@ -207,7 +241,7 @@ class DetailController extends FrontController
 				'pagination'=>false,
 			)
 		);
-		$this->render('view',array('model'=>$model,'dataProvider'=>$dataProvider));
+		$this->render('view',array('model'=>$model,'dataProvider'=>$dataProvider,'backToResultUrl'=>$backToResultUrl));
 	}
 
 

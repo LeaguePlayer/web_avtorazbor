@@ -12,7 +12,7 @@
 		<?=$data->comment?>.<br>
 	</span>
 	<span class="price">
-		<?=$data->price_buy?> руб.
+		<?=number_format($data->price_buy,0,'',' ')?> руб.
 	</span>
 	<!-- <span class="price_old">	
 		200 000

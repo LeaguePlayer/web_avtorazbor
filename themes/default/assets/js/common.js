@@ -128,11 +128,22 @@ var methods = {
 				},
 				pager:{
 					sort:$('#sort .active').data('sort'),
-					display:parseInt($('#display .active').text(),10),	
+					display:parseInt($('#display .active').text(),10),
 				},
 				page:$('.yiiPager .selected').index(),
-				
 			}
 			return params;
 		},
+		disc:function(){
+
+			var params={
+				min:$('#min').val(),
+				max:$('#max').val(),
+				minCost:$('#minCost').val(),
+				maxCost:$('#maxCost').val(),
+				sort:$('#sort .active').data('sort'),
+				display:parseInt($('#display .active').text(),10),
+			};
+			return params;
+		}
 	}
