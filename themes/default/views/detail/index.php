@@ -46,7 +46,8 @@
                             </dl>
                             <form class="criteria" action="/detail/parts" method="get">
                                 <div class="select">
-                                    <div class="item">
+                                    <dl>
+                                    <dd>
                                         <input type="hidden" id="car_type" name="car_type" value="1">
                                         <label for="mark"> 
                                             Марка:
@@ -54,35 +55,22 @@
                                         
                                         <?=CHtml::dropDownList('carBrands','', $Brand,
                                             array(
-                                            'empty'=>'Выберите марку ',
-                                            'class'=>'select',
-                                            'id'=>'carBrands',
-                                            'ajax' => array(
-                                            'type'=>'GET', //request type
-                                            'dataType'=>'json',
-                                            'url'=>CController::createUrl('/ajaxRequests/getCarModels'), //url to call.
-                                            //Style: CController::createUrl('currentController/methodToCall')
-                                            'update'=>'#carModels', //selector to update
-                                            'data'=>array('value'=>'js:this.value','model'=>'carModels'),
-                                            'success'=>'function(data){
-
-                                                $_parent=$("#carModels").closest(".item");
-                                                $_parent.empty().html(data);
-                                                $("select",$_parent).selectbox();
-                                                ShowNextSelect();
-                                            }'
-                                            //leave out the data key to pass all form values through
-                                            ))); 
+                                                'empty'=>'Выберите марку ',
+                                                'class'=>'select',
+                                                'id'=>'carBrands',
+                                                'data-nested'=>'#carModels'
+                                            )
+                                        ); 
                                             //empty since it will be filled by the other dropdown
                                         ?>
-                                    </div>
-                                    <div class="item hide">
+                                    </dd>
+                                    <dd style="display:none;">
                                         <label for="model"> 
                                             Марка:
                                         </label>
                                         <?=CHtml::dropDownList('carModels','id', array())?>
-                                    </div>
-                                    <div class="item hide">
+                                    </dd>
+                                    <dd style="display:none;">
                                         <label for="model"> 
                                             Раздел:
                                         </label>
@@ -91,37 +79,23 @@
                                             'empty'=>'Выберите раздел',
                                             'class'=>'select',
                                             'id'=>'Categories',
-                                            'ajax' => array(
-                                            'type'=>'GET', //request type
-                                            'dataType'=>'json',
-                                            'url'=>CController::createUrl('/ajaxRequests/getSubCategories'), //url to call.
-                                            //Style: CController::createUrl('currentController/methodToCall')
-                                            'update'=>'#subCategoies', //selector to update
-                                            'data'=>array('value'=>'js:this.value','model'=>'subCategories'),
-                                            'success'=>'function(data){
-
-                                                $_parent=$("#subCategories").closest(".item");
-                                                $_parent.empty().html(data);
-                                                $("select",$_parent).selectbox();
-                                                $("#subCategories").on("change",function(){
-                                                    changeView(); 
-                                                    ShowNextSelect(); 
-                                                })
-                                            }'
-                                            //leave out the data key to pass all form values through
-                                            ))); 
+                                            'data-nested'=>'#subCategories'
+                                            )
+                                        ); 
                                             //empty since it will be filled by the other dropdown
                                         ?>
-                                    </div>
-                                    <div class="item hide">
+                                    </dd>
+                                    <dd style="display:none;">
                                         <label for="model">
                                             Под категория:
                                         </label>
                                         <?=CHtml::dropDownList('subCategories','id', array())?>
-                                    </div>
+                                    </dd>
                                     <br>
                                     <input type="submit" class="i-submit" id="sendCriteria" value="Найти">
+                                    </dl>
                                 </div> 
+                                
                             </form>
                         </div>
                         

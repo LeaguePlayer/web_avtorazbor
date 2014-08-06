@@ -1,100 +1,40 @@
-function ShowNextSelect()
-{
-	// $('select').on('change',function(){
-
-	// 	var $_parent=$(this).closest('.item');
-
-	// 	if ($_parent.index()==0)
-	// 	{
-
-	// 		var items=$_parent.parent().find('.item');
-	// 			items.addClass('hide');
-
-	// 		$_parent.removeClass('hide');
-
-	// 		for(var i = 1; i<items.length;i++)
-	// 		{
-	// 			$('select option:first',items.eq(i)).attr('selected','selected');
-	// 			$('select',items.eq(i)).trigger('refresh');
-	// 		}
-
-	// 	}
-
-	// 	if (('option:first:selected',$_parent).length>0)
-	// 	{
-	// 		$_parent.next().removeClass('hide');
-	// 	}
-	// 	else {
-	// 		$_parent.next().addClass('hide');
-	// 	}
-	// });
-}
-
-// var changeView=function(){
-
-// }
 
 $(document).ready(function(){
 
-	function showLoader(){
-		
-		var $_curHeight=$('.auto').height();
-			$('.auto').height($_curHeight);
-
-			$('.auto').empty();
-
-			$('.loader').css('display','block');
-
+	$('.pag li:first a').click(function(){
 		return false;
-	}
+	})
 
-	function hideLoader()
-	{
-		$('.loader').css('display','none');
-	}
-
-	var changeView=function(){
-
-		showLoader();
-
-		setTimeout(function(){
-			var params=methods['parts'].apply(this,[]);
-			ViewItems($('.auto'),params,'/detail/ajaxUpdate',onViewChangedCallBack);	
-		},1000)
-	}
-
-	var onViewChangedCallBack=function(){
-
-		hideLoader();
-		// $('searchResult').val($('form').serialize());
-		var $_count=$('.summary span').text();
-			$('.pag li:first a').text('Все('+$_count+')');
-
-		$('.items li a').on('click',function(){
-			var $_url=$('#criteria-form').serialize(),
-				$_href=$(this).attr('href');
-				$(this).attr('href',$_href+'?search='+$_url);
-		})
-	}
-	
-	if ($('#scrollbar').length>0)
-		$('#scrollbar').tinyscrollbar();
-
-	// $('select').on('change',function(){
-
-
-	// });
-
-	// $('.nested').on('change',function(){
-
-	// 	setNestedSelect.apply(this,[changeView]);
-
-	// });
-	
-
-	$('#carBrands').selectmenu({
+	$('select').selectmenu({
 		change:function(){
-			ShowNextSelect();
+
+			changeView();
+
+			var params={
+					value:$(this).val(),
+					model:$(this).attr('id'),
+					nested:$(this).data('nested')
+				},
+
+			$_this=$(this);
+
+			var index=$_this.closest('dd').index()+1,
+				ddCount=$_this.closest('dl').find('dd').length-2;
+				$_this.closest('dl').children('dd').slice(index,ddCount).find('select').val(null).selectmenu('refresh').parent().slideUp(200);
+
+			if ($(this).val())
+				$_this.closest('dd').next().slideDown(200);
+			
+			$.ajax({
+				url:'/ajaxRequests/getNestedList',
+				data:params,
+
+				success:function(data){	
+					$(params.nested).empty();
+					$(params.nested).html(data);
+					$(params.nested).selectmenu('refresh');
+				}
+			});
 		}
 	})
 
@@ -107,23 +47,8 @@ $(document).ready(function(){
 		return false;
 	});
 
-	// $('#display li a').on('click',function(){
-		
-	// 	// $(document).scrollTo( $('.menu').offset().top, 800, {queue:true} );
-
-	// 	setTimeout(function(){
-	// 		$('.auto').css('height','auto');
-	// 	},800);
-	// 	return false;
-	// })
-
 	$('#minCost, #maxCost').bind('change click keyup',function(){
 		changeView();
-	});
-
-	$('#sendCriteria').on('click',function(){
-		if (!$('#carBrands').val())
-			return false;
 	});
 
 	$('.imgFancy').fancybox();
@@ -133,7 +58,7 @@ $(document).ready(function(){
 		step:1,
 		min:14,
 		max:25,
-		values:[14,25],
+		values:[14,30],
 		slide:function(event, ui){
 
 			$_max=$($(this).data('max'));
@@ -218,19 +143,29 @@ $(document).ready(function(){
 		return false;
 	});
 
-	$('.own-price').fancybox({
-		fitToView	: false,
-		wrapCSS		: "questionForm",
-		height		: 700,
-		width		: 590,
-		autoSize	: false,
-		closeClick	: false,
-		openEffect	: 'none',
-		closeEffect	: 'none'
-	});
+	var changeView=function(){
 
-	
+		showLoader();
 
-	ShowNextSelect();
+		setTimeout(function(){
+			var params=methods['parts'].apply(this,[]);
+			ViewItems($('.auto'),params,'/detail/ajaxUpdate',onViewChangedCallBack);
+		},1000)
+	}
+
+	var onViewChangedCallBack=function(){
+
+		hideLoader();
+		// $('searchResult').val($('form').serialize());
+		var $_count=$('.summary span').text();
+			$('.pag li:first a').text('Все('+$_count+')');
+
+		$('.items li a').on('click',function(){
+			var $_url=$('#criteria-form').serialize(),
+				$_href=$(this).attr('href');
+				$(this).attr('href',$_href+'?'+$_url);
+		})
+	}
+	changeView();
 
 })

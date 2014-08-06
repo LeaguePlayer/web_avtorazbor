@@ -1,21 +1,54 @@
 
-var changeView=function (){
-
-}
-
 $(function(){
+	
+	function showLoader(){
+			
+		var $_curHeight=$('.auto').height();
+			$('.auto').height($_curHeight);
 
+			$('.auto').empty();
 
-	changeView=function(){
-		ViewItems($('.auto'),methods['disc'].apply(this,[]),'/detail/disc');
+			$('.loader').css('display','block');
+
 		return false;
 	}
+
+	function hideLoader()
+	{
+		$('.loader').css('display','none');
+	}
+
+	var changeView=function(){
+
+		showLoader();
+
+		setTimeout(function(){
+
+			var params=methods['parts'].apply(this,[]);
+			ViewItems($('.auto'),methods['disc'].apply(this,[]),onViewChangedCallBack);
+			return false;
+
+		},1000);
+	}
+
+	var onViewChangedCallBack=function(){
+
+		hideLoader();
+		// $('searchResult').val($('form').serialize());
+		var $_count=$('.summary span').text();
+			$('.pag li:first a').text('Все('+$_count+')');
+
+		$('.items li a').on('click',function(){
+			// var $_url=$('#criteria-form').serialize(),
+			// 	$_href=$(this).attr('href');
+			// 	$(this).attr('href',$_href+'?search='+$_url);
+		})
+	};
 
 	$('#sort li a,#display li a').on('click',function(){
 
 		$(this).closest('ul').find('.active').removeClass('active');
 		$(this).closest('li').addClass('active');
-
 		changeView();
 		return false;
 	})
@@ -44,7 +77,7 @@ $(function(){
 
 			setTimeout(function(){
 				changeView();
-			},1000);
+			},500);
 
 		}
 	});

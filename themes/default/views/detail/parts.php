@@ -10,63 +10,42 @@
                     <div class="modul filter">
                     <form id="criteria-form">
                         <dl>
-                            <dt>
-                                Страна:
-                            </dt>
+                            
                             <dd>
+                                <label>Страна:</label>
                                 <?=CHtml::dropDownList('country','id', $Countries,
-                                            array('empty'=>'Выберите страну','class'=>'select nested','data-nested'=>'#carBrands', 'data-column'=>'id_country', 'id'=>'country',))?>
+                                            array('options' => array($country_id=>array('selected'=>true)), 'empty'=>'Выберите страну','class'=>'select nested','data-nested'=>'#carBrands', 'id'=>'country',))?>
                             </dd>
-                            <dt>
-                                Марка:
-                            </dt>
-                            <dd>
+                            
+                            <dd style="<?=$Brands_id || $country_id ? 'display:block' : 'display:none' ?>">
+                                <label>Марка:</label>
                                 <?=CHtml::dropDownList('carBrands', 'id', $Brands, array( 'options' => array($Brands_id=>array('selected'=>true)), 
-                                                        'empty'=>'Выберите марку', 'class'=>'select nested','data-nested'=>'#carModels','data-column'=>'brand', 'id'=>'carBrands'))?>
+                                                        'empty'=>'Выберите марку', 'class'=>'select nested','data-nested'=>'#carModels', 'id'=>'carBrands'))?>
                             </dd> 
-                            <dt id="bascet-label">
-                                Модель автомобиля:
-                            </dt>
-                            <dd>
+                            <dd style="<?=$Model_id || $Brands_id ? 'display:block' : 'display:none' ?>">
+                                <label>Модель автомобиля:</label>
                                 <?=CHtml::dropDownList('carModels','id', $Models, array( 'options' => array($Model_id=>array('selected'=>true)),'empty'=>'Выберите модель','class'=>'select'))?>
                             </dd>
-                            <dt> 
-                               Раздел:
-                            </dt>
-                            <dd>
-                                        <?=CHtml::dropDownList('Categories','id', $Categories,
-                                            array(
-                                                'options' => array($Category_id=>array('selected'=>true)),
-                                                'empty'=>'Выберите раздел',
-                                                'class'=>'select',
-                                                'id'=>'Categories',
-                                                'ajax' => array(
-                                                'type'=>'GET', //request type
-                                                'dataType'=>'json',
-                                                'url'=>CController::createUrl('/ajaxRequests/getSubCategories'), //url to call.
-                                                //Style: CController::createUrl('currentController/methodToCall')
-                                                'update'=>'#subCategoies', //selector to update
-                                                'data'=>array('value'=>'js:this.value','model'=>'subCategories'),
-                                                'success'=>'function(data){
-
-                                                    $_parent=$("#subCategories").closest("dd");
-                                                    $_parent.empty().html(data);
-                                                    $("select",$_parent).selectbox();
-                                                    $("select").on("change",function(){
-                                                        changeView();
-                                                    })
-                                                }'
-                                                //leave out the data key to pass all form values through
-                                                ))); 
-                                                //empty since it will be filled by the other dropdown
-                                        ?>
+                            
+                            <dd style="<?=$Category_id || $Model_id ? 'display:block' : 'display:none' ?>">
+                                <label>Раздел:</label>
+                                <?=CHtml::dropDownList('Categories','id', $Categories,
+                                    array(
+                                        'options' => array($Category_id=>array('selected'=>true)),
+                                            'empty'=>'Выберите раздел',
+                                            'class'=>'select',
+                                            'id'=>'Categories',
+                                            'data-nested'=>'#subCategories'
+                                        )
+                                    );
+                                ?>
                             </dd>
-                            <dt> 
-                                Подраздел:
-                            </dt>
-                            <dd>
+                            
+                            <dd style="<?=$subCategory_id || $Category_id ? 'display:block' : 'display:none' ?>">
+                                <label>Подраздел:</label>
                                 <?=CHtml::dropDownList('subCategories','id', $subCategories, array('options' => array($subCategory_id=>array('selected'=>true)),'empty'=>'Выберите под категорию'))?>
                             </dd>
+                            
                             <dt>
                                 Цена (руб):
                             </dt>
@@ -106,6 +85,11 @@
                             <li <?=$_GET['car_type']==2 ? 'class="active"' : '' ?>>
                                 <a href="#" data-type="2">
                                     Грузовые
+                                </a>    
+                            </li>
+                            <li <?=$_GET['car_type']==2 ? 'class="active"' : '' ?>>
+                                <a href="/detail?disc=1" data-type="2">
+                                    Диски
                                 </a>    
                             </li>
                         </ul>

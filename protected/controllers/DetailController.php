@@ -36,8 +36,8 @@ class DetailController extends FrontController
 	{
 		$cs = Yii::app()->clientScript;
 
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js', CClientScript::POS_END);
+		// $cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/detail.js', CClientScript::POS_END);
 
 		if(!Yii::app()->request->isAjaxRequest)
 		{
@@ -78,11 +78,16 @@ class DetailController extends FrontController
 	{
 		$_GET['car_type']= $_GET['car_type'] ? $_GET['car_type'] : 1;
 		$cs = Yii::app()->clientScript;
+
+		$session=Yii::app()->session;
+		unset($session["backToResultUrl"]);
+
     	$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
 	    $cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.scrollTo.min.js', CClientScript::POS_END);
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js', CClientScript::POS_END);
 
 		$params=array('car_type'=>$_GET['car_type']);
+
 
 		foreach (array('carBrands'=>'brand','carModels'=>'car_model_id',) as $key => $value) {
 
@@ -96,6 +101,7 @@ class DetailController extends FrontController
 		$category=!empty($_GET['Categories']) ? $_GET['Categories'] : !empty($_GET['subCategories']) ? $_GET['subCategories'] : '';
 
 		$Countries=CHtml::listData(Country::model()->findAll(),'id','name');
+		$country_id=$_GET['country'];
 		$Categories=CHtml::listData(Categories::model()->findAll('parent=0'),'id','name');
 
 		if (!empty($_GET['carModels']))
@@ -127,6 +133,7 @@ class DetailController extends FrontController
 		$this->render('parts',
 			array(
 				'model'=>$model,
+				'country_id'=>$country_id,
 				'Countries'=>$Countries,
 				'Brands'=>$Brands,
 				'Brands_id'=>$Brands_id,
@@ -207,22 +214,15 @@ class DetailController extends FrontController
 
 	}
 
-	public function actionAddToCart($id)
-	{
-		if (!empty($id))
-	}
-
 	public function actionView()
 	{
-
-
 		$cs = Yii::app()->clientScript;
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/partsView.js', CClientScript::POS_END);
 		$id=$_GET['id'];
 
 		if (!Yii::app()->session->get("backToResultUrl"))
 		{
-			$backToResultUrl='carBrands='.$_GET['carBrands'].'&carModels='.
+			$backToResultUrl='country='.$_GET['country'].'&carBrands='.$_GET['carBrands'].'&carModels='.
 					$_GET['carModels'].'&Categories='.$_GET['Categories'].'&subCategories='.$_GET['subCategories'];
 			Yii::app()->session->add("backToResultUrl",$backToResultUrl);
 		}

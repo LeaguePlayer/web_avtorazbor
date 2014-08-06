@@ -1,8 +1,3 @@
-
-var changeView=function(){
-	ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');	
-}
-
 $(function(){
 
 
@@ -12,34 +7,37 @@ $(function(){
 
 	} 
 
-	$('.nested').on('change',function(){
+	$('select').selectmenu({
+		change:function(){
 
-		var nested=$(this).data('nested');
+			changeView();
 
-		// if ($('onption:selected',this).index()==0)
-		// {
-		// 	$('onption:selected').removeAttr('selected');
-		// 	$(this)
-		// 	return false;
-		// }
-		$(nested).removeAttr('selected');
-		$(nested).selectbox('refresh');
+			var params={
+					value:$(this).val(),
+					model:$(this).attr('id'),
+					nested:$(this).data('nested')
+				},
 
-		setNestedSelect.apply(this,[changeView]);
+			$_this=$(this);
 
-		return false;
-	});
-	
-	$('select').on('change',function(){
+			// var index=$_this.closest('dd').index()+1,
+			// 	ddCount=$_this.closest('dl').find('dd').length-2;
+			// 	$_this.closest('dl').children('dd').slice(index,ddCount).find('select').val(null).selectmenu('refresh').parent().slideUp(200);
 
+			// if ($(this).val())
+			// 	$_this.closest('dd').next().slideDown(200);
+			
+			$.ajax({
+				url:'/ajaxRequests/getNestedList',
+				data:params,
 
-		var nested=$(this).data('nested');
-
-		$(nested).removeAttr('selected');
-		$(nested).selectbox('refresh');
-		
-		ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');	
-		
+				success:function(data){	
+					$(params.nested).empty();
+					$(params.nested).html(data);
+					$(params.nested).selectmenu('refresh');
+				}
+			});
+		}
 	})
 
 	$('#car_type li a').click(function(){
@@ -128,4 +126,5 @@ $(function(){
 			},500);
 		}
 	});
+	changeView();
 });

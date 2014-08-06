@@ -21,50 +21,23 @@ function ViewItems(conteiner,params,url,collback)
 	return false;
 }
 
-function setNestedSelect(callback)
-{
-		var params={
-			data:{
-				value:this.value,
-				model:$($(this).data('nested')).attr('name'),
-				column:$(this).data('column'),
-				onchange:'changeView();',
-			}
-		};
+function showLoader(){
+		
+	var $_curHeight=$('.auto').height();
+		$('.auto').height($_curHeight);
 
-		var $_this=$(this);
+		$('.auto').empty();
 
-		$.ajax({
-			url:'/ajaxRequests/getNestedList',
-			data:params,
-			dataType:"json",
-			success:function(data){
+		$('.loader').css('display','block');
 
-				var nested=$_this.data('nested'),
-					select=$(nested);
-
-				var $_parent=select.closest('dd');
-					$_parent.
-						empty().
-						html(data.success);
-
-				select = $('select',$_parent);
-				select.selectbox();
-
-				if (callback)
-				{
-					select.on('change',function(){
-						callback();
-					});
-				}
-
-				return false;
-			},
-			error:function(data){
-				alert('Ошиибка! повторите попытку позднее!');
-			}
-		});
+	return false;
 }
+
+function hideLoader()
+{
+	$('.loader').css('display','none');
+}
+
 
 
 var methods = {

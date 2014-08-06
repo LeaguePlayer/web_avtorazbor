@@ -481,7 +481,7 @@ class Parts extends EActiveRecord
                 {
                     $criteria->join.=' '.$this->getJoin('car_model_id');
                     $criteria->mergeWith($this->getModelsByCountry($value));
-
+                    $criteria->order="id_country=".$value;
                     return $criteria;
                 }
                 break;
@@ -489,7 +489,7 @@ class Parts extends EActiveRecord
                 {   
                     $result=$this->getModelsByBrand($value);
                     $criteria->mergeWith($result['criteria']);
-
+                    $criteria->order="brand=".$value.' desc';
                     return $criteria;
                 }
                 break;
@@ -499,6 +499,7 @@ class Parts extends EActiveRecord
                     $result=$this->findAllModelsWithAnalogs($value);
                     $criteria->join.=' '.$this->getJoin('car_model_id');
                     $criteria->mergeWith($result['criteria']);
+                    $criteria->order="car_model_id=".$value;
                     return $criteria;
                 }
                 break;
@@ -508,11 +509,13 @@ class Parts extends EActiveRecord
                     $result=$this->findAllModelsWithAnalogs($value['model_id']);
                     $criteria->join.=' '.$this->getJoin('car_model_id');
                     $criteria->mergeWith($result['criteria']);
+                    $criteria->order="category_id=".$value;
                     return $criteria;
                 break;
             default:
                 {
                     $criteria->join.=' '.$this->getJoin('car_model_id');
+                    $criteria->order="car_model_id=".$value;
                     return $criteria;
                 }
                 break;

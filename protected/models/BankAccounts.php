@@ -31,7 +31,6 @@ class BankAccounts extends EActiveRecord
         );
     }
 
-
     public function relations()
     {
         return array(

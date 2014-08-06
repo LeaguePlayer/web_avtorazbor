@@ -35,24 +35,46 @@ class AjaxRequestsController extends FrontController
 	public function actionGetNestedList()
 	{
 
+		$model=$_GET['model'];
+		$nested=$_GET['nested'];
+		$value=$_GET['value'];
 
-		$data=$_GET['data'];
+		switch ($model) {
 
-		$models=CHtml::listData(SiteHelper::getNestedModels($data),'id','name');
+			case 'country':
+					{
+						$models=CHtml::listData(CarBrands::model()->findAll('id_country=:id',array(':id'=>$value)),'id','name');
+						$htmlOptions=array('id'=>'carBrands','data-nested'=>'#carModels','empty'=>'Выберите марку');
+					}			
+				break;
+			case 'carBrands':
+					{
+						$models=CHtml::listData(CarModels::model()->findAll('brand=:id',array(':id'=>$value)),'id','name');
+						$htmlOptions=array('id'=>'carModels', 'data-nested'=>'#carModels', 'empty'=>'Выберите модель');
+					}
+				break;
+			case 'carModels':
+					{
+						$models=CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$value)),'id','name');
+						$htmlOptions=array('id'=>'carBrands','data-nested'=>'#carModels');
+					}
+			case 'Categories':
+					{
 
-		$htmlOptions=SiteHelper::getHtmlOptions($data['model']);		
-		
-		if ($data['onchange'])
-			$htmlOptions['onchange']=$data['onchange'];
+						$models= $value ? CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$value)),'id','name') : array();
+						$htmlOptions=array('id'=>'subCategories','empty'=>'Выберите подкатегорию');
+					}
+			break;
+			default:
+					$models=array(0=>'не определено');
+				break;
+		}
 
 		$select=$this->renderPartial('//common/dropDownSelect',array( 'models'=>$models, 'Options'=>$htmlOptions ),true);
-		$response['data']=$_GET;
-		$response['success']=$select;
-		
-		echo CJSON::encode($response);
-		
-		
+		echo ($select);
 	}
+
+
 
 	public function actionGetCarModels()
 	{

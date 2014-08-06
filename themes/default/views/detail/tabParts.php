@@ -35,9 +35,5 @@ if (!empty($dataProvider))
             'cssFile' => false,
         ),
     ));
-
-    Yii::app()->clientScript->registerScript('search',
-        "changeView();"
-    );
 }
 ?>

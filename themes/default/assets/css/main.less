@@ -894,7 +894,7 @@ header{
 					}
 				}
 				.select{
-					.item{
+					dd{
 						display: inline-block;
 						width:203px;
 						margin-left:30;
@@ -1154,7 +1154,8 @@ header{
 			margin-top:18px;
 			position: relative;
 			padding-left:15px;
-			& p{
+			padding-right:17px;
+			 p{
 				font-weight: bold;
 				font-size: 18px;
 				color: #fff;
@@ -1186,6 +1187,7 @@ header{
 			}
 			&.filter{
 				margin-top:0;
+				
 				dt{
 					font:14px/1.2 'segoe_uiregular';
 					color:#bdc8df;
@@ -1194,10 +1196,17 @@ header{
 					padding-bottom:10px;
 				}	
 				dd{
-					padding-bottom:10px;
+					label{
+						font: 14px/1.2 segoe_uiregular;
+						color: #bdc8df;
+						margin: 5px 0;
+						display: block;
+						padding-bottom: 10px;
+						display:inline-block;
+					}
 					.line-2{
 						margin-top: 20px;
-
+						top:0;
 					}
 					&.submit{
 						text-align:center;
@@ -1237,7 +1246,7 @@ header{
 					background:#fafafa;
 					border-radius: 10px;
 					height: 15px;
-					
+					top:0;					
 				}
 				
 				.calculate .line .inner-line .ui-slider-handle{
@@ -2632,14 +2641,7 @@ footer{
 	position: relative;
 }
 /* Ползунок */
-.ui-slider .ui-slider-handle {
-	position: absolute;
-	z-index: 2;
-	width: 13px;   /* Задаем нужную ширину */
-	height: 13px;  /* и высоту */
-	background: url(../images/slider.png) no-repeat; /* картинка изображающая ползунок. Или можно залить цветом, задать бордюр и скругления */
-	cursor: pointer
-}
+
 .ui-slider .ui-slider-range {
 	position: absolute;
 	z-index: 1;
@@ -3002,6 +3004,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 	.line{
 		margin-top:25px;
 		width:218px;
+		top:0;
+		box-shadow:none;
 	}
 	.i-submit{
 		height:auto;
@@ -3101,4 +3105,52 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 .catalog{
 	position:relative;
 	min-height:300px;
+}
+#criteria-form{
+	p{
+		font: 14px/1.2 segoe_uiregular;
+		color: #bdc8df;
+		margin: 5px 0;
+		display: block;
+		padding-bottom: 10px;
+	}
+}
+
+.ui-slider .ui-slider-range {
+	position: absolute;
+	z-index: 1;
+	font-size: .7em;
+	display: block;
+	border: 0;
+	background-position: 0 0;
+	overflow: hidden;
+	background: #d16e17!important;
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)!important;
+	background: -moz-linear-gradient(top,#d16e17 0,#f6811b 100%)!important;
+	background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#d16e17),color-stop(100%,#f6811b))!important;
+	background: -webkit-linear-gradient(top,#d16e17 0,#f6811b 100%)!important;
+	background: -o-linear-gradient(top,#d16e17 0,#f6811b 100%);
+	background: -ms-linear-gradient(top,#d16e17 0,#f6811b 100%)!important;
+	background: linear-gradient(to bottom,#d16e17 0,#f6811b 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d16e17', endColorstr='#f6811b', GradientType=0);
+}
+.ui-slider-horizontal{
+	top:0!important;
+}
+.ui-slider-handle{
+	border: 1px solid #ccc;
+	background: #eee url(images/ui-bg_glass_60_eeeeee_1x400.png) 50% 50% repeat-x;
+	font-weight: bold;
+	color: #3383bb;
+	position: absolute;
+	z-index: 2;
+	width: 25px!important;
+	height: 25px!important;
+	cursor: pointer;
+}
+.ui-menu,.ui-selectmenu-button{
+	cursor:pointer!important;
+}
+.ui-slider{
+	
 }
