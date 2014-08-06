@@ -37,6 +37,8 @@ $(document).ready(function(){
 		}
 	})
 
+	slideToMenu();
+
 	$('#sort li a, #display li a').click(function(){
 
 		$(this).closest('ul').find('.active').removeClass('active');
@@ -123,8 +125,8 @@ $(document).ready(function(){
 			var $_url=$('#criteria-form').serialize(),
 				$_href=$(this).attr('href');
 				$(this).attr('href',$_href+'?'+$_url);
-		})
+		});
+		slideToMenu();
 	}
-	// changeView();
 
 })

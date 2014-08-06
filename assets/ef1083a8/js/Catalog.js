@@ -37,7 +37,10 @@ $(function(){
 				$_href=$(this).attr('href');
 				$(this).attr('href',$_href+'?'+$_url);
 		})
+		slideToMenu();
 	}
+
+	slideToMenu();
 
 	$('select').selectmenu({
 		change:function(){

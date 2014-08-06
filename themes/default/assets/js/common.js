@@ -38,7 +38,14 @@ function hideLoader()
 	$('.loader').css('display','none');
 }
 
-
+function slideToMenu()
+{
+	$('.yiiPager a').on('click',function(){
+		var height=$('.auto').height();
+		$('.auto').height(height);
+		$(document).scrollTo($('.menu').offset().top,800);
+	})
+}
 
 var methods = {
 

@@ -34,19 +34,16 @@ $(function(){
 			
 		},1000);
 	}
-	
+
+	slideToMenu();
 	var onViewChangedCallBack=function(){
 
 		hideLoader();
-		// $('searchResult').val($('form').serialize());
 		var $_count=$('.summary span').text();
 			$('.pag li:first a').text('Все('+$_count+')');
 
-		// $('.items li a').on('click',function(){
-		// 	// var $_url=$('#criteria-form').serialize(),
-		// 	// 	$_href=$(this).attr('href');
-		// 	// 	$(this).attr('href',$_href+'?search='+$_url);
-		// })
+		
+		slideToMenu();
 	};
 
 	$('#sort li a,#display li a').on('click',function(){
