@@ -78,7 +78,7 @@
                                     Комментарий: <?=$model->comment?>
                                 </li> 
                                 <li>
-                                    Цена: <?=number_format($model->price_sell,3,' ',' ')?> руб.
+                                    Цена: <?=number_format($model->price_sell,0,' ',' ')?> руб.
                                 </li>  
                             </ul>
                             <div class="submit">

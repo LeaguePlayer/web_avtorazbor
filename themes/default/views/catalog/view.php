@@ -68,7 +68,7 @@
 
                         <div class="gallery">
                             <div class="big-img">
-                                <a class="imgFancy" href="<?=$model->getImageUrl('big')?>"><img width="331" height="192" src="<?=$model->getImageUrl('mormal')?>" alt="" title="" />
+                                <a class="imgFancy" href="<?=$model->getImageUrl('big') ? $model->getImageUrl('big') : '/media/images/default.png' ?>"><img width="331" height="192" src="<?=$model->getImageUrl('mormal') ? $model->getImageUrl('mormal') : '/media/images/default.png' ?>" alt="" title="" />
                             </div>
                         </div>
 
@@ -81,7 +81,7 @@
 							<li>Объем двигателя: <?=$model->force?></li>
 							<li>Коробка передач: <?=$model->dop->getTransmissionType()?></li>
 							<li>Тип кузова: <?=$model->bascet?></li>
-							<li>Цена: <?=$model->price?></li>
+							<li>Цена: <?=number_format($model->price,0,' ',' ') ?> руб.</li>
 							<li><a href="#own-price" class="own-price"><span>Предложить свою цену</span></a></li>
                             </ul>
                             <div class="submit">

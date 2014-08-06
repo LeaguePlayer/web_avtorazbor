@@ -3,7 +3,7 @@
 	?>
 <li>
 	<a href="/detail/view/<?=$data->id?>">
-		<img src="<?= $glrExist ? $data->getGallery()->galleryPhotos[0]->getUrl('small') : '/media/images/parts/default.jpg'?>" alt="" title="">
+		<img src="<?= $glrExist ? $data->getGallery()->galleryPhotos[0]->getUrl('small') : '/media/images/parts/default.png'?>" alt="" title="">
 	</a>
 	<a href="/detail/view/<?=$data->id?>" class="link">
 		<?=$data->name?>
