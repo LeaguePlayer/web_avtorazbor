@@ -17,7 +17,7 @@ class SeoBehavior extends CActiveRecordBehavior
             if(isset($owner->seo_id)){
                 $seo = Seo::model()->findByPk($owner->seo_id);
             }
-
+            
             if(isset($_POST['Seo'])){
 	            $seo->attributes = $_POST['Seo'];
 	            if($seo->save()) {

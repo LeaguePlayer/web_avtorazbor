@@ -106,11 +106,6 @@
                                             Все(<?=$dataProvider->totalItemCount?>)
                                         </a>
                                     </li>
-                                    <li>    
-                                        <a href="#">
-                                            Акции
-                                        </a>
-                                    </li>
                                     <li>
                                         <a href="#">
                                             Новинки

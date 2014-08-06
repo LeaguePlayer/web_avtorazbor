@@ -222,6 +222,19 @@ class DetailController extends FrontController
 
 	}
 
+	public function actionAddToCart($id)
+	{
+		if ($id)
+		{
+			$model=Parts::model()->findByPk($id);
+			$cart=Yii::app()->cart;
+			$cart->put($model);
+			$response['count']=$cart->getItemsCount();
+			$response['summ']=$cart->getCost();
+			echo CJSON::encode($response);
+		}
+	}
+
 	public function actionView()
 	{
 		$cs = Yii::app()->clientScript;

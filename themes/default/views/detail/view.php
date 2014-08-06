@@ -62,8 +62,8 @@
                                     Модель авто: <a href="/detail/parts?carModels=<?=$model->car_model->id;?>"><?=$model->car_model->name;?></a>
                                 </li>
                                 
-                                <li>
-                                    Артикул: <?=$model->id?>
+                                <li >
+                                   Артикул:  <span class="articl"><?=$model->id?></span>
                                 </li>
                                 <?
                                     foreach ($model->category->attrs as $key => $value) {
@@ -82,7 +82,7 @@
                                 </li>  
                             </ul>
                             <div class="submit">
-                                <input  type="submit" value="В корзину" class="i-submit inCart" />
+                                <a href="#" class="i-submit inCart">В корзину</a>
                             </div>
 
                         </div>

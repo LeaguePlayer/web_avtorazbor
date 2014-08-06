@@ -1,23 +1,8 @@
 $(function(){
 
 	$('#scrollbar').tinyscrollbar();
+
 	$('.imgFancy').fancybox();
-	
-
-	$('.inCart').click(function(){
-
-		$.ajax({
-			url:'/detail/addToCart',
-			data:{
-				id:$('.desc li').eq(2).text()
-			},
-			success:function(data){
-				$('.cart li').eq(0).text(data.items)
-				$('.cart li').eq(1).text(data.summ)
-			}
-		});
-		return false;
-	});
 	
 	$('.own-price').fancybox({
 		fitToView	: false,
@@ -29,5 +14,20 @@ $(function(){
 		openEffect	: 'none',
 		closeEffect	: 'none'
 	});
+
+	$('.inCart').on('click',function(){
+
+		$.ajax({
+			url:'/detail/addToCart',
+			data:{id:parseInt($('.articl').text(),10)},
+			dataType:'json',
+			success:function(data){
+				alert(data);
+				$('.bascet li:first a').text(data.count+" товар");
+				$('.bascet li:last strong').text(data.summ);
+			}
+		});
+		return false;
+	})
 
 })

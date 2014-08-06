@@ -25,7 +25,6 @@ class SortControllerBehavior extends CBehavior
             $a = CHtml::listData($actualModels, 'id', 'sort');
             $a = array_values($a);
 
-
             $i = 0;
             foreach ($_POST[$this->postName] as $id) {
                 CActiveRecord::model($this->modelClass)->updateByPk($id, array('sort'=>$a[$i]));

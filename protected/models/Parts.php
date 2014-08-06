@@ -16,7 +16,7 @@
     * @property string $create_time
     * @property integer $status
 */
-class Parts extends EActiveRecord
+class Parts extends EActiveRecord implements IECartPosition 
 {
     private $_usedCar = false;
 
@@ -51,6 +51,15 @@ class Parts extends EActiveRecord
             return $aliases[$status];
 
         return $aliases;
+    }
+
+    function getId(){
+        return 'Parts'.$this->id;
+    }
+
+    function getPrice(){
+
+        return $this->price_sell;
     }
 
     public function tableName()

@@ -156,7 +156,7 @@
         		<dd>
         			<ul>
         				<li>
-        					<a href="#">1 товар</a>
+        					<a href="/cart">1 товар</a>
         				</li>
         				<li>
         					На сумму: <strong>6 500 руб.</strong>

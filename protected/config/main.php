@@ -22,6 +22,9 @@ return array(
     'import'=>array(
         'application.models.*',
         'application.components.*',
+        'appext.shoppingCart.*',
+        'appext.imagesgallery.*',
+        //'application.components.shoppingCart.*'
         //'application.behaviors.*',
     ),
     'aliases'=>array(
@@ -31,15 +34,18 @@ return array(
 
     // application components
     'components'=>array(
-        'cart' => array(
+        // 'cart' => array(
+        //     'class' => 'appext.shoppingCart.EShoppingCart',
+        //     'onUpdatePosition' => array('CartNotifer', 'updatePosition'),
+        //     'onRemovePosition' => array('CartNotifer', 'removePosition'),
+        //     'discounts' => array(
+        //         array(
+        //             'class' => 'appext.shoppingCart.discounts.TestDiscount',
+        //         ),
+        //     ),
+        // ),
+        'cart' =>array(
             'class' => 'appext.shoppingCart.EShoppingCart',
-            'onUpdatePosition' => array('CartNotifer', 'updatePosition'),
-            'onRemovePosition' => array('CartNotifer', 'removePosition'),
-            'discounts' => array(
-                array(
-                    'class' => 'appext.shoppingCart.discounts.TestDiscount',
-                ),
-            ),
         ),
         'swiftmail'=> array(
             'class' => 'SwiftmailerComponent'
