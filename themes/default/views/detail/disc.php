@@ -17,14 +17,13 @@
                             <dd id="slider">
                                 <div class="formCost">
                                     <div class="i-text">
-                                    <input type="text" id="min" name="min" value="14"/>
+                                    <input type="text" id="min" name="min" value="<?=$min?>"/>
                                 </div>
                                     <label for="maxCost">-</label> 
                                 <div class="i-text">
-                                <input type="text" id="max" name="max" value="30"/>
+                                <input type="text" id="max" name="max" value="<?=$max?>"/>
                                 </div>
                                 </div>
-
                                 <div class="calculate">
                                     <div class="partPrice" data-min="#minCost" data-max="#maxCost">
                                     </div>
@@ -63,12 +62,12 @@
                     <div class="tabs parts">
                         <ul id="car_type">
                             <li >
-                                <a href="#" data-type="1">
+                                <a href="/detail?light=1" data-type="1">
                                     Легковые
                                 </a>
                             </li>
                             <li >
-                                <a href="#" data-type="2">
+                                <a href="/detail?hard=1" data-type="2">
                                     Грузовые
                                 </a>    
                             </li>
@@ -82,7 +81,7 @@
                     <div class="content clear">
 
                         <div class="catalog">
-
+                            <img class="loader" src="/media/images/loader.gif"/>
                             <div class="pag">
 
                                 <ul>

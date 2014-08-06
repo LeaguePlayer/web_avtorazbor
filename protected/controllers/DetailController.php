@@ -56,7 +56,12 @@ class DetailController extends FrontController
     	if( !Yii::app()->request->isAjaxRequest )
     	{
     		$dataProvider=Parts::model()->Disc($_GET['min'],$_GET['max']);
-			$this->render('disc',array('dataProvider'=>$dataProvider));
+			$this->render('disc',
+				array('dataProvider'=>$dataProvider,
+						'min'=>$_GET['min'],
+						'max'=>$_GET['max'],
+					)
+				);
 		}
 		else {
 
@@ -69,7 +74,12 @@ class DetailController extends FrontController
 			$dataProvider->criteria->addCondition('price_buy>='.$data['minCost'].' and price_buy<='.$data['maxCost']);
 			$dataProvider->criteria->order=$data['sort'].' desc';
 
-			print($this->renderPartial('tabParts',array('dataProvider'=>$dataProvider),true));
+			print($this->renderPartial('tabParts',
+				array(
+					'dataProvider'=>$dataProvider,
+
+
+				),true));
 		}
 
 	}
@@ -165,7 +175,6 @@ class DetailController extends FrontController
 		$params['condition']='price_buy>='.$data['conditions']['MoreEqual']['price_buy'].
 							 ' and price_buy<='.$data['conditions']['LessEqual']['price_buy'];
 
-		
 		foreach ($equal as $key => $value){
 
 			if ($key=="category_id")
@@ -209,7 +218,6 @@ class DetailController extends FrontController
 			)
 		);
 
-		
 		echo $this->renderPartial('//detail/tabParts',array('dataProvider'=>$dataProvider),true);
 
 	}

@@ -37,6 +37,10 @@ class CatalogController extends FrontController
 
 		if(!Yii::app()->request->isAjaxRequest)
 		{
+			
+			$session=Yii::app()->session;
+			unset($session["backToResultUrl"]);
+
 			$cs = Yii::app()->clientScript;
 			// $cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.ui-slider.js', CClientScript::POS_END);
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);

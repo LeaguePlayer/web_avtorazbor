@@ -93,7 +93,14 @@
                                     Поделиться:
                                 </dt>
                                 <dd>
-                                    <ul>
+                                
+
+                               <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                                <div class="addthis_sharing_toolbox"></div>
+                                <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                                <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53df85bc15a98471"></script>
+
+                                    <!-- <ul>
                                         <li class="vk">
                                             <a href="#"></a>
                                         </li>
@@ -109,7 +116,7 @@
                                         <li class="od">
                                             <a href="#"></a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </dd>
                             </dl>
                         </div>

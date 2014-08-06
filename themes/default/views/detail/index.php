@@ -9,17 +9,17 @@
 
                     <div class="partsTabs">
                         <ul>
-                            <li class="active">
+                            <li <?= $_GET['light'] || !$_GET ? 'class="active"' : '' ?>>
                                 <a href="#light">
                                     Для легковых
                                 </a>
                             </li>
-                            <li>
+                            <li <?= $_GET['hard'] ? 'class="active"' : '' ?>>
                                 <a href="#weight">
                                     Для грузовых
                                 </a>    
                             </li>
-                            <li>
+                            <li <?= $_GET['disc'] ? 'class="active"' : '' ?>>
                                 <a href="#disc">
                                     Диски
                                 </a>    
@@ -34,8 +34,7 @@
 
                     <div class="content clear">
 
-                        <div class="personal tab-active" id="light">
-
+                        <div class="personal <?=$_GET['light'] || $_GET['hard'] || !$_GET ? 'tab-active' : '' ?>" id="light">
                             <dl class="desc">
                                 <dt>
                                     Индивидуальный подбор
@@ -48,7 +47,7 @@
                                 <div class="select">
                                     <dl>
                                     <dd>
-                                        <input type="hidden" id="car_type" name="car_type" value="1">
+                                        <input type="hidden" id="car_type" name="car_type" value="<?=$_GET['light'] || $_GET['disc'] || !$_GET ? 1 : 2 ?>">
                                         <label for="mark"> 
                                             Марка:
                                         </label>
@@ -94,12 +93,11 @@
                                     <br>
                                     <input type="submit" class="i-submit" id="sendCriteria" value="Найти">
                                     </dl>
-                                </div> 
-                                
+                                </div>
                             </form>
                         </div>
                         
-                        <div id="disc">
+                        <div id="disc" class=" <?= $_GET['disc'] ? 'tab-active' : '' ?>">
                             <form action="/detail/disc" method="get">
                                 <div class="formCost">
                                     <dl class="desc">

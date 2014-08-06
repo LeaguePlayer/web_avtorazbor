@@ -100,5 +100,56 @@ $(document).ready(function(){
 		}
 		return false;
 	});
+	$('.partsTabs li a').click(function(){
+
+			var index=$(this).parent().index();
+			switch(true){
+
+				case index<2:{
+
+					var $_parent=$(this).closest('.partsTabs'),
+						tab = $(this);
+
+					$(this).closest('ul').find('.active').removeClass('active');
+					$(this).parent().addClass('active');
+
+					$('.tab-active').removeClass('tab-active');
+
+					$('#light').addClass('tab-active');
+
+					$('#car_type').val(index+1);
+
+				}break;
+
+				case index==2:{
+					$('.partsTabs .active').removeClass('active');
+
+					$(this).parent().addClass('active');
+
+					var context=$(this).closest('.partsTabs').parent();
+
+					$('.tab-active',context).removeClass('tab-active');
+
+					var tabId=$(this).attr('href');
+						$(tabId).addClass("tab-active");
+
+				}break;
+
+				case index==3:{
+					$.fancybox.open($('#book'),
+						{
+							fitToView	: false,
+							wrapCSS		: "questionForm",
+							height		: 700,
+							width		: 590,
+							autoSize	: false,
+							closeClick	: false,
+							openEffect	: 'none',
+							closeEffect	: 'none'
+						});
+				}break;
+			}
+			return false;
+		});
 
 })

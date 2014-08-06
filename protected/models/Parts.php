@@ -509,7 +509,7 @@ class Parts extends EActiveRecord
                     $result=$this->findAllModelsWithAnalogs($value['model_id']);
                     $criteria->join.=' '.$this->getJoin('car_model_id');
                     $criteria->mergeWith($result['criteria']);
-                    $criteria->order="category_id=".$value;
+                    $criteria->order="car_model_id=".$value['model_id'];
                     return $criteria;
                 break;
             default:

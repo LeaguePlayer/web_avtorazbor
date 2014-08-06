@@ -19,5 +19,7 @@
             'cssFile' => false,
       	),
 	));
-
+Yii::app()->clientScript->registerScript('search','
+        changeView();
+    ');
 ?>

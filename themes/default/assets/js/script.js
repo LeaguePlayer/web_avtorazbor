@@ -12,7 +12,11 @@ $(function(){
 			
 			$(tabId).addClass("tab-active");
 		}
-		return false;
+		
+		if ($(this).attr('href')=="#")
+		 {
+		 	return false;
+		 }
 
 	})
 

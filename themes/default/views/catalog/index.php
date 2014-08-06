@@ -1,7 +1,7 @@
 
 <div class="page">
             <h1 class="head">
-                Каталог
+                Каталог авто
             </h1>
 
             <div class="wr">
@@ -92,7 +92,7 @@
                     <div class="content clear">
 
                         <div class="catalog">
-
+                            <img class="loader" src="/media/images/loader.gif"/>
                             <div class="pag">
 
                                 <ul>
@@ -159,18 +159,18 @@
                                     <dd>
                                         <ul id="display">
                                             <li class="active">
-                                                <a href="/catalog?display=2">
-                                                    2
+                                                <a href="/catalog?display=20">
+                                                    20
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="/catalog?display=3">
-                                                    3
+                                                <a href="/catalog?display=40">
+                                                    40
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="/catalog?display=4">
-                                                    4
+                                                <a href="/catalog?display=60">
+                                                    60
                                                 </a>
                                             </li>
                                         </ul>

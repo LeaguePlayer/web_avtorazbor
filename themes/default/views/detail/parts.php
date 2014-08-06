@@ -87,7 +87,7 @@
                                     Грузовые
                                 </a>    
                             </li>
-                            <li <?=$_GET['car_type']==2 ? 'class="active"' : '' ?>>
+                            <li>
                                 <a href="/detail?disc=1" data-type="2">
                                     Диски
                                 </a>    

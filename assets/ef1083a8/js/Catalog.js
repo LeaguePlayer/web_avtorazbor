@@ -1,11 +1,43 @@
+var changeView=function(){
+
+}
+
 $(function(){
 
+	var showLoader=function (){
+		
+	var $_curHeight=$('.auto').height();
+		$('.auto').height($_curHeight);
+
+		$('.auto').empty();
+
+		$('.loader').css('display','block');
+		
+	return false;
+}
 
 	changeView=function(){
 
-		ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');	
-
+		showLoader();
+		
+		setTimeout(function(){
+			ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog',onViewChangedCallBack);	
+		},1000)
 	} 
+
+	var onViewChangedCallBack=function(){
+
+		hideLoader();
+		// $('searchResult').val($('form').serialize());
+		var $_count=$('.summary span').text();
+			$('.pag li:first a').text('Все('+$_count+')');
+
+		$('.items li a').on('click',function(){
+			var $_url=$('#criteria-form').serialize(),
+				$_href=$(this).attr('href');
+				$(this).attr('href',$_href+'?'+$_url);
+		})
+	}
 
 	$('select').selectmenu({
 		change:function(){
@@ -20,13 +52,6 @@ $(function(){
 
 			$_this=$(this);
 
-			// var index=$_this.closest('dd').index()+1,
-			// 	ddCount=$_this.closest('dl').find('dd').length-2;
-			// 	$_this.closest('dl').children('dd').slice(index,ddCount).find('select').val(null).selectmenu('refresh').parent().slideUp(200);
-
-			// if ($(this).val())
-			// 	$_this.closest('dd').next().slideDown(200);
-			
 			$.ajax({
 				url:'/ajaxRequests/getNestedList',
 				data:params,
@@ -41,6 +66,7 @@ $(function(){
 	})
 
 	$('#car_type li a').click(function(){
+
 		$_this=$(this);
 		type=$(this).data('type');
 
@@ -55,7 +81,6 @@ $(function(){
 			$('#bascet,#transmission').closest('dd').css('display','block');
 			$('#bascet-label,#transmission-label').css('display','block');
 		}
-
 	});
 
 	$('.own-price').fancybox({
@@ -74,18 +99,27 @@ $(function(){
 		$(this).closest('ul').find('.active').removeClass('active');
 		$(this).parent().addClass('active');
 
-		ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');
+		changeView();
 		return false;
 
 	});
 
-	$('.filter select, #minForce,#maxForce,#minCost,#maxCost, .pagination a, #car_type li a').on('change click keyup',function( e ){
-
-		ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');
-		
+	$('.filter select, #minForce,#maxForce,#minCost,#maxCost, .pagination a').on('change keyup',function( e ){
+		changeView();
 		return false;
 	})
 
+	$('#car_type li a').click(function(){
+		
+		if($(this).attr('href')=="#")
+		{
+			changeView();
+			return false;
+		}
+
+	})
+
+	$('.imgFancy').fancybox();
 	
 	$('.calculate .line').slider({
 		range:true,
@@ -101,9 +135,7 @@ $(function(){
 			$_min.text(ui.values[0]).val(ui.values[0]);
 			$_max.text(ui.values[1]).val(ui.values[1]);
 
-			setTimeout(function(){
-				ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');
-			},500);
+			changeView();
 		}
 	});
 
@@ -121,10 +153,7 @@ $(function(){
 			$_min.text(ui.values[0]).val(ui.values[0]);
 			$_max.text(ui.values[1]).val(ui.values[1]);
 
-			setTimeout(function(){
-				ViewItems($('.auto'),methods['catalog'].apply(this,[]),'/catalog');
-			},500);
+			changeView();
 		}
 	});
-	changeView();
 });

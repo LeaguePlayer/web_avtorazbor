@@ -1,4 +1,8 @@
 
+var changeView=function(){
+
+}
+
 $(function(){
 	
 	function showLoader(){
@@ -18,19 +22,19 @@ $(function(){
 		$('.loader').css('display','none');
 	}
 
-	var changeView=function(){
+	changeView=function(){
 
 		showLoader();
 
 		setTimeout(function(){
 
-			var params=methods['parts'].apply(this,[]);
-			ViewItems($('.auto'),methods['disc'].apply(this,[]),onViewChangedCallBack);
+			// var params=methods['disc'].apply(this,[]);
+			ViewItems($('.auto'),methods['disc'].apply(this,[]),'/detail/disc',onViewChangedCallBack);
 			return false;
-
+			
 		},1000);
 	}
-
+	
 	var onViewChangedCallBack=function(){
 
 		hideLoader();
@@ -38,11 +42,11 @@ $(function(){
 		var $_count=$('.summary span').text();
 			$('.pag li:first a').text('Все('+$_count+')');
 
-		$('.items li a').on('click',function(){
-			// var $_url=$('#criteria-form').serialize(),
-			// 	$_href=$(this).attr('href');
-			// 	$(this).attr('href',$_href+'?search='+$_url);
-		})
+		// $('.items li a').on('click',function(){
+		// 	// var $_url=$('#criteria-form').serialize(),
+		// 	// 	$_href=$(this).attr('href');
+		// 	// 	$(this).attr('href',$_href+'?search='+$_url);
+		// })
 	};
 
 	$('#sort li a,#display li a').on('click',function(){
@@ -51,22 +55,19 @@ $(function(){
 		$(this).closest('li').addClass('active');
 		changeView();
 		return false;
-	})
+	});
 
 	$('#min,#max,#minCost,#maxCost').on('change keyup',function(){
 		changeView();
 		return false;
-	})
-
-
-
+	});
 
 	$('#slider .calculate').slider({
 		range:true,
 		step:1,
 		min:14,
 		max:30,
-		values:[14,30],
+		values:[parseInt($('#min').val(),10),parseInt($('#max').val(),10)],
 		slide:function(event, ui){
 
 			$_max=$('#max');
