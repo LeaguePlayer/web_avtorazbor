@@ -35,6 +35,8 @@ class Controller extends CController
 
     protected $assetsUrl;
 
+    protected $assetsMap = array();
+
     protected function preinit()
     {
         parent::preinit();
@@ -59,20 +61,34 @@ class Controller extends CController
         return $this->route == 'site/index';
     }
 
-    public function getAssetsUrl()
-    {
-        if (Yii::app()->getRequest()->getParam('update_assets') || !isset($this->assetsUrl))
-        {
-            if ( $this->module ) {
-                $assetsPath = Yii::getPathOfAlias($this->module->name.'.assets');
-            } else if ( isset(Yii::app()->theme) ) {
-                $assetsPath = Yii::app()->theme->getBasePath().DIRECTORY_SEPARATOR.'assets';
-            } else {
-                $assetsPath = Yii::getPathOfAlias('application.assets');
-            }
-            $this->assetsUrl = Yii::app()->assetManager->publish($assetsPath, false, -1, $this->forceCopyAssets);
+
+    public function getAssetsUrl($moduleName = false)
+     {
+        
+      if ( $moduleName ) {
+       if ( !isset($this->assetsMap[$moduleName]) ) {
+        if ( $moduleName === 'application' and isset(Yii::app()->theme) ) {
+         $assetsPath = Yii::app()->theme->getBasePath().DIRECTORY_SEPARATOR.'assets';
+        } else {
+         $assetsPath = Yii::getPathOfAlias($moduleName.'.assets');
         }
-        return $this->assetsUrl;
+        $this->assetsMap[$moduleName] = Yii::app()->assetManager->publish($assetsPath, false, -1, $this->forceCopyAssets);
+       }
+       return $this->assetsMap[$moduleName];
+      }
+
+      if ( !isset($this->assetsUrl) )
+      {
+       if ( $this->module ) {
+        $assetsPath = Yii::getPathOfAlias($this->module->name.'.assets');
+       } else if ( isset(Yii::app()->theme) ) {
+        $assetsPath = Yii::app()->theme->getBasePath().DIRECTORY_SEPARATOR.'assets';
+       } else {
+        $assetsPath = Yii::getPathOfAlias('application.assets');
+       }
+       $this->assetsUrl = Yii::app()->assetManager->publish($assetsPath, false, -1, $this->forceCopyAssets);
+      }
+      return $this->assetsUrl;
     }
 
     public function beforeRender($view)

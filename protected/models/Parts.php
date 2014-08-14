@@ -68,8 +68,9 @@ class Parts extends EActiveRecord implements IECartPosition
     }
 
     public function afterSave(){
-        parent::afterSave();
+        
         $this->removeAllAttr();
+        return parent::afterSave();
     }
 
     public function removeAllAttr()

@@ -22,7 +22,7 @@ class LoginController extends UController
 					if (Yii::app()->getBaseUrl()."/index.php" === Yii::app()->user->returnUrl)
 						$this->redirect(Yii::app()->controller->module->returnUrl);
 					else
-						$this->redirect(Yii::app()->user->returnUrl);
+						$this->redirect(array('/admin'));
 				}
 			}
 			// display the login form

@@ -1,39 +1,40 @@
 <?php
 
 	$cs = Yii::app()->clientScript;
-	$cs->registerCssFile($this->getAssetsUrl().'/css/style.css');
-	$cs->registerCssFile($this->getAssetsUrl().'/css/reset.css');
+	$cs->registerCssFile($this->getAssetsUrl('application').'/css/style.css');
+	$cs->registerCssFile($this->getAssetsUrl('application').'/css/reset.css');
 	$cs->registerCssFile('http://fotorama.s3.amazonaws.com/4.4.9/fotorama.css');
-	$cs->registerCssFile($this->getAssetsUrl().'/css/fancybox/jquery.fancybox.css');
-	// $cs->registerCssFile($this->getAssetsUrl().'/css/compactmenu.css');
-	$cs->registerCssFile($this->getAssetsUrl().'/css/main.css?v1');
-	// $cs->registerCssFile($this->getAssetsUrl().'/css/style.css');
-	// $cs->registerCssFile($this->getAssetsUrl().'/css/jquery.ui/overcast/jquery-ui-1.10.3.custom.min.css');
-    $cs->registerCssFile($this->getAssetsUrl().'/css/jquery-ui.min.css');
+	$cs->registerCssFile($this->getAssetsUrl('application').'/css/fancybox/jquery.fancybox.css');
+	// $cs->registerCssFile($this->getAssetsUrl('application').'/css/compactmenu.css');
+	$cs->registerCssFile($this->getAssetsUrl('application').'/css/main.css?v1');
+	// $cs->registerCssFile($this->getAssetsUrl('application').'/css/style.css');
+	// $cs->registerCssFile($this->getAssetsUrl('application').'/css/jquery.ui/overcast/jquery-ui-1.10.3.custom.min.css');
+    $cs->registerCssFile($this->getAssetsUrl('application').'/css/jquery-ui.min.css');
 
-	//$cs->registerCssFile($this->getAssetsUrl().'/css/fancybox/jquery.fancybox-buttons.css');
+	//$cs->registerCssFile($this->getAssetsUrl('application').'/css/fancybox/jquery.fancybox-buttons.css');
 	
 	$cs->registerCoreScript('jquery');
 	$cs->registerCoreScript('jquery.ui');
     
-	//$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.fancybox-buttons.js', CClientScript::POS_END);
+	//$cs->registerScriptFile($this->getAssetsUrl('application').'/js/lib/jquery.fancybox-buttons.js', CClientScript::POS_END);
 	//$cs->registerScriptFile('http://api-maps.yandex.ru/2.0.27/?load=package.standard&lang=ru-RU', CClientScript::POS_HEAD);
 	
-	// $cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.timepicker.addon.js', CClientScript::POS_END);
-	// $cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.ui.timepicker.ru.js', CClientScript::POS_END);
+	// $copys->registerScriptFile($this->getAssetsUrl('application').'/js/lib/jquery.timepicker.addon.js', CClientScript::POS_END);
+	// $cs->registerScriptFile($this->getAssetsUrl('application').'/js/lib/jquery.ui.timepicker.ru.js', CClientScript::POS_END);
 	// $cs->registerScriptFile('https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', CClientScript::POS_END);
 
 	$cs->registerScriptFile('http://fotorama.s3.amazonaws.com/4.4.9/fotorama.js', CClientScript::POS_END);
-    $cs->registerScriptFile($this->getAssetsUrl().'/js/tinyscrollbar.js', CClientScript::POS_END);
-    $cs->registerScriptFile($this->getAssetsUrl().'/js/jquery-ui.min.js', CClientScript::POS_END);
-	$cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.maphilight.js', CClientScript::POS_END);
-	// $cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.selectbox.min.js', CClientScript::POS_END);
-	$cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.fancybox.js', CClientScript::POS_END);
-    $cs->registerScriptFile($this->getAssetsUrl().'/js/owl.carousel.min.js', CClientScript::POS_END);
+    $cs->registerScriptFile($this->getAssetsUrl('application').'/js/tinyscrollbar.js', CClientScript::POS_END);
+    $cs->registerScriptFile($this->getAssetsUrl('application').'/js/jquery-ui.min.js', CClientScript::POS_END);
+	$cs->registerScriptFile($this->getAssetsUrl('application').'/js/jquery.maphilight.js', CClientScript::POS_END);
+	// $cs->registerScriptFile($this->getAssetsUrl('application').'/js/jquery.selectbox.min.js', CClientScript::POS_END);
+	$cs->registerScriptFile($this->getAssetsUrl('application').'/js/jquery.fancybox.js', CClientScript::POS_END);
+    $cs->registerScriptFile($this->getAssetsUrl('application').'/js/owl.carousel.min.js', CClientScript::POS_END);
 
-	$cs->registerScriptFile($this->getAssetsUrl().'/js/script.js', CClientScript::POS_END);
-	
-	$assetUrl=$this->getAssetsUrl();
+	$cs->registerScriptFile($this->getAssetsUrl('application').'/js/script.js', CClientScript::POS_END);
+
+	$assetUrl=$this->getAssetsUrl('application');
+
 ?><!DOCTYPE html>
 <html lang="ru">
 	<head>
@@ -140,12 +141,23 @@
 
         	<div class="reg">
         			<ul>
+                    <?if (Yii::app()->user->isGuest){?>
         				<li>
-        					<a href="#">Войти</a>
+        					<a href="/account/login">Войти</a>
         				</li>
         				<li>
-        					<a href="#">Регистрация</a>
+        					<a href="/account/registration">Регистрация</a>
         				</li>
+                    <?}
+                        else 
+                    {?>
+                        <li>
+                            <a href="/account/">Личный кобинет</a>
+                        </li>
+                        <li>
+                            <a href="/account/logout">Выйти</a>
+                        </li>
+                        <?}?>
         			</ul>
         	</div>
 

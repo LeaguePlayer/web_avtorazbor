@@ -26,6 +26,11 @@ class CartController extends FrontController
 				'actions'=>array('index','removePosition'),
 				'users'=>array('*'),
 			),
+			array(
+				'allow',
+				'actions'=>array('issue_the_order'),
+				'users'=>array('@'),
+			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -38,6 +43,36 @@ class CartController extends FrontController
 
 		$models=Yii::app()->cart->getPositions();
 		$this->render('index',array('models'=>$models));
+	}
+
+	public function actionIssue_the_order()
+	{
+
+		$positions = Yii::app()->cart->getPositions();
+
+		if (count($positions))
+		{
+			$request=new Requests;
+			$request->client_id=Yii::app()->user->id;
+			$request->from=0;
+			$request->user_id=1;
+			$request->date_life=date('d-m-y');
+			$request->status=7;
+			$request->save();
+
+			$dbCommand = Yii::app()->db->createCommand();
+			foreach ($positions as $key => $item) {
+
+				$dbCommand->insert('{{PartsInRequest}}',array(
+    					'request_id' => $request->id,
+    					'part_id' => $item->id
+    				)
+				);
+			}
+			Yii::app()->cart->clear();
+			$this->redirect(Yii::app()->getHomeUrl());
+		}
+		$this->render('index',array('models'=>$positions));
 	}
 
 	public function actionRemovePosition($articul,$position)

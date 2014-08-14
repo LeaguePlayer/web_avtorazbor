@@ -37,7 +37,7 @@ class UsedCars extends EActiveRecord
         return $aliases;
     }
 
-    public function join()
+    public static function join()
     {
         return 
                 "LEFT JOIN  `tbl_UsedCar_Info` ON  `tbl_UsedCar_Info`.used_car_id =  `t`.id

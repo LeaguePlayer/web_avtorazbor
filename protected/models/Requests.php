@@ -24,6 +24,7 @@ class Requests extends EActiveRecord
     const STATUS_WAIT_BUY = 4;
     const STATUS_BROKEN = 5;
     const STATUS_SUCCESS = 6;
+    const STATUS_WAIT = 7;
     const STATUS_DEFAULT = self::STATUS_PUBLISH;
 
     private static $_fromList = array(
@@ -51,6 +52,7 @@ class Requests extends EActiveRecord
             self::STATUS_WAIT_BUY => 'Ожидает оплаты',
             self::STATUS_BROKEN => 'Расформирована',
             self::STATUS_SUCCESS => 'Оплачено',
+            self::STATUS_WAIT => 'Ожидает подтверждения',
             // self::STATUS_REMOVED => 'Удален',
         );
 

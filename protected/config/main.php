@@ -24,6 +24,8 @@ return array(
         'application.components.*',
         'appext.shoppingCart.*',
         'appext.imagesgallery.*',
+        'appext.YiiMailer.*',
+        'appext.crontab.*',
         //'application.components.shoppingCart.*'
         //'application.behaviors.*',
     ),
@@ -44,6 +46,7 @@ return array(
         //         ),
         //     ),
         // ),
+
         'cart' =>array(
             'class' => 'appext.shoppingCart.EShoppingCart',
         ),

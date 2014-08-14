@@ -15,7 +15,7 @@ class CarModelsController extends AdminController
 		if($data){
 			echo CJSON::encode($data);
 		}
-
+		
 		Yii::app()->end();
 	}
 

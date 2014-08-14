@@ -12,11 +12,15 @@
         					Шаг 1: Состав заказа
         				</a>
         			</li>
+                                <?
+                                if (!Yii::app()->user->isGuest && count($models)){
+                                ?>
         			<li>
         				<a href="#accept">
         					Шаг 2: Подтверждение
         				</a>	
         			</li>
+                                <?}?>
         		</ul>
         	</div>
 
@@ -60,9 +64,21 @@
         				</table>
         			</div>
                         <a href="#" class="back">Вернуться в каталог</a>
+                        <?
+                        if (!Yii::app()->user->isGuest && count($models)){
+                        ?>
                         <div id="accept" class="baskets">
-
+                                <a href="/cart/Issue_the_order" class="i-submit">Оформить аказ</a>
                         </div>
+                        <?}?>
+                        <?
+                                if (Yii::app()->user->isGuest)
+                                {
+                                        ?>
+                                                <a class="i-submit" href="/account/login?return=cart">Авторизируйтесь</a>
+                                        <?
+                                }
+                        ?>
                 </div>
         </div>
 </div>	

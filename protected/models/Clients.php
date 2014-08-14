@@ -34,12 +34,12 @@ class Clients extends EActiveRecord
         );
     }
 
-
     public function relations()
     {
         return array(
             'info' => array(self::HAS_ONE, 'ClientsInfo', 'client_id'),
-            'bank_accounts' => array(self::HAS_MANY, 'BankAccounts', 'client_id')
+            'bank_accounts' => array(self::HAS_MANY, 'BankAccounts', 'client_id'),
+            'requests'=>array(self::HAS_MANY,'requests','client_id')
         );
     }
 

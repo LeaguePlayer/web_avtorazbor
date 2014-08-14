@@ -59,7 +59,7 @@ class CatalogController extends FrontController
 			if (isset($_GET['brand']))
 			{
 				$brand_id=CarBrands::model()->find('name=:name',array(':name'=>$_GET['brand']))->id;
-				$criteria->join=UsedCars::model()->join();
+				$criteria->join=UsedCars::join();
 				if (!empty($brand_id))
 					$criteria->addCondition('brand='.$brand_id);
 
@@ -127,7 +127,7 @@ class CatalogController extends FrontController
 
 		$pageSize=$data['pager']['display'] ? (int)$data['pager']['display'] : 2;
 
-		$criteria->join=UsedCars::model()->join();
+		$criteria->join=UsedCars::join();
 		$criteria->condition=str_replace('force', '`t`.force', $criteria->condition);
 		$dataProvider=new CActiveDataProvider('UsedCars', array(
 			'criteria' => $criteria,
