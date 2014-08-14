@@ -67,9 +67,9 @@ class Parts extends EActiveRecord
             array('name', 'length', 'max'=>255),
             // array('price_sell, price_buy', 'numerical', 'integerOnly'=>false, 'min' => 1),
             array('price_sell, price_buy', 'length', 'max'=>10),
-            array('comment, create_time, usedCar', 'safe'),
+            array('comment, create_time, update_time, usedCar', 'safe'),
             // The following rule is used by search().
-            array('id, name, price_sell, price_buy, comment, category_id, car_model_id, location_id, supplier_id, create_time, status', 'safe', 'on'=>'search'),
+            array('id, name, price_sell, price_buy, comment, category_id, car_model_id, location_id, supplier_id, create_time, update_time, status', 'safe', 'on'=>'search'),
         );
     }
 
@@ -114,6 +114,11 @@ class Parts extends EActiveRecord
                 'name' => false,
                 'description' => false,
             ),
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'create_time',
+                'updateAttribute' => 'update_time',
+            ),
         ));
     }
 
@@ -130,6 +135,7 @@ class Parts extends EActiveRecord
             'location_id' => 'Склад',
             'supplier_id' => 'Поставщик',
             'create_time' => 'Дата создания',
+            'update_time' => 'Дата обновления',
             'status' => 'Статус',
             'gallery_id' => 'Галерея',
             'user_id' => 'Пользователь'
@@ -274,18 +280,6 @@ class Parts extends EActiveRecord
 
         $this->price_sell = number_format($this->price_sell, 0, '', '');
         $this->price_buy = number_format($this->price_buy, 0, '', '');
-    }
-
-    public function beforeSave(){
-        
-        if($this->isNewRecord)
-            $this->create_time = date("Y-m-d H:i:s");
-
-        return parent::beforeSave();
-    }
-
-    public function afterSave(){
-        parent::afterSave();
     }
 
     /**

@@ -79,7 +79,35 @@ class ApiController extends FrontController
 		Yii::app()->end();
 	}
 
+	//create reserve package
+	public function actionReserve($count, $user_id, $secretKey){
+		header('Content-Type: application/json');
+
+		if($secretKey == 'RazborApp' && $count > 0 && $user_id > 0){
+			for ($i=0; $i < $count; $i++) { 
+				$part = new Parts;
+
+				$part->name = 'Резерв';
+				$part->price_sell = 0;
+				$part->price_buy = 0;
+				$part->status = Parts::STATUS_RESERVE_DEVICE;
+				$part->user_id = $user_id;
+
+				if($part->validate()){
+					$part->save(false);
+					$this->response->data[]['id'] = (int) $part->id;
+				}
+			}
+		}else
+			$this->response->errors[] = 'Чтото пошло не так.';
+
+		$this->printJSON();
+
+		Yii::app()->end();
+	}
+
 	public function actionAddImage($id){
+		header('Content-Type: application/json');
 
 		$part = Parts::model()->findByPk($id);
 		if($part){
@@ -87,7 +115,6 @@ class ApiController extends FrontController
 	        $model->gallery_id = $part->gallery_id;
 	        $imageFile = CUploadedFile::getInstanceByName('Image');
 	        if($imageFile){
-	        	var_dump($imageFile->getName());
 
 	        	if(!$part->gallery->main) $model->main = 1;
 
@@ -96,8 +123,14 @@ class ApiController extends FrontController
         		$model->save();
 
         		$model->setImage($imageFile->getTempName());
+
+        		$this->printJSON();
+        		Yii::app()->end();
 	        }
 		}
+		$this->response->errors[] = 'Чтото пошло не так.';
+
+		$this->printJSON();
 
 		Yii::app()->end();
 	}
@@ -127,13 +160,13 @@ class ApiController extends FrontController
 		Yii::import('user.components.*');
 		Yii::import('user.models.*');
 
-		if(true){
+		/*if(true){
 			$identity=new UserIdentity('admin', 'admin1234');
-			$identity->authenticate();
-
-		/*if(isset($_POST['username']) && isset($_POST['pass'])){
-			$identity=new UserIdentity($_POST['username'], $_POST['pass']);
 			$identity->authenticate();*/
+
+		if(isset($_POST['username']) && isset($_POST['pass'])){
+			$identity=new UserIdentity($_POST['username'], $_POST['pass']);
+			$identity->authenticate();
 
 			switch($identity->errorCode)
 			{
@@ -220,18 +253,49 @@ class ApiController extends FrontController
 	}
 
 	//date format %e.%m.%y
-	public function actionGetAllParts(){
+	//delete when finish app
+	public function actionGetAllParts($user_id){
 		header('Content-Type: application/json');
 
-		$data = Yii::app()->db->createCommand()
-			->select('p.id, name, DATE_FORMAT(create_time, "%e.%m.%y") as date, price_sell, price_buy, comment, category_id, car_model_id, location_id, supplier_id, u.used_car_id')
-			->from('{{Parts}} as p')
-			->leftJoin('{{Parts_UsedCars}} as u', 'p.id=u.parts_id')
-			->where('status=7') //DEVICE
-			->order('create_time DESC')
-			->queryAll();
+		/*$parts = Parts::model()->findAll('status=7');
+		foreach ($parts as $key => $part) {
+			$part->delete();
+		}*/
+		if($user_id > 0){
+			$data = Yii::app()->db->createCommand()
+				->select('p.id, name, DATE_FORMAT(create_time, "%e.%d.%y %H:%i") as create_date, price_sell, price_buy, comment, category_id, car_model_id, location_id, supplier_id, u.used_car_id, status, user_id')
+				->from('{{Parts}} as p')
+				->leftJoin('{{Parts_UsedCars}} as u', 'p.id=u.parts_id')
+				->where('(status=7 OR status=8) AND user_id=:user_id', array(':user_id' => $user_id)) //DEVICE
+				->order('create_time DESC')
+				->queryAll();
 
-		$this->response->data['parts'] = $data;
+			$this->response->data['parts'] = $data;
+		}
+
+		$this->printJSON();
+
+		Yii::app()->end();
+	}
+
+	public function actionAllParts($user_id){
+		header('Content-Type: application/json');
+
+		/*$parts = Parts::model()->findAll('status=7');
+		foreach ($parts as $key => $part) {
+			$part->delete();
+		}*/
+		if($user_id > 0){
+			$data = Yii::app()->db->createCommand()
+				->select('p.id, name, create_time, update_time, price_sell, price_buy, comment, category_id, car_model_id, location_id, supplier_id, u.used_car_id, status, user_id')
+				->from('{{Parts}} as p')
+				->leftJoin('{{Parts_UsedCars}} as u', 'p.id=u.parts_id')
+				->where('(status=7 OR status=8) AND user_id=:user_id', array(':user_id' => $user_id)) //DEVICE
+				->order('create_time DESC')
+				->queryAll();
+
+			$this->response->data['parts'] = $data;
+		}
 
 		$this->printJSON();
 
