@@ -266,7 +266,7 @@ class ApiController extends FrontController
 				->select('p.id, name, DATE_FORMAT(create_time, "%e.%d.%y %H:%i") as create_date, price_sell, price_buy, comment, category_id, car_model_id, location_id, supplier_id, u.used_car_id, status, user_id')
 				->from('{{Parts}} as p')
 				->leftJoin('{{Parts_UsedCars}} as u', 'p.id=u.parts_id')
-				->where('(status=7 OR status=8) AND user_id=:user_id', array(':user_id' => $user_id)) //DEVICE
+				->where('(status=8) AND user_id=:user_id', array(':user_id' => $user_id)) //Reserved for DEVICE
 				->order('create_time DESC')
 				->queryAll();
 
