@@ -1,7 +1,7 @@
 <div class="page">
 
     <h1 class="head">
-       Авторизация
+       Регистрация
     </h1>
 
     <div class="wr">
@@ -18,6 +18,8 @@
 		            ),
 					'htmlOptions' => array('enctype'=>'multipart/form-data'),
 				)); ?>
+				<dl>
+					<dd>
 				<ul>
 					<li>
 						<?php echo $form->labelEx($model,'fio'); ?>
@@ -59,7 +61,8 @@
 						<?php echo CHtml::submitButton('Регистрация',array('class'=>'i-submit')); ?>
 					</li>
 				</ul>
-
+				</dd>	
+				<dl>
 				<?php $this->endWidget(); ?>
 				</div><!-- form -->
                 

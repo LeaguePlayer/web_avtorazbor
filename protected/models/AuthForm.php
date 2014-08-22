@@ -21,11 +21,13 @@ class AuthForm extends CFormModel
 	{
 		return array(
 			// username and password are required
-			array('email, email', 'required'),
+			array('email, password', 'required'),
 			// rememberMe needs to be a boolean
+			array('email','match','pattern'=>'/[0-9a-z_]+@[-0-9a-z_^\.]+\.[a-z]{2,3}/i','message'=>'Введенный адрес не является адресмо электронной почты!'),
 			array('rememberMe', 'boolean'),
 			// password needs to be authenticated
 			array('password', 'authenticate'),
+
 		);
 	}
 
@@ -60,22 +62,14 @@ class AuthForm extends CFormModel
 					$duration=$this->rememberMe ? Yii::app()->controller->module->rememberMeTime : 0;
 					Yii::app()->user->login($identity,$duration);
 					break;
-				// case UserIdentity::ERROR_EMAIL_INVALID:
-				// 	$this->addError("email",UserModule::t("Не верно заданы логин или пароль"));
-				// 	break;
-				// case UserIdentity::ERROR_STATUS_NOTACTIV:
-				// 	$this->addError("status",UserModule::t("You account is not activated."));
-				// 	break;
-				// case UserIdentity::ERROR_STATUS_BAN:
-				// 	$this->addError("status",UserModule::t("You account is blocked."));
-				// 	break;
 				case UserIdentity::ERROR_PASSWORD_INVALID:
-					$this->addError("password",UserModule::t("Не верно заданы логин или пароль"));
+					$this->addError("password",UserModule::t("Не верно заданы email или пароль"));
 					break;
 				case UserIdentity::ERROR_USERNAME_INVALID:
-					$this->addError("username",UserModule::t("Не верно указаны email или пароль"));
+					$this->addError("email",UserModule::t("Не верно заданы email или пароль"));
 					break;
 			}
 		}
+		return !$this->errors;
 	}
 }

@@ -28,7 +28,7 @@ class CartController extends FrontController
 			),
 			array(
 				'allow',
-				'actions'=>array('issue_the_order'),
+				'actions'=>array('issueBook'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -36,21 +36,50 @@ class CartController extends FrontController
 			),
 		);
 	}
+
+	public function actionGetuserProfile()
+	{
+		$user=Clients::model()->findByPk(Yii::app()->user->id);
+		if ($user)
+			$this->renderPartial('userForm',array('model'=>$user,'info'=>$user->info));
+	}
+
 	public function actionIndex()
 	{
 		$cs = Yii::app()->clientScript;
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/cart.js', CClientScript::POS_END);
 
 		$models=Yii::app()->cart->getPositions();
-		$this->render('index',array('models'=>$models));
+		$user=Clients::model()->findByPk(Yii::app()->user->id);
+		$info=$user->info;
+
+		if (!$user)
+		{
+			$user=new Clients;
+			$info=new ClientsInfo;
+		}
+		$this->render('index',array('models'=>$models,'model'=>$user,'info'=>$info));
 	}
 
-	public function actionIssue_the_order()
+	public function actionIssueBook()
 	{
-
 		$positions = Yii::app()->cart->getPositions();
+		
+		if (isset($_GET['Clients']))
+		{
+			$user=Clients::model()->findByPk(Yii::app()->user->id); 
+			$user->attributes=$_GET['Clients'];
 
-		if (count($positions))
+			if ($valid=$user->save())
+			{
+				$info=$user->info;
+				$info->attributes=$_GET['ClientsInfo'];
+				$infoValid=$info->save();
+			}
+		}
+		$valid=$_GET['Clients']['type']== '1' ? $valid : $infoValid; //Юридическое или физическое лицо
+
+		if (count($positions) && $valid)
 		{
 			$request=new Requests;
 			$request->client_id=Yii::app()->user->id;
@@ -70,9 +99,10 @@ class CartController extends FrontController
 				);
 			}
 			Yii::app()->cart->clear();
-			$this->redirect(Yii::app()->getHomeUrl());
+			$this->redirect('/page/thanks');
+		} else {
+			$this->render('index',array('models'=>Yii::app()->cart->getPositions(),'model'=>$user,'info'=>$info));
 		}
-		$this->render('index',array('models'=>$positions));
 	}
 
 	public function actionRemovePosition($articul,$position)
@@ -85,6 +115,16 @@ class CartController extends FrontController
 
 			Yii::app()->cart->remove($model->getId());
 			$response['success']=true;
+			$response['html']= Yii::app()->cart->getCount() ? 
+						'<ul>
+        				    <li>
+        					<a href="/cart">'+Yii::app()->cart->getCount()+" товар"+'</a>
+        				    </li>
+        				    <li>
+        					На сумму: <strong>'+Yii::app()->cart->getCost()+' руб.</strong>
+        			     	</li>
+        			  	</ul>' : 
+        			  	'<span>товаров нет</span>';
 		} else {
 			$response['error']='В корзине не был найден товар с данным ключем!';			
 		}

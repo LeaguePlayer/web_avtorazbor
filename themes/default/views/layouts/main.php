@@ -5,29 +5,15 @@
 	$cs->registerCssFile($this->getAssetsUrl('application').'/css/reset.css');
 	$cs->registerCssFile('http://fotorama.s3.amazonaws.com/4.4.9/fotorama.css');
 	$cs->registerCssFile($this->getAssetsUrl('application').'/css/fancybox/jquery.fancybox.css');
-	// $cs->registerCssFile($this->getAssetsUrl('application').'/css/compactmenu.css');
 	$cs->registerCssFile($this->getAssetsUrl('application').'/css/main.css?v1');
-	// $cs->registerCssFile($this->getAssetsUrl('application').'/css/style.css');
-	// $cs->registerCssFile($this->getAssetsUrl('application').'/css/jquery.ui/overcast/jquery-ui-1.10.3.custom.min.css');
     $cs->registerCssFile($this->getAssetsUrl('application').'/css/jquery-ui.min.css');
 
-	//$cs->registerCssFile($this->getAssetsUrl('application').'/css/fancybox/jquery.fancybox-buttons.css');
-	
-	$cs->registerCoreScript('jquery');
-	$cs->registerCoreScript('jquery.ui');
+	// $cs->registerCoreScript('jquery.ui');
     
-	//$cs->registerScriptFile($this->getAssetsUrl('application').'/js/lib/jquery.fancybox-buttons.js', CClientScript::POS_END);
-	//$cs->registerScriptFile('http://api-maps.yandex.ru/2.0.27/?load=package.standard&lang=ru-RU', CClientScript::POS_HEAD);
-	
-	// $copys->registerScriptFile($this->getAssetsUrl('application').'/js/lib/jquery.timepicker.addon.js', CClientScript::POS_END);
-	// $cs->registerScriptFile($this->getAssetsUrl('application').'/js/lib/jquery.ui.timepicker.ru.js', CClientScript::POS_END);
-	// $cs->registerScriptFile('https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', CClientScript::POS_END);
-
 	$cs->registerScriptFile('http://fotorama.s3.amazonaws.com/4.4.9/fotorama.js', CClientScript::POS_END);
     $cs->registerScriptFile($this->getAssetsUrl('application').'/js/tinyscrollbar.js', CClientScript::POS_END);
     $cs->registerScriptFile($this->getAssetsUrl('application').'/js/jquery-ui.min.js', CClientScript::POS_END);
 	$cs->registerScriptFile($this->getAssetsUrl('application').'/js/jquery.maphilight.js', CClientScript::POS_END);
-	// $cs->registerScriptFile($this->getAssetsUrl('application').'/js/jquery.selectbox.min.js', CClientScript::POS_END);
 	$cs->registerScriptFile($this->getAssetsUrl('application').'/js/jquery.fancybox.js', CClientScript::POS_END);
     $cs->registerScriptFile($this->getAssetsUrl('application').'/js/owl.carousel.min.js', CClientScript::POS_END);
 
@@ -143,7 +129,7 @@
         			<ul>
                     <?if (Yii::app()->user->isGuest){?>
         				<li>
-        					<a href="/account/login">Войти</a>
+        					<a class="auth" href="#login">Войти</a>
         				</li>
         				<li>
         					<a href="/account/registration">Регистрация</a>
@@ -166,14 +152,22 @@
         			<strong>В корзине:</strong> 
         		</dt>
         		<dd>
-        			<ul>
-        				<li>
-        					<a href="/cart">1 товар</a>
-        				</li>
-        				<li>
-        					На сумму: <strong>6 500 руб.</strong>
-        				</li>
-        			</ul>
+        			<?
+                        if (!Yii::app()->cart->isEmpty(1))
+                        {
+                    ?><ul>
+        				    <li>
+        					<a href="/cart"><?=Yii::app()->cart->getItemsCount()?> товар</a>
+        				    </li>
+        				    <li>
+        					На сумму: <strong><?=Yii::app()->cart->getCost()?> руб.</strong>
+        			     	</li>
+        			  </ul>
+                    <?} else {?>
+                        <span class="empty-cart">
+                            нет товаров
+                        </span>
+                    <?}?>
         		</dd>
         	</dl>
 
@@ -195,7 +189,6 @@
                         array('label'=>'Все услуги', 'url'=>array('/page/Vse-uslugi')),
                         array('label'=>'Новости', 'url'=>array('/news')),
                         array('label'=>'Контакты', 'url'=>array('/page/contacts')),
-                        array('label'=>'Акции', 'url'=>array('/promotions')),
                     ),
                 ));?>
 	        		<!-- <ul>
@@ -308,11 +301,6 @@
         					Контакты
         				</a>
         			</li>
-        			<li>
-        				<a href="#">
-        					Акции
-        				</a>
-        			</li>
     			</ul>	
     		</div>
 
@@ -335,5 +323,6 @@
     </footer>
     <?=$this->renderPartial('//forms/question',array('model'=>new Questions),true);?>
     <div class="over" id="hide-layout"></div>
+    <?=$this->renderPartial('//account/login',array('model'=>new AuthForm),true)?>
 	</body>
 </html>

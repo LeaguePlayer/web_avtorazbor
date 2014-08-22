@@ -2,7 +2,7 @@ function ViewItems(conteiner,params,url,collback)
 {
 	$.ajax({
 		url:url,
-		data: {data:params},
+		data: params,
 
 		success:function(data){
 
@@ -13,7 +13,6 @@ function ViewItems(conteiner,params,url,collback)
 				collback();
 
 		},
-
 		error:function(data){
 
 		}
@@ -21,12 +20,14 @@ function ViewItems(conteiner,params,url,collback)
 	return false;
 }
 
-function showLoader(){
-		
-	var $_curHeight=$('.auto').height();
-		$('.auto').height($_curHeight);
+function showLoader(conteiner){
+	if (conteiner==undefined)
+			conteiner=$('.auto');
 
-		$('.auto').empty();
+	var $_curHeight=conteiner.height();
+		conteiner.height($_curHeight);
+
+		conteiner.empty();
 
 		$('.loader').css('display','block');
 
@@ -40,11 +41,9 @@ function hideLoader()
 
 function slideToMenu()
 {
-	$('.yiiPager a').on('click',function(){
-		var height=$('.auto').height();
-		$('.auto').height(height);
-		$(document).scrollTo($('.menu').offset().top,800);
-	})
+	var height=$('.auto').height();
+	$('.auto').height(height);
+	$(document).scrollTo($('.menu').offset().top,800);
 }
 
 var methods = {

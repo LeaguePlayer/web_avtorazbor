@@ -78,27 +78,32 @@
 
 		public function actionLogin()
 		{
-			if (Yii::app()->user->isGuest)
+			$response['success']=false;
+
+			$authForm=new AuthForm;
+			if (isset($_POST['AuthForm']))
 			{
-				$authForm=new AuthForm;
-				if (isset($_POST['AuthForm']))
-				{
-					$authForm->attributes=$_POST['AuthForm'];
-					$valid=$authForm->validate();
-					 if (!$valid)
-					 {
-					 	Yii::app()->user->setFlash('error','Не правильно введен электронный адрес или пароль');
-					 }
-					 else 
-					 {
-					 	$return=!$_POST['return'] ? Yii::app()->getHomeUrl() : array('/'.$_POST['return']);
-				 		$this->redirect($return);
-					 }
-				}
-				$this->render('login',array('model'=>$authForm));
-			}
-			 else {
-				throw new CHttpException("У вас не достаточно прав для этого действия! Пожалуйста авторизируйтесь", 403);
+				$authForm->attributes=$_POST['AuthForm'];
+				var_dump($_POST);
+				die();
+				$valid=$authForm->validate();
+				 if ($valid)
+				 {
+				 	$response['success']=true;
+				 	$response['lk']='<ul>
+                     	<li>
+        					<a href="/account">Личный кабинет</a>
+        				</li>
+        				<li>
+        					<a href="/account/logout">Выйти</a>
+        				</li>
+                    </ul>';
+                    echo CJSON::encode($response);
+                    die();
+				 } else {
+				 	$response['error']=$authForm->errors;
+				 	echo CJSON::encode ($response);
+				 }
 			}
 		}
 
@@ -111,6 +116,7 @@
 		public function actionRegistration()
 		{
 			$regForm=new RegistrationForm;
+
 			if (Yii::app()->user->isGuest)
 			{
 				if (isset($_POST['RegistrationForm']))
@@ -121,12 +127,13 @@
 					{
 						$regForm->type=1;
 						$regForm->save();
-						$this->redirect(array('/account/login')); 
+						$this->redirect(array('/')); 
 					}
 						
 				}
 				$this->render('registration',array('model'=>$regForm));
 			}
+			else 
 			$this->redirect(Yii::app()->getHomeUrl());
 		}
 

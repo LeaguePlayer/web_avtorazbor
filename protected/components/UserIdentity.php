@@ -19,7 +19,7 @@ class UserIdentity extends CUserIdentity
 	{
 
 		$pwdhash=Yii::app()->getModule('user')->encrypting($this->password);
-
+		
 		$params=array('email'=>$this->username,'password'=>$pwdhash);
 
 		$record=Clients::model()->findByAttributes($params);
@@ -28,9 +28,13 @@ class UserIdentity extends CUserIdentity
 		{
 			$this->errorCode=self::ERROR_USERNAME_INVALID;
 		} else {
-			Yii::app()->user->id=$record->id;
+			if ($pwdhash!=$record->password)
+				$this->errorCode=self::ERROR_PASSWORD_INVALID;
+			else {
+				Yii::app()->user->id=$record->id;
+			}
 		}
 		
-		return !$this->errorCode;
+		return $this->errorCode;
 	}
 }

@@ -34,10 +34,8 @@ class CatalogController extends FrontController
 
 	public function actionIndex()
 	{
-
 		if(!Yii::app()->request->isAjaxRequest)
 		{
-			
 			$session=Yii::app()->session;
 			unset($session["backToResultUrl"]);
 
@@ -45,50 +43,28 @@ class CatalogController extends FrontController
 			// $cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.ui-slider.js', CClientScript::POS_END);
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/Catalog.js', CClientScript::POS_END);
+			$cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.scrollTo.min.js', CClientScript::POS_END);
 
-			$criteria=new CDbCriteria;
-
-			$pageSize=$_GET['display'] ? (int)$_GET['display'] : 2;
-			$sort=$_GET['sort'] ? $_GET['sort'] : 'price';
-
-			$criteria->order=$sort.' desc';
-			$criteria->addCondition('car_type=1');
-			$criteria->addCondition('price<=5000000');
-			$criteria->addCondition('`t`.force<=1000');
-
-			if (isset($_GET['brand']))
+			$searchForm=new SearchFormOnMain;
+			if (isset($_GET['SearchFormOnMain']))
 			{
-				$brand_id=CarBrands::model()->find('name=:name',array(':name'=>$_GET['brand']))->id;
-				$criteria->join=UsedCars::join();
-				if (!empty($brand_id))
-					$criteria->addCondition('brand='.$brand_id);
-
+				$searchForm->attributes=$_GET['SearchFormOnMain'];
 			}
 
-			$criteria->join=UsedCars::join();
+			$searchForm->validate();
 
 			$dataProvider=new CActiveDataProvider('UsedCars', array(
-				'criteria' => $criteria,
+				'criteria' => $searchForm->criteria,
 				'pagination'=>array(
-			        'pageSize'=>$pageSize,
-			        'pageVar'=>'page',
+			        'pageSize'=>$searchForm->display,
 			    ),
 			));
 
 			$Countries=CHtml::listData(Country::model()->findAll(),'id','name');
-
 			$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
-
 			$Bascet=UsedCars::getBasketList();
-
 			$Models=array();
-
-			if ($_POST['carBrands'])
-			{
-				$Models=CHtml::listData(CarBrands::model()->findByPk($_POST['carBrands'])->models(),'id','name');
-				$Model_id=$_POST['carModels'];
-			}
-
+			Yii::app()->session['returnUrl']=$_GET['SearchFormOnMain'];
 			$this->render('index',array(
 				'dataProvider'=>$dataProvider,
 				'Countries'=>$Countries,
@@ -96,7 +72,9 @@ class CatalogController extends FrontController
 				'Brands'=>$Brands,
 				'Bascet'=>$Bascet,
 				'brand_id'=>$brand_id,
-				'Models'=>$Models
+				'Models'=>$Models,
+				'searchForm'=>$searchForm
+
 			));
 		} else {
 			$this->getCars();
@@ -106,34 +84,26 @@ class CatalogController extends FrontController
 
 	public function GetCars()
 	{
-		$data=$_GET['data'];
-
-		$criteria=new CDbCriteria;
-		$criteria->order=($data['pager']['sort'] ? $data['pager']['sort'] : 'price') .' desc';
-		$condition="";
+		$searchForm=new SearchFormOnMain;
 		
-		if ($data)
+		if (isset($_GET['SearchFormOnMain']))
 		{
-			foreach ($data['conditions'] as $key => $value) {
-
-				if (!empty($value))
-				{
-					$condition=SiteHelper::getCondition($key,$value);
-					if ($condition)
-						$criteria->addCondition($condition);
-				}
-			}
+			$searchForm->attributes=$_GET['SearchFormOnMain'];
+			Yii::app()->session['BackToSearchUrl']=$_GET['SearchFormOnMain'];
 		}
-
-		$pageSize=$data['pager']['display'] ? (int)$data['pager']['display'] : 2;
-
-		$criteria->join=UsedCars::join();
-		$criteria->condition=str_replace('force', '`t`.force', $criteria->condition);
+		
+		$searchForm->validate();
 		$dataProvider=new CActiveDataProvider('UsedCars', array(
-			'criteria' => $criteria,
+			'criteria' => $searchForm->criteria,
 			'pagination'=>array(
-		        'pageSize'=>$pageSize,
-		        'pageVar'=>'page',
+		        'pageSize'=>$searchForm->display,
+		    ),
+		));
+
+		$dataProvider=new CActiveDataProvider('UsedCars', array(
+			'criteria' => $searchForm->criteria,
+			'pagination'=>array(
+		        'pageSize'=>$searchForm->display,
 		    ),
 		));
 

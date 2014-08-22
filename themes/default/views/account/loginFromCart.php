@@ -10,7 +10,7 @@
             </dl>
         <div class="form">
         <?php $form = $this->beginWidget('CActiveForm', array(
-        'id' => 'login-form',
+        'id' => 'login-cart-form',
         'action' => $this->createUrl('/account/login'),
         'enableClientValidation' => true,
         'clientOptions' => array(
@@ -73,6 +73,5 @@
     </ul>
     <?=CHtml::submitButton('Авторизироваться',array('class'=>'i-submit'))?>
     <?php $this->endWidget(); ?>
-</div>
 </div>
 </div>

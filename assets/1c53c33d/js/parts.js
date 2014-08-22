@@ -11,8 +11,8 @@ $(document).ready(function(){
 
 			var params={
 					value:$(this).val(),
-					model:$(this).attr('id'),
-					nested:$(this).data('nested')
+					model:$(this).data('model'),
+					nested:$(this).data('nested'),
 				},
 
 			$_this=$(this);
@@ -36,15 +36,33 @@ $(document).ready(function(){
 			});
 		}
 	})
+	
+	$('body').on('click','.pagination a',function(){
 
-	slideToMenu();
+		var height=$('.auto').height();
+		$(document).scrollTo($('.menu').offset().top,800);
 
-	$('#sort li a, #display li a').click(function(){
+	})
+
+	$('#sort li a').click(function(){
 
 		$(this).closest('ul').find('.active').removeClass('active');
 		$(this).parent().addClass('active');
+		$('#SearchFormOnMain_sort').val($(this).parent().data('sort'));
+
 		changeView();
 		return false;
+	});
+
+	$('#display li a').click(function(){
+		
+		$(this).closest('ul').find('.active').removeClass('active');
+		$(this).parent().addClass('active');
+		$('#SearchFormOnMain_display').val($(this).text());
+
+		changeView();
+		return false;
+
 	});
 
 	$('#car_type li a').click(function(){
@@ -53,6 +71,7 @@ $(document).ready(function(){
 		{
 			$(this).closest('ul').find('.active').removeClass('active');
 			$(this).parent().addClass('active');
+			$('#SearchFormOnMain_scenario').val($(this).data('scenario'));
 			changeView();
 			return false;
 		}
@@ -110,7 +129,8 @@ $(document).ready(function(){
 
 		setTimeout(function(){
 			var params=methods['parts'].apply(this,[]);
-			ViewItems($('.auto'),params,'/detail/ajaxUpdate',onViewChangedCallBack);
+			$form=$('#parts-form').serialize();
+			ViewItems($('.auto'),$form,'/detail/ajaxUpdate',onViewChangedCallBack);
 		},1000)
 	}
 
@@ -119,14 +139,13 @@ $(document).ready(function(){
 		hideLoader();
 		// $('searchResult').val($('form').serialize());
 		var $_count=$('.summary span').text();
-			$('.pag li:first a').text('Все('+$_count+')');
+
+			$('.pag li:first a').text('Все('+($_count ? $_count : 0)+')');
 
 		$('.items li a').on('click',function(){
 			var $_url=$('#criteria-form').serialize(),
 				$_href=$(this).attr('href');
 				$(this).attr('href',$_href+'?'+$_url);
 		});
-		slideToMenu();
 	}
-
 })

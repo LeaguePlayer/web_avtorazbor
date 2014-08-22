@@ -38,12 +38,14 @@ class DetailController extends FrontController
 
 		// $cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/detail.js', CClientScript::POS_END);
+		$Brand=CHtml::listData(CarBrands::model()->findAll(),'id','name');
+		$searchForm=new SearchFormOnMain;
+		
+		if (isset($_GET['SearchFormOnMain']))
+			$searchForm->attributes=$_GET['SearchFormOnMain'];
 
-		if(!Yii::app()->request->isAjaxRequest)
-		{
-			$Brand=CHtml::listData(CarBrands::model()->findAll(),'id','name');
-			$this->render('index',array('Brand'=>$Brand));
-		}
+		$this->render('index',array('Brand'=>$Brand,'searchForm'=>$searchForm));
+
 	}
 
 	public function actionDisc()
@@ -77,8 +79,6 @@ class DetailController extends FrontController
 			print($this->renderPartial('tabParts',
 				array(
 					'dataProvider'=>$dataProvider,
-
-
 				),true));
 		}
 
@@ -86,140 +86,69 @@ class DetailController extends FrontController
 	
 	public function actionParts()
 	{
-		$_GET['car_type']= $_GET['car_type'] ? $_GET['car_type'] : 1;
+
 		$cs = Yii::app()->clientScript;
-
-		$session=Yii::app()->session;
-		unset($session["backToResultUrl"]);
-
     	$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
 	    $cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.scrollTo.min.js', CClientScript::POS_END);
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js', CClientScript::POS_END);
 
-		$params=array('car_type'=>$_GET['car_type']);
-
-
-		foreach (array('carBrands'=>'brand','carModels'=>'car_model_id',) as $key => $value) {
-
-			if (!empty($_GET[$key]))
-			{
-				$params['column']=$value;
-				$params['value']=$_GET[$key];
-			}
+		$searchForm=new SearchFormOnMain;
+		if (isset($_GET['SearchFormOnMain']))
+		{
+			$searchForm->attributes=$_GET['SearchFormOnMain'];
+			$searchForm->scenario= $searchForm->scenario ? $searchForm->scenario : 'light';
+			$searchForm->validate();
+			Yii::app()->session['returnUrl']=$_GET['SearchFormOnMain'];
 		}
-		
-		$category=!empty($_GET['Categories']) ? $_GET['Categories'] : !empty($_GET['subCategories']) ? $_GET['subCategories'] : '';
 
 		$Countries=CHtml::listData(Country::model()->findAll(),'id','name');
-		$country_id=$_GET['country'];
 		$Categories=CHtml::listData(Categories::model()->findAll('parent=0'),'id','name');
-
-		if (!empty($_GET['carModels']))
-		{
-			$car_model=CarModels::model()->findByPk($_GET['carModels']);
-			$Brands_id=$car_model->car_brand->id;
-			$_GET['carBrands']=$Brands_id;
-
-		} else {
-			$Brands_id=$_GET['carBrands'];
-		}
-
 		$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
-		
-		$Model_id=$_GET['carModels'];
-		$Models=!empty($Brands_id) ? CHtml::listData(CarBrands::model()->findByPk($_GET['carBrands'])->models(),'id','name') : array();
-		
-		$subCategories=$_GET['subCategories'];
-		$subCategories=!empty($subCategories) ? CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$_GET['Categories'])),'id','name') : array();
-		$criteria=new CDbCriteria;
-		$criteria->addCondition('car_model_id=0');
+		$Models=!empty($searchForm->brand) ? CHtml::listData(CarBrands::model()->findByPk($searchForm->brand)->models,'id','name') : array();
+		$subCategories=!empty($searchForm->category_id) ? CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$searchForm->category_id)),'id','name') : array();
+
+		$searchForm->sort='price_sell';
+		$searchForm->afterValidate();
 
 		$dataProvider=new CActiveDataProvider('Parts',array(
-			'criteria'=>$criteria,
+			'criteria'=>$searchForm->criteria,
 			'pagination'=>array(
-					'pageSize'=>20
+					'pageSize'=>$searchForm->display,
 				),
 		));
+
 		$this->render('parts',
 			array(
 				'model'=>$model,
-				'country_id'=>$country_id,
 				'Countries'=>$Countries,
 				'Brands'=>$Brands,
-				'Brands_id'=>$Brands_id,
 				'Models'=>$Models,
-				'Model_id'=>$Model_id,
 				'Categories'=>$Categories,
-				'Category_id'=>$_GET['Categories'],
 				'subCategories'=>$subCategories,
-				'subCategory_id'=>$_GET['subCategories'],
 				'dataProvider'=>$dataProvider,
-				'car_type'=>$data['car_type']
+				'searchForm'=>$searchForm
 			));
 	}
 
 	public function actionAjaxUpdate()
 	{
+		if (isset($_GET['SearchFormOnMain']))
+		{
+			$searchForm=new SearchFormOnMain;
+			$searchForm->attributes=$_GET['SearchFormOnMain'];
+			$searchForm->validate();
 
-		$data=$_GET['data'];
-				
-		$sort=$data['pager']['sort'];
-		$display=$data['pager']['display'];
-		$equal=$data['conditions']['equal'];
-
-		$category_id=$equal['category_id'];
-		$model_id=$equal['car_model_id'];
-		$parent=$equal['parent'];
-
-		$params['car_type']=$data['conditions']['equal']['car_type'];
-		$params['condition']='price_buy>='.$data['conditions']['MoreEqual']['price_buy'].
-							 ' and price_buy<='.$data['conditions']['LessEqual']['price_buy'];
-
-		foreach ($equal as $key => $value){
-
-			if ($key=="category_id")
-				break;
-			if (!empty($value) && $key!='car_type')
-			{
-				$params['value']=$value;
-				$params['column']=$key;
-			}
-		}
-
-		$criteria=new CDbCriteria;
-
-		if (empty($parent) || empty($model_id)){	
-
-			$criteria=Parts::model()->search_parts($params['column'],$params['value'],$params['car_type']);
-		}
-		else {
-			
-			$criteria=Parts::model()->search_parts('model_cat',array('model_id'=>$model_id,'cat_id'=>$parent));
-		}
-		
-		$criteria->addCondition('price_buy>='.$data['conditions']['MoreEqual']['price_buy'].
-								' and '.'price_buy<='.$data['conditions']['LessEqual']['price_buy']);
-
-		$criteria->addCondition('car_type='.$params['car_type']);
-
-		if (!empty($parent))
-			$criteria->addCondition('parent='.$parent);
-
-		if (!empty($category_id))
-			$criteria->addCondition('category_id='.$category_id);
-
-		$criteria->order = $sort.' desc';
-
-		$dataProvider=new CActiveDataProvider('Parts',array(
-			'criteria'=>$criteria,
-			'pagination'=>array(
-					'pageSize'=>$display,
+			$dataProvider=new CActiveDataProvider('Parts',array(
+					'criteria'=>$searchForm->criteria,
+						'pagination'=>array(
+						'pageSize'=>$searchForm->display
+					),
 				)
-			)
-		);
-
-		echo $this->renderPartial('//detail/tabParts',array('dataProvider'=>$dataProvider),true);
-
+			);
+			echo $this->renderPartial('//detail/tabParts',array('dataProvider'=>$dataProvider),true);
+			Yii::app()->session['BackToSearchUrl']=$_GET;
+			die();
+		}
 	}
 
 	public function actionAddToCart($id)
@@ -227,26 +156,35 @@ class DetailController extends FrontController
 		if ($id)
 		{
 			$model=Parts::model()->findByPk($id);
+
 			$cart=Yii::app()->cart;
 			$cart->put($model);
+
 			$response['count']=$cart->getItemsCount();
 			$response['summ']=$cart->getCost();
+
+			if ($response['count'])
+				$response['html']=
+						'<ul>
+        				    <li>
+        					<a href="/cart">'+$response['count']+' товар</a>
+        				    </li>
+        				    <li>
+        					На сумму: <strong>'+$response['sum']+' руб.</strong>
+        			     	</li>
+        			  	</ul>';
+        	else 
+        		'<span>товаров нет</span>';
+
 			echo CJSON::encode($response);
+			die();
 		}
 	}
 
-	public function actionView()
+	public function actionView($id)
 	{
 		$cs = Yii::app()->clientScript;
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/partsView.js', CClientScript::POS_END);
-		$id=$_GET['id'];
-
-		if (!Yii::app()->session->get("backToResultUrl"))
-		{
-			$backToResultUrl='country='.$_GET['country'].'&carBrands='.$_GET['carBrands'].'&carModels='.
-					$_GET['carModels'].'&Categories='.$_GET['Categories'].'&subCategories='.$_GET['subCategories'];
-			Yii::app()->session->add("backToResultUrl",$backToResultUrl);
-		}
 
 		$model=Parts::model()->findByPk($id);
 
@@ -255,7 +193,8 @@ class DetailController extends FrontController
 		$category_id=$model->category->id;
 
 		$criteria=Parts::model()->search_parts('model_cat',array('model_id'=>$car_model,'cat_id'=>$category_id));
-		$criteria->addCondition('category_id='.$category_id);
+		$criteria->addCondition('category_id='.$model->category->id);
+		$criteria->addCondition('`t`.id!='.$id);
 		$dataProvider=new CActiveDataProvider('Parts',
 			array(
 				'criteria'=>$criteria,

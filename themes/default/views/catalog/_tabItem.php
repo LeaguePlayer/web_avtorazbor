@@ -11,6 +11,6 @@
 	</span>
 	<span class="price">
 	цена
-		<?=$data->price?>
+		<?=number_format($data->price,0,'',' ')?> руб.
 	</span>
 </li>

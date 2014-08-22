@@ -45,7 +45,7 @@ class AjaxRequestsController extends FrontController
 					{
 						$models=CHtml::listData(CarBrands::model()->findAll('id_country=:id',array(':id'=>$value)),'id','name');
 						$htmlOptions=array('id'=>'carBrands','data-nested'=>'#carModels','empty'=>'Выберите марку');
-					}			
+					}
 				break;
 			case 'carBrands':
 					{

@@ -433,13 +433,20 @@ class Parts extends EActiveRecord implements IECartPosition
             $data=array_merge($data,$result['models']);
             
         }
-
         if ($data)
             $criteria->addInCondition('car_model_id',$data);
         else 
             $criteria->addCondition('car_model_id=0');
-
         return $criteria;
+    }
+
+    public function getModelAnalogCategories($model_id)
+    {
+         return $brandModels = Yii::app()->db->createCommand()
+                ->select('a.cat_id')
+                ->from('{{analogs}} a')
+                ->where('a.model_1 = :id or a.model_2=:id', array(':id' => $model_id))
+                ->queryAll();
     }
 
     public function getModelsByBrand($brand_id,$pagination=false, $car_type=1)
@@ -491,7 +498,6 @@ class Parts extends EActiveRecord implements IECartPosition
                 {
                     $criteria->join.=' '.$this->getJoin('car_model_id');
                     $criteria->mergeWith($this->getModelsByCountry($value));
-                    $criteria->order="id_country=".$value;
                     return $criteria;
                 }
                 break;
@@ -499,7 +505,7 @@ class Parts extends EActiveRecord implements IECartPosition
                 {   
                     $result=$this->getModelsByBrand($value);
                     $criteria->mergeWith($result['criteria']);
-                    $criteria->order="brand=".$value.' desc';
+                   
                     return $criteria;
                 }
                 break;
@@ -509,24 +515,20 @@ class Parts extends EActiveRecord implements IECartPosition
                     $result=$this->findAllModelsWithAnalogs($value);
                     $criteria->join.=' '.$this->getJoin('car_model_id');
                     $criteria->mergeWith($result['criteria']);
-                    $criteria->order="car_model_id=".$value;
                     return $criteria;
                 }
                 break;
             case 'model_cat':
-                    // $criteria->join.=' '.$this->getJoin('car_model_id');
-                    // $criteria->mergeWith($this->getPartSearchCriteria($value['model_id'],$value['cat_id'],false));
-                    $result=$this->findAllModelsWithAnalogs($value['model_id']);
+                        $result=$this->findAllModelsWithAnalogs($value['model_id']);
                     $criteria->join.=' '.$this->getJoin('car_model_id');
                     $criteria->mergeWith($result['criteria']);
-                    $criteria->order="car_model_id=".$value['model_id'];
+
                     return $criteria;
                 break;
             default:
                 {
-                    $criteria->join.=' '.$this->getJoin('car_model_id');
-                    $criteria->order="car_model_id=".$value;
-                    return $criteria;
+                    //$criteria->join.=' '.$this->getJoin('car_model_id');
+                    return new CDbCriteria;
                 }
                 break;
         }

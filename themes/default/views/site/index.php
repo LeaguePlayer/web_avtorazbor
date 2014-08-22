@@ -42,7 +42,7 @@
         <!--service End-->
 
         <!--search-->
-        <div class="s-big">
+        <div class="s-big searchform">
             <div class="tabs">
                 <ul>
                     <li class="active">
@@ -61,7 +61,7 @@
                         </a>    
                     </li>
                     <li>
-                        <a href="!" class="modal">
+                        <a href="#book" class="modal">
                             Заказать деталь
                         </a>    
                     </li>
@@ -76,19 +76,33 @@
                 </div>
 
                 <div class="coll">
+                    <?php $form = $this->beginWidget('CActiveForm', array(
+            'id' => 'search-form-light',
+            'action' => $this->createUrl('/site/index'),
 
-                    <div class="coll-1">
-
+            'htmlOptions' => array('class' => 'request_form')
+        )) ?>
+                    <div class="coll-2">
+                        
                         <dl>
                             <dt>
                                 Марка
                             </dt>
                             <dd>
-                                <?=CHtml::dropDownList('carBrands', 'id', $Brands, array( 
-                                                        'empty'=>'Выберите марку', 'class'=>'select', 'id'=>'carBrands'));?>
+                                <input type="hidden" value="light" name="SearchFormOnMain[scenario]">
+                                <?=$form->dropDownList($searchForm, 'brand', $Brands, array( 
+                                                        'empty'=>'Выберите марку', 'class'=>'select','data-nested'=>'#model_1','data-model'=>'carBrands'));?>
                             </dd>
                         </dl>
-
+                        <dl>
+                            <dt>
+                                Модель
+                            </dt>
+                            <dd>
+                                <?=$form->dropDownList($searchForm, 'car_model_id', array(), array( 
+                                                        'empty'=>'Выберите модель', 'class'=>'select','id'=>'model_1'));?>
+                            </dd>
+                        </dl>
                         <dl class="otdo">
                             <dt>
                                 Цена (тыс. руб.):
@@ -97,12 +111,12 @@
                                 <ul>
                                     <li>
                                         <div class="i-text">
-                                            <input type="text" value="" placeholder="100" />
+                                            <?=$form->textField($searchForm,'price_st' )?>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="i-text">
-                                            <input type="text" value="" placeholder="" />
+                                            <?=$form->textField($searchForm,'price_end' )?>
                                         </div>
                                     </li>
                                 </ul>
@@ -117,12 +131,12 @@
                                 <ul>
                                     <li>
                                         <div class="i-text">
-                                            <input type="text" value="" placeholder="2006" />
+                                           <?=$form->textField($searchForm,'year_st' )?>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="i-text">
-                                            <input type="text" value="" placeholder="" />
+                                            <?=$form->textField($searchForm,'year_end' )?>
                                         </div>
                                     </li>
                                 </ul>
@@ -136,15 +150,18 @@
                                 Тип кузова:
                             </dt>
                             <dd>
-                                <?=CHtml::dropDownList('bascet', 'id', $Bascet, array( 
-                                                        'empty'=>'Выберите тип кузова', 'class'=>'select', 'id'=>'Bascet'));?>
+                                <?=$form->dropDownList($searchForm, 'bascet', $Bascet, array( 
+                                        'empty'=>'Выберите марку', 'class'=>'select'));
+                                ?>
+                                
                             </dd>
                             <dt>
                                 Состояние:
                             </dt>
                             <dd>
-                                <?=CHtml::dropDownList('state', 'id', $State, array( 
-                                                        'empty'=>'Состояние', 'class'=>'select', 'id'=>'state'));?>
+                                <?=$form->dropDownList($searchForm, 'state', $State, array( 
+                                        'empty'=>'Состояние', 'class'=>'select'));
+                                ?>
                             </dd>
                         </dl>
                         <dl>
@@ -152,20 +169,9 @@
                                 Тип КПП:
                             </dt>
                             <dd>
-                                <select name="KPP">
-                                    <option value="0">
-                                        Выберите тип КПП
-                                    </option>
-                                    <option value="1">
-                                        Автомат
-                                    </option>
-                                    <option value="2">
-                                        Робот
-                                    </option>
-                                    <option value="3">
-                                        Механика
-                                    </option>
-                                </select>
+                                <?=$form->dropDownList($searchForm, 'transmission', UsedCarInfo::transmissionList(), array( 
+                                        'empty'=>'Тип каробки передач', 'class'=>'select'));
+                                ?>
                             </dd>
                             <dt>
                                 Пробег:
@@ -185,22 +191,23 @@
                                 </ul>
                             </dd>
                         </dl>
+                        
                     </div>
-
+                    
                     <div class="coll-3">
                         <dl>
                             <dt>
                                 Найдено<br/>
                                 <span class="num">
-                                    42 авто
+                                    <?=$result['count']?> авто
                                 </span>
                             </dt>
                             <dd>
-                                <input class="i-submit" type="submit" value="Показать" />
+                                <a href="/catalog" class="i-submit" >Показать</a>
                             </dd>
                         </dl>
                     </div>
-
+                    <?php $this->endWidget(); ?>
                     <div class="clear"></div>
                 </div>
             </div>
@@ -212,16 +219,30 @@
                 </div>
 
                 <div class="coll">
-
-                    <div class="coll-1">
-
+                    <?php $form = $this->beginWidget('CActiveForm', array(
+                        'id' => 'search-form-weight',
+                        'action' => $this->createUrl('/site/index'),
+                        'htmlOptions' => array('class' => 'request_form')
+                    )) ?>
+                        <div class="coll-2">
+                        
                         <dl>
                             <dt>
                                 Марка
                             </dt>
                             <dd>
-                                <?=CHtml::dropDownList('carBrands', 'id', $Brands, array( 
-                                                        'empty'=>'Выберите марку', 'class'=>'select', 'id'=>'carBrands'));?>
+                                <input type="hidden" value="weight" name="SearchFormOnMain[scenario]">
+                                <?=$form->dropDownList($searchForm, 'brand', $Brands, array( 
+                                                        'empty'=>'Выберите марку', 'class'=>'select','data-nested'=>'#model_2','data-model'=>'carBrands'));?>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>
+                                Модель
+                            </dt>
+                            <dd>
+                                <?=$form->dropDownList($searchForm, 'car_model_id', array(), array( 
+                                                        'empty'=>'Выберите модель', 'class'=>'select','id'=>'model_2'));?>
                             </dd>
                         </dl>
 
@@ -233,12 +254,12 @@
                                 <ul>
                                     <li>
                                         <div class="i-text">
-                                            <input type="text" value="" placeholder="100" />
+                                            <?=$form->textField($searchForm,'price_st' )?>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="i-text">
-                                            <input type="text" value="" placeholder="" />
+                                            <?=$form->textField($searchForm,'price_end' )?>
                                         </div>
                                     </li>
                                 </ul>
@@ -253,12 +274,12 @@
                                 <ul>
                                     <li>
                                         <div class="i-text">
-                                            <input type="text" value="" placeholder="2006" />
+                                           <?=$form->textField($searchForm,'year_st' )?>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="i-text">
-                                            <input type="text" value="" placeholder="" />
+                                            <?=$form->textField($searchForm,'year_end' )?>
                                         </div>
                                     </li>
                                 </ul>
@@ -268,17 +289,26 @@
 
                     <div class="coll-2">
                         <dl>
-                           
+                            <dt>
+                                Тип кузова:
+                            </dt>
+                            <dd>
+                                <?=$form->dropDownList($searchForm, 'bascet', $Bascet, array( 
+                                        'empty'=>'Выберите марку', 'class'=>'select'));
+                                ?>
+                                
+                            </dd>
                             <dt>
                                 Состояние:
                             </dt>
                             <dd>
-                                <?=CHtml::dropDownList('state', 'id', $State, array( 
-                                                        'empty'=>'Выберите марку', 'class'=>'select', 'id'=>'state'));?>
+                                <?=$form->dropDownList($searchForm, 'state', $State, array( 
+                                        'empty'=>'Состояние', 'class'=>'select'));
+                                ?>
                             </dd>
                         </dl>
                         <dl>
-                        
+                            
                             <dt>
                                 Пробег:
                             </dt>
@@ -297,6 +327,7 @@
                                 </ul>
                             </dd>
                         </dl>
+                        
                     </div>
 
                     <div class="coll-3">
@@ -304,15 +335,15 @@
                             <dt>
                                 Найдено<br/>
                                 <span class="num">
-                                    42 авто
+                                    0 авто
                                 </span>
                             </dt>
                             <dd>
-                                <input class="i-submit" type="submit" value="Показать" />
+                                <a href="/catalog" class="i-submit" >Показать</a>
                             </dd>
                         </dl>
                     </div>
-
+                    <?php $this->endWidget(); ?>
                     <div class="clear"></div>
                 </div>
             </div>
@@ -324,28 +355,61 @@
                 </div>
 
                 <div class="coll">
-
-                    <div class="coll-1">
-
+                    <?php $form = $this->beginWidget('CActiveForm', array(
+                        'id' => 'search-form-weight',
+                        'action' => $this->createUrl('/site/index'),
+                        'htmlOptions' => array('class' => 'request_form')
+                    )) ?>
+                        <div class="coll-2">
+                        
                         <dl>
                             <dt>
                                 Тип
                             </dt>
                             <dd>
-                                <select name="Mark" id="car_type">
-                                    <option value="0">
-                                        Запчасти для легковых авто машин
-                                    </option>
-                                    <option value="1">
-                                        Запчасти для грузовых авто машин
-                                    </option>
-                                    <option value="2">
-                                        Диски
-                                    </option>
-                                </select>
+                                <?=$form->dropDownList($searchForm, 'scenario', array('light'=>'Запчасти для легковых машин','weight'=>'Запчасти для грузовых машин'), array( 
+                                                        'empty'=>'Выберите тип авто', 'class'=>'select','data-nested'=>'#model_3','data-model'=>'carBrands'));?>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>
+                                Модель
+                            </dt>
+                            <dd>
+                                <?=$form->dropDownList($searchForm, 'car_model_id', array(), array( 
+                                                        'empty'=>'Выберите модель', 'class'=>'select','id'=>'model_3'));?>
+                            </dd>
+                        </dl>
+                        <span></span>
+                        <dl>
+                            
+                            <dt>
+                                Раздел:
+                            </dt>
+                            <dd>
+                                <?=$form->dropDownList($searchForm, 'category_id', CHtml::listData(Categories::model()->findAll('parent=0'),'id','name'), array( 
+                                        'empty'=>'Разедл', 'class'=>'select'));
+                                ?>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>
+                                Марка
+                            </dt>
+                            <dd>
+                                
+                                <?=$form->dropDownList($searchForm, 'brand', $Brands, array( 
+                                                        'empty'=>'Выберите марку', 'class'=>'select','data-nested'=>'#model_3','data-model'=>'carBrands'));?>
                             </dd>
                         </dl>
 
+                        <dl class="otdo">
+                            
+                        </dl>
+                    </div>
+
+                    <div class="coll-1">
+                        
                         <dl class="otdo">
                             <dt>
                                 Цена (тыс. руб.):
@@ -354,41 +418,18 @@
                                 <ul>
                                     <li>
                                         <div class="i-text">
-                                            <input type="text" value="" placeholder="100" />
+                                            <?=$form->textField($searchForm,'price_st' )?>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="i-text">
-                                            <input type="text" value="" placeholder="" />
+                                            <?=$form->textField($searchForm,'price_end' )?>
                                         </div>
                                     </li>
                                 </ul>
                             </dd>
                         </dl>
-                    </div>
-
-                    <div class="coll-2">
-                        <dl>
-                            <dt>
-                                Марка автомобиля:
-                            </dt>
-                            <dd>
-                                <select name="Country">
-                                    <option value="0">
-                                        Выберите марку
-                                    </option>
-                                    <option value="1">
-                                        Седан
-                                    </option>
-                                    <option value="2">
-                                        Хэтчбэк
-                                    </option>
-                                    <option value="3">
-                                        Универсал
-                                    </option>
-                                </select>
-                            </dd>
-                        </dl>
+                        
                     </div>
 
                     <div class="coll-3">
@@ -400,11 +441,11 @@
                                 </span>
                             </dt>
                             <dd>
-                                <input class="i-submit" type="submit" value="Показать" />
+                                <a href="/detail/parts" class="i-submit" >Показать</a>
                             </dd>
                         </dl>
                     </div>
-
+                    <?php $this->endWidget(); ?>
                     <div class="clear"></div>
                 </div>
             </div>
@@ -525,7 +566,7 @@
                                 Тип КПП:
                             </dt>
                             <dd>
-                                <select name="KPP">
+                                <select name="transmission">
                                     <option value="0">
                                         Выберите тип КПП
                                     </option>
@@ -569,15 +610,14 @@
                                 </span>
                             </dt>
                             <dd>
-                                <input class="i-submit" type="submit" value="Показать" />
+                                <a href="/detail/parts" class="i-submit" >Показать</a>
                             </dd>
                         </dl>
                     </div>
-
                     <div class="clear"></div>
                 </div>
             </div>
-        </div>  
+        </div>
         <!--search End-->
 
         <!--cat. auto-->
@@ -588,7 +628,7 @@
             </a>
             <?=$this->renderPartial('//site/carCarusel',array('dataProvider'=>$dataProviderCar),true);?>
             <div class="readmore">
-                <a href="#" class="i-submit">Все автомобили</a>
+                <a href="/catalog" class="i-submit">Все Легковые автомобили</a>
             </div>
         </div>
         <!--cat auto End-->

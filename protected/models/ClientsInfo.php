@@ -28,9 +28,10 @@ class ClientsInfo extends EActiveRecord
             array('client_id', 'numerical', 'integerOnly'=>true),
             array('inn, kpp', 'length', 'max'=>20),
             array('name_company, address, fio_rod', 'length', 'max'=>255),
+            
             array('ur_address', 'safe'),
             // The following rule is used by search().
-            array('id, inn, kpp, name_company, address, client_id', 'safe', 'on'=>'search'),
+            array('id, inn, kpp, name_company, address, subscribe_mail, subscribe_sms, client_id', 'safe', 'on'=>'search'),
         );
     }
 

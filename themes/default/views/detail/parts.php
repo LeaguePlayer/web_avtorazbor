@@ -8,42 +8,48 @@
 
                 <div class="coll-left">
                     <div class="modul filter">
-                    <form id="criteria-form">
+            <?php $form = $this->beginWidget('CActiveForm', array(
+                'id' => 'parts-form',
+                'action' => $this->createUrl('/detail/parts'),
+                'htmlOptions' => array('class' => 'request_form')
+            )) ?>
+
+                <?=$form->hiddenField($searchForm,'sort')?>
+                <?=$form->hiddenField($searchForm,'display')?>
+                <?=$form->hiddenField($searchForm,'scenario')?>
+
                         <dl>
-                            
                             <dd>
                                 <label>Страна:</label>
-                                <?=CHtml::dropDownList('country','id', $Countries,
-                                            array('options' => array($country_id=>array('selected'=>true)), 'empty'=>'Выберите страну','class'=>'select nested','data-nested'=>'#carBrands', 'id'=>'country',))?>
+                                <?=$form->dropDownList($searchForm,'id_country', $Countries,
+                                            array('empty'=>'Выберите страну','class'=>'select nested','data-nested'=>'#brand','data-model'=>'country', 'id'=>'country',))?>
                             </dd>
-                            
-                            <dd style="<?=$Brands_id || $country_id ? 'display:block' : 'display:none' ?>">
+                            <dd style="display:<?=($searchForm->brand ? 'block' : 'none')?>">
                                 <label>Марка:</label>
-                                <?=CHtml::dropDownList('carBrands', 'id', $Brands, array( 'options' => array($Brands_id=>array('selected'=>true)), 
-                                                        'empty'=>'Выберите марку', 'class'=>'select nested','data-nested'=>'#carModels', 'id'=>'carBrands'))?>
+                                <?=$form->dropDownList($searchForm,'brand', $Brands, 
+                                        array(
+                                            'empty'=>'Выберите марку', 'class'=>'select nested','data-nested'=>'#car_model_id', 'id'=>'brand', 'data-model'=>'carBrands',))?>
                             </dd> 
-                            <dd style="<?=$Model_id || $Brands_id ? 'display:block' : 'display:none' ?>">
+                            <dd>
                                 <label>Модель автомобиля:</label>
-                                <?=CHtml::dropDownList('carModels','id', $Models, array( 'options' => array($Model_id=>array('selected'=>true)),'empty'=>'Выберите модель','class'=>'select'))?>
+                                <?=$form->dropDownList($searchForm,'car_model_id', $Models, array( 'empty'=>'Выберите модель','class'=>'select','id'=>'car_model_id'))?>
                             </dd>
-                            
-                            <dd style="<?=$Category_id || $Model_id ? 'display:block' : 'display:none' ?>">
+                            <dd style="display:<?=($searchForm->category_id ? 'block' : 'none')?>">
                                 <label>Раздел:</label>
-                                <?=CHtml::dropDownList('Categories','id', $Categories,
+                                <?=$form->dropDownList($searchForm, 'category_id', $Categories,
                                     array(
-                                        'options' => array($Category_id=>array('selected'=>true)),
                                             'empty'=>'Выберите раздел',
                                             'class'=>'select',
                                             'id'=>'Categories',
+                                            'data-model'=>'Categories',
                                             'data-nested'=>'#subCategories'
                                         )
                                     );
                                 ?>
                             </dd>
-                            
-                            <dd style="<?=$subCategory_id || $Category_id ? 'display:block' : 'display:none' ?>">
+                            <dd style="display:<?=($searchForm->parent ? 'block' : 'none')?>">
                                 <label>Подраздел:</label>
-                                <?=CHtml::dropDownList('subCategories','id', $subCategories, array('options' => array($subCategory_id=>array('selected'=>true)),'empty'=>'Выберите под категорию'))?>
+                                <?=$form->dropDownList($searchForm,'parent', $subCategories, array('empty'=>'Выберите под категорию','id'=>'subCategories'))?>
                             </dd>
                             
                             <dt>
@@ -65,30 +71,29 @@
                                     </div>
                                 </div>
                             </dd>
-                            
                             <dd class="submit">
                                 <a href="/detail/parts" class="i-submit" >Сбросить</a>
                             </dd>
                         </dl> 
-                        </form>  
+                        <?php $this->endWidget(); ?>
                     </div>
                 </div>
 
                 <div class="coll-right">
                     <div class="tabs parts">
                         <ul id="car_type">
-                            <li <?=$_GET['car_type']==1 ? 'class="active"' : '' ?>>
-                                <a href="#" data-type="1">
+                            <li <?=$searchForm->scenario=='light' ? 'class="active"' : '' ?>>
+                                <a href="#" data-scenario="light">
                                     Легковые
                                 </a>
                             </li>
-                            <li <?=$_GET['car_type']==2 ? 'class="active"' : '' ?>>
-                                <a href="#" data-type="2">
+                            <li <?=$searchForm->scenario=='weight' ? 'class="active"' : '' ?>>
+                                <a href="#" data-scenario="weight">
                                     Грузовые
                                 </a>    
                             </li>
                             <li>
-                                <a href="/detail?disc=1" data-type="2">
+                                <a href="/detail?SearchFormOnMain[scenario]=disc" data-scenario="disc">
                                     Диски
                                 </a>    
                             </li>
@@ -106,11 +111,6 @@
                                             Все(<?=$dataProvider->totalItemCount?>)
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#">
-                                            Новинки
-                                        </a>    
-                                    </li>
                                 </ul>
 
                                 <dl>
@@ -119,18 +119,18 @@
                                     </dt>
                                     <dd>
                                         <ul id="sort">
-                                            <li class="active" data-sort="price_buy">
-                                                <a href="/detail/parts?sort=price_buy">
+                                            <li class="active" data-sort="price_sell">
+                                                <a href="/detail/parts?sort=price_sell">
                                                     Цене
                                                 </a>
                                             </li>
                                             <li data-sort="name">
-                                                <a href="/detail/parts?sort=year" >
+                                                <a href="/detail/parts?sort=name" >
                                                     Названию
                                                 </a>
                                             </li>
                                             <li data-sort="brand">
-                                                <a href="/detail/parts?sort=category" >
+                                                <a href="/detail/parts?sort=brand" >
                                                     Разделу
                                                 </a>
                                             </li>
@@ -178,8 +178,6 @@
 
                     </div>
                 </div>
-
-
                 <div class="clear"></div>
             </div>
         </div>  

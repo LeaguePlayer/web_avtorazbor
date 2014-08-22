@@ -1,7 +1,6 @@
 <?
 if (!empty($dataProvider))
 {
-
     $this->widget('zii.widgets.CListView', array(
         'dataProvider'=>$dataProvider,
         'itemView'=>'_itemParts',

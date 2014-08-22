@@ -115,7 +115,8 @@ class UsedCarInfo extends EActiveRecord
         
         return array(
             1 => 'Механика',
-            2 => 'Автоматическая'
+            2 => 'Автоматическая',
+            3 => 'Робот'
         );
     }
 

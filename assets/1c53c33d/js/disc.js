@@ -35,14 +35,11 @@ $(function(){
 		},1000);
 	}
 
-	slideToMenu();
 	var onViewChangedCallBack=function(){
 
 		hideLoader();
 		var $_count=$('.summary span').text();
 			$('.pag li:first a').text('Все('+$_count+')');
-
-		
 		slideToMenu();
 	};
 
@@ -63,7 +60,7 @@ $(function(){
 		range:true,
 		step:1,
 		min:14,
-		max:30,
+		max:25,
 		values:[parseInt($('#min').val(),10),parseInt($('#max').val(),10)],
 		slide:function(event, ui){
 

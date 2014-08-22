@@ -161,6 +161,7 @@ header .item .feature{
 	font-size:14px;
 	.radius(6px);
 	cursor: pointer;
+	font-weight: bold;
 }
 
 .i-submit:hover{
@@ -174,15 +175,17 @@ header .item .feature{
 	outline:none;
 }
 .i-text, .i-textarea{
-	border:1px solid #767676;
-	box-shadow:inset 0 3px 4px rgba(0,0,0,0.14);
-	background:#fff;
-	padding:10px 6px;
-	.radius(6px);
-	font-size:14px;
-	line-height:16px;
-	color:#333;
-	resize:none;
+	border: 1px solid #767676;
+	box-shadow: inset 0 3px 4px rgba(0,0,0,.14);
+	background: #fff;
+	padding: 10px 6px;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	font-size: 14px;
+	line-height: 16px;
+	color: #333;
+	resize: none;
 }
 label{
 	font:14px/20px 'segoe_uiregular';
@@ -210,6 +213,7 @@ label{
 /*icon*/
 
 .service{
+	font-weight: bold;
 	li{
 		i{
 			height: 76px;
@@ -383,6 +387,7 @@ header{
 					background: url(../images/dropDown.png) no-repeat;
 					background-position: right 8px;
 					padding-right: 15px;
+					font-weight: bold;
 				}
 		& div.dopMenu{
 			display: none;
@@ -676,6 +681,7 @@ header{
 	overflow: hidden;
 }
 .tabs, .partsTabs{
+			font-weight: bold;
 			height:37px;
 			margin-left:23px;
 			position: relative;
@@ -797,6 +803,70 @@ header{
 			&.left{
 				float:left;
 				width:938px;
+					.gallery{
+					width:330px;
+					float:left;
+					.big-img{
+						display: block;
+						padding-bottom: 15px;
+						img{
+							display: block;
+						}
+					}
+					.min-img{
+						li{
+							display:block;
+							float:left;
+							padding-left:10px;
+							&:first-child{
+								padding-left:0;
+							}
+							img{
+								display: block;
+							}
+						}
+					}
+				}
+				.readmore,.own-price{
+					font-size:14px;
+					line-height: 16px;
+					padding-bottom: 20px;
+					a{
+						text-decoration: underline;
+						color:#fe6a04;
+						font-weight: normal;
+						&:hover{
+							text-decoration:none;
+						}
+					}
+				}
+				.desc{
+					width:450px;
+					//float:left;
+					padding-left:25px;
+					li{
+						font:14px/16px 'segoe_uiregular';
+						color:#76838d;
+						padding-top:10px;
+						&:first-child{
+							padding-top:0;
+						}
+						a{
+							color:#f6821c;
+							text-decoration: underline;
+							&:hover{
+								text-decoration:none;
+							}
+						}
+					}
+					.submit{
+						padding-top:35px;
+						input{
+							width:140px;
+							height:37px;
+						}
+					}
+				}
 			}
 			&.right{
 				width:220px;
@@ -1978,6 +2048,7 @@ div[id^=tabs]{
 .s-big{
 	width:@w;
 	margin:@c;
+	font-weight: bold;
 	.tabs{
 		padding-left: 130px;
 	}
@@ -2166,9 +2237,8 @@ div[id^=tabs]{
 			}
 		}
 		.coll-3{
-			width:140px;
-			float:left;
-			padding:0 50px 0 30px;
+			display: inline-block;
+			padding-left: 15px;
 			dt{
 				text-align: center;
 				color:#fff;
@@ -2197,12 +2267,11 @@ div[id^=tabs]{
 }
 .cat-auto{
 	padding:32px 0 30px;
-	width:@w;
+	width:1100;
 	margin:@c;
 	position: relative;
-	overflow: hidden;
 	.prev{
-					left: 20px;
+					left: 0px;
 					background:url(../images/arrow-l.png) no-repeat;
 					background-position: 0px -21px;
 					position: absolute;
@@ -2212,7 +2281,7 @@ div[id^=tabs]{
 					z-index: 10;
 				}
 	.next{
-			right: 20px;
+			right: 0px;
 			background:url(../images/arrow-r.png) no-repeat;
 			background-position: 0px -22px;
 			position: absolute;
@@ -2240,13 +2309,13 @@ div[id^=tabs]{
 						.radius(5px);
 						overflow:hidden;
 					}
-						a{
+							
+						.link{
+							font-size:18px;
+							line-height:1.2;
+							padding-top:20px;
 							display: block;
-							&.link{
-								font-size:18px;
-								line-height:1.2;
-								padding-top:20px;
-							}
+							font-weight: bold;
 						}
 						.dsc{
 							padding-top:10px;
@@ -3162,4 +3231,85 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 }
 .ui-accordion-content{
 	width: auto!important;
+}
+#login{
+	display: none;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	border-radius: 10px;
+	background: #e6edf5;
+	height: 243px;
+	text-align: center;
+	width: 383px;
+	padding: 15px 25px;
+	border: solid #2c67be 3px;
+	li{
+		padding: 10px 0;
+	}
+	label{
+		width: 65px;
+	}
+	label,input{
+		display: inline-block;
+	}
+	dt{
+		padding-bottom: 20px;
+		text-align: center;
+		font-size: 18px;
+		font-weight: bold;
+	}
+	.i-submit{
+		width: 100%;
+		margin-top: 20px;
+		font-weight: bold;
+	}
+}
+.fancybox-wrap{
+}
+.owl-hidden{
+	width: 1100px;
+	margin: 0 auto;
+	overflow: hidden!important;
+}
+.right{
+	float: right;
+}
+.tabs-type{
+	li{
+		display: inline-block;
+	}
+}
+.baskets{
+	.info{
+		dt{
+			padding-bottom: 15px;
+			font: 18px/1.2 segoe_uiregular;
+			color: #333;
+		}
+		dd{
+			padding-bottom: 30px;
+			font: 14px/1.2 segoe_uiregular;
+			color: #76838d;
+		}
+	}
+}
+.tabs-type{
+	 ul{
+	 	display: inline-block;
+	 	width: 80%
+	 }
+	 li{
+	 		display: inline-block;
+	 		width: 25%;
+	 		text-align: right;
+	 		a{
+	 			color: #2455a1;
+	 		}
+	 		a.active{
+	 			color:#fe6a04
+	 		}
+	 	}
 }

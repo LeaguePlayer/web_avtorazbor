@@ -9,17 +9,17 @@
 
                     <div class="partsTabs">
                         <ul>
-                            <li <?= $_GET['light'] || !$_GET ? 'class="active"' : '' ?>>
+                            <li <?=$searchForm->scenario=='light' ? 'class="active"' : '' ?>>
                                 <a href="#light">
                                     Для легковых
                                 </a>
                             </li>
-                            <li <?= $_GET['hard'] ? 'class="active"' : '' ?>>
+                            <li <?= $searchForm->scenario=='weight' ? 'class="active"' : '' ?>>
                                 <a href="#weight">
                                     Для грузовых
                                 </a>    
                             </li>
-                            <li <?= $_GET['disc'] ? 'class="active"' : '' ?>>
+                            <li <?=$searchForm->scenario=='disc' ? 'class="active"' : '' ?>>
                                 <a href="#disc">
                                     Диски
                                 </a>    
@@ -34,7 +34,7 @@
 
                     <div class="content clear">
 
-                        <div class="personal <?=$_GET['light'] || $_GET['hard'] || !$_GET ? 'tab-active' : '' ?>" id="light">
+                        <div class="personal <?=$searchForm->scenario!='disc' ? 'tab-active' : '' ?>" id="light">
                             <dl class="desc">
                                 <dt>
                                     Индивидуальный подбор
@@ -43,21 +43,31 @@
                                     Для подбора автозапчастей выберите марку, модель и раздел автомобиля.
                                 </dd>
                             </dl>
-                            <form class="criteria" action="/detail/parts" method="get">
+                            <?php $form = $this->beginWidget('CActiveForm', array(
+                                'id' => 'parts-form',
+                                'action' => $this->createUrl('/detail/parts'),
+                                'method'=>'get',
+                                'htmlOptions' => array('class' => 'request_form')
+                            )) ?>
                                 <div class="select">
                                     <dl>
                                     <dd>
-                                        <input type="hidden" id="car_type" name="car_type" value="<?=$_GET['light'] || $_GET['disc'] || !$_GET ? 1 : 2 ?>">
+
+                                        <?=$form->hiddenField($searchForm,'type')?>
+
+                                        <?=$form->hiddenField($searchForm,'scenario')?>
+
                                         <label for="mark"> 
                                             Марка:
                                         </label>
                                         
-                                        <?=CHtml::dropDownList('carBrands','', $Brand,
+                                        <?=$form->dropDownList($searchForm,'brand', $Brand,
                                             array(
                                                 'empty'=>'Выберите марку ',
                                                 'class'=>'select',
                                                 'id'=>'carBrands',
-                                                'data-nested'=>'#carModels'
+                                                'data-nested'=>'#SearchFormOnMain_car_model_id',
+                                                'data-model'=>'carBrands'
                                             )
                                         ); 
                                             //empty since it will be filled by the other dropdown
@@ -67,18 +77,19 @@
                                         <label for="model"> 
                                             Марка:
                                         </label>
-                                        <?=CHtml::dropDownList('carModels','id', array())?>
+                                        <?=$form->dropDownList($searchForm,'car_model_id', array())?>
                                     </dd>
                                     <dd style="display:none;">
                                         <label for="model"> 
                                             Раздел:
                                         </label>
-                                        <?=CHtml::dropDownList('Categories','id', CHtml::listData(Categories::model()->findAll('parent=0'),'id','name'),
+                                        <?=$form->dropDownList($searchForm,'category_id', CHtml::listData(Categories::model()->findAll('parent=0'),'id','name'),
                                         array(
                                             'empty'=>'Выберите раздел',
                                             'class'=>'select',
                                             'id'=>'Categories',
-                                            'data-nested'=>'#subCategories'
+                                            'data-nested'=>'#SearchFormOnMain_parent',
+                                            'data-model'=>'categories'
                                             )
                                         ); 
                                             //empty since it will be filled by the other dropdown
@@ -88,16 +99,17 @@
                                         <label for="model">
                                             Под категория:
                                         </label>
-                                        <?=CHtml::dropDownList('subCategories','id', array())?>
+                                        <?=$form->dropDownList($searchForm,'parent', array())?>
                                     </dd>
                                     <br>
                                     <input type="submit" class="i-submit" id="sendCriteria" value="Найти">
                                     </dl>
+                                    <?$this->endWidget()?>
                                 </div>
-                            </form>
+                            
                         </div>
                         
-                        <div id="disc" class=" <?= $_GET['disc'] ? 'tab-active' : '' ?>">
+                        <div id="disc" class=" <?=$searchForm->scenario=='disc' ? 'tab-active' : '' ?>">
                             <form action="/detail/disc" method="get">
                                 <div class="formCost">
                                     <dl class="desc">
@@ -113,11 +125,14 @@
                                     </dl>
                                     <input type="hidden" name="disc" />
                                     <div class="i-text">
-                                        <input type="text" id="minSize" name="min" value="14">
+                                        <!-- <input type="text" id="minSize" name="min" value="14"> -->
+                                        <?=$form->textField($searchForm,'price_st',array('name'=>'min', 'id'=>'minSize','value'=>14))?>
+
                                     </div>
                                     <label for="maxforce">-</label> 
                                     <div class="i-text">
-                                        <input type="text" id="maxSize" name="max" value="25">
+                                        <!-- <input type="text" id="maxSize" name="max" value="25"> -->
+                                        <?=$form->textField($searchForm,'price_end',array('name'=>'max', 'id'=>'maxSize','value'=>25))?>
                                     </div>
                                 </div>
                             

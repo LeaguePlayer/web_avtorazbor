@@ -6,12 +6,10 @@ $(function(){
 		if (tabId.indexOf("#")>-1)
 		{
 			var context=$(this).closest('.tabs').parent();
-			$('.tab-active',context).addClass('hide');
-			$('.tab-active',context).removeClass('tab-active');
+			$('.tab-active',context).addClass('hide').removeClass('tab-active');
+			$(tabId).addClass("tab-active").removeClass('hide');
 			$('li.active:first',context).removeClass('active');
-			$(this).parent().addClass('active')
-			
-			$(tabId).addClass("tab-active");
+			$(this).parent().addClass('active');
 			return false;
 		}
 		
@@ -19,27 +17,10 @@ $(function(){
 		 {
 		 	return false;
 		 }
-
 	})
 
-	 
-
-	$('a[name=qst]').click(function(e) {
-        e.preventDefault();
-        	var id = $(this).attr('href');
-        $('#hide-layout').fadeIn(0); 
-        $('#hide-layout').fadeTo("slow",0.6);
-        $(id).fadeIn(0); 
-    });
-
-	$('#popup .close').click(function (e) { 
-        e.preventDefault();
-        	$('#hide-layout, #popup').hide();
-        }); 
-        $('#hide-layout').click(function () {
-        $(this).hide();
-        $('#popup').hide();
-    }); 
+	$('.auth,.modal,.qst').fancybox({
+	});
 
     //*дочерние эллементы
     $('.service li:nth-child(even)').addClass('old');
@@ -109,7 +90,6 @@ $(function(){
 	$('.jobs a').click(function(){
 		$('.jobs ul li.active').removeClass('active');
 		$(this).closest('li').addClass('active');
-		console.log(1)
 		return false;
 	})
 

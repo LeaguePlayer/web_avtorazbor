@@ -46,7 +46,9 @@ return array(
         //         ),
         //     ),
         // ),
-
+          'clientScript' => array(
+            'scriptMap' => false,
+          ),
         'cart' =>array(
             'class' => 'appext.shoppingCart.EShoppingCart',
         ),

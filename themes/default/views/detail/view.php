@@ -56,10 +56,16 @@
 
                             <ul>
                                 <li>
-                                    Раздел: <a href="/detail/parts?Categories=<?=$model->category->id;?>&subCategories=<?=$model->category->parent;?>"><?=$model->category->name;?></a>
+                                    <?
+                                    
+                                    $category_id=$model->category->parent ? $model->category->cat_parent->id : $model->category_id;
+                                    $urlParam='SearchFormOnMain[brand]='.$model->car_model->car_brand->id.'&SearchFormOnMain[car_model_id]='.$model->car_model_id.'&SearchFormOnMain[category_id]='.$category_id.'&SearchFormOnMain[parent]='.$model->category->parent;
+                                    ?>
+
+                                    Раздел: <a href="/detail/parts?<?=$urlParam?>"><?=$model->category->name;?></a>
                                 </li>
                                 <li>
-                                    Модель авто: <a href="/detail/parts?carModels=<?=$model->car_model->id;?>"><?=$model->car_model->name;?></a>
+                                    Модель авто: <a href="/detail/parts?SearchFormOnMain[brand]=<?=$model->car_model->car_brand->id?>&SearchFormOnMain[car_model_id]=<?=$model->car_model_id?>"><?=$model->car_model->name;?></a>
                                 </li>
                                 
                                 <li >
@@ -122,7 +128,9 @@
                         </div>
 
                         <div class="readmore">
-                            <a href="/detail/parts?<?=Yii::app()->session->get("backToResultUrl");?>">
+                            <?$url=$this->createUrl('/detail/parts',Yii::app()->session['BackToSearchUrl'])?>
+
+                            <a href="<?=$url?>">
                                 Вернуться к результатам поиска
                             </a>
                         </div>

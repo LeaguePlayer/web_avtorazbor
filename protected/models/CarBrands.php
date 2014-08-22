@@ -58,11 +58,11 @@ class CarBrands extends EActiveRecord
     public function relations()
     {
         return array(
-            'models' => array(self::HAS_MANY, 'CarModels', 'brand')
+            'models' => array(self::HAS_MANY, 'CarModels', 'brand'),
+            'country'=>array(self::BELONGS_TO,'country','id_country')
         );
     }
-
-
+    
     public function attributeLabels()
     {
         return array(

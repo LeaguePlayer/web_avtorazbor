@@ -22,76 +22,73 @@ class SiteController extends FrontController
 			),
 		);
 	}
-
-	/**
-	 * This is the default 'index' action that is invoked
-	 * when an action is not explicitly requested by users.
-	 */
-
-
-
+	
 	public function actionIndex()
 	{
+		$searchForm=new SearchFormOnMain;
+		if (!Yii::app()->request->isAjaxRequest)
+		{
+			$cs = Yii::app()->clientScript;
+			$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
+			$cs->registerScriptFile($this->getAssetsUrl().'/js/main.js', CClientScript::POS_END);
 
-		$cs = Yii::app()->clientScript;
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/main.js', CClientScript::POS_END);
+			$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
 
-		//данные для списоков
+			$Bascet=UsedCars::getBasketList();
 
-		$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
+			$Transmission=UsedCarInfo::transmissionList();
 
-		$Bascet=UsedCars::getBasketList();
+			$State=UsedCarInfo::statesList();
 
-		$Transmission=UsedCarInfo::transmissionList();
+			//дата провайдер для каруселей
+			$currentYear=date('Y');
 
-		$State=UsedCarInfo::statesList();
-
-		//дата провайдер для каруселей
-
-		$criteriaNews=new CDbCriteria;
-		$criteriaNews->order='create_time desc';
-
-		$currentYear=date('Y');
-
-		$criteriaNews->
-			addCondition("DATE_FORMAT(`create_time`,'%Y-%m-%d')<='".$currentYear."-12-31' and DATE_FORMAT(`create_time`,'%Y-%m-%d')>='".$currentYear."-01-01'");
-
-		$dataProviderNews=new CActiveDataProvider('News', array(
-			'criteria' => $criteriaNews,
-			'pagination'=>false
-		));
-	
-		////////////////
-
-
-		$criteriaCar=new CDbCriteria;
-		$criteriaCar->order='id desc';
-
-
-		$dataProviderCar=new CActiveDataProvider('UsedCars', array(
-			'criteria' => $criteriaCar,
-			'pagination'=>false
-		));
-
-		$this->render('index',
-			array(
-				'Brands'=>$Brands,
-				'Bascet'=>$Bascet,
-				'Transmission'=>$Transmission,
-				'State'=>$State,
-				'dataProviderNews'=>$dataProviderNews,
-				'dataProviderCar'=>$dataProviderCar,
-			)
-		);
-	}
-
-	public function actionUpdateSelect()
-	{
+			$criteriaNews=new CDbCriteria;
+			$criteriaNews->order='create_time desc';
+			$criteriaNews->
+				addCondition("DATE_FORMAT(`create_time`,'%Y-%m-%d')<='".$currentYear."-12-31' and DATE_FORMAT(`create_time`,'%Y-%m-%d')>='".$currentYear."-01-01'");
+			$dataProviderNews=new CActiveDataProvider('News', array(
+				'criteria' => $criteriaNews,
+				'pagination'=>false
+			));
 		
+			$criteriaCar=new CDbCriteria;
+			$criteriaCar->order='id desc';
+
+			$dataProviderCar=new CActiveDataProvider('UsedCars', array(
+				'criteria' => $criteriaCar,
+				'pagination'=>false
+			));
+
+			$this->render('index',
+				array(
+					'Brands'=>$Brands,
+					'Bascet'=>$Bascet,
+					'Transmission'=>$Transmission,
+					'State'=>$State,
+					'dataProviderNews'=>$dataProviderNews,
+					'dataProviderCar'=>$dataProviderCar,
+					'searchForm'=>$searchForm,
+				)
+			);
+
+		} else {
+			if (isset($_GET['SearchFormOnMain']))
+			{
+				$searchForm->attributes=$_GET['SearchFormOnMain'];
+				$searchForm->validate();
+
+				$model=!isset($_GET['SearchFormOnMain']['category_id']) ? 'UsedCars' : 'Parts';
+				// var_dump($searchForm->criteria);die();
+				$searchForm->criteria->limit=100;
+				$dataProvider=new CActiveDataProvider($model,
+					array('criteria'=>$searchForm->criteria)
+				);
+				$this->renderPartial('carCarusel',array('dataProvider'=>$dataProvider));
+			}
+		}
 	}
 
-	
 	public function actionError()
 	{
 		if($error=Yii::app()->errorHandler->error)

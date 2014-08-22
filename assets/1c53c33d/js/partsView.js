@@ -20,11 +20,12 @@ $(function(){
 		$.ajax({
 			url:'/detail/addToCart',
 			data:{id:parseInt($('.articl').text(),10)},
-			dataType:'json',
+			dataType:'JSON',
 			success:function(data){
-				alert(data);
-				$('.bascet li:first a').text(data.count+" товар");
-				$('.bascet li:last strong').text(data.summ);
+				console.log(data)
+				 var html='<ul><li><a href="/cart">'+data['count']+' товар</a></li><li>На сумму: <strong>'+data['summ']+' руб.</strong></li></ul>';
+	        	$('.bascet dd').empty().append(html);
+
 			}
 		});
 		return false;
