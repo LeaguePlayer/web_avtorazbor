@@ -107,9 +107,9 @@ class Parts extends EActiveRecord implements IECartPosition
             array('name', 'length', 'max'=>255),
             // array('price_sell, price_buy', 'numerical', 'integerOnly'=>false, 'min' => 1),
             array('price_sell, price_buy', 'length', 'max'=>10),
-            array('comment, create_time, usedCar', 'safe'),
+            array('comment, create_time, update_time, usedCar', 'safe'),
             // The following rule is used by search().
-            array('id, name, price_sell, price_buy, comment, category_id, car_model_id, location_id, supplier_id, create_time, status', 'safe', 'on'=>'search'),
+            array('id, name, price_sell, price_buy, comment, category_id, car_model_id, location_id, supplier_id, create_time, update_time, status', 'safe', 'on'=>'search'),
         );
     }
 
@@ -157,6 +157,11 @@ class Parts extends EActiveRecord implements IECartPosition
                 'name' => false,
                 'description' => false,
             ),
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'create_time',
+                'updateAttribute' => 'update_time',
+            ),
         ));
     }
 
@@ -173,6 +178,7 @@ class Parts extends EActiveRecord implements IECartPosition
             'location_id' => 'Склад',
             'supplier_id' => 'Поставщик',
             'create_time' => 'Дата создания',
+            'update_time' => 'Дата обновления',
             'status' => 'Статус',
             'gallery_id' => 'Галерея',
             'user_id' => 'Пользователь'
@@ -319,6 +325,7 @@ class Parts extends EActiveRecord implements IECartPosition
         $this->price_buy = number_format($this->price_buy, 0, '', '');
     }
 
+// <<<<<<< HEAD
     public function getJoin($key)
     {
         $joins=array(
@@ -343,6 +350,8 @@ class Parts extends EActiveRecord implements IECartPosition
         return parent::beforeSave();
     }
 
+// =======
+// >>>>>>> master
     /**
      * Функция возвращает детали относящиеся
      * к одной и той же категории и модели автомобиля
