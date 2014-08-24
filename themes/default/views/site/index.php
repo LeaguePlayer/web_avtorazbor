@@ -373,6 +373,17 @@
                         </dl>
                         <dl>
                             <dt>
+                                Марка
+                            </dt>
+                            <dd>
+                                
+                                <?=$form->dropDownList($searchForm, 'brand', $Brands, array( 
+                                                        'empty'=>'Выберите марку', 'class'=>'select','data-nested'=>'#model_3','data-model'=>'carBrands'));?>
+                            </dd>
+                        </dl>
+                        <span></span>
+                        <dl>
+                            <dt>
                                 Модель
                             </dt>
                             <dd>
@@ -380,7 +391,7 @@
                                                         'empty'=>'Выберите модель', 'class'=>'select','id'=>'model_3'));?>
                             </dd>
                         </dl>
-                        <span></span>
+                        
                         <dl>
                             
                             <dt>
@@ -392,16 +403,7 @@
                                 ?>
                             </dd>
                         </dl>
-                        <dl>
-                            <dt>
-                                Марка
-                            </dt>
-                            <dd>
-                                
-                                <?=$form->dropDownList($searchForm, 'brand', $Brands, array( 
-                                                        'empty'=>'Выберите марку', 'class'=>'select','data-nested'=>'#model_3','data-model'=>'carBrands'));?>
-                            </dd>
-                        </dl>
+                        
 
                         <dl class="otdo">
                             
@@ -626,8 +628,9 @@
             </a>
             <a href="#" class="next">
             </a>
-            <?=$this->renderPartial('//site/carCarusel',array('dataProvider'=>$dataProviderCar),true);?>
             <img class="loader" src="/media/images/loader.gif"/>
+            <?=$this->renderPartial('//site/carCarusel',array('dataProvider'=>$dataProviderCar),true);?>
+            <div class="clear"></div>
             <div class="readmore">
                 <a href="/catalog" class="i-submit">Все Легковые автомобили</a>
             </div>

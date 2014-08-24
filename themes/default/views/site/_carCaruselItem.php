@@ -15,7 +15,7 @@
     <span class="price">
         <?=$data->price?> руб.
     </span>
-    <span class="price_old">    
+    <!-- <span class="price_old">    
         как сделать??
-    </span>
+    </span> -->
 </div>

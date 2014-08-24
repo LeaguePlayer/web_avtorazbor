@@ -46,9 +46,13 @@ return array(
         //         ),
         //     ),
         // ),
-          'clientScript' => array(
-            'scriptMap' => false,
-          ),
+        // 'clientScript'=>array(
+        //     'scriptMap' => array(
+        //         'jquery' => false,
+        //         'jquery.js' => 'http://code.jquery.com/jquery-1.11.0.min.js',
+        //         //'form.css' => '/css/blueprint.form.css'
+        //      ),
+        // ),
         'cart' =>array(
             'class' => 'appext.shoppingCart.EShoppingCart',
         ),
@@ -99,9 +103,11 @@ return array(
         ),
         'clientScript'=>array(
             'class'=>'EClientScript',
-            'scriptMap'=>array(
-                // 'jquery.yiiview.js'=>false,
-            ),
+            'scriptMap' => array(
+                'jquery' => false,
+                'jquery.js' => 'http://code.jquery.com/jquery-1.11.0.min.js',
+                //'form.css' => '/css/blueprint.form.css'
+             ),
         ),
         'date' => array(
             'class'=>'application.components.Date',

@@ -7,15 +7,15 @@
     <a href="/detail/view/<?=$data->id?>"><img src="<?=$image?>" alt="" title="" /></a>
     
     <a href="/detail/view?id=<?=$data->id?>" class="link">
-    	<strong>Раздел: </strong>
+    	<strong>Раздел: <br></strong>
         <?=$data->category->name?>
     </a>
     <span class="dsc">
-    	<strong>Коментарий:</strong>
+    	<strong>Коментарий:<br></strong>
         <?=$data->comment?>
     </span>
     <span class="price">
-    	<strong>Стоимость:</strong>
+    	<strong>Стоимость:<br></strong>
         <?=$data->price?> руб.
     </span>
     <!-- <span class="price_old">    

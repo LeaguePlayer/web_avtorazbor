@@ -870,7 +870,6 @@ header{
 			&.right{
 				width:220px;
 				float:right;
-				margin-top: -39px;
 			}
 		}
 		.content{
@@ -2141,9 +2140,9 @@ div[id^=tabs]{
 						}
 					}
 					input[type=text]{
-						width:35px;
+						width:auto;
 						text-align: left;
-						padding:0 17.5px;
+						padding:0 8px;
 					}
 					&:before{
 						content:'—';
@@ -2201,9 +2200,9 @@ div[id^=tabs]{
 								}
 							}
 							input[type=text]{
-								width:35px;
+								width:auto;
 								text-align: left;
-								padding:0 17.5px;
+								padding:0 8px;
 							}
 							&:first-child{
 									float:left;
@@ -2212,9 +2211,9 @@ div[id^=tabs]{
 									}
 								}
 								input[type=text]{
-									width:35px;
+									width:auto;
 									text-align: left;
-									padding:0 17.5px;
+									padding:0 8px;
 								}
 								&:before{
 									content:'—';
@@ -2294,10 +2293,12 @@ div[id^=tabs]{
 		.prev:hover{
 			background-position: 0px -1px;	
 		}
-	#items-auto{
+	.items-auto{
 		display: block;
+		position: relative;
 		width: 1065px;
 		overflow: hidden;
+		min-height: 150px;
 		margin: 0 auto;
 		
 		.owl-item{
@@ -3047,11 +3048,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 	color: #99aab7;
 	float: left;
 }
+
 .empty{
-	height: 100px;
 	display: block;
-	text-align: center;
-	padding-top: 100px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right:0;
+	left:0;
+	margin: auto;
 }
 .criteria {
 	.item{

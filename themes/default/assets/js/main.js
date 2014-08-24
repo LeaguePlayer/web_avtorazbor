@@ -1,14 +1,4 @@
 $(document).ready(function(){
-	//*подключаем фотораму
-	
-	//*стилизуем select
-	
-	//*слайдер
-	$('div#items').owlCarousel({
-	  items:7,
-      margin: 0,
-      loop: true,
-	});
 
 	$('.searchform .tabs ul li a').click(function(){
 
@@ -44,23 +34,6 @@ $(document).ready(function(){
 		$(this).attr('href',href+"?"+form);
 	})
 
-	// $('dd .i-submit').click(function(){
-	// 	var params=$(this).closest('form').serialize();
-	// 	var href=$(this).attr('href')+"?"+params;
-	// 		$(this).attr('href',href);
-	// })
-
-	var autoCarusel=$('div#items-auto').data('owlCarousel');
-	$('.cat-auto .prev').on("click",function(){
-		autoCarusel.prev();
-		return false;
-	})
-
-	$('.cat-auto .next').on("click",function(){
-		autoCarusel.next();
-		return false;
-	})
-
 	$('.s-big').on('keypress','input[type=text]',function(e){
 
 		if( e.which!=8 && e.which!=0 && (e.which<48 || e.which>57))
@@ -69,14 +42,7 @@ $(document).ready(function(){
         }
         else 
 			changeView($(this).closest('form'));
-
 	})
-
-
-	$('.news-items .items').owlCarousel({
-	  items: 4,
-      loop: true,
-	});
 
 	$('select').each(function(){
 
@@ -88,61 +54,37 @@ $(document).ready(function(){
 	});
 
 	
-	var carusel=$('.news-items').data('owlCarousel');
-
-		// $(this).closest('div[id^=tabs]').find('.next').on("click",
-		// 	function(){
-		// 		carusel.next();
-		// 	return false;
-		// })
-
-		// $(this).closest('div[id^=tabs]').find('.prev').on("click",function(){
-		// 	carusel.prev();
-		// 	return false;
-		// })
-
 	// Табы ============================= Конец =================
 	
-	var autoCarusel=$('div#car_carusel .items').owlCarousel({
+	var owl=$('.items-auto .items').owlCarousel({
 	  nav:true,
 	  items:7,
 	  navText:[],
       margin: 0,
       loop: true,
-	});
-
-	$('div#car_carusel .items').data('owlCarousel');
-	
-	$('.cat-auto .prev').on("click",function(){
-		autoCarusel.prev();
+	}).data('owlCarousel');
+		
+	$('.cat-auto .prev').click(function(){
+			owl.prev();
 		return false;
 	})
 
-	$('.cat-auto .next').on("click",function(){
-		autoCarusel.next();
-		return false;
+	$('.cat-auto .next').click(function(){
+		owl.next();
+		return false;		
 	})
-
-	$('#items').owlCarousel({
-	  items:4,
-	  navText:[],
-      margin: 0,
-      loop: true,
-	})
-
-
 
 	var changeView=function(form){
 
 		showLoader();
-		$('#car_carusel.list-view').empty();
+		$('.items-auto .items').empty();
 		$('.loader').show();
 		setTimeout(function(){
 			$.ajax({
 				url:'/site/index',
 				data:form.serialize(),
 				success:function(data){
-				var owl=$('#car_carusel')
+				var owl=$('.items-auto')
 						.empty()
 						.append(data)
 						.find('.items')
@@ -194,9 +136,6 @@ $(document).ready(function(){
 			},
 
 			$_this=$(this);
-		// var index=$_this.closest('dd').index()+1,
-		// 	ddCount=$_this.closest('dl').find('dd').length-2;
-		// 	$_this.closest('dl').children('dd').slice(index,ddCount).find('select').val(null).selectmenu('refresh').parent().slideUp(200);
 
 		if ($(this).val())
 			$_this.closest('dd').next().slideDown(200);

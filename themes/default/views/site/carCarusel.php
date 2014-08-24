@@ -6,7 +6,7 @@
 	    'pagerCssClass' => 'pagination',
 	    'itemsTagName'=>'div',
 	    'template'=>'{items}',
-	    'id'=>'car_carusel',
+	    'htmlOptions'=>array('class'=>'items-auto'),
 	    'pager' => false
 	));
 ?>

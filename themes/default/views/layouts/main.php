@@ -8,8 +8,10 @@
 	$cs->registerCssFile($this->getAssetsUrl('application').'/css/main.css?v1');
     $cs->registerCssFile($this->getAssetsUrl('application').'/css/jquery-ui.min.css');
 
-	// $cs->registerCoreScript('jquery.ui');
-    
+
+	$cs->registerCoreScript('jquery');
+    //$cs->registerScriptFile('http://code.jquery.com/jquery-1.11.0.min.js', CClientScript::POS_END);
+    //$cs->registerScriptFile('http://code.jquery.com/jquery-1.11.0.min.js', CClientScript::POS_END);
 	$cs->registerScriptFile('http://fotorama.s3.amazonaws.com/4.4.9/fotorama.js', CClientScript::POS_END);
     $cs->registerScriptFile($this->getAssetsUrl('application').'/js/tinyscrollbar.js', CClientScript::POS_END);
     $cs->registerScriptFile($this->getAssetsUrl('application').'/js/jquery-ui.min.js', CClientScript::POS_END);
