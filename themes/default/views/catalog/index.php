@@ -19,7 +19,7 @@
                             <?=$form->hiddenField($searchForm,'sort')?>
                         <dl>
                             <dd>
-
+                                
                                 <label>Страна:</label>
                                 <?=$form->dropDownList($searchForm,'id_country', $Countries,
                                             array('empty'=>'Выберите страну','class'=>'select nested','data-model'=>'country', 'data-nested'=>'#brand', 'id'=>'country'))?>

@@ -627,6 +627,7 @@
             <a href="#" class="next">
             </a>
             <?=$this->renderPartial('//site/carCarusel',array('dataProvider'=>$dataProviderCar),true);?>
+            <img class="loader" src="/media/images/loader.gif"/>
             <div class="readmore">
                 <a href="/catalog" class="i-submit">Все Легковые автомобили</a>
             </div>

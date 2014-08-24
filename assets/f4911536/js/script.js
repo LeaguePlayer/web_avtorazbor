@@ -12,15 +12,13 @@ $(function(){
 			$(this).parent().addClass('active');
 			return false;
 		}
-		
 		if ($(this).attr('href')=="#")
 		 {
 		 	return false;
 		 }
 	})
 
-	$('.auth,.modal,.qst').fancybox({
-	});
+	$('.auth,.modal').fancybox({});
 
     //*дочерние эллементы
     $('.service li:nth-child(even)').addClass('old');

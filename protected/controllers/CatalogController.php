@@ -36,16 +36,14 @@ class CatalogController extends FrontController
 	{
 		if(!Yii::app()->request->isAjaxRequest)
 		{
-			$session=Yii::app()->session;
-			unset($session["backToResultUrl"]);
 
 			$cs = Yii::app()->clientScript;
-			// $cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.ui-slider.js', CClientScript::POS_END);
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/Catalog.js', CClientScript::POS_END);
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.scrollTo.min.js', CClientScript::POS_END);
 
 			$searchForm=new SearchFormOnMain;
+
 			if (isset($_GET['SearchFormOnMain']))
 			{
 				$searchForm->attributes=$_GET['SearchFormOnMain'];
@@ -61,10 +59,12 @@ class CatalogController extends FrontController
 			));
 
 			$Countries=CHtml::listData(Country::model()->findAll(),'id','name');
-			$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
+			$Brands=CHtml::listData(CarBrands::model()->findAll('id_country=:id',array(':id'=>$searchForm->id_country ? $searchForm->id_country : 0)),'id','name');
 			$Bascet=UsedCars::getBasketList();
-			$Models=array();
-			Yii::app()->session['returnUrl']=$_GET['SearchFormOnMain'];
+			$Models=CHtml::listData(CarModels::model()->findAll('brand=:id',array(':id'=>$searchForm->brand ? $searchForm->brand : 0)),'id','name');
+
+			Yii::app()->session['BackToSearchUrl']=$_GET['SearchFormOnMain'];
+
 			$this->render('index',array(
 				'dataProvider'=>$dataProvider,
 				'Countries'=>$Countries,

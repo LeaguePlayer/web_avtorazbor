@@ -15,7 +15,6 @@ class CarModels extends EActiveRecord
         return '{{CarModels}}';
     }
 
-
     public function rules()
     {
         

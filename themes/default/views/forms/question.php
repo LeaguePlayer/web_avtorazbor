@@ -1,5 +1,5 @@
 
-<div id="popup" name="qst" class="qst" style="display: none;">
+<div id="popup" style="display: none;">
         <div class="bx">
 
             <dl>

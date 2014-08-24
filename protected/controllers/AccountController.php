@@ -84,8 +84,7 @@
 			if (isset($_POST['AuthForm']))
 			{
 				$authForm->attributes=$_POST['AuthForm'];
-				var_dump($_POST);
-				die();
+				
 				$valid=$authForm->validate();
 				 if ($valid)
 				 {

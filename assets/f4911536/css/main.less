@@ -805,7 +805,7 @@ header{
 				width:938px;
 					.gallery{
 					width:330px;
-					float:left;
+					display: inline-block;
 					.big-img{
 						display: block;
 						padding-bottom: 15px;
@@ -841,8 +841,7 @@ header{
 					}
 				}
 				.desc{
-					width:450px;
-					//float:left;
+					display: inline-block;
 					padding-left:25px;
 					li{
 						font:14px/16px 'segoe_uiregular';
@@ -2267,9 +2266,9 @@ div[id^=tabs]{
 }
 .cat-auto{
 	padding:32px 0 30px;
-	width:1100;
 	margin:@c;
 	position: relative;
+	transition: 1s all;
 	.prev{
 					left: 0px;
 					background:url(../images/arrow-l.png) no-repeat;

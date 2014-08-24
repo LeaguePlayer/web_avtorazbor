@@ -9,7 +9,7 @@ $(document).ready(function(){
       margin: 0,
       loop: true,
 	});
-	$('.modal').fancybox();
+
 	$('.searchform .tabs ul li a').click(function(){
 
 		var tabId=$(this).attr('href');
@@ -44,11 +44,11 @@ $(document).ready(function(){
 		$(this).attr('href',href+"?"+form);
 	})
 
-	$('dd .i-submit').click(function(){
-		var params=$(this).closest('form').serialize();
-		var href=$(this).attr('href')+"?"+params;
-			$(this).attr('href',href);
-	})
+	// $('dd .i-submit').click(function(){
+	// 	var params=$(this).closest('form').serialize();
+	// 	var href=$(this).attr('href')+"?"+params;
+	// 		$(this).attr('href',href);
+	// })
 
 	var autoCarusel=$('div#items-auto').data('owlCarousel');
 	$('.cat-auto .prev').on("click",function(){
@@ -61,9 +61,14 @@ $(document).ready(function(){
 		return false;
 	})
 
-	$('.s-big input').on('change',function(){
+	$('.s-big').on('keypress','input[type=text]',function(e){
 
-		changeView($(this).closest('form'));
+		if( e.which!=8 && e.which!=0 && (e.which<48 || e.which>57))
+        {
+            return false;
+        }
+        else 
+			changeView($(this).closest('form'));
 
 	})
 
@@ -130,6 +135,8 @@ $(document).ready(function(){
 	var changeView=function(form){
 
 		showLoader();
+		$('#car_carusel.list-view').empty();
+		$('.loader').show();
 		setTimeout(function(){
 			$.ajax({
 				url:'/site/index',
@@ -157,7 +164,7 @@ $(document).ready(function(){
 				}
 			}).done(function(){
 				var total=parseInt($('.total').eq(0).text(),10);
-				var scenario=
+				$('.loader').hide();
 				$('.num',form).text(total+" авто");	
 				// hideLoader();
 			})

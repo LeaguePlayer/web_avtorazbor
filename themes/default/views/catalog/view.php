@@ -16,7 +16,6 @@
                 </div>
 
                 <div class="desc">
-
                     <ul>
                         <?
                             $param="?SearchFormOnMain[brand]=".$model->model->car_brand->id."&SearchFormOnMain[id_country]=".$model->model->car_brand->country->id;
@@ -48,8 +47,9 @@
                     </dl>
                 </div>
                 <div class="readmore">
-                    
-                    <?$url=$this->createUrl('/catalog',Yii::app()->session->get('BackToSearchUrl'))?>
+                    <?$url='SearchFormOnMain[id_country]='.$model->model->car_brand->id_country.'&SearchFormOnMain[brand]='.$model->model->car_brand->id.'&SearchFormOnMain[car_model_id]='.$model->model->id.'&SearchFormOnMain[transmission]='.$model->dop->transmission.'&SearchFormOnMain[bascet]='.$model->bascet;
+                    ?>
+                    <?$url=$this->createUrl('/catalog?'.$url)?>
                     <a href="<?=$url?>">
                         Вернуться к результатам поиска
                     </a>

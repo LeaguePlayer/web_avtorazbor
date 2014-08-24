@@ -119,7 +119,7 @@
                     <strong>Есть вопросы?</strong>
                 </dt>
                 <dd>
-                    <a href="#popup" name="qst" class="i-submit">
+                    <a href="#popup" class="i-submit modal">
                         Задать вопрос
                     </a>
                 </dd>
@@ -153,6 +153,7 @@
         		</dt>
         		<dd>
         			<?
+                    var_dump(Yii::app()->cart);
                         if (!Yii::app()->cart->isEmpty(1))
                         {
                     ?><ul>

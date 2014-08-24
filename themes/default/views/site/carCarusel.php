@@ -1,6 +1,5 @@
 <?
 	$itemView=get_class($dataProvider->model)=="UsedCars" ? '_carCaruselItem' : '_partsItem';
-
 	$this->widget('zii.widgets.CListView', array(
 	    'dataProvider'=>$dataProvider,
 	    'itemView'=>$itemView,
