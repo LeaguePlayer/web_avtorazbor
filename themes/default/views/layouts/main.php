@@ -155,7 +155,6 @@
         		</dt>
         		<dd>
         			<?
-                    var_dump(Yii::app()->cart);
                         if (!Yii::app()->cart->isEmpty(1))
                         {
                     ?><ul>
@@ -192,6 +191,7 @@
                         array('label'=>'Все услуги', 'url'=>array('/page/Vse-uslugi')),
                         array('label'=>'Новости', 'url'=>array('/news')),
                         array('label'=>'Контакты', 'url'=>array('/page/contacts')),
+                         array('label'=>'Вакансии', 'url'=>array('/page/vacansy')),
                     ),
                 ));?>
 	        		<!-- <ul>
@@ -327,5 +327,6 @@
     <?=$this->renderPartial('//forms/question',array('model'=>new Questions),true);?>
     <div class="over" id="hide-layout"></div>
     <?=$this->renderPartial('//account/login',array('model'=>new AuthForm),true)?>
+    <?=$this->renderPartial('//forms/bookPart',array('model'=>new Bookpart));?>
 	</body>
 </html>

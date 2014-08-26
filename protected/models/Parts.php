@@ -185,6 +185,14 @@ class Parts extends EActiveRecord implements IECartPosition
         );
     }
 
+    public static function join()
+    {
+        return 
+               "LEFT JOIN  `tbl_CarModels` ON  `t`.car_model_id =  `tbl_CarModels`.id
+                LEFT JOIN  `tbl_CarBrands` ON  `tbl_CarModels`.brand =  `tbl_CarBrands`.id
+                LEFT JOIN  `tbl_country` ON  `tbl_CarBrands`.id_country =  `tbl_country`.id";
+    }
+
     public function getCommonCriteria(){
         $criteria=new CDbCriteria;
         $criteria->compare('id',$this->id);

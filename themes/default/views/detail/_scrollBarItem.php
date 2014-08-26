@@ -7,7 +7,7 @@
 ?>
 <li class="<?=$_GET["id"]==$data->id? 'active' : ''?>">
 
-    <a href="/detail/view?Search" data-id="<?=$data->id?>"> 
+    <a href="/detail/view?id=<?=$data->id?>" data-id="<?=$data->id?>"> 
     	<img  src="<?=$image?>" alt="" title="" />
     </a>
 

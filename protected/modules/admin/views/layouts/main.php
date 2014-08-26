@@ -40,6 +40,7 @@
 				array('label'=>'Продажа авто под ремонт', 'url'=>'/admin/usedCars'),
 				array('label'=>'Документы', 'url'=>'/admin/documents'),
 				array('label'=>'Пользователи', 'url'=>'/user/admin'),
+				array('label'=>'Настройки', 'url'=>'/admin/settings'),
 				array('label'=>'Управление сайтов',
 					'items'=>array(
 						array('label'=>'Страницы', 'url'=>'/admin/page/list'),

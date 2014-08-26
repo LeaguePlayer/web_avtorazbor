@@ -5,7 +5,7 @@
 	    'itemView'=>'_newsCaruselItem',   // refers to the partial view named '_post'
 	    'itemsTagName'=>'div',
 	    'htmlOptions'=>array(
-	    	'class'=>'news-items'
+	    	'class'=>'items-news'
 	    ),
 	    'ajaxUpdate'=>false,
 	    'template'=>'{items}',

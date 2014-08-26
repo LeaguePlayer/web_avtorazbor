@@ -137,7 +137,7 @@ class DetailController extends FrontController
 			$searchForm=new SearchFormOnMain;
 			$searchForm->attributes=$_GET['SearchFormOnMain'];
 			$searchForm->validate();
-
+			
 			$dataProvider=new CActiveDataProvider('Parts',array(
 					'criteria'=>$searchForm->criteria,
 						'pagination'=>array(

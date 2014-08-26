@@ -85,6 +85,8 @@ form .line{
 }
 .sub-main-menu{
   top: 41px;
+  z-index: 3;
+  position: fixed;
 }
 .clients{
   position: relative;

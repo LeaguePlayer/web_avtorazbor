@@ -2,20 +2,24 @@ $(function(){
 	$('.tabs ul li a').click(function(){
 
 		var tabId=$(this).attr('href');
-		
-		if (tabId.indexOf("#")>-1)
+
+		if (!$(this).hasClass('modal'))
 		{
-			var context=$(this).closest('.tabs').parent();
-			$('.tab-active',context).addClass('hide').removeClass('tab-active');
-			$(tabId).addClass("tab-active").removeClass('hide');
-			$('li.active:first',context).removeClass('active');
-			$(this).parent().addClass('active');
-			return false;
+			if (tabId.indexOf("#")>-1)
+			{
+				var context=$(this).closest('.tabs').parent();
+				$('.tab-active',context).addClass('hide').removeClass('tab-active');
+				$(tabId).addClass("tab-active").removeClass('hide');
+				$('li.active:first',context).removeClass('active');
+				$(this).parent().addClass('active');
+				return false;
+			}
+		} else {
+			var href=$(this).attr('href');
+			$.fancybox.open(href,{});
 		}
-		if ($(this).attr('href')=="#")
-		 {
-		 	return false;
-		 }
+			
+		return false;
 	})
 
 	$('.auth,.modal').fancybox({});

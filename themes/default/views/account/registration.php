@@ -36,16 +36,7 @@
 						<?php echo $form->textField($model,'phone'); ?>
 						<?php echo $form->error($model,'phone'); ?>
 					</li>
-					<li>
-						<?php echo $form->labelEx($model,'subscribe_sms'); ?>
-						<?php echo $form->checkbox($model,'subscribe_sms'); ?>
-						<?php echo $form->error($model,'subscribe_sms'); ?>
-					</li>
-					<li>
-						<?php echo $form->labelEx($model,'subscribe_mail'); ?>
-						<?php echo $form->checkbox($model,'subscribe_mail'); ?>
-						<?php echo $form->error($model,'subscribe_mail'); ?>
-					</li>
+					
 					<li>
 						<?php echo $form->labelEx($model,'password'); ?>
 						<?php echo $form->passwordField($model,'password'); ?>

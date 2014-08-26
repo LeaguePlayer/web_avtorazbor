@@ -162,6 +162,7 @@ header .item .feature{
 	.radius(6px);
 	cursor: pointer;
 	font-weight: bold;
+	min-width: 140px;
 }
 
 .i-submit:hover{
@@ -681,10 +682,12 @@ header{
 	overflow: hidden;
 }
 .tabs, .partsTabs{
-			font-weight: bold;
 			height:37px;
 			margin-left:23px;
 			position: relative;
+			.i-submit{
+				margin-top: 30px;
+			}
 			&:before,&:after{
 				height:37px;
 				width:34px;
@@ -715,6 +718,7 @@ header{
 				a{
 					height:44px;
 					line-height:51px;
+					font-weight: normal;
 				}
 				&.active{
 					padding:0;
@@ -781,7 +785,7 @@ header{
 .page{
 	
 	margin:@c;
-	padding-bottom:50px;
+	padding-bottom:40px;
 	.head{
 		padding:15px 0 15px 0px;
 		display: inline-block;
@@ -801,7 +805,7 @@ header{
 	.wr{
 		.coll{
 			&.left{
-				float:left;
+				display: inline-block;
 				width:938px;
 					.gallery{
 					width:330px;
@@ -842,7 +846,6 @@ header{
 				}
 				.desc{
 					display: inline-block;
-					padding-left:25px;
 					li{
 						font:14px/16px 'segoe_uiregular';
 						color:#76838d;
@@ -869,7 +872,8 @@ header{
 			}
 			&.right{
 				width:220px;
-				float:right;
+				display: inline-block;
+				vertical-align: top;
 			}
 		}
 		.content{
@@ -949,6 +953,10 @@ header{
 				}
 			}
 			.personal{
+				padding-left: 25px;
+				.i-submit{
+					margin-top: 30px;
+				}
 				.desc{
 					dt{
 						padding-bottom: 15px;
@@ -1197,6 +1205,7 @@ header{
 		.second{
 			background: url(../images/second.png) no-repeat;	
 			height: 151px;
+			margin-top: 18px;
 			& a{
 				font-size: 14px;
 				background-color: #5da7ee;
@@ -1219,7 +1228,6 @@ header{
 			}
 		}
 		.modul{
-			margin-top:18px;
 			position: relative;
 			padding-left:15px;
 			padding-right:17px;
@@ -1236,7 +1244,6 @@ header{
 				text-decoration: none;
 			}
 			&:first-child{
-				margin-top:74px;
 			}
 			img{
 				position: absolute;
@@ -1564,7 +1571,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 				.desc{
 					width:450px;
 					float:left;
-					padding-left:25px;
 					li{
 						font:14px/16px 'segoe_uiregular';
 						color:#76838d;
@@ -1961,7 +1967,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 			padding:30px 13px 20px!important;
 			overflow: hidden;
 			position: relative;
-			min-height:auto!important;
+			min-height:233px;
 
 		}
 		.items-news{
@@ -1969,16 +1975,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 			width: 844px;
 			overflow: hidden;
 			margin: 0 auto;
+			height: 189px;
 			.owl-carousel .owl-wrapper-outer{
 
 			}
 				.owl-item{
 					display: inline-block;
-					width: 200px;
 					img{
 						display:block;
 						overflow:hidden;
 						margin-bottom:20px;
+						border-radius: 5px;
 					}
 					a{
 						display: inline-block;
@@ -2029,7 +2036,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 
 			.modul{
 				&:first-child{
-					margin-top:0!important;
 				}
 			}
 		}
@@ -2048,7 +2054,7 @@ div[id^=tabs]{
 	margin:@c;
 	font-weight: bold;
 	.tabs{
-		padding-left: 130px;
+		padding-left: 188px;
 	}
 	.parametr{
 		background:#255caa;
@@ -2298,11 +2304,17 @@ div[id^=tabs]{
 		position: relative;
 		width: 1065px;
 		overflow: hidden;
-		min-height: 150px;
+		min-height: 260px;
 		margin: 0 auto;
 		
 		.owl-item{
 			display:inline-block;
+			height: 260px;
+			position: relative;
+			div{
+				height: inherit;
+
+			}
 			img{
 						display: block;
 						margin:0;
@@ -2322,12 +2334,14 @@ div[id^=tabs]{
 							font-size:12px;
 							line-height:18px;
 							color:#99aab7;
+							display: block;
 						}
 						.price{
-							display:block;
+							display:inline-block;
 							font:18px/1.2 'segoe_uisemibold';
 							color:#333;
-							padding-bottom:2px;
+							position: absolute;
+							bottom: 0;
 						}
 						.price_old{
 							font:14px/1.2 'segoe_uiregular';
@@ -2366,25 +2380,28 @@ div[id^=tabs]{
 				}
 			}
 		}
-	.readmore{
-		margin-top:27px;
-		clear:both;
-		text-align: center;
-		background:url(../images/bg_line.jpg) repeat-x center;
-	}
+}
+.readmore{
+	margin-bottom:27px;
+	clear:both;
+	text-align: center;
+	background:url(../images/bg_line.jpg) repeat-x center;
 }
 .about{
 	width:@w;
 	margin:@c;
 	margin-top:0px!important;
+	margin-bottom: 40px;
 	h1{
 		font:18px/20px 'segoe_uiregular';
 		color:#333;
 	}
 	p{
 		padding-top:18px;
+
 		color:#76838d;
 		font:14px/14px 'segoe_uiregular';
+		line-height: 20px;
 	}
 	.readmore{
 		margin-top:27px;
@@ -2496,7 +2513,6 @@ footer{
 			.tel{
 				width:160px;
 				overflow: hidden;
-				font-weight: normal;
 				color:#f5841e;
 				font-size:14px;
 				line-height:20px;
@@ -2505,7 +2521,6 @@ footer{
 				& a{
 					color:#bec9d1;
 				}
-				
 			}
 			.search{
 				float:right;
@@ -3057,6 +3072,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 	right:0;
 	left:0;
 	margin: auto;
+	height: 15px;
+	width: 148px;
 }
 .criteria {
 	.item{
@@ -3316,4 +3333,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 	 			color:#fe6a04
 	 		}
 	 	}
+}
+.mar-36{
+	margin-top: 36px;
 }

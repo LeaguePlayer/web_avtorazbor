@@ -19,20 +19,20 @@
 		public $parent;
 		public $force_st=0;
 		public $force_end=1000;
-		public $type;
+		public $type=1;
 		public $id_country;
 		public $sort=price_sell;
 		public $display=20;
 		public function rules() {
 			
 			return array(
-				array('bascet, brand, id_country, display, scenario, sort, transmission, car_model_id, price_st, price_end, state, mileage_st, mileage_end, year_st, year_end, category_id, parent', 'required'),
+				array('bascet, brand, id_country, display, scenario, sort, type, transmission, car_model_id, price_st, price_end, state, mileage_st, mileage_end, year_st, year_end, category_id, parent', 'required'),
 
-				array('bascet, scenario, car_model_id, brand, transmission, price_st, price_end, state, mileage_st, mileage_end, year_st, year_end, forse_st, forse_end,', 'getLightCars', 'on'=>'light'),
+				array('bascet, scenario, car_model_id, brand, transmission, price_st, price_end, state, mileage_st, mileage_end, year_st, year_end, forse_st, forse_end, type', 'getLightCars', 'on'=>'light'),
 
-				array('id_country, scenario, car_model_id, brand, price_st, price_end, state, mileage_st, mileage_end, year_st, year_end, forse_st, forse_end,', 'getWeightCars', 'on'=>'weight'),
+				array('id_country, scenario, car_model_id, brand, price_st, price_end, state, mileage_st, mileage_end, year_st, year_end, forse_st, forse_end, type', 'getWeightCars', 'on'=>'weight'),
 
-				array('bascet, scenario, car_model_id, brand, category_id, price_st, price_end', 'getParts', 'on'=>'parts'),
+				array('bascet, scenario, car_model_id, brand, category_id, price_st, price_end, type', 'getParts', 'on'=>'parts'),
 
 				array('deametr', 'getDiscs', 'on'=>'disc'),
 
@@ -42,12 +42,15 @@
 
 		public function beforeValidate()
 		{
-			if (!isset($_GET['SearchFormOnMain']['category_id']))
-				$this->setScenario($this->scenario);
-			else 
-				$this->setScenario('parts');
-			// var_dump($this->scenario);
-			// die();
+
+			$this->setScenario($this->scenario);
+			$url='';
+			foreach ($this->attributes as $key => $value) {
+				if ($value)
+					$url.='SearchFormOnMain['.$key.']='.$value.'&';
+			}
+			Yii::app()->session['backToResult']=substr($url, 0,-1);
+
 			return parent::beforeValidate();
 		}
 
@@ -57,7 +60,7 @@
 			{
 				$this->criteria=new CDbCriteria;
 				$this->criteria->addCondition('car_type='.($this->scenario=="light" ? 1 : 2));
-				$this->criteria->join=UsedCars::join();
+				$this->criteria->join=$this->type==1 ? UsedCars::join() : Parts::join();
 			}
 			$this->criteria->order=$this->sort;
 			return true;
@@ -73,13 +76,12 @@
 					$criteria->addCondition($value.'='.$this->$value);
 				}
 			}
-
+			$priceColumn=$this->type==2 ? 'price_sell' : 'price';
 			if ($this->price_st)
-				$criteria->addCondition("price>=$this->price_st");
+				$criteria->addCondition("`t`.$priceColumn>=$this->price_st");
 			if ($this->price_end)
-				$criteria->addCondition("price<=$this->price_end");
+				$criteria->addCondition("`t`.$priceColumn<=$this->price_end");
 			return $criteria;
-
 		}
 
 		public function getLightCars()
@@ -171,7 +173,6 @@
 			$criteria=Parts::model()->search_parts($column,$params);
 			$type=$this->scenario=="light" ? 1 : 2;
 			$criteria->addCondition('car_type='.$type);
-
 			$this->criteria=$criteria;
 		}
 

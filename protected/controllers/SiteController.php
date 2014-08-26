@@ -78,7 +78,7 @@ class SiteController extends FrontController
 				$searchForm->attributes=$_GET['SearchFormOnMain'];
 				$searchForm->validate();
 
-				$model=!isset($_GET['SearchFormOnMain']['category_id']) ? 'UsedCars' : 'Parts';
+				$model=$_GET['SearchFormOnMain']['type']=='1' ? 'UsedCars' : 'Parts';
 				// var_dump($searchForm->criteria);die();
 				$searchForm->criteria->limit=100;
 				$dataProvider=new CActiveDataProvider($model,

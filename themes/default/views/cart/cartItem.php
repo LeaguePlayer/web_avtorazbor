@@ -1,14 +1,16 @@
 <tr>
         <?      
-                $gallery= $data->getGallery()->galleryPhotos;
-                $image = $gallery ? $gallery[0]->getUrl('small') : '/media/images/default.png';
-                $imageBig = $gallery ? $gallery[0]->getUrl('big') : '/media/images/defaultBig.png';
+                // $gallery= $data->getGallery()->galleryPhotos;
+                // $image = $gallery ? $gallery[0]->getUrl('small') : '/media/images/default.png';
+                // $imageBig = $gallery ? $gallery[0]->getUrl('big') : '/media/images/defaultBig.png';
+        $image='/media/car.png';
+        $imageBig='/media/car.png';
 
         ?>
 	<td>
-                <a href="<?=$imageBig?>" class="imgFancy">
+            <a href="<?=$imageBig?>" class="imgFancy">
 		      <img src="<?=$image?>" alt="" title="" />
-                </a>
+            </a>
 	</td>
         <td class="articul">
                 <?=$data->id?>

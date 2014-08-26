@@ -13,7 +13,7 @@
                 'action' => $this->createUrl('/detail/parts'),
                 'htmlOptions' => array('class' => 'request_form')
             )) ?>
-
+                <?=$form->hiddenField($searchForm,'type',array('value'=>2))?>
                 <?=$form->hiddenField($searchForm,'sort')?>
                 <?=$form->hiddenField($searchForm,'display')?>
                 <?=$form->hiddenField($searchForm,'scenario')?>

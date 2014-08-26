@@ -1,42 +1,42 @@
         <div class="service" id="panel">
             <ul>
-                        <li class="icon sale">
-                            <a href="/catalog">
-                                <i></i>
-                                <span class="h">Продажа авто</span>
-                                <span class="d">Крупнейший парк<br/> битых авто в Екатеринбурге</span>
-                            </a>
-                        </li>
-                        <li class="icon zp">
-                            <a href="/detail">
-                                <i></i>
-                                <span class="h">Автозапчасти</span>
-                                <span class="d">Огромный выбор<br/> запчастей с разбора</span>
-                            </a>
-                        </li>
-                        <li class="icon buying">
-                            <a href="/sales">
-                                <i></i>
-                                <span class="h">Выкуп авто</span>
-                                <span class="d">Выкуп автомобилей<br/> после ДТП, пожара и т.п.</span>
-                            </a>
-                        </li>
-                        <li class="icon transport">
-                            <a href="/page/Avtoperevozki">
-                                <i></i>
-                                <span class="h">Автоперевозки</span>
-                                <span class="d">Автомобильные перевозки<br/>
-                                в Екатеринбурге и области</span>
-                            </a>
-                        </li>
+                <li class="icon sale">
+                    <a href="/catalog">
+                        <i></i>
+                        <span class="h">Продажа авто</span>
+                        <span class="d">Крупнейший парк<br/> битых авто в Екатеринбурге</span>
+                    </a>
+                </li>
+                <li class="icon zp">
+                    <a href="/detail">
+                        <i></i>
+                        <span class="h">Автозапчасти</span>
+                        <span class="d">Огромный выбор<br/> запчастей с разбора</span>
+                    </a>
+                </li>
+                <li class="icon buying">
+                    <a href="/sales">
+                        <i></i>
+                        <span class="h">Выкуп авто</span>
+                        <span class="d">Выкуп автомобилей<br/> после ДТП, пожара и т.п.</span>
+                    </a>
+                </li>
+                <li class="icon transport">
+                    <a href="/page/Avtoperevozki">
+                        <i></i>
+                        <span class="h">Автоперевозки</span>
+                        <span class="d">Автомобильные перевозки<br/>
+                        в Екатеринбурге и области</span>
+                    </a>
+                </li>
 
-                        <li class="icon spec">
-                            <a href="/page/Cpectehnika">
-                                <i></i>
-                                <span class="h">Спецтехника</span>
-                                <span class="d">Продаем<br/> подержанную спецтехнику</span>
-                            </a>
-                        </li>
+                <li class="icon spec">
+                    <a href="/page/Cpectehnika">
+                        <i></i>
+                        <span class="h">Спецтехника</span>
+                        <span class="d">Продаем<br/> подержанную спецтехнику</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <!--service End-->
@@ -47,12 +47,12 @@
                 <ul>
                     <li class="active">
                         <a href="#tabs-1">
-                            Легковые автомобили
+                            Легковые авто
                         </a>
                     </li>
                     <li>
                         <a href="#tabs-2">
-                            Грузовые автомобили
+                            Грузовые авто
                         </a>    
                     </li>
                     <li>
@@ -89,6 +89,7 @@
                                 Марка
                             </dt>
                             <dd>
+                                <input type="hidden" value="1" name="SearchFormOnMain[type]">
                                 <input type="hidden" value="light" name="SearchFormOnMain[scenario]">
                                 <?=$form->dropDownList($searchForm, 'brand', $Brands, array( 
                                                         'empty'=>'Выберите марку', 'class'=>'select','data-nested'=>'#model_1','data-model'=>'carBrands'));?>
@@ -231,6 +232,7 @@
                                 Марка
                             </dt>
                             <dd>
+                                <input type="hidden" value="1" name="SearchFormOnMain[type]">
                                 <input type="hidden" value="weight" name="SearchFormOnMain[scenario]">
                                 <?=$form->dropDownList($searchForm, 'brand', $Brands, array( 
                                                         'empty'=>'Выберите марку', 'class'=>'select','data-nested'=>'#model_2','data-model'=>'carBrands'));?>
@@ -367,6 +369,8 @@
                                 Тип
                             </dt>
                             <dd>
+                                <input type="hidden" value="2" name="SearchFormOnMain[type]">
+                                <input type="hidden" value="parts" name="SearchFormOnMain[scenario]">
                                 <?=$form->dropDownList($searchForm, 'scenario', array('light'=>'Запчасти для легковых машин','weight'=>'Запчасти для грузовых машин'), array( 
                                                         'empty'=>'Выберите тип авто', 'class'=>'select','data-nested'=>'#model_3','data-model'=>'carBrands'));?>
                             </dd>
@@ -628,12 +632,12 @@
             </a>
             <a href="#" class="next">
             </a>
-            <img class="loader" src="/media/images/loader.gif"/>
+            <img class="loader" src="/media/images/loader-fff.gif"/>
             <?=$this->renderPartial('//site/carCarusel',array('dataProvider'=>$dataProviderCar),true);?>
             <div class="clear"></div>
-            <div class="readmore">
-                <a href="/catalog" class="i-submit">Все Легковые автомобили</a>
-            </div>
+        </div>
+        <div class="readmore">
+            <a href="/catalog" class="i-submit">Все Легковые автомобили</a>
         </div>
         <!--cat auto End-->
 
@@ -664,7 +668,7 @@
                                 </a>
                             </dt>
                             <dt>
-                                <a href="#">
+                                <a href="/news">
                                     Все новости
                                 </a>
                             </dt>
@@ -672,7 +676,7 @@
                     </div>
 
                     <div class="content clear">
-                        <div id="tabs-5" >
+                        <div id="tabs-5" class="tab-active">
                             <a href="#" class="prev"></a>
                             <a href="#" class="next"></a>
                             <?=$this->renderPartial('/site/newsCarusel',array('dataProvider'=>$dataProviderNews))?>
@@ -721,12 +725,13 @@
             <p>         
                 Благодаря широкой партнерской сети наш каталог постоянно пополняется иномарками европейского, японского и китайского производства.Если вы нигде не можете найти необходимую деталь — оставьте заявку на индивидуальный подбор, мы найдем авторазборку в самые короткие сроки.
             </p>
-            <div class="readmore">
+        </div>
+        <div class="clear"></div>
+        <div class="readmore">
                 <a href="#" class="i-submit">
                     Узнать о сотрудничестве
                 </a>
             </div>
-        </div>
         <!--about End-->
         
         <!--plus-->

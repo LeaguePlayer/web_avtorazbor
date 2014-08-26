@@ -1,22 +1,9 @@
-<div class="item">
-	<div class="data-info">
-		<p class="name">
-			<?=$data->name?>
-		</p>
-		<p class="publish">
-			<?=$data->create_time;?>
-		</p>
-
-	</div>
-	<div class="preview">
-		<a href="/news/<?=$data->id?>">
-			<?
-				$imgPath=$data->getImageUrl() ? $data->getImageUrl('small') : '/media/news/default.png';
-			?>
-			<img src="<?=$imgPath?>" alt="" title="">
-		</a>
-	</div>
-	<div class="announce">
-	<?=$data->description?>
-	</div>
-</div>
+<li class="item">
+    <a href="#"><img src="images/d_news.jpg" alt="" title=""></a>
+    <div class="right">
+        <span class="data">17.12.14</span>
+        <a href="#" class="name">
+            Поступил в разбор Ford Focus 2 2007 1.6 (TDCi дизель) МКПП
+        </a>
+    </div>
+</li>

@@ -46,14 +46,16 @@ class CartController extends FrontController
 
 	public function actionIndex()
 	{
+
 		$cs = Yii::app()->clientScript;
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/cart.js', CClientScript::POS_END);
 
 		$models=Yii::app()->cart->getPositions();
+
 		$user=Clients::model()->findByPk(Yii::app()->user->id);
 		$info=$user->info;
 
-		if (!$user)
+		if (!$user)	
 		{
 			$user=new Clients;
 			$info=new ClientsInfo;

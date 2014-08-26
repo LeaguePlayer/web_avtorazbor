@@ -128,8 +128,7 @@ $(document).ready(function(){
 		showLoader();
 
 		setTimeout(function(){
-			var params=methods['parts'].apply(this,[]);
-			$form=$('#parts-form').serialize();
+			var $form=$('#parts-form').serialize();
 			ViewItems($('.auto'),$form,'/detail/ajaxUpdate',onViewChangedCallBack);
 		},1000)
 	}
@@ -141,11 +140,5 @@ $(document).ready(function(){
 		var $_count=$('.summary span').text();
 
 			$('.pag li:first a').text('Все('+($_count ? $_count : 0)+')');
-
-		$('.items li a').on('click',function(){
-			var $_url=$('#criteria-form').serialize(),
-				$_href=$(this).attr('href');
-				$(this).attr('href',$_href+'?'+$_url);
-		});
 	}
 })

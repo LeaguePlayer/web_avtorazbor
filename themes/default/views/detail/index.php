@@ -53,7 +53,7 @@
                                     <dl>
                                     <dd>
 
-                                        <?=$form->hiddenField($searchForm,'type')?>
+                                        <?=$form->hiddenField($searchForm,'type',array('value'=>2))?>
 
                                         <?=$form->hiddenField($searchForm,'scenario')?>
 
@@ -101,15 +101,17 @@
                                         </label>
                                         <?=$form->dropDownList($searchForm,'parent', array())?>
                                     </dd>
-                                    <br>
-                                    <input type="submit" class="i-submit" id="sendCriteria" value="Найти">
+                                    <dd></dd>
+                                    <dt>
+                                        <input type="submit" class="i-submit" width="100%" id="sendCriteria" value="Найти">
+                                    </dt>
                                     </dl>
                                     <?$this->endWidget()?>
                                 </div>
                             
                         </div>
                         
-                        <div id="disc" class=" <?=$searchForm->scenario=='disc' ? 'tab-active' : '' ?>">
+                        <div id="disc" class="personal <?=$searchForm->scenario=='disc' ? 'tab-active' : '' ?>">
                             <form action="/detail/disc" method="get">
                                 <div class="formCost">
                                     <dl class="desc">
@@ -123,17 +125,20 @@
                                             Диаметр дисков (в дюймах).
                                         </dd>
                                     </dl>
-                                    <input type="hidden" name="disc" />
-                                    <div class="i-text">
-                                        <!-- <input type="text" id="minSize" name="min" value="14"> -->
-                                        <?=$form->textField($searchForm,'price_st',array('name'=>'min', 'id'=>'minSize','value'=>14))?>
-
-                                    </div>
-                                    <label for="maxforce">-</label> 
-                                    <div class="i-text">
-                                        <!-- <input type="text" id="maxSize" name="max" value="25"> -->
-                                        <?=$form->textField($searchForm,'price_end',array('name'=>'max', 'id'=>'maxSize','value'=>25))?>
-                                    </div>
+                                    <dl>
+                                        <dd>
+                                            <input type="hidden" name="disc" />
+                                            <div class="i-text">
+                                                <?=$form->textField($searchForm,'price_st',array('name'=>'min', 'id'=>'minSize','value'=>14))?>
+                                            </div>
+                                            <label for="maxforce">-</label> 
+                                            <div class="i-text">
+                                                <!-- <input type="text" id="maxSize" name="max" value="25"> -->
+                                                <?=$form->textField($searchForm,'price_end',array('name'=>'max', 'id'=>'maxSize','value'=>25))?>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    
                                 </div>
                             
                             <div class="sliderCont">
@@ -147,7 +152,7 @@
                 </div>
 
                 <div class="coll right">
-                    <div class="modul first">
+                    <div class="modul first mar-36">
 
                             <p class="phone">+7 (343) 201-36-06</p>
                             <a href="#">

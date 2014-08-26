@@ -132,7 +132,7 @@
 				}
 				$this->render('registration',array('model'=>$regForm));
 			}
-			else 
+			else
 			$this->redirect(Yii::app()->getHomeUrl());
 		}
 

@@ -2,7 +2,7 @@
         <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
         <div class="viewport" style="top:0">
              <div class="overview">
-<? if (!empty($dataProvider))
+<? if ($dataProvider->totalItemCount)
 {
 
     $this->widget('zii.widgets.CListView', array(
