@@ -43,6 +43,10 @@ class PartsController extends AdminController
 			$model->attributes = $_POST['Parts'];
 
 			$model->name = $model->category->name.", ".$model->car_model->car_brand->name." ".$model->car_model->name;
+
+			if(!$model->user_id)
+				$model->user_id = Yii::app()->user->id;
+
 			if($model->save()){
 				$this->attachUsedCar($model);
 				
