@@ -83,20 +83,18 @@ class Parts extends EActiveRecord implements IECartPosition
         return false;
     }
 
-    public function Disc($min,$max,$pagination=false,$category=null)
+    public function Disc($min,$max,$category=null)
     {
         $criteria=new CDbCriteria;
-
-        $criteria->join = "inner join `tbl_category_attr` attr on `attr`.category_id=`t`.category_id
+        $criteria->join = "inner join `tbl_categories` cat on cat.id=category_id
+                           inner join `tbl_category_attr` attr on `attr`.category_id=`t`.category_id
                            inner join `tbl_category_attr_values` attrVal on `attrVal`.attr_id=`attr`.id";
         if ($min)
             $criteria->addCondition('CAST(`attrVal`.value as SIGNED)>='.$min.' and '.'CAST(`attrVal`.value as SIGNED)<='.$max);
-            
-        return new CActiveDataProvider('Parts',array(
-            'criteria'=>$criteria,
-            'pagination'=>$pagination
-            )
-        );
+            if ($category)
+            $criteria->addCondition("cat.id=$category or parent=$category");
+
+        return $criteria;
     }
 
     public function rules()

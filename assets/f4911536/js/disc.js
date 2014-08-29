@@ -29,7 +29,7 @@ $(function(){
 		setTimeout(function(){
 
 			// var params=methods['disc'].apply(this,[]);
-			ViewItems($('.auto'),methods['disc'].apply(this,[]),'/detail/disc',onViewChangedCallBack);
+			ViewItems($('.auto'),$('#parts-form').serialize(),'/detail/disc',onViewChangedCallBack);
 			return false;
 			
 		},1000);
@@ -43,10 +43,24 @@ $(function(){
 		slideToMenu();
 	};
 
-	$('#sort li a,#display li a').on('click',function(){
+	$('#sort li a').on('click',function(){
 
 		$(this).closest('ul').find('.active').removeClass('active');
 		$(this).closest('li').addClass('active');
+
+		$('#SearchFormOnMain_sort').val($(this).closest('li').data('sort'));
+
+		changeView();
+		return false;
+	});
+
+	$('#display li a').on('click',function(){
+
+		$(this).closest('ul').find('.active').removeClass('active');
+		$(this).closest('li').addClass('active');
+
+		$('#SearchFormOnMain_display').val(parseInt($(this).text()));
+
 		changeView();
 		return false;
 	});

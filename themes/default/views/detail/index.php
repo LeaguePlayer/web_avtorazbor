@@ -127,20 +127,19 @@
                                     </dl>
                                     <dl>
                                         <dd>
-                                            <input type="hidden" name="disc" />
+                                            <input type="hidden" name="SearchFormOnMain[category_id]" value="295"/>
+                                            <input type="hidden" name="SearchFormOnMain[scenario]" value="disc"/>
                                             <div class="i-text">
-                                                <?=$form->textField($searchForm,'price_st',array('name'=>'min', 'id'=>'minSize','value'=>14))?>
+                                                <?=$form->textField($searchForm,'diametr_st',array('id'=>'minSize','value'=>14))?>
                                             </div>
                                             <label for="maxforce">-</label> 
                                             <div class="i-text">
                                                 <!-- <input type="text" id="maxSize" name="max" value="25"> -->
-                                                <?=$form->textField($searchForm,'price_end',array('name'=>'max', 'id'=>'maxSize','value'=>25))?>
+                                                <?=$form->textField($searchForm,'diametr_end',array('id'=>'maxSize','value'=>25))?>
                                             </div>
                                         </dd>
                                     </dl>
-                                    
                                 </div>
-                            
                             <div class="sliderCont">
                                 <div id="slider2"></div>
                             </div>

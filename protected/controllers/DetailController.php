@@ -54,34 +54,38 @@ class DetailController extends FrontController
 		$cs = Yii::app()->clientScript;
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
     	$cs->registerScriptFile($this->getAssetsUrl().'/js/disc.js', CClientScript::POS_END);
-    	
+
+    	$searchForm=new SearchFormOnMain;
+
+    	if (isset($_GET['SearchFormOnMain']))
+    	{
+    		$searchForm->attributes=$_GET['SearchFormOnMain'];
+    		$searchForm->validate();
+    	}
+
     	if( !Yii::app()->request->isAjaxRequest )
     	{
-    		$dataProvider=Parts::model()->Disc($_GET['min'],$_GET['max']);
-			$this->render('disc',
-				array('dataProvider'=>$dataProvider,
-						'min'=>$_GET['min'],
-						'max'=>$_GET['max'],
-					)
-				);
+    		
+    		$dataProvider=new CActiveDataProvider('Parts',array(
+    				'criteria'=>$searchForm->criteria,
+    				'pagination'=>array(
+						'pageSize'=>$searchForm->display,
+					),
+    			)
+    		);
+			$this->render('disc',array('dataProvider'=>$dataProvider,'searchForm'=>$searchForm));
 		}
 		else {
+			$dataProvider=new CActiveDataProvider('Parts',array(
+    				'criteria'=>$searchForm->criteria,
+    				'pagination'=>array(
+						'pageSize'=>$searchForm->display,
+					),
+    			)
+    		);
 
-			$data=$_GET['data'];
-
-			$pagination=array('pageSize'=>$data['display']);
-
-			$dataProvider=Parts::model()->Disc($data['min'],$data['max']);
-			
-			$dataProvider->criteria->addCondition('price_sell>='.$data['minCost'].' and price_sell<='.$data['maxCost']);
-			$dataProvider->criteria->order=$data['sort'].' desc';
-
-			print($this->renderPartial('tabParts',
-				array(
-					'dataProvider'=>$dataProvider,
-				),true));
+			print($this->renderPartial('tabParts',array('dataProvider'=>$dataProvider),true));
 		}
-
 	}
 	
 	public function actionParts()

@@ -8,24 +8,33 @@
 
                 <div class="coll-left">
                     <div class="modul filter">
-                    <form id="disc-form">
+                    <?php $form = $this->beginWidget('CActiveForm', array(
+                                'id' => 'parts-form',
+                                'action' => $this->createUrl('/detail/disc'),
+                                'method'=>'get',
+                                'htmlOptions' => array('class' => 'request_form')
+                            )) ?>
                         <dl>
-                            
+                            <?=$form->hiddenField($searchForm,'display')?>
+                            <?=$form->hiddenField($searchForm,'scenario',array('value'=>'disc'))?>
+                            <?=$form->hiddenField($searchForm,'sort')?>
+                            <?=$form->hiddenField($searchForm,'category_id',array('value'=>295))?>
                             <dt>
                                 Диаметр (дюймы):
                             </dt>
                             <dd id="slider">
                                 <div class="formCost">
-                                    <div class="i-text">
-                                    <input type="text" id="min" name="min" value="<?=$min?>"/>
+                                <div class="i-text">
+                                    <?=$form->textField($searchForm,'diametr_st')?>
+                                    
                                 </div>
                                     <label for="maxCost">-</label> 
                                 <div class="i-text">
-                                <input type="text" id="max" name="max" value="<?=$max?>"/>
+                                    <?=$form->textField($searchForm,'diametr_end')?>
                                 </div>
                                 </div>
                                 <div class="calculate">
-                                    <div class="partPrice" data-min="#minCost" data-max="#maxCost">
+                                    <div class="partPrice" data-min="#SearchFormOnMain_diametr_st" data-max="#SearchFormOnMain_diametr_end">
                                     </div>
                                 </div>
                             </dd>
@@ -36,16 +45,16 @@
                             <dd id="slider-2">
                                 <div class="formCost">
                                     <div class="i-text">
-                                    <input type="text" id="minCost" name="minCost" value="100"/>
+                                     <?=$form->textField($searchForm,'price_st')?>
                                 </div>
                                     <label for="maxCost">-</label> 
                                 <div class="i-text">
-                                <input type="text" id="maxCost" name="maxCost" value="500000"/>
+                                    <?=$form->textField($searchForm,'price_end')?>
                                 </div>
                                 </div>
 
                                 <div class="calculate">
-                                    <div class="partPrice" data-min="#minCost" data-max="#maxCost">
+                                    <div class="partPrice" data-min="#SearchFormOnMain_price_st" data-max="#SearchFormOnMain_price_end">
                                     </div>
                                 </div>
                             </dd>
@@ -54,7 +63,7 @@
                                 <a href="/detail/disc" class="i-submit" >Сбросить</a>
                             </dd>
                         </dl> 
-                        </form>  
+                        <?$this->endWidget()?>
                     </div>
                 </div>
 
@@ -103,8 +112,8 @@
                                     </dt>
                                     <dd>
                                         <ul id="sort">
-                                            <li class="active" data-sort="price_buy">
-                                                <a href="/detail/disc?sort=price_buy">
+                                            <li class="active" data-sort="price_sell">
+                                                <a href="/detail/disc?sort=price_sell">
                                                     Цене
                                                 </a>
                                             </li>

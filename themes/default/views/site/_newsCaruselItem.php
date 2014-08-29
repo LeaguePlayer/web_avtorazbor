@@ -1,7 +1,7 @@
 <div>
     <?
-        //$image=$data->getImageUrl('small') ? $data->getImageUrl('small') : '/media/images/news/default.jpg' ;
-    $image='/media/news-preview.png';
+    $image=$data->getImageUrl('small') ? $data->getImageUrl('small') : '/media/images/news/default.jpg' ;
+    //$image='/media/news-preview.png';
     ?>
     <a hrf="/news/view/id/<?=$data->id?>">
     <img src="<?=$image?>" alt="" title="">

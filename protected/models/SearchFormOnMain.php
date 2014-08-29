@@ -14,7 +14,8 @@
 		public $year_st;
 		public $year_end;
 		public $scenario='light';
-		public $diametr_st;
+		public $diametr_st=14;
+		public $diametr_end=25;
 		public $criteria;
 		public $parent;
 		public $force_st=0;
@@ -44,6 +45,7 @@
 		{
 
 			$this->setScenario($this->scenario);
+
 			$url='';
 			foreach ($this->attributes as $key => $value) {
 				if ($value)
@@ -51,7 +53,6 @@
 			}
 			
 			Yii::app()->session->add('backToResult',substr($url, 0,-1));
-
 			return parent::beforeValidate();
 		}
 		
@@ -62,9 +63,10 @@
 				$this->criteria=new CDbCriteria;
 				$this->criteria->addCondition('car_type='.($this->scenario=="light" ? 1 : 2));
 				$this->criteria->join=$this->type==1 ? UsedCars::join() : Parts::join();
+				$this->criteria->addCondition('status>6');
 			}
-			$this->criteria->order=$this->sort.', status!=3';
-
+			$this->criteria->order=$this->sort;
+			// var_dump($this->criteria);die()
 			return true;
 		}
 
@@ -181,7 +183,8 @@
 		public function getDiscs()
 		{
 			$properties=array('price_, brand, transmission, state');
-			$criteria=new CDbCriteria;
+			$this->criteria=Parts::model()->Disc($this->price_st,$this->price_end,$this->category_id);
+			//var_dump($this->criteria->condition);die()
 			return true;
 		}
 
