@@ -21,6 +21,39 @@
 						'data-toggle' => 'modal',
 						'data-target' => '#client-modal',
 					)); ?>
+					<?php echo TbHtml::button('Данные с формы сайта', array(
+						'style' => TbHtml::BUTTON_COLOR_PRIMARY,
+						'size' => TbHtml::BUTTON_SIZE_SMALL,
+						'data-toggle' => 'modal',
+						'data-target' => '#client-modal',
+					)); ?>
+				</div>
+				<div class="control-group">
+					Данные заказчика
+					<div class="control-grop">
+						<?=$form->labelEx($model,'fio')?>
+						<?=$form->textField($model,'fio')?>
+					</div>
+					<div class="control-grop">
+						<?=$form->labelEx($model,'phone')?>
+						<?=$form->textField($model,'phone')?>
+					</div>
+					<div class="control-grop">
+						<?=$form->labelEx($model,'email')?>
+						<?=$form->textField($model,'email')?>
+					</div>
+					<div class="control-grop">
+						<?=$form->labelEx($model,'delivery')?>
+						<?=$form->dropDownList($model,'delivery',Requests::getDeliveryType(),array('empty'=>'Не определено!'))?>
+					</div>
+					<div class="control-grop">
+						<?=$form->labelEx($model,'city')?>
+						<?=$form->textField($model,'city')?>
+					</div>
+					<div class="control-grop">
+						<?=$form->labelEx($model,'adress')?>
+						<?=$form->textField($model,'adress')?>
+					</div>
 				</div>
 				<div class="actions-no" style="display: none;">
 					<?php echo TbHtml::button('Заполнить данные', array(

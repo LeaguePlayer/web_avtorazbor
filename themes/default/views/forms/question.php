@@ -1,9 +1,9 @@
 
-<div id="popup" style="display: none;">
+<div id="popup" class="qst">
         <div class="bx">
 
             <dl>
-                <dt>
+                <dt class="head">
                     Задать вопрос
                 </dt>
                 <dd>
@@ -17,36 +17,44 @@
                     'action'=>'/ajaxRequests/saveQuestion',
                     'enableAjaxValidation'=>true,
                     'enableClientValidation'=>true,
+                    'clientOptions'=>array(
+                        'validateOnSubmit'=>true,
+                        'afterValidate'=>'function(hasError){
+                            if (hasError)
+                                return;
+                            $.fancybox.close();
+                        }'
+                    ),
                     'focus'=>array($model,'name'),
                 )); ?>
                 <ul>
                     <li>
                         <?php echo $form->labelEx($model,'name');?>
-                        <?php echo $form->textField($model,'name',array('class'=>'span8','maxlength'=>255)); ?>
+                        <?php echo $form->textField($model,'name',array('class'=>'i-text','maxlength'=>255)); ?>
                         <?php echo $form->error($model,'name',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
 
                     <li>
                         <?php echo $form->labelEx($model,'phone');?>
-                        <?php echo $form->textField($model,'phone',array('class'=>'span8','maxlength'=>255)); ?>
+                        <?php echo $form->textField($model,'phone',array('class'=>'i-text','maxlength'=>255)); ?>
                         <?php echo $form->error($model,'phone',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
 
                     <li>
                         <?php echo $form->labelEx($model,'mail');?>
-                        <?php echo $form->textField($model,'mail',array('class'=>'span8','maxlength'=>255)); ?>
+                        <?php echo $form->textField($model,'mail',array('class'=>'i-text','maxlength'=>255)); ?>
                         <?php echo $form->error($model,'mail',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
 
                     <li>
                         <?php echo $form->labelEx($model,'question');?>
-                        <?php echo $form->textField($model,'question',array('class'=>'span8','maxlength'=>255)); ?>
+                        <?php echo $form->textarea($model,'question',array('class'=>'i-text','maxlength'=>255)); ?>
                         <?php echo $form->error($model,'question',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
 
                     <li>
                         <?php echo $form->labelEx($model,'theme');?>
-                        <?php echo $form->textArea($model,'theme',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
+                        <?php echo $form->dropDownList($model,'theme',array(1=>'Автозапчасти'),array('class'=>'select'));?>
                         <?php echo $form->error($model,'theme',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
 

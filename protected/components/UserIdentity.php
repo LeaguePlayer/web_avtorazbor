@@ -23,7 +23,6 @@ class UserIdentity extends CUserIdentity
 		$params=array('email'=>$this->username,'password'=>$pwdhash);
 
 		$record=Clients::model()->findByAttributes($params);
-		
 		if (!$record->id)
 		{
 			$this->errorCode=self::ERROR_USERNAME_INVALID;

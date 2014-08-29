@@ -131,6 +131,7 @@ class AjaxRequestsController extends FrontController
 	        if ($model->validate())
 	        {
 	        	$model->save();
+	        	echo $model->errors;
 	        }
 	        else {
 	        	echo CActiveForm::validate($model);

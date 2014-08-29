@@ -63,8 +63,6 @@ class CatalogController extends FrontController
 			$Bascet=UsedCars::getBasketList();
 			$Models=CHtml::listData(CarModels::model()->findAll('brand=:id',array(':id'=>$searchForm->brand ? $searchForm->brand : 0)),'id','name');
 
-			Yii::app()->session['BackToSearchUrl']=$_GET['SearchFormOnMain'];
-
 			$this->render('index',array(
 				'dataProvider'=>$dataProvider,
 				'Countries'=>$Countries,
@@ -89,7 +87,6 @@ class CatalogController extends FrontController
 		if (isset($_GET['SearchFormOnMain']))
 		{
 			$searchForm->attributes=$_GET['SearchFormOnMain'];
-			Yii::app()->session['BackToSearchUrl']=$_GET['SearchFormOnMain'];
 		}
 		
 		$searchForm->validate();

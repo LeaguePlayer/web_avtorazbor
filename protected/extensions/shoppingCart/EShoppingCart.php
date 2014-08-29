@@ -33,7 +33,11 @@ class EShoppingCart extends CMap {
      * Restores the shopping cart from the session
      */
     public function restoreFromSession() {
+        //$data=new CTimestampBehavior;
+        
+        //var_dump(unserialize(Yii::app()->getUser()->getState($this->cartId)));die();
         $data = unserialize(Yii::app()->getUser()->getState($this->cartId));
+
         if (is_array($data) || $data instanceof Traversable)
             foreach ($data as $key => $product)
                 parent::add($key, $product);

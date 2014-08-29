@@ -18,8 +18,6 @@
             'validateOnSubmit' => true,
             'afterValidate' => "js: function(form, data, hasError) {
                     if ( hasError ) return;
-
-                    form = $('#login-form');
                     var action = form.attr('action');
                     $.ajax({
                         url: action,
@@ -61,13 +59,11 @@
         <li>
             <input type="hidden" name="return" value="<?=$_GET['return']?>">
             <?php echo $form->labelEx($model,'email');?>
-            <?php echo $form->textField($model,'email',array('class'=>'span8','maxlength'=>255)); ?>
-            
+            <?php echo $form->textField($model,'email',array('class'=>'i-text','width'=>'255px')); ?>
         </li>
-
         <li>
             <?php echo $form->labelEx($model,'password');?>
-            <?php echo $form->passwordField($model,'password',array('class'=>'span8','maxlength'=>255)); ?>
+            <?php echo $form->passwordField($model,'password',array('class'=>'i-text','width'=>'255px')); ?>
             
         </li>
     </ul>

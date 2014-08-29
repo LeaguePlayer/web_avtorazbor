@@ -41,4 +41,9 @@ class ChangePwd extends CFormModel {
 			Yii::app()->user->setFlash('error', "Не верный старый пароль!");
 		 }
 	 }
+	 public function beforeSave()
+	 {
+	 	$this->password=Yii::app()->getModule('user')->encrypting($this->password);
+	 	return parent::beforeSave();
+	 }
 }

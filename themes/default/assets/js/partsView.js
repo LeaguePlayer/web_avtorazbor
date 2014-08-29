@@ -5,14 +5,8 @@ $(function(){
 	$('.imgFancy').fancybox();
 	
 	$('.own-price').fancybox({
-		fitToView	: false,
-		wrapCSS		: "questionForm",
-		height		: 700,
-		width		: 590,
-		autoSize	: false,
-		closeClick	: false,
-		openEffect	: 'none',
-		closeEffect	: 'none'
+		fitToView	: true,
+		autoSize	: true,
 	});
 
 	$('.inCart').on('click',function(){

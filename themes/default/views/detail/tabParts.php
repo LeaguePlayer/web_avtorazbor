@@ -8,7 +8,7 @@ if (!empty($dataProvider))
         'pagerCssClass' => 'pagination',
         'itemsTagName'=>'ul',
         'ajaxUpdate'=>true,
-        'template'=>'{items}{pager}{summary}',
+        'template'=>'{items}{pager}{summary}{sorter}',
         'id'=>'part_list',
         'pager' => array(
             'prevPageLabel' => '',

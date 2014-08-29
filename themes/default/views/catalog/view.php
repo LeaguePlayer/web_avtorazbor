@@ -11,11 +11,11 @@
 
                 <div class="gallery">
                     <div class="big-img">
-                        <a class="imgFancy" href="<?=$model->getImageUrl('big') ? $model->getImageUrl('big') : '/media/images/default.png' ?>"><img width="331" height="192" src="<?=$model->getImageUrl('mormal') ? $model->getImageUrl('mormal') : '/media/images/default.png' ?>" alt="" title="" /></a>
+                        <a class="imgFancy" href="<?=$model->getImageUrl('big') ? $model->getImageUrl('big') : '/media/images/default.png' ?>"><img width="331" height="192" src="/media/mediumPart.png" alt="" title="" /></a>
                     </div>
                 </div>
 
-                <div class="desc">
+                <div class="desc desc-view">
                     <ul>
                         <?
                             $param="?SearchFormOnMain[brand]=".$model->model->car_brand->id."&SearchFormOnMain[id_country]=".$model->model->car_brand->country->id;
@@ -46,7 +46,7 @@
                         </dd>
                     </dl>
                 </div>
-                <div class="readmore">
+                <div class="comeback">
                     <?$url='SearchFormOnMain[id_country]='.$model->model->car_brand->id_country.'&SearchFormOnMain[brand]='.$model->model->car_brand->id.'&SearchFormOnMain[car_model_id]='.$model->model->id.'&SearchFormOnMain[transmission]='.$model->dop->transmission.'&SearchFormOnMain[bascet]='.$model->bascet;
                     ?>
                     <?$url=$this->createUrl('/catalog?'.$url)?>
@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class="coll right">
-            <div class="modul first">
+            <div class="modul one">
 
                     <p class="phone">+7 (343) 201-36-06</p>
                     <a href="#">

@@ -83,7 +83,7 @@ class Parts extends EActiveRecord implements IECartPosition
         return false;
     }
 
-    public function Disc($min,$max,$pagination=false)
+    public function Disc($min,$max,$pagination=false,$category=null)
     {
         $criteria=new CDbCriteria;
 
@@ -91,7 +91,7 @@ class Parts extends EActiveRecord implements IECartPosition
                            inner join `tbl_category_attr_values` attrVal on `attrVal`.attr_id=`attr`.id";
         if ($min)
             $criteria->addCondition('CAST(`attrVal`.value as SIGNED)>='.$min.' and '.'CAST(`attrVal`.value as SIGNED)<='.$max);
-
+            
         return new CActiveDataProvider('Parts',array(
             'criteria'=>$criteria,
             'pagination'=>$pagination
@@ -157,11 +157,11 @@ class Parts extends EActiveRecord implements IECartPosition
                 'name' => false,
                 'description' => false,
             ),
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
-                'createAttribute' => 'create_time',
-                'updateAttribute' => 'update_time',
-            ),
+            // 'CTimetampBehavior' => array(
+            //     'class' => 'zii.behaviors.CTimetampBehavior',
+            //     'createAttribute' => 'create_time',
+            //     'updateAttribute' => 'update_time',
+            // ),
         ));
     }
 

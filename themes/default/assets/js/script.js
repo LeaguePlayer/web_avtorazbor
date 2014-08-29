@@ -18,11 +18,14 @@ $(function(){
 			var href=$(this).attr('href');
 			$.fancybox.open(href,{});
 		}
-			
 		return false;
 	})
 
-	$('.auth,.modal').fancybox({});
+	$('.auth,.modal').fancybox({
+		fitToView	: true,
+		padding		: 0,
+		autoSize	: true,
+	});
 
     //*дочерние эллементы
     $('.service li:nth-child(even)').addClass('old');

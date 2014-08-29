@@ -1,14 +1,14 @@
 <tr>
         <?      
-                // $gallery= $data->getGallery()->galleryPhotos;
-                // $image = $gallery ? $gallery[0]->getUrl('small') : '/media/images/default.png';
-                // $imageBig = $gallery ? $gallery[0]->getUrl('big') : '/media/images/defaultBig.png';
-        $image='/media/car.png';
-        $imageBig='/media/car.png';
+        $gallery= $data->getGallery()->galleryPhotos;
+        $image = $gallery ? $gallery[0]->getUrl('small') : '/media/images/default.png';
+        $imageBig = $gallery ? $gallery[0]->getUrl('big') : '/media/images/defaultBig.png';
+        // $image='/media/_viewSmall.png';
+        // $imageBig='/media/car.png';
 
         ?>
 	<td>
-            <a href="<?=$imageBig?>" class="imgFancy">
+            <a href="<?=$imageBig?>" class="modal">
 		      <img src="<?=$image?>" alt="" title="" />
             </a>
 	</td>
@@ -32,12 +32,6 @@
 				Артикул: <?=$data->id?>
 			</li>
 		</ul>
-	</td>
-	<td>
-		<?=number_format($data->price_sell,0,' ',' ')?> руб.
-	</td>
-	<td>
-		<input type="text" value="<?=$data->getQuantity()?>" />
 	</td>
 	<td>
 		<?=number_format($data->getSumPrice(),0,' ',' ')?> руб.

@@ -45,49 +45,49 @@
                 <ul>
                     <li>
                         <?php echo $form->labelEx($model,'name');?>
-                        <?php echo $form->textField($model,'name',array('class'=>'span8','maxlength'=>255)); ?>
+                        <?php echo $form->textField($model,'name',array('class'=>'i-text','maxlength'=>255)); ?>
                         <?php echo $form->error($model,'name',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
                     <li>
                         <?php echo $form->labelEx($model,'phone');?>
-                        <?php echo $form->textField($model,'phone',array('class'=>'span8','maxlength'=>255)); ?>
+                        <?php echo $form->textField($model,'phone',array('class'=>'i-text','maxlength'=>255)); ?>
                         <?php echo $form->error($model,'phone',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
                     <li>
                         <?php echo $form->labelEx($model,'mail');?>
-                        <?php echo $form->textField($model,'mail',array('class'=>'span8','maxlength'=>255)); ?>
+                        <?php echo $form->textField($model,'mail',array('class'=>'i-text','maxlength'=>255)); ?>
                         <?php echo $form->error($model,'mail',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
                     <li>
                         <?php echo $form->labelEx($model,'car_info');?>
-                        <?php echo $form->textField($model,'car_info',array('class'=>'span8','maxlength'=>255)); ?>
+                        <?php echo $form->textField($model,'car_info',array('class'=>'i-text','maxlength'=>255)); ?>
                         <?php echo $form->error($model,'car_info',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
                     <li>
                         <?php echo $form->labelEx($model,'year');?>
-                        <?php echo $form->textArea($model,'year',array('class'=>'span8','maxlength'=>255)); ?>
+                        <?php echo $form->textArea($model,'year',array('class'=>'i-text','maxlength'=>255)); ?>
                         <?php echo $form->error($model,'year',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
                     <li>
                         <?php echo $form->labelEx($model,'capacity');?>
-                        <?php echo $form->textField($model,'capacity',array('class'=>'span8')); ?></li>
+                        <?php echo $form->textField($model,'capacity',array('class'=>'i-text')); ?></li>
                         <?php echo $form->error($model,'capacity',array('style'=>'color:red;font-size:10px;'));?>
 
                     <li>
                         <?php echo $form->labelEx($model,'fuel');?>
-                        <?php echo $form->textField($model,'fuel',array('class'=>'span8','maxlength'=>255)); ?>
+                        <?php echo $form->textField($model,'fuel',array('class'=>'i-text','maxlength'=>255)); ?>
                         <?php echo $form->error($model,'fuel',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
 
                     <li>
                         <?php echo $form->labelEx($model,'vin');?>
-                        <?php echo $form->textField($model,'vin',array('class'=>'span8','maxlength'=>255)); ?>
+                        <?php echo $form->textField($model,'vin',array('class'=>'i-text','maxlength'=>255)); ?>
                         <?php echo $form->error($model,'vin',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
 
                     <li>
                         <?php echo $form->labelEx($model,'parts');?>
-                        <?php echo $form->textArea($model,'parts',array('class'=>'span8','maxlength'=>255)); ?>
+                        <?php echo $form->textArea($model,'parts',array('class'=>'i-text','maxlength'=>255)); ?>
                         <?php echo $form->error($model,'parts',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
 

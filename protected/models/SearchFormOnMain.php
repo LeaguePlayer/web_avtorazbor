@@ -49,11 +49,12 @@
 				if ($value)
 					$url.='SearchFormOnMain['.$key.']='.$value.'&';
 			}
-			Yii::app()->session['backToResult']=substr($url, 0,-1);
+			
+			Yii::app()->session->add('backToResult',substr($url, 0,-1));
 
 			return parent::beforeValidate();
 		}
-
+		
 		public function afterValidate()
 		{
 			if (empty($this->criteria->condition))
@@ -62,7 +63,8 @@
 				$this->criteria->addCondition('car_type='.($this->scenario=="light" ? 1 : 2));
 				$this->criteria->join=$this->type==1 ? UsedCars::join() : Parts::join();
 			}
-			$this->criteria->order=$this->sort;
+			$this->criteria->order=$this->sort.', status!=3';
+
 			return true;
 		}
 

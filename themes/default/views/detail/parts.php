@@ -1,8 +1,6 @@
 
-<div class="page">
-            <h1 class="head">
-                Каталог автозапчастей
-            </h1>
+<div class="page detail-top">
+            
 
             <div class="wr">
 
@@ -98,6 +96,9 @@
                                 </a>    
                             </li>
                         </ul>
+                        <h1 class="head">
+                            Каталог автозапчастей
+                        </h1>
                     </div>
                     <div class="content clear">
 

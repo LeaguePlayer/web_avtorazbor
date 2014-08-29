@@ -73,7 +73,7 @@ class DetailController extends FrontController
 
 			$dataProvider=Parts::model()->Disc($data['min'],$data['max']);
 			
-			$dataProvider->criteria->addCondition('price_buy>='.$data['minCost'].' and price_buy<='.$data['maxCost']);
+			$dataProvider->criteria->addCondition('price_sell>='.$data['minCost'].' and price_sell<='.$data['maxCost']);
 			$dataProvider->criteria->order=$data['sort'].' desc';
 
 			print($this->renderPartial('tabParts',
@@ -187,14 +187,13 @@ class DetailController extends FrontController
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/partsView.js', CClientScript::POS_END);
 
 		$model=Parts::model()->findByPk($id);
-
+		
 		$brand=$model->car_model->car_brand->id;
 		$car_model=$model->car_model->id;
 		$category_id=$model->category->id;
 
 		$criteria=Parts::model()->search_parts('model_cat',array('model_id'=>$car_model,'cat_id'=>$category_id));
 		$criteria->addCondition('category_id='.$model->category->id);
-		$criteria->addCondition('`t`.id!='.$id);
 		$dataProvider=new CActiveDataProvider('Parts',
 			array(
 				'criteria'=>$criteria,

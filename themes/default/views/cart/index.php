@@ -36,12 +36,6 @@
         								Название
         							</th>
         							<th>
-        								Цена
-        							</th>
-        							<th>
-        								Количество
-        							</th>
-        							<th>
         								Стоимость
         							</th>
         							<th width="24px">
@@ -51,16 +45,16 @@
         					</thead>
         					<tbody>
                                 <?
+
                                     foreach ($models as $key => $cartItem) {
+
                                             print($this->renderPartial('cartItem',array('data'=>$cartItem),true));
                                     }
                                 ?>
         					</tbody>
         				</table>
-                                        <a href="<?=$this->createUrl('/detail/parts',Yii::app()->session['BackToSearchUrl'])?>" class="back">Вернуться в каталог</a>
+                                        <a href="<?=$this->createUrl('/detail/parts?'.Yii::app()->session->get('BackToSearchUrl'))?>" class="back">Вернуться в каталог</a>
         			</div>
-                        
-                        
                         <div id="accept" class="baskets hide">
                                 <dl class="info">
                                     <dt>
@@ -78,7 +72,7 @@
                                     </dd>
                                 </dl>
                                 <?
-                                    $this->renderPartial('user',array('model'=>$model,'info'=>$info));
+                                    $this->renderPartial('user',array('model'=>$model));
                                 ?>
                                 <!-- <a href="/cart/Issue_the_order" class="i-submit right">Оформить аказ</a> -->
                         </div>
@@ -89,4 +83,4 @@
                 </div>
         </div>
 </div>	
-<?$this->renderPartial('//account/loginFromCart',array('model'=>new AuthForm))?>
+<?//$this->renderPartial('//account/loginFromCart',array('model'=>new AuthForm))?>

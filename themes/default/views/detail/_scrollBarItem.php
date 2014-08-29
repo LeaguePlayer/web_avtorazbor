@@ -1,9 +1,9 @@
 <?
 	$data=Parts::model()->findByPk($data['id']);
 
-	$gallery=$data->getGallery()->galleryPhotos;
+    $gallery=$data->getGallery()->galleryPhotos;
 
-	$image=$gallery ? $gallery[0]->getUrl('small') : '/media/images/parts/default.jpg';
+    $image=$gallery ? $gallery[0]->getUrl('small') : '/media/images/parts/default.jpg';
 ?>
 <li class="<?=$_GET["id"]==$data->id? 'active' : ''?>">
 

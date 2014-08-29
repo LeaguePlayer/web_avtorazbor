@@ -62,20 +62,59 @@ class Requests extends EActiveRecord
         return $aliases;
     }
 
+    public static function getDeliveryType($id=null){
+
+        $delivery=array(0=>'Доставка',1=>'Самовывоз');
+        if ($id)
+            return $delivery[$id];
+        return $delivery;
+    }
+
     public function tableName()
     {
         return '{{Requests}}';
     }
 
-
     public function rules()
     {
         return array(
-            array('client_id, date_life', 'required'),
+            (Yii::app()->user->isGuest ? array('fio,email,adress,city,client_id, date_life', 'required'):
+            array('client_id, date_life', 'required')),
+            array('email,city,adress,fio,phone,company_name,inn,okpo,kpp,ur_adress,piz_adress','length', 'max'=>255),
+            array('delivery','numerical','integerOnly'=>true),
             array('client_id, check_user_id, from, status, user_id', 'numerical', 'integerOnly'=>true),
             array('create_time, update_time, date_life', 'safe'),
             // The following rule is used by search().
             array('id, client_id, check_user_id, from, status, create_time, update_time', 'safe', 'on'=>'search'),
+        );
+    }
+
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'Номер заявки',
+            'client_id' => 'Клиент',
+            'check_user_id' => 'Кто проверил наличие',
+            'from' => 'Источник',
+            'status' => 'Состояние',
+            'user_id' => 'Пользователь',
+            'date_life' => 'Дата, когда заявка будет расформирована',
+            'create_time' => 'Дата создания',
+            'update_time' => 'Дата последнего редактирования',
+            'fio' => 'ФИО',
+            'phone' => 'Телефон',
+            'email' => 'E-mail',
+            'delivery' => 'Способ приобретения',
+            'address' => 'Адрес регистрации',
+            'dt_of_issue' => 'Дата выдачи',
+            'city'=>'Город',
+            'adress'=>'Адресс',
+            'company_name'=>'Название компании',
+            'inn'=>'ИНН',
+            'okpo'=>'ОКПО',
+            'kpp'=>'КПП',
+            'ur_adress'=> 'Юридический адресс',
+            'piz_adress'=>'Физический адресс'
         );
     }
 
@@ -93,21 +132,7 @@ class Requests extends EActiveRecord
     }
 
 
-    public function attributeLabels()
-    {
-        return array(
-            'id' => 'Номер заявки',
-            'client_id' => 'Клиент',
-            'check_user_id' => 'Кто проверил наличие',
-            'from' => 'Источник',
-            'status' => 'Состояние',
-            'user_id' => 'Пользователь',
-            'date_life' => 'Дата, когда заявка будет расформирована',
-            'create_time' => 'Дата создания',
-            'update_time' => 'Дата последнего редактирования',
-        );
-    }
-
+    
 
     public function behaviors()
     {

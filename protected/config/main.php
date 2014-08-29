@@ -32,7 +32,56 @@ return array(
     'aliases'=>array(
         'appext'=>'application.extensions',
     ),
-    'modules'=>$modules,
+    'modules'=> array(
+    // uncomment the following to enable the Gii tool
+
+    'gii'=>array(
+        'class'=>'system.gii.GiiModule',
+        'password'=>'qwe123',
+        'ipFilters'=>array('127.0.0.1','::1'),
+        'generatorPaths'=>array(
+            'application.gii',
+        ),
+        //'import' => array(
+        //  'appext.imagesgallery.GalleryBehavior',
+        //),
+    ),
+    'admin'=>array(),
+    'email'=>array(),
+    'auth'=>array(
+        'defaultLayout' => 'application.modules.admin.views.layouts.custom'
+    ),
+    'user'=>array(
+        # encrypting method (php hash function)
+        'hash' => 'md5',
+        # send activation email
+        'sendActivationMail' => true,
+
+        # allow access for non-activated users
+        'loginNotActiv' => false,
+
+        # activate user on registration (only sendActivationMail = false)
+        'activeAfterRegister' => false,
+
+        # automatically login from registration
+        'autoLogin' => true,
+
+        # registration path
+        'registrationUrl' => array('/user/registration'),
+
+        # recovery password path
+        'recoveryUrl' => array('/user/recovery'),
+
+        # login form path
+        'loginUrl' => array('/user/login'),
+
+        # page after login
+        'returnUrl' => array('/user/profile'),
+
+        # page after logout
+        'returnLogoutUrl' => array('/user/login'),
+    ),
+),
 
     // application components
     'components'=>array(
@@ -75,7 +124,7 @@ return array(
             ),
         ),
         'user'=>array(
-            'class' => 'user.components.WebUser',
+            'class' => 'application.modules.user.components.WebUser',
         ),
         'bootstrap'=>array(
             'class'=>'appext.yiistrap.components.TbApi',

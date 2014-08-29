@@ -263,9 +263,6 @@ class UserModule extends CWebModule
 	    return mail($email,'=?UTF-8?B?'.base64_encode($subject).'?=',$message,$headers);
 	}
 
-    /**
-     * Send to user mail
-     */
     public function sendMailToUser($user_id,$subject,$message,$from='') {
         $user = User::model()->findbyPk($user_id);
         if (!$from) $from = Yii::app()->params['adminEmail'];

@@ -1,5 +1,5 @@
 <li class="item">
-    <a href="#"><img src="images/d_news.jpg" alt="" title=""></a>
+    <a href="#"><img src="images/news.png" alt="" title=""></a>
     <div class="right">
         <span class="data">17.12.14</span>
         <a href="#" class="name">

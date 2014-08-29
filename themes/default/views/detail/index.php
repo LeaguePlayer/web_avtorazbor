@@ -152,7 +152,7 @@
                 </div>
 
                 <div class="coll right">
-                    <div class="modul first mar-36">
+                    <div class="modul one mar-36">
 
                             <p class="phone">+7 (343) 201-36-06</p>
                             <a href="#">

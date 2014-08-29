@@ -32,6 +32,33 @@
 				</div>
 			</div>
 		</div>
+		<div class="control-group">
+			Данные заказчика
+			<div class="control-grop">
+				<?=$form->labelEx($model,'fio')?>
+				<?=$form->textField($model,'fio')?>
+			</div>
+			<div class="control-grop">
+				<?=$form->labelEx($model,'phone')?>
+				<?=$form->textField($model,'phone')?>
+			</div>
+			<div class="control-grop">
+				<?=$form->labelEx($model,'email')?>
+				<?=$form->textField($model,'email')?>
+			</div>
+			<div class="control-grop">
+				<?=$form->labelEx($model,'delivery')?>
+				<?=$form->dropDownList($model,'delivery',Requests::getDeliveryType(),array('empty'=>'Не определено!'))?>
+			</div>
+			<div class="control-grop">
+				<?=$form->labelEx($model,'city')?>
+				<?=$form->textField($model,'city')?>
+			</div>
+			<div class="control-grop">
+				<?=$form->labelEx($model,'adress')?>
+				<?=$form->textField($model,'adress')?>
+			</div>
+		</div>
 	</div><br>
 	<div class="control-group">
 		<?=$form->labelEx($model, 'check_user_id')?>

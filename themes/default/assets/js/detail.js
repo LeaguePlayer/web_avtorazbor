@@ -90,14 +90,8 @@ $(document).ready(function(){
 				case index==3:{
 					$.fancybox.open($('#book'),
 						{
-							fitToView	: false,
-							wrapCSS		: "questionForm",
-							height		: 700,
-							width		: 590,
-							autoSize	: false,
-							closeClick	: false,
-							openEffect	: 'none',
-							closeEffect	: 'none'
+							fitToView	: true,
+							autoSize	: true,
 						});
 				}break;
 			}

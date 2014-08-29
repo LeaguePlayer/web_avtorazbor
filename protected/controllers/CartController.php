@@ -23,7 +23,7 @@ class CartController extends FrontController
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','removePosition'),
+				'actions'=>array('index','removePosition','view'),
 				'users'=>array('*'),
 			),
 			array(
@@ -50,47 +50,20 @@ class CartController extends FrontController
 		$cs = Yii::app()->clientScript;
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/cart.js', CClientScript::POS_END);
 
-		$models=Yii::app()->cart->getPositions();
-
-		$user=Clients::model()->findByPk(Yii::app()->user->id);
-		$info=$user->info;
-
-		if (!$user)	
-		{
-			$user=new Clients;
-			$info=new ClientsInfo;
-		}
-		$this->render('index',array('models'=>$models,'model'=>$user,'info'=>$info));
-	}
-
-	public function actionIssueBook()
-	{
 		$positions = Yii::app()->cart->getPositions();
-		
-		if (isset($_GET['Clients']))
-		{
-			$user=Clients::model()->findByPk(Yii::app()->user->id); 
-			$user->attributes=$_GET['Clients'];
-
-			if ($valid=$user->save())
-			{
-				$info=$user->info;
-				$info->attributes=$_GET['ClientsInfo'];
-				$infoValid=$info->save();
-			}
-		}
-		$valid=$_GET['Clients']['type']== '1' ? $valid : $infoValid; //Юридическое или физическое лицо
-
-		if (count($positions) && $valid)
+		$client=Clients::model()->findByPk(Yii::app()->user->id);
+		$request=new Requests;
+		$request->attributes=$client->attributes;
+		if (count($positions) && isset($_POST['Requests']))
 		{
 			$request=new Requests;
+			$request->attributes=$_POST['Requests'];
 			$request->client_id=Yii::app()->user->id;
 			$request->from=0;
 			$request->user_id=1;
-			$request->date_life=date('d-m-y');
 			$request->status=7;
+			$request->date_life=date('d-m-y');
 			$request->save();
-
 			$dbCommand = Yii::app()->db->createCommand();
 			foreach ($positions as $key => $item) {
 
@@ -103,9 +76,41 @@ class CartController extends FrontController
 			Yii::app()->cart->clear();
 			$this->redirect('/page/thanks');
 		} else {
-			$this->render('index',array('models'=>Yii::app()->cart->getPositions(),'model'=>$user,'info'=>$info));
+			$this->render('index',array('models'=>Yii::app()->cart->getPositions(),'model'=>$request));
 		}
 	}
+
+	// public function actionIssueBook()
+	// {
+	// 	$positions = Yii::app()->cart->getPositions();
+
+	// 	$request=new Requests;
+
+	// 	if (count($positions) && isset($_POST['Requests']))
+	// 	{
+	// 		$request=new Requests;
+	// 		$request->attributes=$_POST['Requests'];
+	// 		$request->client_id=Yii::app()->user->id;
+	// 		$request->from=0;
+	// 		$request->user_id=1;
+	// 		$request->status=7;
+	// 		$request->save();
+
+	// 		$dbCommand = Yii::app()->db->createCommand();
+	// 		foreach ($positions as $key => $item) {
+
+	// 			$dbCommand->insert('{{PartsInRequest}}',array(
+ //    					'request_id' => $request->id,
+ //    					'part_id' => $item->id
+ //    				)
+	// 			);
+	// 		}
+	// 		Yii::app()->cart->clear();
+	// 		$this->redirect('/page/thanks');
+	// 	} else {
+	// 		$this->render('index',array('models'=>Yii::app()->cart->getPositions(),'model'=>$request));
+	// 	}
+	// }
 
 	public function actionRemovePosition($articul,$position)
 	{

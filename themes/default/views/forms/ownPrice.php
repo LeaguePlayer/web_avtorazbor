@@ -46,22 +46,22 @@
                 <ul>
 					<li>
 						<?php echo $form->labelEx($model,'name');?>
-						<?php echo $form->textField($model,'name',array('class'=>'span8','maxlength'=>255)); ?>
+						<?php echo $form->textField($model,'name',array('class'=>'i-text','maxlength'=>255)); ?>
 						<?php echo $form->error($model,'name',array('style'=>'color:red;font-size:10px;'));?>
 					</li>
 					<li>
 						<?php echo $form->labelEx($model,'phone');?>
-						<?php echo $form->textField($model,'phone',array('class'=>'span8','maxlength'=>255)); ?>
+						<?php echo $form->textField($model,'phone',array('class'=>'i-text','maxlength'=>255)); ?>
 						<?php echo $form->error($model,'phone',array('style'=>'color:red;font-size:10px;'));?>
 					</li>
 					<li>
 						<?php echo $form->labelEx($model,'mail');?>
-						<?php echo $form->textField($model,'mail',array('class'=>'span8','maxlength'=>255)); ?>
+						<?php echo $form->textField($model,'mail',array('class'=>'i-text','maxlength'=>255)); ?>
 						<?php echo $form->error($model,'mail',array('style'=>'color:red;font-size:10px;'));?>
 					</li>
 					<li>
 						<?php echo $form->labelEx($model,'own_price');?>
-						<?php echo $form->textField($model,'own_price',array('class'=>'span8','maxlength'=>255)); ?>
+						<?php echo $form->textField($model,'own_price',array('class'=>'i-text','maxlength'=>255)); ?>
 						<?php echo $form->error($model,'own_price',array('style'=>'color:red;font-size:10px;'));?>
 					</li>
                     <li class="sub">

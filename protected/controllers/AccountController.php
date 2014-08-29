@@ -33,7 +33,7 @@
 
 				if (isset($_POST['Clients']))
 				{
-					$model->attributes=$_POST['FrontUser'];
+					$model->attributes=$_POST['Clients'];
 					$modelValid=$model->validate();	
 					$model->save();
 
@@ -49,16 +49,25 @@
 							$model->save();
 						}
 					}
-
+					///Смена пароля!!!!!!!!!!
 					if (!empty($_POST['ChangePwd']['oldPassword']) && $modelValid)
 					{
 						$changePwd->attributes=$_POST['ChangePwd'];
 						$changePwdValid=$changePwd->validate();
+
 						if ($changePwdValid)
 						{
-							$model->password=$changePwd->password;
+							//$changePwd->save();
+							$model->password=Yii::app()->getModule('user')->encrypting($changePwd->password);
+							$model->save();
+							$this->message="Пароль был успешно изменен!";
 							$changePwd=new ChangePwd;
-							$this->message="Пароль успешно изменен!";
+
+						}else {
+							foreach ($changePwd->errors as $key => $value) {
+								$this->message.=$value[0];
+							}
+							
 						}
 					}
 				}
@@ -126,14 +135,15 @@
 					{
 						$regForm->type=1;
 						$regForm->save();
-						$this->redirect(array('/')); 
+						Yii::app()->user->id=$regForm->id;
+						$this->redirect(Yii::app()->getHomeUrl()); 
 					}
 						
 				}
 				$this->render('registration',array('model'=>$regForm));
 			}
 			else
-			$this->redirect(Yii::app()->getHomeUrl());
+				$this->redirect(Yii::app()->getHomeUrl());
 		}
 
 		public function actionEntry_list()

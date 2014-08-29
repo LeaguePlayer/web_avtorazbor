@@ -23,10 +23,6 @@ function ViewItems(conteiner,params,url,collback)
 function showLoader(conteiner){
 	if (conteiner==undefined)
 			conteiner=$('.auto');
-
-	var $_curHeight=conteiner.height();
-		conteiner.height($_curHeight);
-
 		conteiner.empty();
 
 		$('.loader').css('display','block');

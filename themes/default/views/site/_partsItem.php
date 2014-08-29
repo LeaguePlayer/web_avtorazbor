@@ -9,15 +9,14 @@
     <a href="/detail/view/<?=$data->id?>"><img src="<?=$image?>" alt="" title="" /></a>
     
     <a href="/detail/view?id=<?=$data->id?>" class="link">
-    	<strong>Раздел: <br></strong>
-        <?=$data->category->name?>
+        <?=$data->car_model->name.' '.$data->category->name?>
     </a>
     <span class="dsc">
     	<strong>Коментарий:<br></strong>
         <?=$data->comment?>
     </span>
     <span class="price">
-        <?= number_format((int)$data->price,3,' ',' ')?> руб.
+        <?= $data->price_sell ? number_format((int)$data->price_sell,3,' ',' ').'руб.' : ''?> 
     </span>
     <!-- <span class="price_old">    
         как сделать??

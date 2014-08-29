@@ -17,7 +17,7 @@
                         <div class="gallery">
                             <div class="big-img">
                                 <?
-                                    $gallery=$model->getGallery()->galleryPhotos;
+                                   $gallery=$model->getGallery()->galleryPhotos;
                                     $image=$gallery ? $gallery[0]->getUrl('normal') : '/media/images/parts/default.jpg';
                                     $bigImage=$gallery ? $gallery[0]->getUrl('big') : '/media/images/parts/default.jpg';
                                 ?>
@@ -52,7 +52,7 @@
                             </div>
                         </div>
 
-                        <div class="desc">
+                        <div class="desc desc-view">
 
                             <ul>
                                 <li>
@@ -129,7 +129,7 @@
                             </dl>
                         </div>
 
-                        <div class="readmore">
+                        <div class="comeback">
 
                             <?$url='/detail/parts'.(Yii::app()->session->get('backToResult') ? '?'.Yii::app()->session->get('backToResult') : '');?>
                             <a href="<?=$url?>">

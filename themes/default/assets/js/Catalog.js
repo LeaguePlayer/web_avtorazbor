@@ -7,7 +7,6 @@ $(function(){
 	var showLoader=function (){
 		
 	var $_curHeight=$('.auto').height();
-		$('.auto').height($_curHeight);
 
 		$('.auto').empty();
 
@@ -94,14 +93,8 @@ $(function(){
 	});
 
 	$('.own-price').fancybox({
-		fitToView	: false,
-		wrapCSS		: "questionForm",
-		height		: 450,
-		width		: 590,
-		autoSize	: false,
-		closeClick	: false,
-		openEffect	: 'none',
-		closeEffect	: 'none'
+		fitToView	: true,
+		autoSize	: true,
 	});
 
 	// $('#sort li a,#display li a,#car_type li a').click(function(){

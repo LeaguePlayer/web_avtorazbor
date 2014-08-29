@@ -690,7 +690,7 @@
                 </div>
 
                 <div class="coll right">
-                    <div class="modul first">
+                    <div class="modul one">
 
                             <p class="phone">+7 (343) 201-36-06</p>
                             <a href="#">
