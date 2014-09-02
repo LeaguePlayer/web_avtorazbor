@@ -100,11 +100,14 @@ class SettingsController extends AdminController
 	}
 
 	//download razborApp.apk
-	public function actionDownloadApp(){
-		
+	public function actionDownloadOldApp(){
 		$pathToTemplates = Yii::getPathOfAlias('application.app');
+		SiteHelper::downloadFile($pathToTemplates.DIRECTORY_SEPARATOR.'razborOldApp.apk');
+	}
 
-		SiteHelper::downloadFile($pathToTemplates.DIRECTORY_SEPARATOR.'razborApp.apk');
+	public function actionDownloadNewApp(){
+		$pathToTemplates = Yii::getPathOfAlias('application.app');
+		SiteHelper::downloadFile($pathToTemplates.DIRECTORY_SEPARATOR.'razborNewApp.apk');
 	}
 
 }
