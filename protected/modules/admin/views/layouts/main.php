@@ -75,10 +75,14 @@
 				),
 				'settings' => array(
 					array('label'=>'Все настройки', 'url'=>'/admin/settings'),
-					array('label'=>'Скачать приложение', 'url'=>'/admin/settings/downloadApp'),
+					//array('label'=>'Скачать приложение', 'url'=>'/admin/settings/downloadApp'),
+					array('label'=>'Скачать старое приложение', 'url'=>'/admin/settings/downloadOldApp'),
+					array('label'=>'Скачать новое приложение', 'url'=>'/admin/settings/downloadNewApp'),
 				),
 				
+					
 			);
+
 
 			$userModuleItems = array(
 				array('label'=>'Права доступа', 'url'=>'/auth/assignment')
