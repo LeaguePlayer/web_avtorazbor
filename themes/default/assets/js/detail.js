@@ -66,8 +66,8 @@ $(document).ready(function(){
 					$('.tab-active').removeClass('tab-active');
 
 					$('#light').addClass('tab-active');
-
-					$('#SearchFormOnMain_scenario').val(index == 0 ? 'light' : 'weight');
+					
+					$('#SearchFormOnMain_type').val(index+1);
 
 				}break;
 

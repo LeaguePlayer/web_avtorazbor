@@ -24,8 +24,8 @@
 		public $id_country;
 		public $sort=price_sell;
 		public $display=20;
+
 		public function rules() {
-			
 			return array(
 				array('bascet, brand, id_country, display, scenario, sort, type, transmission, car_model_id, price_st, price_end, state, mileage_st, mileage_end, year_st, year_end, category_id, parent', 'required'),
 
@@ -58,15 +58,18 @@
 		
 		public function afterValidate()
 		{
+			parent::afterValidate();
+
 			if (empty($this->criteria->condition))
 			{
 				$this->criteria=new CDbCriteria;
-				$this->criteria->addCondition('car_type='.($this->scenario=="light" ? 1 : 2));
-				$this->criteria->join=$this->type==1 ? UsedCars::join() : Parts::join();
+				$this->criteria->addCondition('car_type='.$this->type);
+				$this->criteria->join=$this->scenario=='light' || $this->scenario=='weight' ? UsedCars::join() : Parts::join();
 				$this->criteria->addCondition('status>6');
+				$this->addCondition('car_model_id=0');
 			}
+			//die($this->criteria->condition);
 			$this->criteria->order=$this->sort;
-			// var_dump($this->criteria);die()
 			return true;
 		}
 
@@ -92,7 +95,6 @@
 		{
 			$properties=array('id_country', 'bascet', 'brand','car_model_id', 'transmission', 'state');
 			$criteria=$this->getCriteria($properties);
-
 			if ($this->year_st)
 			{
 				$criteria->addCondition('year>='.$this->year_st);
@@ -114,6 +116,7 @@
 			}
 			$criteria->addCondition('car_type=1');
 			$criteria->join=UsedCars::join();
+			
 			$this->criteria = $criteria;
 
 		}
@@ -150,9 +153,8 @@
 
 		public function getParts()
 		{
-			$properties=array('id_country','brand','car_model_id');
 
-			$type=$this->scenario=="light" ? 1 : 2;
+			$properties=array('id_country','brand','car_model_id');
 
 			foreach ($properties as $key => $value) {
 				
@@ -175,15 +177,26 @@
 			$column=$category ? 'model_cat' : $column;
 
 			$criteria=Parts::model()->search_parts($column,$params);
-			$type=$this->scenario=="light" ? 1 : 2;
-			$criteria->addCondition('car_type='.$type);
+			
+			if ($this->car_model_id)
+			{	
+				$select="`t`.id,`t`.name,`t`.price_sell,`t`.price_buy,`t`.comment,`t`.category_id,`t`.car_model_id,`t`.location_id,`t`.supplier_id,`t`.create_time,`t`.update_time,`t`.status";
+
+				$select.=',`t`.car_model_id!='.$this->car_model_id.' as analog';
+				$criteria->select=$select;
+			}
+
+			$criteria->addCondition('car_type='.$this->type);
+			//var_dump($criteria->select);die();
 			$this->criteria=$criteria;
 		}
 
 		public function getDiscs()
 		{
 			$properties=array('price_, brand, transmission, state');
-			$this->criteria=Parts::model()->Disc($this->price_st,$this->price_end,$this->category_id);
+
+			$this->criteria=Parts::model()->Disc($this->diametr_st,$this->diametr_end,$this->category_id);
+			$this->criteria->addCondition('price_sell>='.$this->price_st.' and price_sell<='.$this->price_end);
 			//var_dump($this->criteria->condition);die()
 			return true;
 		}

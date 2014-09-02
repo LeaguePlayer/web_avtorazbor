@@ -52,6 +52,54 @@ class News extends EActiveRecord
         );
     }
 
+    public function getDataProvider($criteria)
+    {
+        $dataProvider=new CActiveDataProvider('News',array('criteria'=>$criteria,'pagination'=>array('pageSize'=>10)));
+        return $dataProvider;
+    }
+
+    public function getCurrentYear()
+    {
+        $criteria=new CDbCriteria;
+        $criteria->order='create_time desc';
+        $currentYear=date('Y');
+        $criteria->
+            addCondition("DATE_FORMAT(`create_time`,'%Y-%m-%d')<='".$currentYear."-12-31' and DATE_FORMAT(`create_time`,'%Y-%m-%d')>='".$currentYear."-01-01'");
+        $criteria->addCondition('type=1');
+        return $this->getDataProvider($criteria);
+    }
+
+    public function getPrevYear()
+    {
+        $criteria=new CDbCriteria;
+        $criteria->order='create_time desc';
+        $prevYear=date('Y')-1;
+        $criteria->
+            addCondition("DATE_FORMAT(`create_time`,'%Y-%m-%d')<='".$prevYear."-12-31' and DATE_FORMAT(`create_time`,'%Y-%m-%d')>='".$prevYear."-01-01'");
+        $criteria->addCondition('type=1');
+
+        return $this->getDataProvider($criteria);
+    }
+
+    public function getNews()
+    {
+        $criteria=new CDbCriteria;
+        $criteria->order='create_time desc';
+        $curYear=date('Y');
+        $month=(int)date('m')-2;
+        $month=strlen((string)$month)==1 ? '0'.$month : $month;
+        $criteria->addCondition('type=1');
+        $criteria->addCondition("DATE_FORMAT(`create_time`,'%Y-%m-%d')>='".$curYear.'-'.$month."-01'");
+
+        return $this->getDataProvider($criteria);
+    }
+
+    public function getCompany()
+    {
+        $criteria=new CDbCriteria;
+        $criteria->addCondition('type=0');
+        return $this->getDataProvider($criteria);
+    }
 
     public function relations()
     {

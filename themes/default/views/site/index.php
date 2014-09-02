@@ -679,12 +679,12 @@
                         <div id="tabs-5" class="tab-active">
                             <a href="#" class="prev"></a>
                             <a href="#" class="next"></a>
-                            <?=$this->renderPartial('/site/newsCarusel',array('dataProvider'=>$dataProviderNews))?>
+                            <?=$this->renderPartial('/site/newsCarusel',array('dataProvider'=>$news->getNews()))?>
                         </div>
                         <div id="tabs-6" class="tab-active">
                             <a href="#" class="prev"></a>
                             <a href="#" class="next"></a>
-                            <?=$this->renderPartial('/site/newsCarusel',array('dataProvider'=>$dataProviderNews))?>
+                            <?=$this->renderPartial('/site/newsCarusel',array('dataProvider'=>$news->getCompany()))?>
                         </div>
                     </div>
                 </div>

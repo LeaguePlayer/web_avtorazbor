@@ -7,6 +7,6 @@
 	</div>
 	    <div class="form " id="phiz">
 	        <a href="/account/entry_list" class="cart-list">Список заказов</a>
-	        <?=$this->renderpartial('userForm',array('model'=>$model))?>
+	        <?=$this->renderpartial('//cart/userForm',array('model'=>$model))?>
 	</div>
 </div>

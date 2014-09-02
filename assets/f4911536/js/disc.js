@@ -75,11 +75,11 @@ $(function(){
 		step:1,
 		min:14,
 		max:25,
-		values:[parseInt($('#min').val(),10),parseInt($('#max').val(),10)],
+		values:[parseInt($('#SearchFormOnMain_diametr_st').val(),10),parseInt($('#SearchFormOnMain_diametr_end').val(),10)],
 		slide:function(event, ui){
 
-			$_max=$('#max');
-			$_min=$('#min');
+			$_max=$('#SearchFormOnMain_diametr_end');
+			$_min=$('#SearchFormOnMain_diametr_st');
 
 			$_min.text(ui.values[0]).val(ui.values[0]);
 			$_max.text(ui.values[1]).val(ui.values[1]);
@@ -99,8 +99,8 @@ $(function(){
 		values:[100,50000],
 		slide:function(event, ui){
 
-			$_max=$('#maxCost');
-			$_min=$('#minCost');
+			$_max=$('#SearchFormOnMain_price_end');
+			$_min=$('#SearchFormOnMain_price_st');
 
 			$_min.text(ui.values[0]).val(ui.values[0]);
 			$_max.text(ui.values[1]).val(ui.values[1]);

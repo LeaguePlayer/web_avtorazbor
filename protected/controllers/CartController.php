@@ -3,7 +3,7 @@
 class CartController extends FrontController
 {
 	public $layout = '//layouts/simple';
-		
+	public $renderLoginForm=false;
 	/**
 	 * Declares class-based actions.
 	 */
@@ -119,7 +119,6 @@ class CartController extends FrontController
 		
 		if ($model && Yii::app()->cart->contains($model->getId()))
 		{
-
 			Yii::app()->cart->remove($model->getId());
 			$response['success']=true;
 			$response['html']= Yii::app()->cart->getCount() ? 

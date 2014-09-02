@@ -14,4 +14,5 @@
 	<span class="price">
 		<?=$data->price_sell?> руб.
 	</span>
+	<span><?=var_dump($data->analog)?></span>
 </li>

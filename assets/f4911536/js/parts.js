@@ -59,7 +59,6 @@ $(document).ready(function(){
 		$(this).closest('ul').find('.active').removeClass('active');
 		$(this).parent().addClass('active');
 		$('#SearchFormOnMain_display').val($(this).text());
-
 		changeView();
 		return false;
 
@@ -67,11 +66,12 @@ $(document).ready(function(){
 
 	$('#car_type li a').click(function(){
 		
+		console.log(123)
 		if($(this).attr('href')=="#")
 		{
 			$(this).closest('ul').find('.active').removeClass('active');
 			$(this).parent().addClass('active');
-			$('#SearchFormOnMain_scenario').val($(this).data('scenario'));
+			$('#SearchFormOnMain_type').val($(this).data('scenario'));
 			changeView();
 			return false;
 		}

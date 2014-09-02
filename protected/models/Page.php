@@ -17,6 +17,7 @@
 */
 class Page extends EActiveRecord
 {
+    public $marks=array( 'News'=>'news-news','news-company',);
     public function tableName()
     {
         return '{{page}}';
@@ -34,6 +35,17 @@ class Page extends EActiveRecord
         );
     }
 
+
+    public function replaceMart($mark)
+    {
+        foreach ($this->marks as $key => $mark) {
+            if (!is_array($mark))
+            {
+                if (strpos($this->wswg_body,$mark))
+                    $this->wswg_body=str_replace($this->wswg_body, replace, subject);
+            }
+        }
+    }
 
     public function relations()
     {

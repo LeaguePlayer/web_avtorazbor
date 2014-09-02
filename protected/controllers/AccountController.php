@@ -106,6 +106,13 @@
         					<a href="/account/logout">Выйти</a>
         				</li>
                     </ul>';
+                    if ($_POST['controller']=='cart')	
+                    {
+                    	$request=new Requests;
+                    	$client=Clients::model()->findByPk(Yii::app()->user->id);
+                    	$request->attributes=$client->attributes;
+                    	$response['user']=$this->renderPartial('//cart/user',array('model'=>$request),true);
+                    }
                     echo CJSON::encode($response);
                     die();
 				 } else {

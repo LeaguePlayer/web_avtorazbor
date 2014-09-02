@@ -60,12 +60,12 @@ class DetailController extends FrontController
     	if (isset($_GET['SearchFormOnMain']))
     	{
     		$searchForm->attributes=$_GET['SearchFormOnMain'];
-    		$searchForm->validate();
+    		$searchForm->scenario='disc';
     	}
+    	$searchForm->validate();
 
     	if( !Yii::app()->request->isAjaxRequest )
     	{
-    		
     		$dataProvider=new CActiveDataProvider('Parts',array(
     				'criteria'=>$searchForm->criteria,
     				'pagination'=>array(
@@ -76,6 +76,7 @@ class DetailController extends FrontController
 			$this->render('disc',array('dataProvider'=>$dataProvider,'searchForm'=>$searchForm));
 		}
 		else {
+			//$searchForm->criteria->addCondition('qwe');
 			$dataProvider=new CActiveDataProvider('Parts',array(
     				'criteria'=>$searchForm->criteria,
     				'pagination'=>array(
@@ -112,7 +113,7 @@ class DetailController extends FrontController
 		$subCategories=!empty($searchForm->category_id) ? CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$searchForm->category_id)),'id','name') : array();
 
 		$searchForm->sort='price_sell';
-		$searchForm->afterValidate();
+		//$searchForm->afterValidate();
 
 		$dataProvider=new CActiveDataProvider('Parts',array(
 			'criteria'=>$searchForm->criteria,
@@ -141,7 +142,7 @@ class DetailController extends FrontController
 			$searchForm=new SearchFormOnMain;
 			$searchForm->attributes=$_GET['SearchFormOnMain'];
 			$searchForm->validate();
-			
+			//die('in controller');
 			$dataProvider=new CActiveDataProvider('Parts',array(
 					'criteria'=>$searchForm->criteria,
 						'pagination'=>array(
@@ -160,28 +161,31 @@ class DetailController extends FrontController
 		if ($id)
 		{
 			$model=Parts::model()->findByPk($id);
-
 			$cart=Yii::app()->cart;
-			$cart->put($model);
+
+			if (!$cart->contains($model->getId()))
+			{
+				$cart->put($model);
+			}
 
 			$response['count']=$cart->getItemsCount();
-			$response['summ']=$cart->getCost();
+				$response['summ']=$cart->getCost();
 
-			if ($response['count'])
-				$response['html']=
-						'<ul>
-        				    <li>
-        					<a href="/cart">'+$response['count']+' товар</a>
-        				    </li>
-        				    <li>
-        					На сумму: <strong>'+$response['sum']+' руб.</strong>
-        			     	</li>
-        			  	</ul>';
-        	else 
-        		'<span>товаров нет</span>';
+				if ($response['count'])
+					$response['html']=
+							'<ul>
+	        				    <li>
+	        					<a href="/cart">'+$response['count']+' товар</a>
+	        				    </li>
+	        				    <li>
+	        					На сумму: <strong>'+$response['sum']+' руб.</strong>
+	        			     	</li>
+	        			  	</ul>';
+	        	else 
+	        		'<span>товаров нет</span>';
 
-			echo CJSON::encode($response);
-			die();
+				echo CJSON::encode($response);
+				die();
 		}
 	}
 

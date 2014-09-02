@@ -13,24 +13,23 @@ $(function(){
 				{
 					$('.bascet dd').empty().append(data.html);
 
-					if (!$this.closest('tbody').children('tr').length>0)
+					if ($this.closest('table').find('tr').length=1)
 					{
 						$('.tabs li:last').animate({width:0,padding:0},500,function(){
 							$(this).slideUp(300).delay(300).empty();
-							$('.bascet').empty().append('Карзина пуста!');
 						});	
 						$('table').slideUp(400).delay(400).empty();
 					} else {
 						$this.closest('tr').slideUp(400).delay(400).empty();
+						//$('.tabs li:last').animate({width:0,padding:0},300);
 					}
 					return false;
 				}
-				alert(data.error);
 			}
 		});
 	});
 	
-	$('.tabs-type li:last a').click(function(){
+	$('#accept .user').on('change','.tabs-type li:last a',function(){
 
 		$('.reqvizit')
 			.removeClass('hide')

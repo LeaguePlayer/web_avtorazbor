@@ -39,19 +39,8 @@ class SiteController extends FrontController
 			$Transmission=UsedCarInfo::transmissionList();
 
 			$State=UsedCarInfo::statesList();
+			$news=new News;
 
-			//дата провайдер для каруселей
-			$currentYear=date('Y');
-
-			$criteriaNews=new CDbCriteria;
-			$criteriaNews->order='create_time desc';
-			$criteriaNews->
-				addCondition("DATE_FORMAT(`create_time`,'%Y-%m-%d')<='".$currentYear."-12-31' and DATE_FORMAT(`create_time`,'%Y-%m-%d')>='".$currentYear."-01-01'");
-			$dataProviderNews=new CActiveDataProvider('News', array(
-				'criteria' => $criteriaNews,
-				'pagination'=>false
-			));
-		
 			$criteriaCar=new CDbCriteria;
 			$criteriaCar->order='id desc';
 
@@ -66,9 +55,9 @@ class SiteController extends FrontController
 					'Bascet'=>$Bascet,
 					'Transmission'=>$Transmission,
 					'State'=>$State,
-					'dataProviderNews'=>$dataProviderNews,
 					'dataProviderCar'=>$dataProviderCar,
 					'searchForm'=>$searchForm,
+					'news'=>$news
 				)
 			);
 

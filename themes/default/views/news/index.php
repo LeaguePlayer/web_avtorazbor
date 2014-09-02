@@ -34,12 +34,22 @@
 
         				<div class="news tab-active" id="tabs-1">
                             <?
-                                $this->renderPartial('tabView',array('dataProvider'=>$dataProviderCurYear),false,true);
+                                $this->renderPartial('tabView',array('dataProvider'=>$model->getCurrentYear()),false,true);
                             ?>
                         </div>
                         <div class="news" id="tabs-2">
                             <?
-                                $this->renderPartial('tabView',array('dataProvider'=>$dataProviderPrevYear),false,true);
+                                $this->renderPartial('tabView',array('dataProvider'=>$model->getPrevYear()),false,true);
+                            ?>
+                        </div>
+                        <div class="news" id="tabs-3">
+                            <?
+                                $this->renderPartial('tabView',array('dataProvider'=>$model->getNews()),false,true);
+                            ?>
+                        </div>
+                        <div class="news" id="tabs-4">
+                            <?
+                                $this->renderPartial('tabView',array('dataProvider'=>$model->getCompany()),false,true);
                             ?>
                         </div>
         			</div>

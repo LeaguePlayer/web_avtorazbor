@@ -23,10 +23,16 @@
                         url: action,
                         type: 'POST',
                         dataType: 'json',
-                        data: form.serialize(),
+                        data: form.serialize()+'&controller=".$this->id."',
                         success: function(data) {
 
                             if ( !data.error ) {
+                                if (data.user)
+                                {
+                                    $('#accept .user').empty();
+                                    $('#accept .user').append(data.user);
+                                }
+
                                 $('.reg').empty().append(data.lk);
                                 $('.right.auth').slideUp().delay(200).remove();
                                 var li=$('.basket li').eq(1);

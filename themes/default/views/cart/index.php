@@ -53,7 +53,7 @@
                                 ?>
         					</tbody>
         				</table>
-                                        <a href="<?=$this->createUrl('/detail/parts?'.Yii::app()->session->get('BackToSearchUrl'))?>" class="back">Вернуться в каталог</a>
+                                        <a href="<?=$this->createUrl('/detail/parts?'.Yii::app()->session->get('backToResult'))?>" class="back">Вернуться в каталог</a>
         			</div>
                         <div id="accept" class="baskets hide">
                                 <dl class="info">
@@ -71,9 +71,12 @@
                                         Обработка заказа менеджером происходит в течении 1 рабочего дня.
                                     </dd>
                                 </dl>
+                                <div class="user">
                                 <?
+
                                     $this->renderPartial('user',array('model'=>$model));
                                 ?>
+                                </div>
                                 <!-- <a href="/cart/Issue_the_order" class="i-submit right">Оформить аказ</a> -->
                         </div>
                         

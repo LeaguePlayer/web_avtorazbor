@@ -36,43 +36,8 @@ class NewsController extends FrontController
 		$cs = Yii::app()->clientScript;
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/tabNews.js', CClientScript::POS_END);
 
-		$criteriaCruYear=new CDbCriteria;
-		$criteriaCruYear->order='create_time desc';
-
-		$criteriaPrevYear=new CDbCriteria;
-		$criteriaPrevYear->order='create_time desc';
-
-		$currentYear=date('Y');
-		$prevYear=date('Y')-1;
-
-		$criteriaCruYear->
-			addCondition("DATE_FORMAT(`create_time`,'%Y-%m-%d')<='".$currentYear."-12-31' and DATE_FORMAT(`create_time`,'%Y-%m-%d')>='".$currentYear."-01-01'");
-
-		$dataProviderCurYear=new CActiveDataProvider('News', array(
-			'criteria' => $criteriaCruYear,
-			'pagination'=>array(
-		        'pageSize'=>3,
-		        'pageVar'=>'page',
-		    ),
-		));
-
-		
-		
-		$criteriaPrevYear->
-			addCondition("DATE_FORMAT(`create_time`,'%Y-%m-%d')<='".$prevYear."-12-31' and DATE_FORMAT(`create_time`,'%Y-%m-%d')>='".$prevYear."-01-01'");
-
-		$dataProviderPrevYear=new CActiveDataProvider('News', array(
-			'criteria' => $criteriaPrevYear,
-			'pagination'=>array(
-		        'pageSize'=>3,
-		        'pageVar'=>'page',
-		    ),
-		));
-
-		$this->render('index',array(
-			'dataProviderCurYear'=>$dataProviderCurYear,
-			'dataProviderPrevYear'=>$dataProviderPrevYear,
-		));
+		$model=new News;
+		$this->render('index',array('model'=>$model));
 	}
 
 	public function getNews(){

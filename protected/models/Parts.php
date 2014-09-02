@@ -34,6 +34,8 @@ class Parts extends EActiveRecord implements IECartPosition
     public $max_sort;
     public $removeOnDelete = true;
 
+    public $analog;
+
     public static function getStatusAliases($status = -1)
     {
         $aliases = array(
@@ -105,7 +107,7 @@ class Parts extends EActiveRecord implements IECartPosition
             array('name', 'length', 'max'=>255),
             // array('price_sell, price_buy', 'numerical', 'integerOnly'=>false, 'min' => 1),
             array('price_sell, price_buy', 'length', 'max'=>10),
-            array('comment, create_time, update_time, usedCar', 'safe'),
+            array('comment, create_time, update_time, analog, usedCar', 'safe'),
             // The following rule is used by search().
             array('id, name, price_sell, price_buy, comment, category_id, car_model_id, location_id, supplier_id, create_time, update_time, status', 'safe', 'on'=>'search'),
         );
@@ -407,7 +409,7 @@ class Parts extends EActiveRecord implements IECartPosition
             ->queryAll();
         
         $data=array();
-
+        $modelCategory=array();
         foreach ($categories as $key => $cat_id) {
 
             $subCriteria=$this->getPartSearchCriteria($model_id,$cat_id['category_id']);
@@ -416,13 +418,21 @@ class Parts extends EActiveRecord implements IECartPosition
             foreach($models as $key=>$value)
             {
                 $data[$value->car_model_id]=$value->car_model_id;
+                $modelCategory[$value->category_id]=$value->category_id;
             }
         }
 
         $criteria=new CDbCriteria;
-        $criteria->addInCondition('car_model_id',$data);
+        if ($data)
+        {
+            $criteria->addInCondition('car_model_id',$data);
+            $criteria->addInCondition('category_id',$modelCategory);
+            $criteria->addInCondition('parent',$modelCategory);
+        }
+
         $result['criteria']=$criteria;
         $result['models']=$data;
+        $result['categories']=$modelCategory;
 
         return $result;
     }
@@ -439,17 +449,22 @@ class Parts extends EActiveRecord implements IECartPosition
 
         $brandModels=array();
         $data=array();
-
+        $modelCategory=array();
         foreach ($countryBrands as $key => $value) {
 
             $result=$this->getModelsByBrand($value['id'],$pagination);
 
             // $models=Parts::model()->findAll($subCriteria);
             $data=array_merge($data,$result['models']);
-            
+            $modelCategory=array($modelCategory,$result['categories']);
         }
         if ($data)
+        {
             $criteria->addInCondition('car_model_id',$data);
+            $criteria->addInCondition('category_id',$modelCategory);
+            $criteria->addInCondition('parent',$modelCategory);
+        }
+            
         else 
             $criteria->addCondition('car_model_id=0');
         return $criteria;
@@ -478,7 +493,7 @@ class Parts extends EActiveRecord implements IECartPosition
         
         $criteria->join=$this->getJoin('brand');
         $data=array();
-
+        $modelCategory=array();
         foreach ($brandModels as $key => $model) {
 
             $result=$this->findAllModelsWithAnalogs($model['id']);
@@ -486,17 +501,22 @@ class Parts extends EActiveRecord implements IECartPosition
             if (!empty($result['models']))
             {
                 $data=array_merge($data,$result['models']);
-
+                $modelCategory=array_merge($modelCategory,$result['categories']);
             }
         }
 
         if ($data)
+        {
             $criteria->addInCondition('car_model_id',$data);
+            $criteria->addInCondition('category_id',$modelCategory);
+            //$criteria->addInCondition('parent',$modelCategory,'or');
+        }
         else 
             $criteria->addCondition('car_model_id=0');
 
         $result['criteria']=$criteria;
         $result['models']=$data;
+        $result['categories']=$modelCategory;
 
         return $result;
     }
@@ -534,12 +554,14 @@ class Parts extends EActiveRecord implements IECartPosition
                 }
                 break;
             case 'model_cat':
-                        $result=$this->findAllModelsWithAnalogs($value['model_id']);
+                {
+                    $result=$this->findAllModelsWithAnalogs($value['model_id']);
                     $criteria->join.=' '.$this->getJoin('car_model_id');
                     $criteria->mergeWith($result['criteria']);
 
                     return $criteria;
-                break;
+                }
+            break;
             default:
                 {
                     //$criteria->join.=' '.$this->getJoin('car_model_id');

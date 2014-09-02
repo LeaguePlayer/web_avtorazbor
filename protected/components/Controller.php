@@ -15,6 +15,7 @@ class Controller extends CController
      */
     public $layout='//layouts/simple';
 
+    public $renderLoginForm=true;
     /**
      * @var array context menu items. This property will be assigned to {@link CMenu::items}.
      */

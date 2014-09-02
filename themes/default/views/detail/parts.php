@@ -14,8 +14,7 @@
                 <?=$form->hiddenField($searchForm,'type',array('value'=>2))?>
                 <?=$form->hiddenField($searchForm,'sort')?>
                 <?=$form->hiddenField($searchForm,'display')?>
-                <?=$form->hiddenField($searchForm,'scenario')?>
-
+                <?=$form->hiddenField($searchForm,'scenario',array('value'=>'parts'))?>
                         <dl>
                             <dd>
                                 <label>Страна:</label>
@@ -80,13 +79,13 @@
                 <div class="coll-right">
                     <div class="tabs parts">
                         <ul id="car_type">
-                            <li <?=$searchForm->scenario=='light' ? 'class="active"' : '' ?>>
-                                <a href="#" data-scenario="light">
+                            <li <?=$searchForm->type=='1' ? 'class="active"' : '' ?>>
+                                <a href="#" data-scenario="1">
                                     Легковые
                                 </a>
                             </li>
-                            <li <?=$searchForm->scenario=='weight' ? 'class="active"' : '' ?>>
-                                <a href="#" data-scenario="weight">
+                            <li <?=$searchForm->type=='2' ? 'class="active"' : '' ?>>
+                                <a href="#" data-scenario="2">
                                     Грузовые
                                 </a>    
                             </li>

@@ -29,6 +29,7 @@ class PageController extends FrontController
 	
 	public function actionView($alias)
 	{
+
 		$model=Page::model()->find('alias=:alias',array(':alias'=>$alias));
 		$this->render('view',array(
 			'model'=>$model,
