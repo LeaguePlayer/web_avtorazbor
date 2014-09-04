@@ -1,9 +1,11 @@
 	<?
-		$glrExist=!empty($data->getGallery()->galleryPhotos)
+		$glrExist=!empty($data->getGallery()->galleryPhotos);
+		$glr=$data->getGallery()->galleryPhotos[0];
+		$image=file_exists($glr->getUrl('small')) ? $glr->getUrl('small') : '/media/images/parts/default.png';
 	?>
 <li>
 	<a href="/detail/view?id=<?=$data->id?>">
-		<img src="<?= $glrExist ? $data->getGallery()->galleryPhotos[0]->getUrl('small') : '/media/images/parts/default.png'?>" alt="" title="">
+		<img src="<?=$image?>" alt="" title="">
 	</a>
 	<a href="/detail/view?id=<?=$data->id?>" class="link">
 		<?=$data->name?>

@@ -11,7 +11,10 @@
 
                 <div class="gallery">
                     <div class="big-img">
-                        <a class="imgFancy" href="<?=$model->getImageUrl('big') ? $model->getImageUrl('big') : '/media/images/default.png' ?>"><img width="331" height="192" src="/media/mediumPart.png" alt="" title="" /></a>
+                        <?
+                            $image=file_exists($model->getImageUrl('medium')) ? $model->getImageUrl('medium') : '/media/images/default.png';
+                        ?>
+                        <a class="imgFancy" href="<?=$model->getImageUrl('big') ? $model->getImageUrl('big') : '/media/images/default.png' ?>"><img width="331" height="192" src="<?=$image?>" alt="" title="" /></a>
                     </div>
                 </div>
 
