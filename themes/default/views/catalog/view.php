@@ -21,6 +21,7 @@
                             $param="?SearchFormOnMain[brand]=".$model->model->car_brand->id."&SearchFormOnMain[id_country]=".$model->model->car_brand->country->id;
                             $url=$this->createUrl('/catalog'.$param);
                         ?>
+                    <li class="articul">Артикул: <span><?=$model->id?></span></li>
                     <li>Марка: <a href="<?=$url?>"><?=$model->model->car_brand->name?></a></li>
 					<li>Пробег: <?=$model->dop->mileage?></li>
 					<li>Состояние: <?=$model->dop->getState()?></li>

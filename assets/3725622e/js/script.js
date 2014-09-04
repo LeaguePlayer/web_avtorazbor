@@ -1,11 +1,9 @@
 $(function(){
 	$('.tabs ul li a').click(function(){
-
 		var tabId=$(this).attr('href');
-
-		if (!$(this).hasClass('modal'))
+		if (tabId.indexOf("#")>-1)
 		{
-			if (tabId.indexOf("#")>-1)
+			if (!$(this).hasClass('modal'))
 			{
 				var context=$(this).closest('.tabs').parent();
 				$('.tab-active',context).addClass('hide').removeClass('tab-active');
@@ -13,12 +11,12 @@ $(function(){
 				$('li.active:first',context).removeClass('active');
 				$(this).parent().addClass('active');
 				return false;
+			} else {
+				var href=$(this).attr('href');
+				$.fancybox.open(href,{});
 			}
-		} else {
-			var href=$(this).attr('href');
-			$.fancybox.open(href,{});
+			return false;
 		}
-		return false;
 	})
 
 	$('.auth,.modal').fancybox({

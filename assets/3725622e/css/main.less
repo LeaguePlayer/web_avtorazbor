@@ -10,6 +10,9 @@
   -webkit-border-radius: @radius;
   -moz-border-radius: @radius;
 }
+a:hover{
+	text-decoration: none;
+}
 .gradient (@startColor: #5da7ee, @endColor: #2455a1) {
 	background-color: @startColor;
 	background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
@@ -123,7 +126,7 @@ a{
 	text-decoration: none;
 	color:#2455a1;
 	&:hover{
-		text-decoration:underline;
+		//text-decoration:underline;
 	}
 }
 header .item img{
@@ -489,10 +492,10 @@ header{
 		}
 	}
 	.search{
-		float:right;
-		width:378px;
+		width:371px;
 		border:1px solid #c8d1d9;
 		position: relative;
+		display: inline-block;
 		.radius(6px);
 		input[type=text]{
 			border:0;
@@ -1280,6 +1283,8 @@ header{
 						margin-top: 20px;
 						top:0;
 						width: 93%;
+						height: 6px;
+						border-radius: 10px;
 					}
 					&.submit{
 						text-align:center;
@@ -1321,6 +1326,7 @@ header{
 					background:#fafafa;
 					border-radius: 10px;
 					top:0;					
+					height: 6px;
 				}
 				
 				.calculate .line .inner-line .ui-slider-handle{
@@ -1890,6 +1896,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 	}
 	.slider{
 		margin-top:30px;
+		margin-bottom: 20px;
 		.box{
 			padding:30px 43px;
 			.radius(5px);
@@ -3450,4 +3457,68 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 	padding: 3px 7px;
 	border-radius: 10px;
 	background:#fb710b;
+}
+.alert{
+	padding-right: 30px;
+	.caption{
+		text-align: center;
+		text-align: center;
+		font-size: 22px;
+	}
+	.part{
+		.submit{
+			display: none;
+		}
+		img{
+			display: inline-block;
+		}
+		ul{
+			border:none;
+			display: inline-block;
+			list-style: none;
+			max-width: 285px;
+			line-height: 30px;
+		}
+		padding-bottom: 20px;
+		border-bottom:solid black 1px;
+	}
+	.message{
+			font-weight: bold;
+			margin-top: 30px;
+			a{
+				font-weight: normal;
+				border-bottom: dashed 1px;
+			}
+		}
+}
+ul.vacansy{
+	margin-top: 30px;
+	li{
+		display: block;
+		border: 1px solid #A6A8AB;
+		background: #F2F4F6;
+		margin-bottom: 41px;
+		border-radius: 8px;
+		-webkit-border-radius: 8px;
+		-moz-border-radius: 8px;
+		padding: 20px;
+		margin-bottom: 30px;
+	}
+	.caption{
+		padding-bottom: 15px;
+		font: 18px/1.2 segoe_uiregular;
+		color: #333;
+	}
+	.desc{
+		padding-bottom: 30px;
+		font: 14px/1.2 segoe_uiregular;
+		color: #76838D;
+	}
+	.more{
+		font-size: 12px;
+	}
+}
+.ui-slider-handle{
+	width: 20px!important;
+	height: 20px!important;
 }

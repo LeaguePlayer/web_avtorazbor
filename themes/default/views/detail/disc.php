@@ -70,13 +70,13 @@
                 <div class="coll-right">
                     <div class="tabs parts">
                         <ul id="car_type">
-                            <li >
-                                <a href="/detail?light=1" data-type="1">
+                            <li>
+                                <a href="/detail?SearchFormOnMain[scenario]=light">
                                     Легковые
                                 </a>
                             </li>
-                            <li >
-                                <a href="/detail?hard=1" data-type="2">
+                            <li>
+                                <a href="/detail?SearchFormOnMain[scenario]=weight">
                                     Грузовые
                                 </a>    
                             </li>
@@ -99,11 +99,7 @@
                                             Все(41)
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#">
-                                            Новинки
-                                        </a>    
-                                    </li>
+                                    
                                 </ul>
 
                                 <dl>

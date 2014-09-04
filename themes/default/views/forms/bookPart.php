@@ -15,6 +15,7 @@
             'id' => 'BookPart-form',
             'action' => $this->createUrl('/ajaxRequests/saveBookPart'),
             'enableClientValidation' => true,
+            'method'=>'POST',
             'clientOptions' => array(
                 'validateOnType' => true,
                 'validateOnSubmit' => true,
@@ -31,11 +32,12 @@
                             console.log(data)
                             if ( data.success ) {
                                 window.location.href = '".$this->createUrl('/ajaxRequests/thanks')."';
-                                console.log(data);
+                            } else {
+                                
                             }
                         },
-                        error:function(){
-                            console.log(111111)
+                        error:function(data){
+                            console.log(data.error)
                         }
                     });
                 }"

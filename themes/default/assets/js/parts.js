@@ -66,8 +66,7 @@ $(document).ready(function(){
 
 	$('#car_type li a').click(function(){
 		
-		console.log(123)
-		if($(this).attr('href')=="#")
+		if($(this).attr('href').indexOf("#")>-1)
 		{
 			$(this).closest('ul').find('.active').removeClass('active');
 			$(this).parent().addClass('active');

@@ -37,9 +37,18 @@ class EvackuatorController extends FrontController
 	
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Evackuator');
+		$model=new Evackuator;
+		
+		if (isset($_POST['Evackuator']))
+		{
+			if ($model->save())
+			{
+				$this->redirect(array('/page/thanks'));
+			}
+		}
+
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'model'=>$model,
 		));
 	}
 }
