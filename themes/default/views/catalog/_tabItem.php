@@ -1,6 +1,9 @@
 <li>
+	<?
+		$image=file_exists($data->img_preview) ? $data->getImageUrl('small') : '/media/images/usedcars/default.png';
+	?>
 	<a href="/catalog/car/<?=$data->id?>">
-		<img src="<?=$data->img_preview ? $data->getImageUrl('small') : '/media/images/usedcars/default.png'?>" alt="" title="" />
+		<img src="<?=$image?>" alt="" title="" />
 	</a>
 	<a href="/catalog/car/<?=$data->id?>" class="link">
 		<?=$data->name?>
