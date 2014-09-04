@@ -10,13 +10,13 @@ class m140814_054243_add_fields_to_client extends CDbMigration
     // таблицы к удалению, можно использовать '{{table}}'
 	public function up()
     {
-        $this->addColumn('{{clients}}', 'password', 'string');
-        $this->addColumn('{{clients}}', 'token', 'string');
+        $this->addColumn('{{Clients}}', 'password', 'string');
+        $this->addColumn('{{Clients}}', 'token', 'string');
     }
 
     public function down()
     {
-        $this->dropColumn('{{clients}}', 'password', 'string');
-        $this->dropColumn('{{clients}}', 'token', 'string');
+        $this->dropColumn('{{Clients}}', 'password', 'string');
+        $this->dropColumn('{{Clients}}', 'token', 'string');
     }
 }
