@@ -3,7 +3,7 @@
 
     $gallery=$data->getGallery()->galleryPhotos;
 
-    $image=file_exists($gallery[0]->getUrl('small')) ? $gallery[0]->getUrl('small') : '/media/images/parts/default.jpg';
+    $image=$gallery[0]->getUrl('small') ? $gallery[0]->getUrl('small') : '/media/images/parts/default.jpg';
 ?>
 <li class="<?=$_GET["id"]==$data->id? 'active' : ''?>">
 
