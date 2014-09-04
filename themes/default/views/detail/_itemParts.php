@@ -1,7 +1,7 @@
 	<?
 		$glrExist=!empty($data->getGallery()->galleryPhotos);
 		$glr=$data->getGallery()->galleryPhotos[0];
-		$image=$glr->getUrl('small') ? $glr->getUrl('small') : '/media/images/parts/default.png';
+		$image=$glrExist ? $glr->getUrl('small') : '/media/images/parts/default.png';
 	?>
 <li>
 	<a href="/detail/view?id=<?=$data->id?>">
