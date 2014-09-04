@@ -59,7 +59,7 @@ class CarBrands extends EActiveRecord
     {
         return array(
             'models' => array(self::HAS_MANY, 'CarModels', 'brand'),
-            'country'=>array(self::BELONGS_TO,'country','id_country')
+            'country'=>array(self::BELONGS_TO,'Country','id_country')
         );
     }
     
