@@ -11,7 +11,6 @@ class m140806_091930_add_seo extends CDbMigration
 	public function up()
     {
         $this->addColumn('{{News}}', 'seo_id', 'int');
-        $this->addColumn('{{News}}', 'seo_id', 'int');
         $this->addColumn('{{Parts}}', 'seo_id', 'int');
         $this->addColumn('{{UsedCars}}', 'seo_id', 'int');
         $this->addColumn('{{CarBrands}}', 'seo_id', 'int');
@@ -21,7 +20,6 @@ class m140806_091930_add_seo extends CDbMigration
 
     public function down()
     {
-        $this->dropColumn('{{News}}', 'seo_id', 'int');
         $this->dropColumn('{{News}}', 'seo_id', 'int');
         $this->dropColumn('{{Parts}}', 'seo_id', 'int');
         $this->dropColumn('{{UsedCars}}', 'seo_id', 'int');
