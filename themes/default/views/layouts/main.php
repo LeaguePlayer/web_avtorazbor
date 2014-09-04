@@ -191,7 +191,7 @@
                         array('label'=>'Все услуги', 'url'=>array('/page/Vse-uslugi')),
                         array('label'=>'Новости', 'url'=>array('/news')),
                         array('label'=>'Контакты', 'url'=>array('/page/contacts')),
-                         array('label'=>'Вакансии', 'url'=>array('/page/vacansy')),
+                         array('label'=>'Вакансии', 'url'=>array('/vacansy')),
                     ),
                 ));?>
 	        		<!-- <ul>

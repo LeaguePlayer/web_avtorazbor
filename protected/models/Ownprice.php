@@ -27,7 +27,7 @@ class Ownprice extends EActiveRecord
         return array(
             array('status, sort', 'numerical', 'integerOnly'=>true),
             array('name, phone, mail, own_price', 'length', 'max'=>255),
-            array('create_time, update_time', 'safe'),
+            array('create_time, car_id, update_time, status', 'safe'),
             // The following rule is used by search().
             array('id, name, phone, mail, own_price, status, sort, create_time, update_time', 'safe', 'on'=>'search'),
             array('name, phone, mail, own_price', 'required'),
@@ -38,6 +38,7 @@ class Ownprice extends EActiveRecord
     public function relations()
     {
         return array(
+            'car'=>array(self::BELONGS_TO,'UsedCars','car_id')
         );
     }
 

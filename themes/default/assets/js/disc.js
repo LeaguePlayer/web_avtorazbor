@@ -65,7 +65,7 @@ $(function(){
 		return false;
 	});
 
-	$('#min,#max,#minCost,#maxCost').on('change keyup',function(){
+	$('.formCost input').on('change',function(){
 		changeView();
 		return false;
 	});

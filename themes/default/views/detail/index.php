@@ -52,8 +52,7 @@
                                 <div class="select">
                                     <dl>
                                     <dd>
-
-                                        <?=$form->hiddenField($searchForm,'type',array('value'=>2))?>
+                                        <?=$form->hiddenField($searchForm,'type')?>
 
                                         <?=$form->hiddenField($searchForm,'scenario',array('value'=>'parts'))?>
 
@@ -172,4 +171,4 @@
                 <div class="clear"></div>
             </div>
         </div>  
-<?=$this->renderPartial('//forms/bookPart',array('model'=>new Bookpart));?>
+<?//=$this->renderPartial('//forms/bookPart',array('model'=>new Bookpart));?>

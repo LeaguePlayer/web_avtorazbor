@@ -148,7 +148,8 @@ class AjaxRequestsController extends FrontController
 	    if(isset($_POST['Bookpart']))
 	    {
 	        $model->attributes=$_POST['Bookpart'];
-	        
+	        $response['test']=$model->attributes;
+	        $response['test2']=$_POST['Bookpart'];
 	        if ($model->validate())
 	        {
 	        	$model->status=2;
@@ -156,7 +157,7 @@ class AjaxRequestsController extends FrontController
 	        	$response['success']=true;
 	        }
 	        else {
-	        	$response['error']=$this->renderPartial('//forms/bookPart',array('model'=>$model),true);
+	        	$response['error']=$model->errors;
 	        }
 	    }
 	    echo CJSON::encode($response);

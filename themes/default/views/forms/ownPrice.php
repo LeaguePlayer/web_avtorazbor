@@ -44,6 +44,12 @@
             'htmlOptions' => array('class' => 'request_form')
         )) ?>
                 <ul>
+                    <li>
+                        <?php echo $form->hiddenField($model,'car_id',array('id'=>'car_id')); ?>
+                    </li>
+                    <li>
+                        <?php echo $form->hiddenField($model,'status',array('value'=>'0')); ?>
+                    </li>
 					<li>
 						<?php echo $form->labelEx($model,'name');?>
 						<?php echo $form->textField($model,'name',array('class'=>'i-text','maxlength'=>255)); ?>

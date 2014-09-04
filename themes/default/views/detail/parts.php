@@ -11,7 +11,7 @@
                 'action' => $this->createUrl('/detail/parts'),
                 'htmlOptions' => array('class' => 'request_form')
             )) ?>
-                <?=$form->hiddenField($searchForm,'type',array('value'=>2))?>
+                <?=$form->hiddenField($searchForm,'type')?>
                 <?=$form->hiddenField($searchForm,'sort')?>
                 <?=$form->hiddenField($searchForm,'display')?>
                 <?=$form->hiddenField($searchForm,'scenario',array('value'=>'parts'))?>
@@ -31,9 +31,9 @@
                                 <label>Модель автомобиля:</label>
                                 <?=$form->dropDownList($searchForm,'car_model_id', $Models, array( 'empty'=>'Выберите модель','class'=>'select','id'=>'car_model_id'))?>
                             </dd>
-                            <dd style="display:<?=($searchForm->category_id ? 'block' : 'none')?>">
+                            <dd style="display:<?=($searchForm->parent ? 'block' : 'none')?>">
                                 <label>Раздел:</label>
-                                <?=$form->dropDownList($searchForm, 'category_id', $Categories,
+                                <?=$form->dropDownList($searchForm, 'parent', $Categories,
                                     array(
                                             'empty'=>'Выберите раздел',
                                             'class'=>'select',
@@ -44,9 +44,9 @@
                                     );
                                 ?>
                             </dd>
-                            <dd style="display:<?=($searchForm->parent ? 'block' : 'none')?>">
+                            <dd style="display:<?=($searchForm->category_id ? 'block' : 'none')?>">
                                 <label>Подраздел:</label>
-                                <?=$form->dropDownList($searchForm,'parent', $subCategories, array('empty'=>'Выберите под категорию','id'=>'subCategories'))?>
+                                <?=$form->dropDownList($searchForm,'category_id', $subCategories, array('empty'=>'Выберите под категорию','id'=>'subCategories'))?>
                             </dd>
                             
                             <dt>

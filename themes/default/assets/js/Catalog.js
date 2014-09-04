@@ -91,8 +91,13 @@ $(function(){
 			$('#SearchFormOnMain_bascet,#SearchFormOnMain_transmission').closest('dd').slideDown(200);
 		}
 	});
+	
+	$('.own-price').on('click',function(){
+		$('#car_id').val($('.articul span').text());
+		console.log(123)
+	})
 
-	$('.own-price').fancybox({
+	$('.own-price').fancybox({	
 		fitToView	: true,
 		autoSize	: true,
 	});

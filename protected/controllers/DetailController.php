@@ -43,7 +43,7 @@ class DetailController extends FrontController
 		
 		if (isset($_GET['SearchFormOnMain']))
 			$searchForm->attributes=$_GET['SearchFormOnMain'];
-
+		
 		$this->render('index',array('Brand'=>$Brand,'searchForm'=>$searchForm));
 
 	}
@@ -98,23 +98,24 @@ class DetailController extends FrontController
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js', CClientScript::POS_END);
 
 		$searchForm=new SearchFormOnMain;
+		$searchForm->scenario= 'parts';
 		if (isset($_GET['SearchFormOnMain']))
 		{
 			$searchForm->attributes=$_GET['SearchFormOnMain'];
-			$searchForm->scenario= $searchForm->scenario ? $searchForm->scenario : 'light';
-			$searchForm->validate();
-			Yii::app()->session['returnUrl']=$_GET['SearchFormOnMain'];
 		}
+		$searchForm->validate();
 
 		$Countries=CHtml::listData(Country::model()->findAll(),'id','name');
 		$Categories=CHtml::listData(Categories::model()->findAll('parent=0'),'id','name');
 		$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
 		$Models=!empty($searchForm->brand) ? CHtml::listData(CarBrands::model()->findByPk($searchForm->brand)->models,'id','name') : array();
+
 		$subCategories=!empty($searchForm->category_id) ? CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$searchForm->category_id)),'id','name') : array();
 
 		$searchForm->sort='price_sell';
 		//$searchForm->afterValidate();
-
+		// var_dump($searchForm->criteria->condition);
+		// die();
 		$dataProvider=new CActiveDataProvider('Parts',array(
 			'criteria'=>$searchForm->criteria,
 			'pagination'=>array(
@@ -141,6 +142,7 @@ class DetailController extends FrontController
 		{
 			$searchForm=new SearchFormOnMain;
 			$searchForm->attributes=$_GET['SearchFormOnMain'];
+			$searchForm->scenario='parts';
 			$searchForm->validate();
 			//die('in controller');
 			$dataProvider=new CActiveDataProvider('Parts',array(
@@ -151,7 +153,6 @@ class DetailController extends FrontController
 				)
 			);
 			echo $this->renderPartial('//detail/tabParts',array('dataProvider'=>$dataProvider),true);
-			Yii::app()->session['BackToSearchUrl']=$_GET;
 			die();
 		}
 	}

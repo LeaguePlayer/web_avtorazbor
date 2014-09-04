@@ -22,12 +22,22 @@ $this->menu=array(
 		'mail',
 		'own_price',
 		array(
+			'name'=>'car_id',
+			'header'=>'Машина',
+			'type'=>'raw',
+			'value'=>'$data->car->name',
+		),
+		array(
+			'header'=>'Артикул авто',
+			'type'=>'raw',
+			'value'=>'$data->car->id',
+		),
+		array(
 			'name'=>'status',
 			'type'=>'raw',
 			'value'=>'Ownprice::getStatusAliases($data->status)',
 			'filter'=>Ownprice::getStatusAliases()
 		),
-		'sort',
 		array(
 			'name'=>'create_time',
 			'type'=>'raw',
@@ -40,6 +50,7 @@ $this->menu=array(
 		),
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
+			'template'=>'{update}{delete}',
 		),
 	),
 )); ?>
