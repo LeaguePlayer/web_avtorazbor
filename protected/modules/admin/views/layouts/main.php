@@ -13,7 +13,8 @@
 				'parts' => array( 'parts', 'carBrands', 'carModels', 'categories'),
 				'documents' => array('documents', 'templates'),
 				'requests' => array('requests', 'clients', 'employees'),
-				'settings' => array('settings', 'download')
+				'settings' => array('settings', 'download'),
+				'manage' =>array('page','news','bookPart','questions','ownprice','vacansy'),
 			);
 
 			$root = 'parts';
@@ -41,14 +42,8 @@
 				array('label'=>'Документы', 'url'=>'/admin/documents'),
 				array('label'=>'Пользователи', 'url'=>'/user/admin'),
 				array('label'=>'Настройки', 'url'=>'/admin/settings'),
-				array('label'=>'Управление сайтов',
-					'items'=>array(
-						array('label'=>'Страницы', 'url'=>'/admin/page/list'),
-						array('label'=>'Новости', 'url'=>'/admin/news/list'),					
-						array('label'=>'Заказ деталей', 'url'=>'/admin/bookPart/list'),
-						array('label'=>'Вопросы', 'url'=>'/admin/questions/list'),
-						array('label'=>'предложения', 'url'=>'/admin/ownprice/list'),
-					),
+				array('label'=>'Управление сайтов','url'=>'/admin/page',
+					
 				)
 			);
 
@@ -78,6 +73,14 @@
 					//array('label'=>'Скачать приложение', 'url'=>'/admin/settings/downloadApp'),
 					array('label'=>'Скачать старое приложение', 'url'=>'/admin/settings/downloadOldApp'),
 					array('label'=>'Скачать новое приложение', 'url'=>'/admin/settings/downloadNewApp'),
+				),
+				'manage'=>array(
+					array('label'=>'Вакансии', 'url'=>'/admin/vacansy/list'),
+					array('label'=>'Страницы', 'url'=>'/admin/page/list'),
+					array('label'=>'Новости', 'url'=>'/admin/news/list'),					
+					array('label'=>'Заказ деталей', 'url'=>'/admin/bookPart/list'),
+					array('label'=>'Вопросы', 'url'=>'/admin/questions/list'),
+					array('label'=>'Предложения', 'url'=>'/admin/ownprice/list'),
 				),
 				
 					

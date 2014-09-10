@@ -12,7 +12,7 @@ $(function(){
 				if (data.success)
 				{
 					$('.bascet dd').empty().append(data.html);
-
+					
 					if ($this.closest('table').find('tr').length=1)
 					{
 						$('.tabs li:last').animate({width:0,padding:0},500,function(){

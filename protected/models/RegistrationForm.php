@@ -13,9 +13,21 @@
 				array('email', 'email'),
 				array('email', 'unique', 'message' => 'Пользователь с указанным почтовым адресом 	был зарегестрирован ранее!'),
 				array('verifyPassword', 'compare', 'compareAttribute'=>'password', 'message' => 'Пароли не совпадают!'),
+				array('subscribe_news,subscribe_new','boolean'),
 			);
 			return $rules;
 		}
+
+		public function attributeLabels()
+	    {
+	        return array(
+	        	'fio'=>'ФИО',
+	        	'email'=>'Электронная почта',
+	        	'phone'=>'Телефон',
+	            'verifyPassword' => 'Повторите пароль',
+	            'password' => 'Пароль',
+	        );
+	    }
 
 		public function beforeSave()
 		{

@@ -149,4 +149,4 @@
                 <div class="clear"></div>
             </div>
         </div>  
-    <?=$this->renderPartial('//forms/_alert')?>
+    <?=$this->renderPartial('iteminCart',array('model'=>$model))?>
