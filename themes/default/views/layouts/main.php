@@ -38,17 +38,17 @@
 		<div class="sale fotorama">
 			<div class="item">
                 <img src="<?=$assetUrl?>/images/header.png" width="100%" alt="" title="" />
-                    <div class="info">
-                        <p class="caption">
-                            Компьютерная <strong>диагностика авто</strong>
-                        </p>
-                        <p class="feature">Компьютерная диагностика двигателя  /  Исправление системных ошибок
-                        </p>
-                        <p class="phone">
-                            <span>+7 (343)</span> 288-22-88
-                        </p>
-                        <a href="more">Подробнее</a>
-                    </div>
+                <div class="info">
+                    <p class="caption">
+                        Компьютерная <strong>диагностика авто</strong>
+                    </p>
+                    <p class="feature">Компьютерная диагностика двигателя  /  Исправление системных ошибок
+                    </p>
+                    <p class="phone">
+                        <span>+7 (343)</span> 288-22-88
+                    </p>
+                    <a href="more">Подробнее</a>
+                </div>
 			</div>
 			<div class="item">
                 <img src="<?=$assetUrl?>/images/header.png" width="100%" alt="" title="" />
@@ -65,16 +65,16 @@
             </div>
             <div class="item">
                 <img src="<?=$assetUrl?>/images/header.png" width="100%" alt="" title="" />
-                    <div class="info">
-                        <p class="caption">
-                            Компьютерная <strong>диагностика авто</strong>
-                        </p>
-                        <p class="feature">Компьютерная диагностика двигателя  /  Исправление системных ошибок</p>
-                        <p class="phone">
-                            <span>+7 (343)</span> 288-22-88
-                        </p>
-                        <a href="more">Подробнее</a>
-                    </div>
+                <div class="info">
+                    <p class="caption">
+                        Компьютерная <strong>диагностика авто</strong>
+                    </p>
+                    <p class="feature">Компьютерная диагностика двигателя  /  Исправление системных ошибок</p>
+                    <p class="phone">
+                        <span>+7 (343)</span> 288-22-88
+                    </p>
+                    <a href="more">Подробнее</a>
+                </div>
             </div>
 		</div>
 		<!--sale End-->
@@ -116,7 +116,7 @@
         		</dd>
         	</dl>
 
-        	<dl class="qst">
+        	<dl class="qst-head">
                 <dt>
                     <strong>Есть вопросы?</strong>
                 </dt>
@@ -150,6 +150,7 @@
         	</div>
 
         	<dl class="bascet">	
+                
         		<dt>
         			<strong>В корзине:</strong> 
         		</dt>
@@ -162,7 +163,9 @@
         					<a href="/cart"><?=Yii::app()->cart->getItemsCount()?> товар</a>
         				    </li>
         				    <li>
+                            <a href="/cart">
         					На сумму: <strong><?=Yii::app()->cart->getCost()?> руб.</strong>
+                            </a>
         			     	</li>
         			  </ul>
                     <?} else {?>
@@ -171,6 +174,7 @@
                         </span>
                     <?}?>
         		</dd>
+                
         	</dl>
 
         </header>
@@ -188,7 +192,7 @@
                         // 'Products' menu item will be selected no matter which tag parameter value is since it's not specified.
                         array('label'=>'Продажа авто', 'url'=>array('/catalog')), 
                         array('label'=>'Автозапчасти', 'url'=>array('/detail')),
-                        array('label'=>'Все услуги', 'url'=>array('/page/Vse-uslugi')),
+                        array('label'=>'Все услуги', 'url'=>array('/page/service')),
                         array('label'=>'Новости', 'url'=>array('/news')),
                         array('label'=>'Контакты', 'url'=>array('/page/contacts')),
                          array('label'=>'Вакансии', 'url'=>array('/vacansy')),

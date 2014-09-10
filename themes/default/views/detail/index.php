@@ -150,19 +150,18 @@
                 </div>
 
                 <div class="coll right">
-                    <div class="modul one mar-36">
+                    <div class="modul one">
 
                             <p class="phone">+7 (343) 201-36-06</p>
-                            <a href="#">
+                            <a href="/evackuator">
                                 Услуги автоэвакуатора
                             </a>
                     </div>
                     <div class="modul second">
-                            
                             <p class="question">Есть вопросы?<br>
                                 <span>Напиши нам</span>
                             </p>
-                            <a href="#">
+                            <a href="#popup" class="modal">
                                 Услуги автоэвакуатора
                             </a>
                     </div>

@@ -24,13 +24,18 @@
         			<div class="content clear">
                         <div clsas="flush"><?=$this->message?></div>
         				<div class="form <?=$tabActive == 1 ? 'tab-active' : 'hide'?>" id="phiz">
-                            <a href="/account/entry_list" class="cart-list">Список заказов</a>
+                            <?
+                                if ($model->requests){
+                            ?>
+                                <a href="/account/entry_list" class="cart-list">Список заказов</a>
+                            <?}?>
         					<?php $form = $this->beginWidget('CActiveForm', array(
                                 'id' => 'ownPrice-form',
                                 'action' => $this->createUrl('/account'),
                                 'enableClientValidation' => true,
                                 'clientOptions' => array(
-                                    'validateOnType' => true,
+                                    //'validateOnType' => false,
+                                    'validateOnSubmit'=>true,
                                 ),
                                 'htmlOptions' => array('class' => 'request_form')
                             )) ?>
@@ -59,22 +64,25 @@
                                             Подписаться<br> на e-mail<br> рассылку
                                         </label>
                                         <div class="group">
-                                            <input hidden="" type="checkbox" id="check1">
-                                            <label for="check1">
+                                            <!-- <input hidden="" type="checkbox" id="check1"> -->
+                                            <?=$form->checkBox($model,'subscribe_news',array('hidden'=>true))?>
+                                            <label for="Clients_subscribe_news">
                                                 <span></span>
-                                            На новости</label>
-                                            <input hidden="" type="checkbox" id="check2">
-                                            <label for="check2"><span>
+                                                На новости
+                                            </label>
+
+                                            <?=$form->checkBox($model,'subscribe_new',array('hidden'=>true))?>
+                                            <label for="Clients_subscribe_new"><span>
                                                   
                                                 </span>
-                                                  На акции
+                                                  На новинки
                                             </label>
-                                            <input hidden="" type="checkbox" name="check" id="check3">
+                                            <!-- <input hidden="" type="checkbox" name="check" id="check3">
                                             <label for="check3">
                                             <span></span>
                                                 На новинки
-                                            </label>
-                                        </div>
+                                            </label> -->
+                                        </div>  
                                     </li>
                                 </ul>
                                 </dd>
@@ -106,7 +114,13 @@
                         <?php $this->endWidget(); ?>
                 		</div>
                         <div class="form <?=$tabActive == 2 ? 'tab-active' : 'hide'?>" id="law">
-                            <a href="/account/entry_list" class="cart-list">Список заказов</a>
+                            
+                            <?
+                                if ($model->requests){
+                            ?>
+                                <a href="/account/entry_list" class="cart-list">Список заказов</a>
+                            <?}?>
+
                             <?php $form = $this->beginWidget('CActiveForm', array(
                                 'id' => 'law-form',
                                 'action' => $this->createUrl('/account'),
@@ -141,21 +155,24 @@
                                             Подписаться<br> на e-mail<br> рассылку
                                         </label>
                                         <div class="group">
-                                            <input hidden="" type="checkbox" id="check1">
-                                            <label for="check1">
+                                            <!-- <input hidden="" type="checkbox" id="check1"> -->
+                                            <?=$form->checkBox($model,'subscribe_news',array('hidden'=>true))?>
+                                            <label for="Clients_subscribe_news">
                                                 <span></span>
-                                            На новости</label>
-                                            <input hidden="" type="checkbox" id="check2">
-                                            <label for="check2"><span>
+                                                На новости
+                                            </label>
+
+                                            <?=$form->checkBox($model,'subscribe_new',array('hidden'=>true))?>
+                                            <label for="Clients_subscribe_new"><span>
                                                   
                                                 </span>
-                                                  На акции
+                                                  На новинки
                                             </label>
-                                            <input hidden="" type="checkbox" name="check" id="check3">
+                                            <!-- <input hidden="" type="checkbox" name="check" id="check3">
                                             <label for="check3">
                                             <span></span>
                                                 На новинки
-                                            </label>
+                                            </label> -->
                                         </div>
                                     </li>
                                     <li>
@@ -218,7 +235,7 @@
                     <div class="modul one">
 
                             <p class="phone">+7 (343) 201-36-06</p>
-                            <a href="#">
+                            <a href="/evackuator">
                                 Услуги автоэвакуатора
                             </a>
                     </div>
@@ -227,7 +244,7 @@
                             <p class="question">Есть вопросы?<br>
                                 <span>Напиши нам</span>
                             </p>
-                            <a href="#">
+                            <a href="#popup" class="modal">
                                 Услуги автоэвакуатора
                             </a>
                     </div>

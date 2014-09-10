@@ -143,6 +143,7 @@ return array(
             'rules'=>array(
                 'gii'=>'gii',
                 'admin'=>'admin/start/index',
+                'page/service'=>'page/service',
                 '<controller:page>/<alias:[\w\-]+>'=>'page/view',
                 '<controller:news>/<id:\d+>'=>'news/view',
                 '<controller:\w+>'=>'<controller>/index',

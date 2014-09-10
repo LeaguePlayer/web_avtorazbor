@@ -17,7 +17,7 @@ class PageController extends FrontController
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','service'),
 				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
@@ -25,7 +25,6 @@ class PageController extends FrontController
 			),
 		);
 	}
-
 	
 	public function actionView($alias)
 	{
@@ -36,6 +35,12 @@ class PageController extends FrontController
 		));
 	}
 
+	public function actionService()
+	{
+		$cs = Yii::app()->clientScript;
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/pageService.js', CClientScript::POS_END);
+		$this->render('service',array('news'=>new News));
+	}
 	
 	public function actionIndex()
 	{
