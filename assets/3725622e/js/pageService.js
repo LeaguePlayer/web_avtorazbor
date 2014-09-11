@@ -1,8 +1,8 @@
 $(function(){
 
-	var owl=$('.items-news .items').owlCarousel({
+	var owl=$('.items-news .items:last').owlCarousel({
 		  nav:true,
-		  items:5,
+		  items:4,
 		  navText:[],
 	      margin: 0,
 	      loop: false,
