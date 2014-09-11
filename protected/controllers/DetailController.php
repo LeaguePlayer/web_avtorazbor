@@ -164,7 +164,7 @@ class DetailController extends FrontController
 			$model=Parts::model()->findByPk($id);
 			$cart=Yii::app()->cart;
 
-			if (!$cart->contains($model->getId()))
+			if (!$model->inCart())
 			{
 				$cart->put($model);
 			}

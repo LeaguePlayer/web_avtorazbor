@@ -30,6 +30,7 @@
 	            </ul>
 	        </dd>
 	    </dl>
+	    <span></span>
 	    <dl>
 	    	<dt>
 	    		Доставка
@@ -58,7 +59,7 @@
 
 	    </dl>
 	    <span></span>
-	    <dl class="reqvizit hide">
+	    <dl class="reqvizit">
 	        <dt>Реквизиты</dt>
 	        <dd>
 	        	<ul>

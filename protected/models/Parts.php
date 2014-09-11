@@ -59,6 +59,11 @@ class Parts extends EActiveRecord implements IECartPosition
         return 'Parts'.$this->id;
     }
 
+    public function inCart()
+    {
+        return Yii::app()->cart->contains($this->getId());
+    }
+
     function getPrice(){
 
         return $this->price_sell;

@@ -12,8 +12,8 @@ $(function(){
 				if (data.success)
 				{
 					$('.bascet dd').empty().append(data.html);
-					
-					if ($this.closest('table').find('tr').length=1)
+					console.log(data.html);
+					if (parseInt(data.count,10)==0)
 					{
 						$('.tabs li:last').animate({width:0,padding:0},500,function(){
 							$(this).slideUp(300).delay(300).empty();
@@ -42,12 +42,25 @@ $(function(){
 		return false;
 	});
 
-	$('.tabs-type li:first a').click(function(){
+	$('.tabs-type a:first').click(function(){
 
 		$('.reqvizit')
 			.slideUp(400)
 			.delay(400)
-			//.addClass('hide');
+		$('#client-type').val('2');
+
+		$('.tabs-type li .active').removeClass('active');
+		$(this).addClass('active');
+
+		return false;
+	})
+
+	$('.tabs-type a:last').click(function(){
+
+		$('.reqvizit')
+			.slideDown(400)
+			.delay(400)
+			
 		$('#client-type').val('2');
 
 		$('.tabs-type li .active').removeClass('active');

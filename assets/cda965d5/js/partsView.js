@@ -14,6 +14,7 @@ $(function(){
 	})
 
 	$('.inCart').on('click',function(){
+
 		var path=$('.imgFancy img').attr('src');
 		$.ajax({
 			url:'/detail/addToCart',
@@ -32,10 +33,20 @@ $(function(){
 			}
 		})
 
+		if ($(this).data('price')!='' && $(this).data('price')!=undefined)
+		{
+			var itemsCount=parseInt($(this).data('count'),10)+1,
+				itemsCost=parseInt($(this).data('cost'),10)+parseInt($(this).data('price'),10);
+				console.log(itemsCost);
+			$('.totalPrice').text('В корзине '+itemsCount+' на сумму '+itemsCost+" руб.");
+		}
+			
+
 		$.fancybox.open({
 	        href : '#alert',
 	        fitToView: true,
 	        autoSize:true,
+
 	    })
 		return false;
 	})
