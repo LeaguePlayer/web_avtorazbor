@@ -129,7 +129,7 @@
 
         	<div class="reg">
         			<ul>
-                    <?if (Yii::app()->user->isGuest && $this->renderLoginForm){?>
+                    <?if (Yii::app()->user->isGuest){?>
         				<li>
         					<a class="auth" href="#login">Войти</a>
         				</li>

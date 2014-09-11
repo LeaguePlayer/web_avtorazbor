@@ -21,7 +21,6 @@
         		</ul>
         	</div>
         		<div class="content clear">
-
         			<div class="bascet tab-active" id="cart">
         				<table width="100%">
         					<thead>

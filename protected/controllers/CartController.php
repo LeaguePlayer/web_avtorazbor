@@ -119,18 +119,22 @@ class CartController extends FrontController
 		
 		if ($model && Yii::app()->cart->contains($model->getId()))
 		{
-			Yii::app()->cart->remove($model->getId());
+			$cart=Yii::app()->cart;
+			$cart->remove($model->getId());
 			$response['success']=true;
-			$response['html']= Yii::app()->cart->getCount() ? 
+			$response['html']= $cart->getCount() ? 
 						'<ul>
         				    <li>
-        					<a href="/cart">'+Yii::app()->cart->getCount()+" товар"+'</a>
+        						<a href="/cart">'.$cart->getCount()." товар".'</a>
         				    </li>
         				    <li>
-        					На сумму: <strong>'+Yii::app()->cart->getCost()+' руб.</strong>
+	        				    <a href="/cart">
+	        						На сумму: <strong>'.$cart->getCost().' руб.</strong>
+	        					</a>
         			     	</li>
         			  	</ul>' : 
         			  	'<span>товаров нет</span>';
+        	$response['count']=$cart->getCount();
 		} else {
 			$response['error']='В корзине не был найден товар с данным ключем!';			
 		}
