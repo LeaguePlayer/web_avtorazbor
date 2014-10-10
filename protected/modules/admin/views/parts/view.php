@@ -5,7 +5,8 @@
 		//if(YII_DEBUG) $model->changeConfig();
 	?>
 		<div class="text">Фотографии запчасти</div>
-		<? foreach ($model->gallery->galleryPhotos as $photo) { if(YII_DEBUG) $photo->updateImages(); ?>
+		<? foreach ($model->gallery->galleryPhotos as $photo) { 
+			//if(YII_DEBUG) $photo->updateImages(); ?>
 			<a class="fancybox" rel="part" href="<?=$photo->getUrl('big')?>"><img src="<?=$photo->getUrl('small')?>" alt=""/></a>
 		<?}?>
 		<br>
