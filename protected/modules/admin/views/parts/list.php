@@ -44,6 +44,7 @@ $this->menu=array(
     	jQuery('#create_date_datetimepicker').datetimepicker({'format':'dd.MM.yyyy','language':'ru'});
     	jQuery('#create_date_datetimepicker').on('changeDate', function(e){
 			jQuery('#Parts_id').change(); //velik
+			jQuery('.bootstrap-datetimepicker-widget.dropdown-menu').hide();
 		});
     }",
     'rowHtmlOptionsExpression'=>'array(
@@ -126,6 +127,7 @@ $this->menu=array(
 					'pluginOptions' => array(
 						'format' => 'dd.MM.yyyy',
 						'language' => 'ru',
+						// 'autoclose' => true
 						// 'startDate' => 'js:new Date()'
 					)
 				), true
@@ -200,6 +202,7 @@ jQuery("#sendEmail").on("click", ".send-file", function(){
 
 jQuery("#create_date_datetimepicker").on("changeDate", function(e){
 	jQuery("#Parts_id").change(); //velik
+	jQuery(".bootstrap-datetimepicker-widget.dropdown-menu").hide();
 });
 ', CClientScript::POS_READY);
 ?>
