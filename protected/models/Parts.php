@@ -169,7 +169,15 @@ class Parts extends EActiveRecord
         }
         if($this->car_model_id != 0) $criteria->compare('car_model_id',$this->car_model_id);
         $criteria->compare('supplier_id',$this->supplier_id);
-        $criteria->compare('create_time',$this->create_time,true);
+        
+        if($this->create_time){
+            $arr = explode('.', $this->create_time);
+            if($arr){
+                $date = DateTime::createFromFormat('d.m.Y', $this->create_time);
+                $criteria->compare('create_time',$date->format('Y-m-d'),true);
+            }
+        }
+        //$criteria->compare('create_time',$this->create_time,true);
 
         $criteria->order = 'create_time DESC';
 

@@ -41,6 +41,10 @@ $this->menu=array(
     	//filter
     	var \$filter = jQuery('.filters').find('input, select');
     	jQuery('.get-file a').attr('href', '/admin/parts/toExcel?' + \$filter.serialize());
+    	jQuery('#create_date_datetimepicker').datetimepicker({'format':'dd.MM.yyyy','language':'ru'});
+    	jQuery('#create_date_datetimepicker').on('changeDate', function(e){
+			jQuery('#Parts_id').change(); //velik
+		});
     }",
     'rowHtmlOptionsExpression'=>'array(
         "id"=>"items[]_".$data->id,
@@ -112,7 +116,20 @@ $this->menu=array(
 		array(
 			'name'=>'create_time',
 			'type'=>'raw',
-			'value'=>'$data->create_time ? SiteHelper::russianDate($data->create_time).\' в \'.date(\'H:i\', strtotime($data->create_time)) : ""'
+			'value'=>'$data->create_time ? SiteHelper::russianDate($data->create_time).\' в \'.date(\'H:i\', strtotime($data->create_time)) : ""',
+			'filter' => $this->widget(
+				'yiiwheels.widgets.datetimepicker.WhDateTimePicker',
+				array(
+					'id' => 'create_date',
+					'model' => $model,
+					'attribute' => 'create_time',
+					'pluginOptions' => array(
+						'format' => 'dd.MM.yyyy',
+						'language' => 'ru',
+						// 'startDate' => 'js:new Date()'
+					)
+				), true
+			)
 		),
 		array(
 			'name'=>'status',
@@ -179,6 +196,10 @@ jQuery("#sendEmail").on("click", ".send-file", function(){
 		jQuery("#error").show();
 		$this.button("complete");
 	}
+});
+
+jQuery("#create_date_datetimepicker").on("changeDate", function(e){
+	jQuery("#Parts_id").change(); //velik
 });
 ', CClientScript::POS_READY);
 ?>
