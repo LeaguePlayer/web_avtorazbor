@@ -53,7 +53,7 @@
 						'language' => 'ru',
 						'startDate' => 'js:new Date()'
 					),
-				), true
+				)
 			);?>
 		</div>
 	</div>
