@@ -2,7 +2,7 @@
 
 <div class="photos">
 	<?php if($model->gallery->galleryPhotos){ 
-		if(YII_DEBUG) $model->changeConfig(); 
+		//if(YII_DEBUG) $model->changeConfig();
 	?>
 		<div class="text">Фотографии запчасти</div>
 		<? foreach ($model->gallery->galleryPhotos as $photo) { if(YII_DEBUG) $photo->updateImages(); ?>
