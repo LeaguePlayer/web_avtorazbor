@@ -369,6 +369,25 @@ class PartsController extends AdminController
 		die();
 	}
 
+	public function actionAddWM($id = null){
+		if($id && is_numeric($id)){
+
+			$part = Parts::model()->findByPk($id);
+
+			if($part && $part->gallery){
+				foreach ($part->gallery->galleryPhotos as $photo) {
+					$photo->updateImages();
+				}
+
+				echo "ok";
+			}
+
+			Yii::app()->end();
+		}
+
+		$this->render('add_wm');
+	}
+
 	/*public function actionGetOneById($id){
 		header('Content-type: application/json');
 
