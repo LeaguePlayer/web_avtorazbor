@@ -1,7 +1,7 @@
 <?php
 	die('stop');
-	$step = 100;
-	$page = 1;
+	$step = 500;
+	$page = 11;
 
 	$criteria = new CDbCriteria;
 	$criteria->select = 'id';
