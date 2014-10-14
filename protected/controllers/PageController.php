@@ -3,7 +3,7 @@
 class PageController extends FrontController
 {
 	public $layout='//layouts/simple';
-
+	public $alias=null;
 	
 	public function filters()
 	{
@@ -30,6 +30,9 @@ class PageController extends FrontController
 	{
 
 		$model=Page::model()->find('alias=:alias',array(':alias'=>$alias));
+		$this->alias=$model->alias;
+		if (!$model)
+			throw new CHttpException(404,'По вашему запросу не было найдено данных.');
 		$this->render('view',array(
 			'model'=>$model,
 		));
@@ -38,6 +41,7 @@ class PageController extends FrontController
 	public function actionService()
 	{
 		$cs = Yii::app()->clientScript;
+		$this->alias='service';
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/pageService.js', CClientScript::POS_END);
 		$this->render('service',array('news'=>new News));
 	}

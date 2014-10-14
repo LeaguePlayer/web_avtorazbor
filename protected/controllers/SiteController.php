@@ -25,23 +25,20 @@ class SiteController extends FrontController
 	
 	public function actionIndex()
 	{
-		$searchForm=new SearchFormOnMain;
+		$searchForm=new Search;
 		if (!Yii::app()->request->isAjaxRequest)
 		{
 			$cs = Yii::app()->clientScript;
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/main.js', CClientScript::POS_END);
-
-			$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
-
-			$Bascet=UsedCars::getBasketList();
-
-			$Transmission=UsedCarInfo::transmissionList();
-
-			$State=UsedCarInfo::statesList();
 			$news=new News;
+			$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
+			$Bascet=UsedCars::getBasketList();
+			$Transmission=UsedCarInfo::transmissionList();
+			$State=UsedCarInfo::statesList();
 
 			$criteriaCar=new CDbCriteria;
+			$criteriaCar->addCondition('status=1');
 			$criteriaCar->order='id desc';
 
 			$dataProviderCar=new CActiveDataProvider('UsedCars', array(
@@ -62,12 +59,12 @@ class SiteController extends FrontController
 			);
 
 		} else {
-			if (isset($_GET['SearchFormOnMain']))
+			if (isset($_GET['Search']))
 			{
-				$searchForm->attributes=$_GET['SearchFormOnMain'];
+				$searchForm->attributes=$_GET['Search'];
 				$searchForm->validate();
 
-				$model=$_GET['SearchFormOnMain']['type']=='1' ? 'UsedCars' : 'Parts';
+				$model=$_GET['Search']['type']=='1' ? 'UsedCars' : 'Parts';
 				// var_dump($searchForm->criteria);die();
 				$searchForm->criteria->limit=100;
 				$dataProvider=new CActiveDataProvider($model,

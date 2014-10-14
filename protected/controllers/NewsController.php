@@ -24,11 +24,10 @@ class NewsController extends FrontController
 		);
 	}
 	
-	public function actionView($id)
+	public function actionView($alias)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel('News', $id),
-		));
+		$model=News::model()->find('alias=:alias',array(':alias'=>$alias));
+		$this->render('view',array('model'=>$model));
 	}
 
 	public function actionIndex()

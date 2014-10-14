@@ -13,7 +13,6 @@
 */
 class UsedCars extends EActiveRecord
 {
-    // Статусы в базе данных
     const STATUS_PARTS = 1;
     const STATUS_BUY = 2;
     const STATUS_LIGHT = 1;
@@ -35,6 +34,18 @@ class UsedCars extends EActiveRecord
             return $aliases[$status];
 
         return $aliases;
+    }
+
+    public static function getYears($year=null)
+    {
+        $years=array();
+        $currYear=(int)date('Y');
+        for ($i=$currYear; $i > $currYear-30 ; $i--) { 
+            $years[$i]=$i;
+        }
+        if ($year)
+            return $years[$year];
+        return $years;
     }
 
     public static function join()

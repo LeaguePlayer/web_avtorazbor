@@ -42,11 +42,11 @@ class CatalogController extends FrontController
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/Catalog.js', CClientScript::POS_END);
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.scrollTo.min.js', CClientScript::POS_END);
 
-			$searchForm=new SearchFormOnMain;
+			$searchForm=new Search;
 
-			if (isset($_GET['SearchFormOnMain']))
+			if (isset($_GET['Search']))
 			{
-				$searchForm->attributes=$_GET['SearchFormOnMain'];
+				$searchForm->attributes=$_GET['Search'];
 			}
 
 			$searchForm->validate();
@@ -82,11 +82,11 @@ class CatalogController extends FrontController
 
 	public function GetCars()
 	{
-		$searchForm=new SearchFormOnMain;
+		$searchForm=new Search;
 		
-		if (isset($_GET['SearchFormOnMain']))
+		if (isset($_GET['Search']))
 		{
-			$searchForm->attributes=$_GET['SearchFormOnMain'];
+			$searchForm->attributes=$_GET['Search'];
 		}
 		
 		$searchForm->validate();

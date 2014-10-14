@@ -9,8 +9,8 @@
 		<?php echo $form->error($model, 'img_preview'); ?>
 	</div>
 
-	<?php echo $form->textFieldControlGroup($model,'name',array('class'=>'span8','maxlength'=>255)); ?>
-
+	<?php echo $form->textFieldControlGroup($model,'name',array('class'=>'span8 name','maxlength'=>255)); ?>
+	<?php echo $form->textFieldControlGroup($model,'alias',array('class'=>'span8 alias','maxlength'=>255)); ?>
 	<?php echo $form->dropDownListControlGroup($model, 'type', News::getNewsTypes(), array('class'=>'span8', 'displaySize'=>1)); ?>
 
 	<?php echo $form->textAreaControlGroup($model,'description',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>

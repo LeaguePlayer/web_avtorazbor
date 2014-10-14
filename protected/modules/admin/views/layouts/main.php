@@ -81,6 +81,7 @@
 					array('label'=>'Заказ деталей', 'url'=>'/admin/bookPart/list'),
 					array('label'=>'Вопросы', 'url'=>'/admin/questions/list'),
 					array('label'=>'Предложения', 'url'=>'/admin/ownprice/list'),
+					array('label'=>'Диагностика', 'url'=>'/admin/diagnostic/list'),
 				),
 				
 					

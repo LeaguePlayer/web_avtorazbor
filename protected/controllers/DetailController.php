@@ -39,10 +39,10 @@ class DetailController extends FrontController
 		// $cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/detail.js', CClientScript::POS_END);
 		$Brand=CHtml::listData(CarBrands::model()->findAll(),'id','name');
-		$searchForm=new SearchFormOnMain;
+		$searchForm=new Search;
 		
-		if (isset($_GET['SearchFormOnMain']))
-			$searchForm->attributes=$_GET['SearchFormOnMain'];
+		if (isset($_GET['Search']))
+			$searchForm->attributes=$_GET['Search'];
 		
 		$this->render('index',array('Brand'=>$Brand,'searchForm'=>$searchForm));
 
@@ -55,11 +55,11 @@ class DetailController extends FrontController
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
     	$cs->registerScriptFile($this->getAssetsUrl().'/js/disc.js', CClientScript::POS_END);
 
-    	$searchForm=new SearchFormOnMain;
+    	$searchForm=new Search;
 
-    	if (isset($_GET['SearchFormOnMain']))
+    	if (isset($_GET['Search']))
     	{
-    		$searchForm->attributes=$_GET['SearchFormOnMain'];
+    		$searchForm->attributes=$_GET['Search'];
     		$searchForm->scenario='disc';
     	}
     	$searchForm->validate();
@@ -97,11 +97,11 @@ class DetailController extends FrontController
 	    $cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.scrollTo.min.js', CClientScript::POS_END);
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js', CClientScript::POS_END);
 
-		$searchForm=new SearchFormOnMain;
+		$searchForm=new Search;
 		$searchForm->scenario= 'parts';
-		if (isset($_GET['SearchFormOnMain']))
+		if (isset($_GET['Search']))
 		{
-			$searchForm->attributes=$_GET['SearchFormOnMain'];
+			$searchForm->attributes=$_GET['Search'];
 		}
 		$searchForm->validate();
 
@@ -138,10 +138,10 @@ class DetailController extends FrontController
 
 	public function actionAjaxUpdate()
 	{
-		if (isset($_GET['SearchFormOnMain']))
+		if (isset($_GET['Search']))
 		{
-			$searchForm=new SearchFormOnMain;
-			$searchForm->attributes=$_GET['SearchFormOnMain'];
+			$searchForm=new Search;
+			$searchForm->attributes=$_GET['Search'];
 			$searchForm->scenario='parts';
 			$searchForm->validate();
 			//die('in controller');
