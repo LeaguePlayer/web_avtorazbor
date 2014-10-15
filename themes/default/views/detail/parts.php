@@ -90,7 +90,7 @@
                                 </a>    
                             </li>
                             <li>
-                                <a href="/detail?SearchFormOnMain[scenario]=disc" data-scenario="disc">
+                                <a href="/detail?Search[scenario]=disc" data-scenario="disc">
                                     Диски
                                 </a>    
                             </li>

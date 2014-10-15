@@ -3,32 +3,23 @@ $(document).ready(function(){
 	$('.searchform .tabs ul li a').click(function(){
 
 		var tabId=$(this).attr('href');
-		console.log(!$(this).hasClass('modal'));
 		if (!$(this).hasClass('modal'))
 		{
 			var context=$(this).closest('.tabs').parent();
-			$('.tab-active',context).addClass('hide').removeClass('tab-active');
-			$(tabId).addClass("tab-active").removeClass('hide');
-			$('li.active:first',context).removeClass('active');
-			$(this).parent().addClass('active');
+				$('.tab-active',context).addClass('hide').removeClass('tab-active');
+				$(tabId).addClass("tab-active").removeClass('hide');
+				$('li.active:first',context).removeClass('active');
+				$(this).parent().addClass('active');
+				$('.readmore a').text("Все "+$(this).text().toLowerCase());
 
-			$('.readmore a').text("Все "+$(this).text());
-			var href=$('.coll-3 a',tabId).attr('href');
+			var href=$(this).data('url');
 			$('.readmore a').attr('href',href);
 
 			changeView($('form',tabId));
-			console.log($('form',tabId).serialize());
 			return false;
-		} else 
+		} else
 			return false;
 
-	})
-
-
-	$('.readmore a').click(function(){
-		var href=$(this).attr('href');
-		var form=$('.searchform .tab-active form').serialize();
-		$(this).attr('href',href+"?"+form);
 	})
 
 	$('.s-big').on('keypress','input[type=text]',function(e){
@@ -67,6 +58,8 @@ $(document).ready(function(){
 				  items:4,
 				  navText:[],
 			      margin: 0,
+			      mouseDrag:false,
+			      touchDrag:false,
 			      loop: true,
 				}).data('owlCarousel');
 		var navs=$(this).closest('div [id^=tabs]').find('.next,.prev');
@@ -98,18 +91,14 @@ $(document).ready(function(){
 		showLoader();
 		$('.items-auto .items').empty();
 		$('.loader').show();
-		var urlParams=form.serialize(),
-		    href=$('.readmore a').attr('href');
-		    
-		if (urlParams)
-		   	$('.readmore a').attr('href',href+"?"+urlParams);
 
 		setTimeout(function(){
 			$.ajax({
 				url:'/site/index',
 				data:form.serialize(),
 				success:function(data){
-					if (data.indexOf('empty')<=0)
+					
+					if (data.indexOf('empty')<=0 && $('img',data).length>7)
 					{
 						var owl=$('.items-auto')
 							.empty()
@@ -121,6 +110,7 @@ $(document).ready(function(){
 								navText:[],
 							    margin: 0,
 							    loop: true,
+							    transitionStyle:'fade',
 							}).data('owlCarousel');
 
 						$('.cat-auto .prev').click(function(){
@@ -133,7 +123,7 @@ $(document).ready(function(){
 					} else {
 						$('.items-auto')
 							.empty()
-							.append(data);
+							.append(data).find('.prev,.next').hide();
 					}
 				}
 			}).done(function(){
@@ -154,7 +144,6 @@ $(document).ready(function(){
 				changeNested.apply(this,[]);
 			}
 				
-
 			var $_form=$(this).closest('form');
 				changeView($_form);
 	}

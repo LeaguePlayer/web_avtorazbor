@@ -3,7 +3,9 @@
 class NewsController extends FrontController
 {
 	public $layout='//layouts/simple';
-	
+	public $modelName="Новоcти";
+
+
 	public function filters()
 	{
 		return array(
@@ -27,6 +29,8 @@ class NewsController extends FrontController
 	public function actionView($alias)
 	{
 		$model=News::model()->find('alias=:alias',array(':alias'=>$alias));
+		$this->model=$model;
+
 		$this->render('view',array('model'=>$model));
 	}
 

@@ -21,7 +21,7 @@
                 <div class="desc desc-view">
                     <ul>
                         <?
-                            $param="?SearchFormOnMain[brand]=".$model->model->car_brand->id."&SearchFormOnMain[id_country]=".$model->model->car_brand->country->id;
+                            $param="?Search[brand]=".$model->model->car_brand->id."&Search[id_country]=".$model->model->car_brand->country->id;
                             $url=$this->createUrl('/catalog'.$param);
                         ?>
                     <li class="articul">Артикул: <span><?=$model->id?></span></li>
@@ -51,7 +51,7 @@
                     </dl>
                 </div>
                 <div class="comeback">
-                    <?$url='SearchFormOnMain[id_country]='.$model->model->car_brand->id_country.'&SearchFormOnMain[brand]='.$model->model->car_brand->id.'&SearchFormOnMain[car_model_id]='.$model->model->id.'&SearchFormOnMain[transmission]='.$model->dop->transmission.'&SearchFormOnMain[bascet]='.$model->bascet;
+                    <?$url='Search[id_country]='.$model->model->car_brand->id_country.'&Search[brand]='.$model->model->car_brand->id.'&Search[car_model_id]='.$model->model->id.'&Search[transmission]='.$model->dop->transmission.'&Search[bascet]='.$model->bascet;
                     ?>
                     <?$url=$this->createUrl('/catalog?'.$url)?>
                     <a href="<?=$url?>">
@@ -74,7 +74,7 @@
                                 <span>Напиши нам</span>
                             </p>
                             <a href="#popup" class="modal">
-                                Услуги автоэвакуатора
+                                Задать вопрос
                             </a>
                     </div>
         </div> 

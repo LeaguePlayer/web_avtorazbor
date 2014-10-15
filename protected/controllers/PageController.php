@@ -31,6 +31,7 @@ class PageController extends FrontController
 
 		$model=Page::model()->find('alias=:alias',array(':alias'=>$alias));
 		$this->alias=$model->alias;
+		$this->model=$model;
 		if (!$model)
 			throw new CHttpException(404,'По вашему запросу не было найдено данных.');
 		$this->render('view',array(
@@ -41,7 +42,9 @@ class PageController extends FrontController
 	public function actionService()
 	{
 		$cs = Yii::app()->clientScript;
+		$this->modelName="Все услуги";
 		$this->alias='service';
+		$this->breadcrumbs=array('Все услуги');
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/pageService.js', CClientScript::POS_END);
 		$this->render('service',array('news'=>new News));
 	}

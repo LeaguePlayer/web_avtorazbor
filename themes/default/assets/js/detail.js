@@ -67,7 +67,7 @@ $(document).ready(function(){
 
 					$('#light').addClass('tab-active');
 					
-					$('#SearchFormOnMain_type').val(index+1);
+					$('#Search_type').val(index+1);
 
 				}break;
 
@@ -80,7 +80,7 @@ $(document).ready(function(){
 
 					$('.tab-active',context).removeClass('tab-active');
 					
-					$('#SearchFormOnMain_scenario').val('disc');
+					$('#Search_scenario').val('disc');
 
 					var tabId=$(this).attr('href');
 						$(tabId).addClass("tab-active");

@@ -3,7 +3,7 @@
 class CatalogController extends FrontController
 {
 	public $layout = '//layouts/simple';
-	
+	public $modelName="Каталог автомобилей";
 	/**
 	 * Declares class-based actions.
 	 */
@@ -109,7 +109,6 @@ class CatalogController extends FrontController
 
 	public function actionCar($id)
 	{
-
 		$cs = Yii::app()->clientScript;
 		
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);

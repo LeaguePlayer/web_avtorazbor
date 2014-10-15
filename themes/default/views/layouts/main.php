@@ -35,48 +35,7 @@
 	<body>
 		<div class="wrap">
 		<!--sale-->
-		<div class="sale fotorama">
-			<div class="item">
-                <img src="<?=$assetUrl?>/images/header.png" width="100%" alt="" title="" />
-                <div class="info">
-                    <p class="caption">
-                        Компьютерная <strong>диагностика авто</strong>
-                    </p>
-                    <p class="feature">Компьютерная диагностика двигателя  /  Исправление системных ошибок
-                    </p>
-                    <p class="phone">
-                        <span>+7 (343)</span> 288-22-88
-                    </p>
-                    <a href="more">Подробнее</a>
-                </div>
-			</div>
-			<div class="item">
-                <img src="<?=$assetUrl?>/images/header.png" width="100%" alt="" title="" />
-                    <div class="info">
-                        <p class="caption">
-                            Компьютерная <strong>диагностика авто</strong>
-                        </p>
-                        <p class="feature">Компьютерная диагностика двигателя  /  Исправление системных ошибок</p>
-                        <p class="phone">
-                            <span>+7 (343)</span> 288-22-88
-                        </p>
-                        <a href="more">Подробнее</a>
-                    </div>
-            </div>
-            <div class="item">
-                <img src="<?=$assetUrl?>/images/header.png" width="100%" alt="" title="" />
-                <div class="info">
-                    <p class="caption">
-                        Компьютерная <strong>диагностика авто</strong>
-                    </p>
-                    <p class="feature">Компьютерная диагностика двигателя  /  Исправление системных ошибок</p>
-                    <p class="phone">
-                        <span>+7 (343)</span> 288-22-88
-                    </p>
-                    <a href="more">Подробнее</a>
-                </div>
-            </div>
-		</div>
+		<?=$this->renderPartial('//layouts/_diagnosticSlider')?>
 		<!--sale End-->
 
 		<!--header-->
@@ -129,7 +88,10 @@
 
         	<div class="reg">
         			<ul>
-                    <?if (Yii::app()->user->isGuest){?>
+                        <?
+                            $authenticated=Yii::app()->user->isGuest || Yii::app()->user->isAdmin;
+                        ?>
+                    <?if ($authenticated){?>
         				<li>
         					<a class="auth" href="#login">Войти</a>
         				</li>
@@ -156,7 +118,7 @@
         		</dt>
         		<dd>
         			<?
-                        if (!Yii::app()->cart->isEmpty(1))
+                        if (!Yii::app()->cart->isEmpty(1) && $authenticated)
                         {
                     ?><ul>
         				    <li>
@@ -184,20 +146,33 @@
         <div class="menu">
 
         		<nav>
-                <?$this->widget('zii.widgets.CMenu', array(
-                    'items'=>array(
-                        // Important: you need to specify url as 'controller/action',
-                        // not just as 'controller' even if default acion is used.
-                        array('label'=>'О компании', 'url'=>array('/page/about')),
-                        // 'Products' menu item will be selected no matter which tag parameter value is since it's not specified.
-                        array('label'=>'Продажа авто', 'url'=>array('/catalog')), 
-                        array('label'=>'Автозапчасти', 'url'=>array('/detail')),
-                        array('label'=>'Все услуги', 'url'=>array('/page/service')),
-                        array('label'=>'Новости', 'url'=>array('/news')),
-                        array('label'=>'Контакты', 'url'=>array('/page/contacts')),
-                         array('label'=>'Вакансии', 'url'=>array('/vacansy')),
-                    ),
-                ));?>
+                 <ul>
+                    <?
+                    $controller=Yii::app()->controller->id;
+                    $action=Yii::app()->controller->action->id;
+                    
+                    if (!$action)
+                        $action=$this->alias; 
+                    $url="/$controller".($action ? "/$action" : '');    
+                    $menu=array(
+                            array('label'=>'О компании', 'url'=>'/page/about'),
+                            array('label'=>'Продажа авто', 'url'=>'/catalog'),
+                            array('label'=>'Автозапчасти', 'url'=>'/detail'),
+                            array('label'=>'Все услуги', 'url'=>'/page/service'),
+                            array('label'=>'Новости', 'url'=>'/news'),
+                            array('label'=>'Контакты', 'url'=>'/page/contacts'),
+                            array('label'=>'Вакансии', 'url'=>'/vacansy'),
+                        );
+
+                        foreach ($menu as $key => $item) {
+                            ?>
+                                <li class="<?=strpos($item['url'], $url)===0 ? 'active' : ''?>">
+                                    <a href="<?=$item['url']?>"><?=$item['label']?></a>
+                                </li>
+                            <?
+                        }
+                    ?>
+                    </ul>
 	        		<!-- <ul>
 	        			<li>
 	        				<a href="/page/about">
@@ -256,8 +231,19 @@
                         </ul>
                     </div>
         		</div>
+            
         </div>
+        <?if (strpos(get_class($this),"Site")!=-1){?>
+            <div class="breacumbs fix_width" style="margin-top: 20px;">
+            <?
 
+                $this->widget('zii.widgets.CBreadcrumbs', array(
+                        'links'=>$this->breadcrumbs,
+                        'separator'=>'<span>&rarr;</span>'
+                ));
+            ?>
+            </div>
+            <?}?>
 		<div id="layout" class="fix_width">
 		<?php echo $content;?>
 		</div>

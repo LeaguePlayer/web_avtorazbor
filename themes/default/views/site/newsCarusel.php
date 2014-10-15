@@ -1,5 +1,4 @@
 <?
-	
 	$this->widget('zii.widgets.CListView', array(
 	    'dataProvider'=>$dataProvider,
 	    'itemView'=>'//site/_newsCaruselItem',   // refers to the partial view named '_post'
@@ -11,5 +10,4 @@
 	    'template'=>'{items}',
 	    'pager' => false
 	));
-
 ?>

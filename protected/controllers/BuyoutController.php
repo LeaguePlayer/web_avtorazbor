@@ -3,7 +3,7 @@
 class BuyoutController extends FrontController
 {
 	public $layout='//layouts/simple';
-
+	public $modelName="Выкуп автомобилей";
 	
 	public function filters()
 	{
