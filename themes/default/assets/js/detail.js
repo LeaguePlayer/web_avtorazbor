@@ -15,9 +15,6 @@ $(document).ready(function(){
 				index=parent.index(),
 				elems=$_this.closest('dl').find('dd');
 
-			// var index=$_this.closest('dd').index()+1,
-			// 	ddCount=$_this.closest('dl').find('dd').length-2;
-			// 	$_this.closest('dl').children('dd').slice(index,ddCount).find('select').val(null).selectmenu('refresh').parent().show(200);
 			if ($(this).val())
 				$_this.closest('dd').next().slideDown(200);
 			$.ajax({

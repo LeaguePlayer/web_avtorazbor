@@ -26,14 +26,14 @@
                             </a>
                         </li>
                         <li class="icon spec">
-                            <a href="/page/spectehnica">
+                            <a href="/page/Spec-tehnika">
                                 <i></i>
                                 <span class="h">Спецтехника</span>
                                 <span class="d">Продаем<br> подержанную спецтехнику</span>
                             </a>
                         </li>
                         <li class="icon transport old">
-                            <a href="/page/avtoperevozki">
+                            <a href="/page/Avtoperevozki">
                                 <i></i>
                                 <span class="h">Автоперевозки</span>
                                 <span class="d">Автомобильные перевозки<br>
@@ -41,28 +41,28 @@
                             </a>
                         </li>
                         <li class="icon buying">
-                            <a href="/buy_out">
+                            <a href="/buyout">
                                 <i></i>
                                 <span class="h">Выкуп авто</span>
                                 <span class="d">Выкуп автомобилей<br> после ДТП, пожара и т.п.</span>
                             </a>
                         </li>
                         <li class="icon med old">
-                            <a href="#">
+                            <a href="/evackuator">
                                 <i></i>
                                 <span class="h">Эвакуатор,манипулятор</span>
                                 <span class="d">Эвакуация авто из любой точки<br>вашего города</span>
                             </a>
                         </li>
                         <li class="icon argon">
-                            <a href="/page/argon">
+                            <a href="/page/Argonavaya-svarka">
                                 <i></i>
                                 <span class="h">Аргон-сварка</span>
                                 <span class="d">Сварка аргоном с использованием<br> высококачественного оборудования</span>
                             </a>
                         </li>
                         <li class="icon diagnost old">
-                            <a href="/page/diagnostick">
+                            <a href="/page/Diagnostika">
                                 <i></i>
                                 <span class="h">Диагностика автомобиля</span>
                                 <span class="d">Полный спект услуг по компрьютерной<br>

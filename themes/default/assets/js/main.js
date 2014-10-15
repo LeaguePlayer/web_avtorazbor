@@ -32,7 +32,7 @@ $(document).ready(function(){
 			changeView($(this).closest('form'));
 	})
 
-	$('select').each(function(){
+	$('.select').each(function(){
 
 		$(this).selectmenu({
 			change:function(){

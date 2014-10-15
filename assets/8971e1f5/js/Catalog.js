@@ -42,7 +42,7 @@ $(function(){
 
 	//slideToMenu();
 
-	$('select').selectmenu({
+	$('.select').selectmenu({
 		change:function(){
 
 			changeView();

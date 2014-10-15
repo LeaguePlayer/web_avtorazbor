@@ -38,18 +38,27 @@ class AjaxRequestsController extends FrontController
 		$model=$_GET['model'];
 		$nested=$_GET['nested'];
 		$value=$_GET['value'];
-
+		
 		switch ($model) {
 
 			case 'country':
 					{
+						$criteria=new CDbCriteria;
+						$criteria->addCondition('id_country='.$value);
+						$criteria->join=UsedCars::join();
+						$criteria->distinct=true;
 						$models=CHtml::listData(CarBrands::model()->findAll('id_country=:id',array(':id'=>$value)),'id','name');
 						$htmlOptions=array('id'=>'carBrands','data-nested'=>'#carModels','empty'=>'Выберите марку');
 					}
 				break;
 			case 'carBrands':
 					{
-						$models=CHtml::listData(CarModels::model()->findAll('brand=:id',array(':id'=>$value)),'id','name');
+						$criteria=new CDbCriteria;
+						$criteria->addCondition('id_country='.$value);
+						$criteria->join=UsedCars::join();
+						$criteria->distinct=true;
+						$criteria->addCondition('brand='.$value);
+						$models=CHtml::listData(CarModels::model()->findAll($criteria),'id','name');
 						$htmlOptions=array('id'=>'carModels', 'data-nested'=>'#carModels', 'empty'=>'Выберите модель');
 					}
 				break;

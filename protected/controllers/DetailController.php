@@ -51,7 +51,7 @@ class DetailController extends FrontController
 		$cs = Yii::app()->clientScript;
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
     	$cs->registerScriptFile($this->getAssetsUrl().'/js/disc.js', CClientScript::POS_END);
-    	$this->breadcrumbs=array('Запчасти'=>'/parts','фильтр');
+    	$this->breadcrumbs=array('Запчасти'=>'/detail','фильтр');
     	$searchForm=new Search;
 
     	if (isset($_GET['Search']))
@@ -94,7 +94,7 @@ class DetailController extends FrontController
 	    $cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.scrollTo.min.js', CClientScript::POS_END);
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js', CClientScript::POS_END);
 
-		$this->breadcrumbs=array('Запчасти'=>'/parts','фильтр');
+		$this->breadcrumbs=array('Запчасти'=>'/detail','фильтр');
 		
 		$searchForm=new Search;
 		$searchForm->scenario= 'parts';
