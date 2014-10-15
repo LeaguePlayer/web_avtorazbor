@@ -392,10 +392,6 @@ class PartsController extends AdminController
 		die();
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> aa26aba442f8c5aaf834e7f94d7f3bcc1943c530
 	public function actionGetCategoryAttrs()
 	{
 		$id=$_GET['id'];
@@ -420,10 +416,6 @@ class PartsController extends AdminController
 		}
 
 		$this->render('add_wm');
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> aa26aba442f8c5aaf834e7f94d7f3bcc1943c530
 	}
 
 	public function actionGetOneById($id){
