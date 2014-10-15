@@ -54,6 +54,9 @@ class ApiController extends FrontController
 
 		$part = Parts::model()->findByPk($id);
 
+		if(!$part)
+			$this->response->errors[] = array('part' => 'Запчасть не найдена');
+
 		if($part && isset($_POST['Part'])){
 			$part->attributes = $_POST['Part'];
 
@@ -110,6 +113,10 @@ class ApiController extends FrontController
 		header('Content-Type: application/json');
 
 		$part = Parts::model()->findByPk($id);
+
+		if(!$part)
+			$this->response->errors[] = 'Запчасть не найдена';
+		
 		if($part){
 			$model = new GalleryPhoto();
 	        $model->gallery_id = $part->gallery_id;

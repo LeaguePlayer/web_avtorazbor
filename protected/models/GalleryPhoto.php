@@ -157,9 +157,14 @@ class GalleryPhoto extends CActiveRecord
                 mkdir($mediaTypeIdDir);
 
             $originalImage = $mediaTypeIdDir.DIRECTORY_SEPARATOR.$this->getFileName('original').'.'.$this->ext;
+            //$tmpOriginalImage = $mediaTypeIdDir.DIRECTORY_SEPARATOR.'tmp_'.$this->getFileName('original').'.'.$this->ext;
 
             $image = Yii::app()->phpThumb->create($path);
-            $image->resize(1200)->save($originalImage);
+            
+            //$image->resize(1200)->save($tmpOriginalImage);
+            $image->resize(1200)->addWatermark(Yii::app()->phpThumb->create(Yii::getPathOfAlias('webroot.media').DIRECTORY_SEPARATOR."watermark.png"), 'left/bottom', 100, 10, -10)->save($originalImage);
+            
+            //$image->resize(1200)->save($originalImage);
 
             unset($image);
 
@@ -217,6 +222,7 @@ class GalleryPhoto extends CActiveRecord
                 mkdir($mediaTypeIdDir);
 
             $this->removeFile($mediaTypeIdDir.DIRECTORY_SEPARATOR."_".$this->getFileName('').'.'.$this->ext);
+            //$this->removeFile($mediaTypeIdDir.DIRECTORY_SEPARATOR.'tmp_'.$this->getFileName('original').'.'.$this->ext);
 
             foreach ($this->gallery->versions as $version => $actions) {
                 $this->removeFile($mediaTypeIdDir.DIRECTORY_SEPARATOR.$this->getFileName($version).'.'.$this->ext);
@@ -289,10 +295,17 @@ class GalleryPhoto extends CActiveRecord
 
             //new
             $newOriginalImage = $mediaTypeIdDir.DIRECTORY_SEPARATOR.$this->getFileName('original').'.'.$this->ext;
+            //$tmpOriginalImage = $mediaTypeIdDir.DIRECTORY_SEPARATOR.'tmp_'.$this->getFileName('original').'.'.$this->ext;
 
             if(file_exists($oldOriginalImage)){
                 $image = Yii::app()->phpThumb->create($oldOriginalImage);
-                $image->resize(1200)->save($newOriginalImage);
+
+                /*if(file_exists($tmpOriginalImage)){
+                    $image = Yii::app()->phpThumb->create($tmpOriginalImage);
+                    $image->resize(1200)->addWatermark(Yii::app()->phpThumb->create(Yii::getPathOfAlias('webroot.media').DIRECTORY_SEPARATOR."watermark.png"), 'left/bottom', 100, 10, -10)->save($newOriginalImage);
+                }else*/
+                $image->resize(1200)->addWatermark(Yii::app()->phpThumb->create(Yii::getPathOfAlias('webroot.media').DIRECTORY_SEPARATOR."watermark.png"), 'left/bottom', 100, 10, -10)->save($newOriginalImage);
+                
 
                 @unlink($oldOriginalImage);
                 unset($image);
@@ -313,6 +326,14 @@ class GalleryPhoto extends CActiveRecord
             }else{ //if no Old file
 
                 $newOriginalImage = $mediaTypeIdDir.DIRECTORY_SEPARATOR.$this->getFileName('original').'.'.$this->ext;
+
+                $newImage = Yii::app()->phpThumb->create($newOriginalImage);
+                
+                /*if(file_exists($tmpOriginalImage)){
+                    $image = Yii::app()->phpThumb->create($tmpOriginalImage);
+                    $image->resize(1200)->addWatermark(Yii::app()->phpThumb->create(Yii::getPathOfAlias('webroot.media').DIRECTORY_SEPARATOR."watermark.png"), 'left/bottom', 100, 10, -10)->save($newOriginalImage);
+                }else*/
+                $newImage->resize(1200)->addWatermark(Yii::app()->phpThumb->create(Yii::getPathOfAlias('webroot.media').DIRECTORY_SEPARATOR."watermark.png"), 'left/bottom', 100, 10, -10)->save($newOriginalImage);
 
                 /*//remove preview
                 $this->removeFile($mediaTypeIdDir.DIRECTORY_SEPARATOR."_".$this->getFileName($version).'.'.$this->ext);

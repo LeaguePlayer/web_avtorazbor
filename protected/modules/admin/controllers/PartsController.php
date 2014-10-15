@@ -392,12 +392,32 @@ class PartsController extends AdminController
 		die();
 	}
 
+<<<<<<< HEAD
 	public function actionGetCategoryAttrs()
 	{
 		$id=$_GET['id'];
 		$model_id=$_GET['model_id'];
 		$category=Categories::model()->findByPk($id);
 		print_r($this->renderPartial('categoryAttrs',array('category'=>$category,'model_id'=>$model_id),true));
+=======
+	public function actionAddWM($id = null){
+		if($id && is_numeric($id)){
+
+			$part = Parts::model()->findByPk($id);
+
+			if($part && $part->gallery){
+				foreach ($part->gallery->galleryPhotos as $photo) {
+					$photo->updateImages();
+				}
+
+				echo "ok";
+			}
+
+			Yii::app()->end();
+		}
+
+		$this->render('add_wm');
+>>>>>>> master
 	}
 
 	/*public function actionGetOneById($id){
