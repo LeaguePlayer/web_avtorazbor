@@ -9,12 +9,12 @@ class m141015_043016_add_alias_fields_car_and_details extends CDbMigration
 {
     // таблицы к удалению, можно использовать '{{table}}'
 	public function up(){
-        $this->addColumn('{{usedCars}}','alias','string');
-        $this->addColumn('{{parts}}','alias','string');
+        $this->addColumn('{{UsedCars}}','alias','string');
+        $this->addColumn('{{Parts}}','alias','string');
     }
 
     public function down(){
-        $this->dropColumn('{{usedCars}}','alias');
-        $this->dropColumn('{{parts}}','alias');
+        $this->dropColumn('{{UsedCars}}','alias');
+        $this->dropColumn('{{Parts}}','alias');
     }
 }
