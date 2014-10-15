@@ -123,6 +123,14 @@ form .line{
   margin: 0;
 }
 
+#create_date_datetimepicker{
+  width: auto;
+  margin: 0;
+}
+#create_date_datetimepicker input{
+  width: 75px;
+}
+
 @media print {
   body{
     padding: 0;

@@ -398,9 +398,27 @@ class PartsController extends AdminController
 		$model_id=$_GET['model_id'];
 		$category=Categories::model()->findByPk($id);
 		print_r($this->renderPartial('categoryAttrs',array('category'=>$category,'model_id'=>$model_id),true));
+
+	public function actionAddWM($id = null){
+		if($id && is_numeric($id)){
+
+			$part = Parts::model()->findByPk($id);
+
+			if($part && $part->gallery){
+				foreach ($part->gallery->galleryPhotos as $photo) {
+					$photo->updateImages();
+				}
+
+				echo "ok";
+			}
+
+			Yii::app()->end();
+		}
+
+		$this->render('add_wm');
 	}
 
-	/*public function actionGetOneById($id){
+	public function actionGetOneById($id){
 		header('Content-type: application/json');
 
 		$result = Yii::app()->db->createCommand()
@@ -413,5 +431,5 @@ class PartsController extends AdminController
 		else echo CJSON::encode(array('id' => 0, 'text' => 'Нет'));
 
 		Yii::app()->end();
-	}*/
+	}
 }
