@@ -339,7 +339,6 @@ class Parts extends EActiveRecord implements IECartPosition
         $this->price_buy = number_format($this->price_buy, 0, '', '');
     }
 
-// <<<<<<< HEAD
     public function getJoin($key)
     {
         $joins=array(
@@ -365,7 +364,6 @@ class Parts extends EActiveRecord implements IECartPosition
     }
 
 // =======
-// >>>>>>> master
     /**
      * Функция возвращает детали относящиеся
      * к одной и той же категории и модели автомобиля
