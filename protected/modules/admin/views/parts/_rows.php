@@ -1,7 +1,7 @@
 
-	<?php //echo $form->textFieldControlGroup($model,'name',array('class'=>'span8','maxlength'=>255)); ?>
+	<?php echo $form->textFieldControlGroup($model,'name',array('class'=>'span8 name','maxlength'=>255)); ?>
 
-	<?php //echo $form->textFieldControlGroup($model,'artId',array('class'=>'span8','maxlength'=>255)); ?>
+	<?php echo $form->textFieldControlGroup($model,'alias',array('class'=>'span8 alias','maxlength'=>255)); ?>
 
 	<?php echo $form->textFieldControlGroup($model,'price_sell',array('class'=>'span8','maxlength'=>6)); ?>
 

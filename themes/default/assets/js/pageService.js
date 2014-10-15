@@ -1,5 +1,4 @@
 $(function(){
-
 	var owl=$('.items-news .items:last').owlCarousel({
 		  nav:true,
 		  items:5,

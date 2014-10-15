@@ -65,7 +65,7 @@
                                                 'empty'=>'Выберите марку ',
                                                 'class'=>'select',
                                                 'id'=>'carBrands',
-                                                'data-nested'=>'#SearchFormOnMain_car_model_id',
+                                                'data-nested'=>'#Search_car_model_id',
                                                 'data-model'=>'carBrands'
                                             )
                                         ); 
@@ -87,7 +87,7 @@
                                             'empty'=>'Выберите раздел',
                                             'class'=>'select',
                                             'id'=>'Categories',
-                                            'data-nested'=>'#SearchFormOnMain_parent',
+                                            'data-nested'=>'#Search_parent',
                                             'data-model'=>'categories'
                                             )
                                         ); 
@@ -126,8 +126,8 @@
                                     </dl>
                                     <dl>
                                         <dd>
-                                            <input type="hidden" name="SearchFormOnMain[category_id]" value="295"/>
-                                            <input type="hidden" name="SearchFormOnMain[scenario]" value="disc"/>
+                                            <input type="hidden" name="Search[category_id]" value="295"/>
+                                            <input type="hidden" name="Search[scenario]" value="disc"/>
                                             <div class="i-text">
                                                 <?=$form->textField($searchForm,'diametr_st',array('id'=>'minSize','value'=>14))?>
                                             </div>
@@ -162,7 +162,7 @@
                                 <span>Напиши нам</span>
                             </p>
                             <a href="#popup" class="modal">
-                                Услуги автоэвакуатора
+                               Задать вопрос
                             </a>
                     </div>
                 </div>  

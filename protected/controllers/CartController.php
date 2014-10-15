@@ -4,6 +4,7 @@ class CartController extends FrontController
 {
 	public $layout = '//layouts/simple';
 	public $renderLoginForm=false;
+	public $modelName="Корзина";
 	/**
 	 * Declares class-based actions.
 	 */

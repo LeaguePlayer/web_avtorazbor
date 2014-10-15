@@ -48,7 +48,7 @@ $(document).ready(function(){
 
 		$(this).closest('ul').find('.active').removeClass('active');
 		$(this).parent().addClass('active');
-		$('#SearchFormOnMain_sort').val($(this).parent().data('sort'));
+		$('#Search_sort').val($(this).parent().data('sort'));
 
 		changeView();
 		return false;
@@ -58,7 +58,7 @@ $(document).ready(function(){
 		
 		$(this).closest('ul').find('.active').removeClass('active');
 		$(this).parent().addClass('active');
-		$('#SearchFormOnMain_display').val($(this).text());
+		$('#Search_display').val($(this).text());
 		changeView();
 		return false;
 
@@ -70,7 +70,7 @@ $(document).ready(function(){
 		{
 			$(this).closest('ul').find('.active').removeClass('active');
 			$(this).parent().addClass('active');
-			$('#SearchFormOnMain_type').val($(this).data('scenario'));
+			$('#Search_type').val($(this).data('scenario'));
 			changeView();
 			return false;
 		}

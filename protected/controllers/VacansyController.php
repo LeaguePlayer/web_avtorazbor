@@ -3,7 +3,7 @@
 class VacansyController extends FrontController
 {
 	public $layout='//layouts/simple';
-
+	public $modelName="Вакансии";
 	
 	public function filters()
 	{

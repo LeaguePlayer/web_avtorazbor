@@ -143,12 +143,18 @@ return array(
             'rules'=>array(
                 'gii'=>'gii',
                 'admin'=>'admin/start/index',
+                '/'=>'site/index',
+
                 'page/service'=>'page/service',
-                '<controller:page>/<alias:[\w\-]+>'=>'page/view',
-                '<controller:news>/<id:\d+>'=>'news/view',
+                'catalog/<alias:\w+>/<id:\d+>'=>'catalog/car',
+                'detail/parts'=>'detail/parts',
+                'detail/<alias:\w+>/<id:\d+>'=>'detail/view',
+
+                '<controller>/<page|news>'=>'<controller>/view',
                 '<controller:\w+>'=>'<controller>/index',
                 '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
                 '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+                '<controller:\w+>/<alias:\w+>'=>'<controller>/view',
             ),
         ),
         'clientScript'=>array(

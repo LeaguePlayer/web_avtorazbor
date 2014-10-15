@@ -58,12 +58,12 @@
                                 <li>
                                     <?
                                     $category_id=$model->category->parent ? $model->category->cat_parent->id : $model->category_id;
-                                    $urlParam='SearchFormOnMain[scenario]=Parts&SearchFormOnMain[brand]='.$model->car_model->car_brand->id.'&SearchFormOnMain[car_model_id]='.$model->car_model_id.'&SearchFormOnMain[category_id]='.$category_id.'&SearchFormOnMain[parent]='.$model->category->parent.'&SearchFormOnMain[type]='.$model->car_model->car_type;
+                                    $urlParam='Search[scenario]=Parts&Search[brand]='.$model->car_model->car_brand->id.'&Search[car_model_id]='.$model->car_model_id.'&Search[category_id]='.$category_id.'&Search[parent]='.$model->category->parent.'&Search[type]='.$model->car_model->car_type;
                                     ?>
                                     Раздел: <a href="/detail/parts?<?=$urlParam?>"><?=$model->category->name;?></a>
                                 </li>
                                 <li>
-                                    Модель авто: <a href="/detail/parts?SearchFormOnMain[scenario]=Parts&SearchFormOnMain[brand]=<?=$model->car_model->car_brand->id?>&SearchFormOnMain[car_model_id]=<?=$model->car_model_id?>&SearchFormOnMain[type]=<?=$model->car_model->car_type?>"><?=$model->car_model->name;?></a>
+                                    Модель авто: <a href="/detail/parts?Search[scenario]=Parts&Search[brand]=<?=$model->car_model->car_brand->id?>&Search[car_model_id]=<?=$model->car_model_id?>&Search[type]=<?=$model->car_model->car_type?>"><?=$model->car_model->name;?></a>
                                 </li>
                                 
                                 <li >

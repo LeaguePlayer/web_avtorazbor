@@ -9,6 +9,11 @@ class Controller extends CController
      * @var string page name.
      */
     public $title;
+
+    public $alias;
+    public $model=null;
+    public $fieldName='name';
+    public $modelName=null;
     /**
      * @var string the default layout for the controller view. Defaults to '//layouts/column1',
      * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
@@ -92,9 +97,26 @@ class Controller extends CController
       return $this->assetsUrl;
     }
 
+
     public function beforeRender($view)
     {
-        //$this->renderPartial('//layouts/clips/_main_menu');
+        $column=$this->fieldName;
+        if ($this->model)
+        {
+            $modelName=get_class($this->model);
+            
+            if ($modelName=="Page")
+                $this->breadcrumbs=array($this->model->$column);
+            else 
+                $this->breadcrumbs=array($this->model->translition()=>'/'.$modelName, $this->model->$column);
+
+        }
+        
+        if ($view=='index' && $this->modelName)
+        {
+            $this->breadcrumbs=array($this->modelName);
+        }
+            
         return parent::beforeRender($view);
     }
 

@@ -17,10 +17,9 @@ class 22Cart extends EActiveRecord
 {
     public function tableName()
     {
-        return '{{cart}}';
+        return '{{cart}}';  
     }
-
-
+    
     public function rules()
     {
         return array(

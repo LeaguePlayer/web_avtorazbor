@@ -34,7 +34,7 @@
                                 </div>
                                 </div>
                                 <div class="calculate">
-                                    <div class="partPrice" data-min="#SearchFormOnMain_diametr_st" data-max="#SearchFormOnMain_diametr_end">
+                                    <div class="partPrice" data-min="#Search_diametr_st" data-max="#Search_diametr_end">
                                     </div>
                                 </div>
                             </dd>
@@ -54,7 +54,7 @@
                                 </div>
 
                                 <div class="calculate">
-                                    <div class="partPrice" data-min="#SearchFormOnMain_price_st" data-max="#SearchFormOnMain_price_end">
+                                    <div class="partPrice" data-min="#Search_price_st" data-max="#Search_price_end">
                                     </div>
                                 </div>
                             </dd>
@@ -71,12 +71,12 @@
                     <div class="tabs parts">
                         <ul id="car_type">
                             <li>
-                                <a href="/detail?SearchFormOnMain[scenario]=light">
+                                <a href="/detail?Search[scenario]=light">
                                     Легковые
                                 </a>
                             </li>
                             <li>
-                                <a href="/detail?SearchFormOnMain[scenario]=weight">
+                                <a href="/detail?Search[scenario]=weight">
                                     Грузовые
                                 </a>    
                             </li>

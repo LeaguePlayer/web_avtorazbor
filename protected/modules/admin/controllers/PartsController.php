@@ -393,13 +393,16 @@ class PartsController extends AdminController
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> aa26aba442f8c5aaf834e7f94d7f3bcc1943c530
 	public function actionGetCategoryAttrs()
 	{
 		$id=$_GET['id'];
 		$model_id=$_GET['model_id'];
 		$category=Categories::model()->findByPk($id);
 		print_r($this->renderPartial('categoryAttrs',array('category'=>$category,'model_id'=>$model_id),true));
-=======
+
 	public function actionAddWM($id = null){
 		if($id && is_numeric($id)){
 
@@ -417,10 +420,13 @@ class PartsController extends AdminController
 		}
 
 		$this->render('add_wm');
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> aa26aba442f8c5aaf834e7f94d7f3bcc1943c530
 	}
 
-	/*public function actionGetOneById($id){
+	public function actionGetOneById($id){
 		header('Content-type: application/json');
 
 		$result = Yii::app()->db->createCommand()
@@ -433,5 +439,5 @@ class PartsController extends AdminController
 		else echo CJSON::encode(array('id' => 0, 'text' => 'Нет'));
 
 		Yii::app()->end();
-	}*/
+	}
 }

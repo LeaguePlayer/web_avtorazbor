@@ -109,7 +109,7 @@ class Parts extends EActiveRecord implements IECartPosition
         return array(
             array('name, price_sell, price_buy', 'required'),
             array('category_id, car_model_id, location_id, supplier_id, status, gallery_id, user_id', 'numerical', 'integerOnly'=>true),
-            array('name', 'length', 'max'=>255),
+            array('name, alias', 'length', 'max'=>255),
             // array('price_sell, price_buy', 'numerical', 'integerOnly'=>false, 'min' => 1),
             array('price_sell, price_buy', 'length', 'max'=>10),
             array('comment, create_time, update_time, analog, usedCar', 'safe'),
@@ -175,6 +175,7 @@ class Parts extends EActiveRecord implements IECartPosition
         return array(
             'id' => 'Артикул',
             'name' => 'Название',
+            'alias'=>'Алиас',
             'price_sell' => 'Стоимость (на продажу)',
             'price_buy' => 'Стоимость (покупка)',
             'comment' => 'Комментарий',
@@ -346,7 +347,6 @@ class Parts extends EActiveRecord implements IECartPosition
         $this->price_buy = number_format($this->price_buy, 0, '', '');
     }
 
-// <<<<<<< HEAD
     public function getJoin($key)
     {
         $joins=array(
@@ -372,7 +372,6 @@ class Parts extends EActiveRecord implements IECartPosition
     }
 
 // =======
-// >>>>>>> master
     /**
      * Функция возвращает детали относящиеся
      * к одной и той же категории и модели автомобиля

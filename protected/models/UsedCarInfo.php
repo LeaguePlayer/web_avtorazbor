@@ -111,13 +111,12 @@ class UsedCarInfo extends EActiveRecord
         return $state[$this->state];
     }
 
-    public static final function transmissionList(){
-        
-        return array(
-            1 => 'Механика',
-            2 => 'Автоматическая',
-            3 => 'Робот'
-        );
+    public static final function transmissionList($status=null){
+            
+        $aliases= array(1 => 'Механика',2 => 'Автоматическая',3 => 'Робот');
+        if ($status)
+            return $aliases[$status];
+        return $aliases;
     }
 
     

@@ -6,7 +6,7 @@
         // $imageBig='/media/car.png';
 ?>
 <div>
-    <a href="/detail/view/<?=$data->id?>"><img src="<?=$image?>" alt="" title="" /></a>
+    <a href="/detail/<?=$data->alias?>/<?=$data->id?>"><img src="<?=$image?>" alt="" title="" /></a>
     
     <a href="/detail/view?id=<?=$data->id?>" class="link">
         <?=$data->car_model->name.' '.$data->category->name?>

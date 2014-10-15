@@ -3,7 +3,7 @@
 class DetailController extends FrontController
 {
 	public $layout = '//layouts/simple';
-	
+	public $modelName="Запчасти";
 	/**
 	 * Declares class-based actions.
 	 */
@@ -35,17 +35,14 @@ class DetailController extends FrontController
 	public function actionIndex()
 	{
 		$cs = Yii::app()->clientScript;
-
-		// $cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/detail.js', CClientScript::POS_END);
 		$Brand=CHtml::listData(CarBrands::model()->findAll(),'id','name');
-		$searchForm=new SearchFormOnMain;
+		$searchForm=new Search;
 		
-		if (isset($_GET['SearchFormOnMain']))
-			$searchForm->attributes=$_GET['SearchFormOnMain'];
-		
-		$this->render('index',array('Brand'=>$Brand,'searchForm'=>$searchForm));
+		if (isset($_GET['Search']))
+			$searchForm->attributes=$_GET['Search'];
 
+		$this->render('index',array('Brand'=>$Brand,'searchForm'=>$searchForm));
 	}
 
 	public function actionDisc()
@@ -54,19 +51,21 @@ class DetailController extends FrontController
 		$cs = Yii::app()->clientScript;
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
     	$cs->registerScriptFile($this->getAssetsUrl().'/js/disc.js', CClientScript::POS_END);
+    	$this->breadcrumbs=array('Запчасти'=>'/parts','фильтр');
+    	$searchForm=new Search;
 
-    	$searchForm=new SearchFormOnMain;
-
-    	if (isset($_GET['SearchFormOnMain']))
+    	if (isset($_GET['Search']))
     	{
-    		$searchForm->attributes=$_GET['SearchFormOnMain'];
+    		$searchForm->attributes=$_GET['Search'];
     		$searchForm->scenario='disc';
     	}
+
     	$searchForm->validate();
+    	$dependecy = new CDbCacheDependency('SELECT MAX(update_time) FROM {{parts}}');
 
     	if( !Yii::app()->request->isAjaxRequest )
     	{
-    		$dataProvider=new CActiveDataProvider('Parts',array(
+    		$dataProvider=new CActiveDataProvider(Parts::model()->cache(3600,$dependecy,2),array(
     				'criteria'=>$searchForm->criteria,
     				'pagination'=>array(
 						'pageSize'=>$searchForm->display,
@@ -76,33 +75,35 @@ class DetailController extends FrontController
 			$this->render('disc',array('dataProvider'=>$dataProvider,'searchForm'=>$searchForm));
 		}
 		else {
-			//$searchForm->criteria->addCondition('qwe');
-			$dataProvider=new CActiveDataProvider('Parts',array(
+
+			$dataProvider=new CActiveDataProvider(Parts::model()->cache(3600,$dependecy,2),array(
     				'criteria'=>$searchForm->criteria,
     				'pagination'=>array(
 						'pageSize'=>$searchForm->display,
 					),
     			)
     		);
-
 			print($this->renderPartial('tabParts',array('dataProvider'=>$dataProvider),true));
 		}
 	}
 	
 	public function actionParts()
 	{
-
 		$cs = Yii::app()->clientScript;
     	$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
 	    $cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.scrollTo.min.js', CClientScript::POS_END);
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js', CClientScript::POS_END);
 
-		$searchForm=new SearchFormOnMain;
+		$this->breadcrumbs=array('Запчасти'=>'/parts','фильтр');
+		
+		$searchForm=new Search;
 		$searchForm->scenario= 'parts';
-		if (isset($_GET['SearchFormOnMain']))
+
+		if (isset($_GET['Search']))
 		{
-			$searchForm->attributes=$_GET['SearchFormOnMain'];
+			$searchForm->attributes=$_GET['Search'];
 		}
+
 		$searchForm->validate();
 
 		$Countries=CHtml::listData(Country::model()->findAll(),'id','name');
@@ -113,10 +114,9 @@ class DetailController extends FrontController
 		$subCategories=!empty($searchForm->category_id) ? CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$searchForm->category_id)),'id','name') : array();
 
 		$searchForm->sort='price_sell';
-		//$searchForm->afterValidate();
-		// var_dump($searchForm->criteria->condition);
-		// die();
-		$dataProvider=new CActiveDataProvider('Parts',array(
+
+		$dependecy = new CDbCacheDependency('SELECT MAX(update_time) FROM {{parts}}');
+		$dataProvider=new CActiveDataProvider(Parts::model()->cache(3600,$dependecy,2),array(
 			'criteria'=>$searchForm->criteria,
 			'pagination'=>array(
 					'pageSize'=>$searchForm->display,
@@ -138,14 +138,15 @@ class DetailController extends FrontController
 
 	public function actionAjaxUpdate()
 	{
-		if (isset($_GET['SearchFormOnMain']))
+		if (isset($_GET['Search']))
 		{
-			$searchForm=new SearchFormOnMain;
-			$searchForm->attributes=$_GET['SearchFormOnMain'];
+			$searchForm=new Search;
+			$searchForm->attributes=$_GET['Search'];
 			$searchForm->scenario='parts';
 			$searchForm->validate();
 			//die('in controller');
-			$dataProvider=new CActiveDataProvider('Parts',array(
+			$dependecy = new CDbCacheDependency('SELECT MAX(update_time) FROM {{parts}}');
+			$dataProvider=new CActiveDataProvider(Parts::model()->cache(3600,$dependecy,2),array(
 					'criteria'=>$searchForm->criteria,
 						'pagination'=>array(
 						'pageSize'=>$searchForm->display
@@ -196,14 +197,16 @@ class DetailController extends FrontController
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/partsView.js', CClientScript::POS_END);
 
 		$model=Parts::model()->findByPk($id);
-		
+		$this->model=$model;	
 		$brand=$model->car_model->car_brand->id;
 		$car_model=$model->car_model->id;
 		$category_id=$model->category->id;
 
 		$criteria=Parts::model()->search_parts('model_cat',array('model_id'=>$car_model,'cat_id'=>$category_id));
 		$criteria->addCondition('category_id='.$model->category->id);
-		$dataProvider=new CActiveDataProvider('Parts',
+		$dependecy = new CDbCacheDependency('SELECT MAX(update_time) FROM {{parts}}');
+		
+		$dataProvider=new CActiveDataProvider(Parts::model()->cache(3600,$dependecy,2),
 			array(
 				'criteria'=>$criteria,
 				'pagination'=>false,
