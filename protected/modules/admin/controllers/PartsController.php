@@ -398,7 +398,7 @@ class PartsController extends AdminController
 		$model_id=$_GET['model_id'];
 		$category=Categories::model()->findByPk($id);
 		print_r($this->renderPartial('categoryAttrs',array('category'=>$category,'model_id'=>$model_id),true));
-
+	}
 	public function actionAddWM($id = null){
 		if($id && is_numeric($id)){
 

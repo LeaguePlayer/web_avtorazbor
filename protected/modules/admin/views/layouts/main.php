@@ -8,7 +8,7 @@
 	<body>
 	 <style>.no-float{float: none !important;}</style>
 		<?php
-
+			
 			$map = array(
 				'parts' => array( 'parts', 'carBrands', 'carModels', 'categories'),
 				'documents' => array('documents', 'templates'),
@@ -82,6 +82,7 @@
 					array('label'=>'Вопросы', 'url'=>'/admin/questions/list'),
 					array('label'=>'Предложения', 'url'=>'/admin/ownprice/list'),
 					array('label'=>'Диагностика', 'url'=>'/admin/diagnostic/list'),
+					array('label'=>'Услуги эвакуатора', 'url'=>'/admin/evackuator/list'),
 				),
 				
 					

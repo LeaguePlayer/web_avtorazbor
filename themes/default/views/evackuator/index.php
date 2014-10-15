@@ -76,6 +76,33 @@
 		                <?php $this->endWidget(); ?>
 		    </div>
 		</div>
+		<br>
+		<div class="desc">
+			<p style="outline: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(9, 9, 9); font-family: Arial, Helvetica, sans-serif;">Если вы хотите заказать эвакуатор по Екатеринбургу, Березовскому или для транспортировки авто&nbsp; по Свердловской области. Мы поможем вам быстро и дешево.</p>
+
+<h2 style="outline: 0px; font-size: 22px; font-family: Arial, Helvetica, sans-serif; font-weight: normal; line-height: normal; margin-top: 30px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(131, 111, 68);">Услуги грузового автоэвакуатора</h2>
+
+<ul style="outline: 0px; margin-top: 9px; margin-bottom: 20px; margin-left: 0px; border: 0px; vertical-align: baseline; color: rgb(9, 9, 9); font-family: Arial, Helvetica, sans-serif; line-height: normal;">
+	<li style="outline: 0px; margin: 0px; padding: 0px 0px 10px 28px; border: 0px; vertical-align: baseline; list-style: none; background: url(http://razbor66.ru/Content/images/line.png) 0px 10px no-repeat;"><strong style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline;">Время заказа</strong>: с 9 до 20 часов.</li>
+	<li style="outline: 0px; margin: 0px; padding: 0px 0px 10px 28px; border: 0px; vertical-align: baseline; list-style: none; background: url(http://razbor66.ru/Content/images/line.png) 0px 10px no-repeat;"><strong style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline;">Цена услуги</strong>: договорная, минимальный заказ от 1 300 рублей. Стоимость уточняйте по телефону.</li>
+	<li style="outline: 0px; margin: 0px; padding: 0px 0px 10px 28px; border: 0px; vertical-align: baseline; list-style: none; background: url(http://razbor66.ru/Content/images/line.png) 0px 10px no-repeat;"><strong style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline;">Грузоподъемность</strong>&nbsp;эвакуатора&nbsp;<span style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: rgb(201, 215, 241);">Hyundai</span>&nbsp;HD-78 -&nbsp; 3,5 тонны</li>
+</ul>
+
+<h2 style="outline: 0px; font-size: 22px; font-family: Arial, Helvetica, sans-serif; font-weight: normal; line-height: normal; margin-top: 30px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(131, 111, 68);">Номер телефона для вызова эвакуатора: +7 (343) 201-36-06</h2>
+
+<p style="outline: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(9, 9, 9); font-family: Arial, Helvetica, sans-serif;">Служба автоэвакуации &laquo;Разбор66&raquo; предлагает следующие услуги:</p>
+
+<ul style="outline: 0px; margin-top: 9px; margin-bottom: 20px; margin-left: 0px; border: 0px; vertical-align: baseline; color: rgb(9, 9, 9); font-family: Arial, Helvetica, sans-serif; line-height: normal;">
+	<li style="outline: 0px; margin: 0px; padding: 0px 0px 10px 28px; border: 0px; vertical-align: baseline; list-style: none; background: url(http://razbor66.ru/Content/images/line.png) 0px 10px no-repeat;"><span class="black" style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(0, 0, 0) !important;">эвакуацию легковых автомобилей с поломками (в том&nbsp; числе аварийных);</span></li>
+	<li style="outline: 0px; margin: 0px; padding: 0px 0px 10px 28px; border: 0px; vertical-align: baseline; list-style: none; background: url(http://razbor66.ru/Content/images/line.png) 0px 10px no-repeat;"><span class="black" style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(0, 0, 0) !important;">перевозку автомобилей в любом состоянии без сопровождения собственником;</span></li>
+	<li style="outline: 0px; margin: 0px; padding: 0px 0px 10px 28px; border: 0px; vertical-align: baseline; list-style: none; background: url(http://razbor66.ru/Content/images/line.png) 0px 10px no-repeat;"><span class="black" style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(0, 0, 0) !important;">перевозку спортивных автомобилей с малым дорожным просветом;</span></li>
+	<li style="outline: 0px; margin: 0px; padding: 0px 0px 10px 28px; border: 0px; vertical-align: baseline; list-style: none; background: url(http://razbor66.ru/Content/images/line.png) 0px 10px no-repeat;"><span class="black" style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(0, 0, 0) !important;">эвакуацию и транспортировку квадроциклов, мототехники и снегоходов;</span></li>
+	<li style="outline: 0px; margin: 0px; padding: 0px 0px 10px 28px; border: 0px; vertical-align: baseline; list-style: none; background: url(http://razbor66.ru/Content/images/line.png) 0px 10px no-repeat;"><span class="black" style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(0, 0, 0) !important;">услугу &laquo;трезвый водитель&raquo;.</span></li>
+</ul>
+
+<p style="outline: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(9, 9, 9); font-family: Arial, Helvetica, sans-serif;">Звоните, и мы поможем вам в любой ситуации!</p>
+
+		</div>
 	</div>
 	</div>
 </div>
