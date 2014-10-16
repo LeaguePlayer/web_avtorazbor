@@ -2214,7 +2214,7 @@ div[id^=tabs]{
 				vertical-align: top;
 				width:200px;
 				+ dl{
-					margin-left:40px;
+					margin-left:38px;
 				}
 			}
 			.selectbox{
@@ -2338,50 +2338,53 @@ div[id^=tabs]{
 		position: relative;
 		width: 1100px;
 		overflow: hidden;
-		min-height: 260px;
+		height: 260px;
 		margin: 0 auto;
-		
-		div{
-			display:inline-block;
-			height: 260px;
-			position: relative;
+		.items{
 			div{
-				height: inherit;
+				display:inline-block;
+				height: 260px;
+				position: relative;
+				vertical-align: top;
+				div{
+					height: inherit;
 
-			}
-			img{
-						display: block;
-						margin:0;
-						.radius(5px);
-						overflow:hidden;
-					}
-						.link{
-							font-size:14px;
-							line-height:1.2;
-							padding-top:20px;
+				}
+				img{
 							display: block;
-							font-weight: bold;
+							margin:0;
+							.radius(5px);
+							overflow:hidden;
 						}
-						.dsc{
-							padding-top:10px;
-							font-size:14px;
-							line-height:18px;
-							color:#99aab7;
-							display: block;
-						}
-						.price{
-							display:inline-block;
-							font:18px/1.2 'segoe_uisemibold';
-							color:#333;
-							position: absolute;
-							bottom: 0;
-						}
-						.price_old{
-							font:14px/1.2 'segoe_uiregular';
-							color:#f3851d;
-							display: block;
-							text-decoration: line-through;
-						}
+							.link{
+								font-size:14px;
+								line-height:1.2;
+								padding-top:20px;
+								display: block;
+								font-weight: bold;
+							}
+							.dsc{
+								padding-top:10px;
+								font-size:14px;
+								line-height:18px;
+								color:#99aab7;
+								display: block;
+								max-width: 200px;
+							}
+							.price{
+								display:inline-block;
+								font:18px/1.2 'segoe_uisemibold';
+								color:#333;
+								position: absolute;
+								bottom: 0;
+							}
+							.price_old{
+								font:14px/1.2 'segoe_uiregular';
+								color:#f3851d;
+								display: block;
+								text-decoration: line-through;
+							}
+				}
 		}
 	}
 	#pagination{
@@ -3406,7 +3409,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 			
 	}
 	dl+dl{
-		padding-left: 40px;
+		padding-left: 38px;
 	}
 	
 }

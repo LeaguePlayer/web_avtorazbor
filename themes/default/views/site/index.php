@@ -56,7 +56,7 @@
                 </a>
             </li>
             <li>
-                <a href="#tabs-3" data-url="/parts">
+                <a href="#tabs-3" data-url="/detail/parts">
                     Автозапчасти
                 </a>    
             </li>
@@ -369,9 +369,9 @@
                         Тип
                     </dt>
                     <dd>
-                        <input type="hidden" value="2" name="Search[type]">
+<!--                         <input type="hidden" value="2" name="Search[type]"> -->
                         <input type="hidden" value="parts" name="Search[scenario]">
-                        <?=$form->dropDownList($searchForm, 'scenario', array('light'=>'Запчасти для легковых машин','weight'=>'Запчасти для грузовых машин'), array( 
+                        <?=$form->dropDownList($searchForm, 'type', array(1=>'Запчасти для легковых машин','2'=>'Запчасти для грузовых машин'), array( 
                                                 'empty'=>'Выберите тип авто', 'class'=>'select','data-nested'=>'#model_3','data-model'=>'carBrands'));?>
                     </dd>
                 </dl>

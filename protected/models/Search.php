@@ -60,15 +60,14 @@
 		{
 			parent::afterValidate();
 
-			if (empty($this->criteria->condition))
+			if (empty($this->criteria->condition))//если не выбран ни 1 криерий тогда пишем дефолт
 			{
-
 				$this->criteria=new CDbCriteria;
 				$this->criteria->addCondition('car_type='.$this->type);
 				$this->criteria->join=$this->scenario=='light' || $this->scenario=='weight' ? UsedCars::join() : Parts::join();
 			}
 
-			$this->criteria->addCondition('`t`.status>6 or `t`.status=1');
+			$this->criteria->addCondition('`t`.status>6 or `t`.status=2');//>6 - для машин =1 - для запчастей
 			$this->criteria->distinct='`t`.id';
 			$this->criteria->order=$this->sort;
 			return true;
@@ -165,7 +164,8 @@
 					$column=$value;
 				}
 			}
-			if (!$column){
+
+			if (!$column){//если не выбран не 1 из критериев фильтра
 				$this->criteria->order=$this->sort;
 				return;
 			}
@@ -193,7 +193,7 @@
 			
 			$criteria->addCondition('car_type='.$this->type);
 			
-			//var_dump($criteria->select);die();
+			
 			$this->criteria=$criteria;
 		}
 

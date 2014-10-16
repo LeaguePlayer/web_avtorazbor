@@ -43,28 +43,31 @@ class AjaxRequestsController extends FrontController
 
 			case 'country':
 					{
-						$criteria=new CDbCriteria;
-						$criteria->addCondition('id_country='.$value);
-						$criteria->join=UsedCars::join();
-						$criteria->distinct=true;
+						
 						$models=CHtml::listData(CarBrands::model()->findAll('id_country=:id',array(':id'=>$value)),'id','name');
 						$htmlOptions=array('id'=>'carBrands','data-nested'=>'#carModels','empty'=>'Выберите марку');
 					}
 				break;
 			case 'carBrands':
 					{
+						$brands=UsedCars::getExistsData($value,'brand','m.id');//название третьего параметра
+																				// берется из алиаса запроса, используемого в методе getExistsData;
 						$criteria=new CDbCriteria;
-						$criteria->addCondition('id_country='.$value);
-						$criteria->join=UsedCars::join();
-						$criteria->distinct=true;
-						$criteria->addCondition('brand='.$value);
-						$models=CHtml::listData(CarModels::model()->findAll($criteria),'id','name');
+						if ($brands)
+							$criteria->addInCondition('id',$brands);
+						$models=CHtml::listData($brands ? CarModels::model()->findAll($criteria) : array(),'id','name');
 						$htmlOptions=array('id'=>'carModels', 'data-nested'=>'#carModels', 'empty'=>'Выберите модель');
 					}
 				break;
 			case 'carModels':
 					{
-						$models=CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$value)),'id','name');
+
+						$brands=UsedCars::getExistsData($value,'parent','m.id');//название третьего параметра
+																				// берется из алиаса запроса, используемого в методе getExistsData;
+						$criteria=new CDbCriteria;
+						if ($brands)
+							$criteria->addInCondition('id',$brands);
+						$models=CHtml::listData(Categories::model()->findAll($criteria),'id','name');
 						$htmlOptions=array('id'=>'carBrands','data-nested'=>'#carModels');
 					}
 			case 'Categories':
