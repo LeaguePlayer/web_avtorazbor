@@ -191,6 +191,35 @@ class Parts extends EActiveRecord implements IECartPosition
         );
     }
 
+    public static function getExistsData($id,$compareField=null,$selectColumn)
+    {
+        /*
+            $id - ид сравниваемой записи;
+            $compareField - поле связаной таблицы для сравнения со значением $id;
+            $selectColumn - поле которое будет выбираться без повторений
+        */
+        $query=Yii::app()->db->createCommand()
+            ->select("distinct($selectColumn) as val")
+            ->join('tbl_CarModels m','t.car_model_id=m.id')
+            ->join('tbl_CarBrands brand','m.brand=brand.id')
+            ->join('tbl_country country','country.id=brand.id_country')
+            ->join('tbl_categories cat','cat.id=category_id')
+            ->from('{{Parts}} t')
+            ->where( $compareField ? "$compareField=$id and status>6" : 'status>6');
+
+        $result=$query->queryAll();
+        $data=array();
+        foreach ($result as $key => $value) {
+            $data[]=$value['val'];
+        }
+        $criteria=new CDbCriteria;
+        if ($data)
+            $criteria->addInCondition('id',$data);
+        else 
+            $criteria->addCondition('id=-1');
+        return $criteria;
+    }
+
     public static function join()
     {
         return 

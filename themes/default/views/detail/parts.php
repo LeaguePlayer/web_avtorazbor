@@ -3,7 +3,6 @@
             
 
             <div class="wr">
-
                 <div class="coll-left">
                     <div class="modul filter">
             <?php $form = $this->beginWidget('CActiveForm', array(
@@ -19,17 +18,37 @@
                             <dd>
                                 <label>Страна:</label>
                                 <?=$form->dropDownList($searchForm,'id_country', $Countries,
-                                            array('empty'=>'Выберите страну','class'=>'select nested','data-nested'=>'#brand','data-model'=>'country', 'id'=>'country',))?>
+                                            array('empty'=>'Выберите страну',
+                                                'class'=>'select nested',
+                                                'data-nested'=>'#carBrands',
+                                                'data-model'=>'country', 
+                                                'id'=>'country',
+                                                )
+                                            )?>
                             </dd>
                             <dd style="display:<?=($searchForm->brand ? 'block' : 'none')?>">
                                 <label>Марка:</label>
                                 <?=$form->dropDownList($searchForm,'brand', $Brands, 
                                         array(
-                                            'empty'=>'Выберите марку', 'class'=>'select nested','data-nested'=>'#car_model_id', 'id'=>'brand', 'data-model'=>'carBrands',))?>
+                                            'empty'=>'Выберите марку ',
+                                            'class'=>'select',
+                                            'id'=>'carBrands',
+                                            'data-nested'=>'#carModels',
+                                            'data-model'=>'carBrands'
+                                            )
+                                        )?>
                             </dd> 
                             <dd>
                                 <label>Модель автомобиля:</label>
-                                <?=$form->dropDownList($searchForm,'car_model_id', $Models, array( 'empty'=>'Выберите модель','class'=>'select','id'=>'car_model_id'))?>
+                                <?=$form->dropDownList($searchForm,'car_model_id', $Models, 
+                                array( 
+                                    'empty'=>'Выберите раздел',
+                                    'class'=>'select',
+                                    'id'=>'carModels',
+                                    'data-nested'=>'#Categories',
+                                    'data-model'=>'carModels'
+                                    )
+                                )?>
                             </dd>
                             <dd style="display:<?=($searchForm->parent ? 'block' : 'none')?>">
                                 <label>Раздел:</label>
@@ -38,15 +57,16 @@
                                             'empty'=>'Выберите раздел',
                                             'class'=>'select',
                                             'id'=>'Categories',
-                                            'data-model'=>'Categories',
-                                            'data-nested'=>'#subCategories'
+                                            'data-nested'=>'#subCategories',
+                                            'data-model'=>'Categories'
                                         )
                                     );
                                 ?>
                             </dd>
                             <dd style="display:<?=($searchForm->category_id ? 'block' : 'none')?>">
                                 <label>Подраздел:</label>
-                                <?=$form->dropDownList($searchForm,'category_id', $subCategories, array('empty'=>'Выберите под категорию','id'=>'subCategories'))?>
+                                <?=$form->dropDownList($searchForm,'category_id', $subCategories, 
+                                array('empty'=>'Выберите под категорию','id'=>'subCategories'))?>
                             </dd>
                             
                             <dt>

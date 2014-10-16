@@ -36,7 +36,9 @@ class DetailController extends FrontController
 	{
 		$cs = Yii::app()->clientScript;
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/detail.js', CClientScript::POS_END);
-		$Brand=CHtml::listData(CarBrands::model()->findAll(),'id','name');
+		$Brands=Parts::getExistsData(null,null,'brand');
+
+		$Brand=CHtml::listData(CarBrands::model()->findAll($Brands),'id','name');
 		$searchForm=new Search;
 		
 		if (isset($_GET['Search']))
@@ -105,8 +107,8 @@ class DetailController extends FrontController
 		}
 
 		$searchForm->validate();
-
-		$Countries=CHtml::listData(Country::model()->findAll(),'id','name');
+		$countriCriteria=Parts::getExistsData(null,null,'id_country');
+		$Countries=CHtml::listData(Country::model()->findAll($countriCriteria),'id','name');
 		$Categories=CHtml::listData(Categories::model()->findAll('parent=0'),'id','name');
 		$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
 		$Models=!empty($searchForm->brand) ? CHtml::listData(CarBrands::model()->findByPk($searchForm->brand)->models,'id','name') : array();

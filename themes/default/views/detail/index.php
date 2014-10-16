@@ -65,7 +65,7 @@
                                                 'empty'=>'Выберите марку ',
                                                 'class'=>'select',
                                                 'id'=>'carBrands',
-                                                'data-nested'=>'#Search_car_model_id',
+                                                'data-nested'=>'#carModels',
                                                 'data-model'=>'carBrands'
                                             )
                                         ); 
@@ -74,33 +74,37 @@
                                     </dd>
                                     <dd style="display:none;">
                                         <label for="model"> 
-                                            Марка:
+                                            Модель:
                                         </label>
-                                        <?=$form->dropDownList($searchForm,'car_model_id', array())?>
+                                        <?=$form->dropDownList($searchForm,'car_model_id', array(), array(
+                                            'empty'=>'Выберите раздел',
+                                            'class'=>'select',
+                                            'id'=>'carModels',
+                                            'data-nested'=>'#Categories',
+                                            'data-model'=>'carModels'
+                                            ))?>
                                     </dd>
                                     <dd style="display:none;">
                                         <label for="model"> 
                                             Раздел:
                                         </label>
-                                        <?=$form->dropDownList($searchForm,'category_id', CHtml::listData(Categories::model()->findAll('parent=0'),'id','name'),
+                                        <?=$form->dropDownList($searchForm,'parent', CHtml::listData(Categories::model()->findAll('parent=0'),'id','name'),
                                         array(
                                             'empty'=>'Выберите раздел',
                                             'class'=>'select',
                                             'id'=>'Categories',
-                                            'data-nested'=>'#Search_parent',
+                                            'data-nested'=>'#subCategories',
                                             'data-model'=>'categories'
                                             )
-                                        ); 
-                                            //empty since it will be filled by the other dropdown
+                                        );
                                         ?>
                                     </dd>
                                     <dd style="display:none;">
                                         <label for="model">
                                             Под категория:
                                         </label>
-                                        <?=$form->dropDownList($searchForm,'parent', array())?>
+                                        <?=$form->dropDownList($searchForm,'category_id', array(),array('id'=>'subCategories'))?>
                                     </dd>
-                                    <dd></dd>
                                     <dt>
                                         <input type="submit" class="i-submit" width="100%" id="sendCriteria" value="Найти">
                                     </dt>
