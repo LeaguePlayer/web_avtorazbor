@@ -33,10 +33,16 @@ class SiteController extends FrontController
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/main.js', CClientScript::POS_END);
 			$news=new News;
 			$Brands=CHtml::listData(CarBrands::model()->findAll(UsedCars::getExistsData(null,null,'brand')),'id','name');
-			$Bascet=UsedCars::getBasketList();
-			$Transmission=UsedCarInfo::transmissionList();
-			$State=UsedCarInfo::statesList();
+
+			$BrandsWeightCars=UsedCars::getExistsData(null,null,'brand',2);
+
+			$BrandsWeightCars=CHtml::listData(CarBrands::model()->findAll($BrandsWeightCars),'id','name');
+			$Bascet=array();
+			$BascetWeight=array();
+			$Transmission=array();
+			$State=array();
 			
+
 			$criteriaCar=new CDbCriteria;
 			$criteriaCar->join=Parts::join();
 			$criteriaCar->addCondition('car_type=1');
@@ -51,12 +57,14 @@ class SiteController extends FrontController
 			$this->render('index',
 				array(
 					'Brands'=>$Brands,
+					'BrandsWeightCars'=>$BrandsWeightCars,
 					'Bascet'=>$Bascet,
+					'BascetWeight'=>$BascetWeight,
 					'Transmission'=>$Transmission,
 					'State'=>$State,
 					'dataProviderCar'=>$dataProviderCar,
 					'searchForm'=>$searchForm,
-					'news'=>$news
+					'newCars'=>UsedCars::model()->search()
 				)
 			);
 

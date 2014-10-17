@@ -44,8 +44,8 @@ class UsedCarsController extends AdminController
 
 	public function actionAjaxDisplayBascet($id){
 
-		$car_type=CarModels::model()->find('brand=:id',array(':id'=>$id))->car_type;
-
+		$car_type=CarModels::model()->find('id=:id',array(':id'=>$id))->car_type;
+		
 		$responce=array();
 
 		$responce['success']=$car_type==1;

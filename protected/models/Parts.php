@@ -191,7 +191,7 @@ class Parts extends EActiveRecord implements IECartPosition
         );
     }
 
-    public static function getExistsData($id,$compareField=null,$selectColumn)
+    public static function getExistsData($id,$compareField=null,$selectColumn,$type=1)
     {
         /*
             $id - ид сравниваемой записи;
@@ -205,7 +205,7 @@ class Parts extends EActiveRecord implements IECartPosition
             ->join('tbl_country country','country.id=brand.id_country')
             ->join('tbl_categories cat','cat.id=category_id')
             ->from('{{Parts}} t')
-            ->where( $compareField ? "$compareField=$id and status>6" : 'status>6');
+            ->where( ($compareField ? "$compareField=$id and status>6" : 'status>6')." and car_type=$type");
 
         $result=$query->queryAll();
         $data=array();

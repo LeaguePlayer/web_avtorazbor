@@ -85,11 +85,6 @@
                                     Новинки
                                 </a>
                             </li>
-                            <li >
-                                <a href="#tabs-6">
-                                    Новости
-                                </a>    
-                            </li>
                         </ul>
                     </div>
 
@@ -97,12 +92,7 @@
                         <div id="tabs-5" class="tab-active">
                             <a href="#" class="prev"></a>
                             <a href="#" class="next"></a>
-                            <?=$this->renderPartial('//site/newsCarusel',array('dataProvider'=>$news->getNews()),true)?>
-                        </div>
-                        <div id="tabs-6" class="tab-active">
-                            <a href="#" class="prev"></a>
-                            <a href="#" class="next"></a>
-                            <?=$this->renderPartial('//site/newsCarusel',array('dataProvider'=>$news->getCompany()),true)?>
+                            <?=$this->renderPartial('//site/newsCarusel',array('dataProvider'=>UsedCars::model()->search()),true)?>
                         </div>
                     </div>
                 </div>
