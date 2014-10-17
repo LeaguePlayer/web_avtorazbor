@@ -1,5 +1,7 @@
 $(document).ready(function(){
-
+	var dd=$('.request_form dd select').parent();
+	var lastIndex=dd.eq(-1).index();
+	console.log(lastIndex)
 	$('.pag li:first a').click(function(){
 		return false;
 	})
@@ -8,32 +10,42 @@ $(document).ready(function(){
 		change:function(){
 
 			changeView();
-
 			var params={
-					value:$(this).val(),
+					value:$(this).attr('id')!='Categories' ? $(this).val() : $('#carModels').val(),
 					model:$(this).data('model'),
 					nested:$(this).data('nested'),
+					searchingIn:"Parts",
 				},
 
 			$_this=$(this);
+			console.log(params)
+			var parent=$_this.closest('dd'),
+				index=parent.index()+1,
+ 				elems=dd.slice(index,lastIndex);
 
-			var index=$_this.closest('dd').index()+1,
-				ddCount=$_this.closest('dl').find('dd').length-2;
-				$_this.closest('dl').children('dd').slice(index,ddCount).find('select').val(null).selectmenu('refresh').parent().slideUp(200);
+			if (elems.length)
+			{
+				$_this.selectmenu('close')
+				$(params.nested).find('option:not(:first)').remove();
+				elems.slideUp(200);
+				dd.eq(-1).slideUp(200); 	
+			}
 
 			if ($(this).val())
-				$_this.closest('dd').next().slideDown(200);
-			
-			$.ajax({
-				url:'/ajaxRequests/getNestedList',
-				data:params,
+		 	{
+				$.ajax({
+					url:'/ajaxRequests/getNestedList',
+					data:params,
+					success:function(data){
+						parent.next().slideDown(200);
 
-				success:function(data){	
-					$(params.nested).empty();
-					$(params.nested).html(data);
-					$(params.nested).selectmenu('refresh');
-				}
-			});
+						$(params.nested).empty();
+						$(params.nested).html(data);
+						console.log($(params.nested).length)
+						$(params.nested).selectmenu('refresh');
+					}
+				});	
+			}
 		}
 	})
 	

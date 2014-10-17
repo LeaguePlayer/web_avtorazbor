@@ -32,7 +32,7 @@ class SiteController extends FrontController
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/main.js', CClientScript::POS_END);
 			$news=new News;
-			$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
+			$Brands=CHtml::listData(CarBrands::model()->findAll(UsedCars::getExistsData(null,null,'brand')),'id','name');
 			$Bascet=UsedCars::getBasketList();
 			$Transmission=UsedCarInfo::transmissionList();
 			$State=UsedCarInfo::statesList();

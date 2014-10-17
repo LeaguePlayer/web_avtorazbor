@@ -153,7 +153,8 @@ $(document).ready(function(){
 		var params={
 				value:$(this).val(),
 				model:$(this).data('model'),
-				nested:$(this).data('nested')
+				nested:$(this).data('nested'),
+				searchingIn:'UsedCars'
 			},
 
 			$_this=$(this);
