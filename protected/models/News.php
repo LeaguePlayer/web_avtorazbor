@@ -44,7 +44,7 @@ class News extends EActiveRecord
     {
         return array(
             array('status, sort', 'numerical', 'integerOnly'=>true),
-            array('name', 'length', 'max'=>255),
+            array('name,alias', 'length', 'max'=>255),
             array('img_preview, description, wswg_body, type, create_time, update_time', 'safe'),
             // The following rule is used by search().
             array('id, img_preview, name, type, description, wswg_body, status, sort, create_time, update_time', 'safe', 'on'=>'search'),

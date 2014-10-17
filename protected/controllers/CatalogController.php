@@ -58,7 +58,9 @@ class CatalogController extends FrontController
 			    ),
 			));
 
-			$Countries=CHtml::listData(Country::model()->findAll(),'id','name');
+			$countriCriteria=UsedCars::getExistsData(null,null,'id_country');
+
+			$Countries=CHtml::listData(Country::model()->findAll($countriCriteria),'id','name');
 			$Brands=CHtml::listData(CarBrands::model()->findAll('id_country=:id',array(':id'=>$searchForm->id_country ? $searchForm->id_country : 0)),'id','name');
 			$Bascet=UsedCars::getBasketList();
 			$Models=CHtml::listData(CarModels::model()->findAll('brand=:id',array(':id'=>$searchForm->brand ? $searchForm->brand : 0)),'id','name');

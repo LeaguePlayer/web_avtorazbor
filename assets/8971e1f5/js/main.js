@@ -32,7 +32,7 @@ $(document).ready(function(){
 			changeView($(this).closest('form'));
 	})
 
-	$('select').each(function(){
+	$('.select').each(function(){
 
 		$(this).selectmenu({
 			change:function(){
@@ -153,7 +153,8 @@ $(document).ready(function(){
 		var params={
 				value:$(this).val(),
 				model:$(this).data('model'),
-				nested:$(this).data('nested')
+				nested:$(this).data('nested'),
+				searchingIn:'UsedCars'
 			},
 
 			$_this=$(this);

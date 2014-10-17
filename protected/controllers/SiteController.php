@@ -32,13 +32,15 @@ class SiteController extends FrontController
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/main.js', CClientScript::POS_END);
 			$news=new News;
-			$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
+			$Brands=CHtml::listData(CarBrands::model()->findAll(UsedCars::getExistsData(null,null,'brand')),'id','name');
 			$Bascet=UsedCars::getBasketList();
 			$Transmission=UsedCarInfo::transmissionList();
 			$State=UsedCarInfo::statesList();
-
+			
 			$criteriaCar=new CDbCriteria;
-			$criteriaCar->addCondition('status=1');
+			$criteriaCar->join=Parts::join();
+			$criteriaCar->addCondition('car_type=1');
+			$criteriaCar->addCondition('status=2');
 			$criteriaCar->order='id desc';
 
 			$dataProviderCar=new CActiveDataProvider('UsedCars', array(
@@ -64,9 +66,10 @@ class SiteController extends FrontController
 				$searchForm->attributes=$_GET['Search'];
 				$searchForm->validate();
 
-				$model=$_GET['Search']['type']=='1' ? 'UsedCars' : 'Parts';
-				// var_dump($searchForm->criteria);die();
-				$searchForm->criteria->limit=100;
+				$model=$_GET['Search']['scenario']=='light' || $_GET['Search']['scenario']=='weight' ? 'UsedCars' : 'Parts';
+
+				$searchForm->criteria->limit='50';
+				//var_dump($model,$searchForm->criteria->condition,$searchForm->criteria->join);die();
 				$dataProvider=new CActiveDataProvider($model,
 					array('criteria'=>$searchForm->criteria)
 				);

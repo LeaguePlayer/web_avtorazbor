@@ -41,6 +41,7 @@ class EvackuatorController extends FrontController
 		
 		if (isset($_POST['Evackuator']))
 		{
+			$model->attributes=$_PSOT['Evackuator'];
 			if ($model->save())
 			{
 				$this->redirect(array('/page/thanks'));

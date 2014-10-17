@@ -8,13 +8,13 @@
 	<body>
 	 <style>.no-float{float: none !important;}</style>
 		<?php
-			
+
 			$map = array(
 				'parts' => array( 'parts', 'carBrands', 'carModels', 'categories'),
 				'documents' => array('documents', 'templates'),
 				'requests' => array('requests', 'clients', 'employees'),
 				'settings' => array('settings', 'download'),
-				'manage' =>array('page','news','bookPart','questions','ownprice','vacansy'),
+				'manage' =>array('page','news','bookPart','questions','ownprice','vacansy','evackuator','diagnostic','buyout'),
 			);
 
 			$root = 'parts';
@@ -78,11 +78,12 @@
 					array('label'=>'Вакансии', 'url'=>'/admin/vacansy/list'),
 					array('label'=>'Страницы', 'url'=>'/admin/page/list'),
 					array('label'=>'Новости', 'url'=>'/admin/news/list'),					
-					array('label'=>'Заказ деталей', 'url'=>'/admin/bookPart/list'),
+					array('label'=>'Заказ деталей', 'url'=>'/admin/bookpart/list'),
 					array('label'=>'Вопросы', 'url'=>'/admin/questions/list'),
 					array('label'=>'Предложения', 'url'=>'/admin/ownprice/list'),
 					array('label'=>'Диагностика', 'url'=>'/admin/diagnostic/list'),
 					array('label'=>'Услуги эвакуатора', 'url'=>'/admin/evackuator/list'),
+					array('label'=>'Выкуп авто', 'url'=>'/admin/buyout/list'),
 				),
 				
 					

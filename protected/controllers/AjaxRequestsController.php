@@ -34,37 +34,51 @@ class AjaxRequestsController extends FrontController
 
 	public function actionGetNestedList()
 	{
-
+		$searchingIn=$_GET['searchingIn'];
 		$model=$_GET['model'];
 		$nested=$_GET['nested'];
 		$value=$_GET['value'];
-
 		switch ($model) {
 
 			case 'country':
 					{
-						$models=CHtml::listData(CarBrands::model()->findAll('id_country=:id',array(':id'=>$value)),'id','name');
+						$criteria=$searchingIn::getExistsData($value,'id_country','brand');	
+						$models=CHtml::listData(CarBrands::model()->findAll($criteria),'id','name');
 						$htmlOptions=array('id'=>'carBrands','data-nested'=>'#carModels','empty'=>'Выберите марку');
 					}
 				break;
 			case 'carBrands':
 					{
-						$models=CHtml::listData(CarModels::model()->findAll('brand=:id',array(':id'=>$value)),'id','name');
+						$criteria=$searchingIn::getExistsData($value,'brand','m.id');
+						$models=CHtml::listData(CarModels::model()->findAll($criteria),'id','name');
 						$htmlOptions=array('id'=>'carModels', 'data-nested'=>'#carModels', 'empty'=>'Выберите модель');
 					}
 				break;
 			case 'carModels':
 					{
-						$models=CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$value)),'id','name');
-						$htmlOptions=array('id'=>'carBrands','data-nested'=>'#carModels');
+						$criteria=$searchingIn::getExistsData($value,'car_model_id','parent');
+						$models=CHtml::listData(Categories::model()->findAll($criteria),'id','name');
+						$htmlOptions=array(
+							'id'=>'Categories',
+							'data-nested'=>'#subCategories',
+							'empty'=>'Выберите категорию'
+						);
 					}
+				break;
 			case 'Categories':
 					{
-
-						$models= $value ? CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$value)),'id','name') : array();
+						$criteria=$searchingIn::getExistsData($value,'car_model_id','category_id');
+						$models=CHtml::listData(Categories::model()->findAll($criteria),'id','name');
 						$htmlOptions=array('id'=>'subCategories','empty'=>'Выберите подкатегорию');
 					}
 			break;
+			// case 'subCategories':
+			// 		{
+			// 			$criteria=$searchingIn::getExistsData($value,'category_id','category_id');
+			// 			$models=CHtml::listData(Categories::model()->findAll($criteria),'id','name');
+			// 			$htmlOptions=array('id'=>'subCategories','empty'=>'Выберите подкатегорию');
+			// 		}
+			// break;
 			default:
 					$models=array(0=>'не определено');
 				break;

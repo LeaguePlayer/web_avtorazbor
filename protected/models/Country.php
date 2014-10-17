@@ -14,7 +14,6 @@ class Country extends EActiveRecord
         return '{{country}}';
     }
 
-
     public function rules()
     {
         return array(
@@ -24,13 +23,11 @@ class Country extends EActiveRecord
         );
     }
 
-
     public function relations()
     {
         return array(
         );
     }
-
 
     public function attributeLabels()
     {
@@ -39,7 +36,6 @@ class Country extends EActiveRecord
             'name' => 'Страна',
         );
     }
-
 
     public function search()
     {

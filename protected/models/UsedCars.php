@@ -36,6 +36,33 @@ class UsedCars extends EActiveRecord
         return $aliases;
     }
 
+    public static function getExistsData($id,$compareField=null,$selectColumn)
+    {
+        $query=Yii::app()->db->createCommand()
+            ->select("distinct($selectColumn) as val")
+            ->join('tbl_UsedCar_Info info','info.used_car_id=t.id')
+            ->join('tbl_CarModels m','t.car_model_id=m.id')
+            ->join('tbl_CarBrands brand','m.brand=brand.id')
+            ->join('tbl_country country','country.id=brand.id_country')
+            ->from('{{UsedCars}} t')
+            ->where( $compareField ? "$compareField=$id and status=2" : 'status=2');
+
+        $result=$query->queryAll();
+        $data=array();
+
+        foreach ($result as $key => $value) {
+            $data[]=$value['val'];
+        }
+
+        $criteria=new CDbCriteria;
+        if ($data)
+            $criteria->addInCondition('id',$data);
+        else 
+            $criteria->addCondition('id=-1');
+        
+        return $criteria;
+    }
+
     public static function getYears($year=null)
     {
         $years=array();
