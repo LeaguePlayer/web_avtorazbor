@@ -64,7 +64,6 @@
 			{
 				$this->criteria=new CDbCriteria;
 				$this->criteria->addCondition('car_type='.$this->type);
-				$this->criteria->join=$this->scenario=='light' || $this->scenario=='weight' ? UsedCars::join() : Parts::join();
 			}
 
 			$this->criteria->addCondition('`t`.status>6 or `t`.status=2');//>6 - для машин =1 - для запчастей
@@ -98,12 +97,12 @@
 
 			if ($this->year_st)
 			{
-				$criteria->addCondition('year>='.$this->year_st);
+				$criteria->addCondition('t.year>='.$this->year_st);
 			}
 
 			if ($this->year_end)
 			{
-				$criteria->addCondition('year<='.$this->year_end);
+				$criteria->addCondition('t.year<='.$this->year_end);
 			}
 
 			if ($this->mileage_st)
@@ -117,7 +116,6 @@
 			}
 			$criteria->addCondition('car_type=1');
 			$criteria->join=UsedCars::join();
-			
 			$this->criteria = $criteria;
 
 		}
@@ -128,12 +126,12 @@
 			$criteria=$this->getCriteria($properties);
 			if ($this->year_st)
 			{
-				$criteria->addCondition('year>='.$this->year_st);
+				$criteria->addCondition('t.year>='.$this->year_st);
 			}
 
 			if ($this->year_end)
 			{
-				$criteria->addCondition('year<='.$this->year_end);
+				$criteria->addCondition('t.year<='.$this->year_end);
 			}
 
 			if ($this->mileage_st)

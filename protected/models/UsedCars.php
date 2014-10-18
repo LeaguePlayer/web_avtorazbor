@@ -36,7 +36,7 @@ class UsedCars extends EActiveRecord
         return $aliases;
     }
 
-    public static function getExistsData($id,$compareField=null,$selectColumn)
+    public static function getExistsData($id,$compareField=null,$selectColumn,$type=1)
     {
         $query=Yii::app()->db->createCommand()
             ->select("distinct($selectColumn) as val")
@@ -45,7 +45,7 @@ class UsedCars extends EActiveRecord
             ->join('tbl_CarBrands brand','m.brand=brand.id')
             ->join('tbl_country country','country.id=brand.id_country')
             ->from('{{UsedCars}} t')
-            ->where( $compareField ? "$compareField=$id and status=2" : 'status=2');
+            ->where( ($compareField ? "$compareField=$id and t.status=2" : 't.status=2')." and car_type=$type");
 
         $result=$query->queryAll();
         $data=array();
@@ -53,7 +53,6 @@ class UsedCars extends EActiveRecord
         foreach ($result as $key => $value) {
             $data[]=$value['val'];
         }
-
         $criteria=new CDbCriteria;
         if ($data)
             $criteria->addInCondition('id',$data);
@@ -78,7 +77,7 @@ class UsedCars extends EActiveRecord
     public static function join()
     {
         return 
-                "LEFT JOIN  `tbl_UsedCar_Info` ON  `tbl_UsedCar_Info`.used_car_id =  `t`.id
+                "LEFT JOIN  `tbl_UsedCar_Info` userinfo ON  userinfo.used_car_id =  `t`.id
                 LEFT JOIN  `tbl_CarModels` ON  `t`.car_model_id =  `tbl_CarModels`.id
                 LEFT JOIN  `tbl_CarBrands` ON  `tbl_CarModels`.brand =  `tbl_CarBrands`.id
                 LEFT JOIN  `tbl_country` ON  `tbl_CarBrands`.id_country =  `tbl_country`.id";
@@ -92,6 +91,27 @@ class UsedCars extends EActiveRecord
             3 => 'ХетчБэк',
             4 => 'Внедорожник',
             5 => 'Уневерсал',
+        );
+        
+        if ($status > -1)
+            return $aliases[$status];
+
+        return $aliases;
+    }
+
+     public static final function getWeightBasketList($status = -1){
+        
+        $aliases = array(
+            6 => 'Фургон',
+            7 => 'Тягач',
+            8 => 'Прицепы',
+            9 => 'Полуприцепы',
+            10 => 'Бортовые',
+            11 => 'Тентованные',
+            12 => 'Цельнометаллические',
+            13 => 'Изотермические',
+            14 => 'Рефрижераторы',
+            15 => 'Самосвалы',
         );
         
         if ($status > -1)

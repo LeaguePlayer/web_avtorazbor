@@ -2,13 +2,13 @@
     <?
         $image=$data->getImageUrl('small') ? $data->getImageUrl('small') : '/media/images/news/default.jpg' ;
     ?>
-    <a hrf="/news/<?=$data->alias?>">
+    <a hrf="/catalog/<?=$data->alias?>/<?=$data->id?>">
         <img src="<?=$image?>" alt="" title="">
     
 
-    <span class="data"><?=date('d-m-y',time($data->create_time))?></span>
+    <span class="data">Год выпуска <?=date('d-m-y',time($data->year))?></span>
     </a>
-    <a href="/news/<?=$data->alias?>" class="name">
+    <a hrf="/catalog/<?=$data->alias?>/<?=$data->id?>">
         <?=$data->name?>
     </a>
 </div>

@@ -90,9 +90,9 @@
                     </dt>
                     <dd>
                         <input type="hidden" value="1" name="Search[type]">
-                        <input type="hidden" value="light" name="Search[scenario]">
+                        <?=$form->hiddenField($searchForm,'scenario',array('value' => 'light'));?>
                         <?=$form->dropDownList($searchForm, 'brand', $Brands, array( 
-                                                'empty'=>'Выберите марку', 'class'=>'select','data-nested'=>'#model_1','data-model'=>'carBrands'));?>
+                                                'empty'=>'Выберите марку', 'class'=>'select','data-nested'=>'#carModels','data-model'=>'carBrands'));?>
                     </dd>
                 </dl>
                 <dl>
@@ -101,7 +101,7 @@
                     </dt>
                     <dd>
                         <?=$form->dropDownList($searchForm, 'car_model_id', array(), array( 
-                                                'empty'=>'Выберите модель', 'class'=>'select','id'=>'model_1'));?>
+                                                'empty'=>'Выберите модель', 'class'=>'select','id'=>'carModels','data-model'=>'carModels','data-map'=>true));?>
                     </dd>
                 </dl>
                 <dl class="otdo">
@@ -152,7 +152,7 @@
                     </dt>
                     <dd>
                         <?=$form->dropDownList($searchForm, 'bascet', $Bascet, array( 
-                                'empty'=>'Выберите марку', 'class'=>'select'));
+                                'empty'=>'Выберите марку', 'class'=>'select','id'=>'bascet'));
                         ?>
                         
                     </dd>
@@ -161,7 +161,7 @@
                     </dt>
                     <dd>
                         <?=$form->dropDownList($searchForm, 'state', $State, array( 
-                                'empty'=>'Состояние', 'class'=>'select'));
+                                'empty'=>'Состояние', 'class'=>'select','id'=>'state'));
                         ?>
                     </dd>
                 </dl>
@@ -170,8 +170,8 @@
                         Тип КПП:
                     </dt>
                     <dd>
-                        <?=$form->dropDownList($searchForm, 'transmission', UsedCarInfo::transmissionList(), array( 
-                                'empty'=>'Тип каробки передач', 'class'=>'select'));
+                        <?=$form->dropDownList($searchForm, 'transmission', $Transmission, array( 
+                                'empty'=>'Тип каробки передач', 'class'=>'select','id'=>'transmission'));
                         ?>
                     </dd>
                     <dt>
@@ -181,12 +181,12 @@
                         <ul>
                             <li>
                                 <div class="i-text">
-                                    <input type="text" value="" placeholder="100" />
+                                    <?=$form->textField($searchForm,'mileage_st')?>
                                 </div>
                             </li>
                             <li>
                                 <div class="i-text">
-                                    <input type="text" value="" placeholder="" />
+                                    <?=$form->textField($searchForm,'mileage_end')?>
                                 </div>
                             </li>
                         </ul>
@@ -224,7 +224,7 @@
                 'id' => 'search-form-weight',
                 'action' => $this->createUrl('/site/index'),
                 'htmlOptions' => array('class' => 'request_form')
-            )) ?>
+            )) ;?>
                 <div class="coll-2">
                 
                 <dl>
@@ -233,9 +233,9 @@
                     </dt>
                     <dd>
                         <input type="hidden" value="1" name="Search[type]">
-                        <input type="hidden" value="weight" name="Search[scenario]">
-                        <?=$form->dropDownList($searchForm, 'brand', $Brands, array( 
-                                                'empty'=>'Выберите марку', 'class'=>'select','data-nested'=>'#model_2','data-model'=>'carBrands'));?>
+                        <?=$form->hiddenField($searchForm,'scenario',array('value' => 'weight'));?>
+                        <?=$form->dropDownList($searchForm, 'brand', $BrandsWeightCars, array( 
+                                                'empty'=>'Выберите марку', 'class'=>'select','data-nested'=>'#carModels','data-model'=>'carBrands'));?>
                     </dd>
                 </dl>
                 <dl>
@@ -244,7 +244,7 @@
                     </dt>
                     <dd>
                         <?=$form->dropDownList($searchForm, 'car_model_id', array(), array( 
-                                                'empty'=>'Выберите модель', 'class'=>'select','id'=>'model_2'));?>
+                                                'empty'=>'Выберите модель', 'class'=>'select','id'=>'carModels','data-model'=>'carModels','data-map'=>true));?>
                     </dd>
                 </dl>
 
@@ -290,22 +290,21 @@
             </div>
 
             <div class="coll-2">
-                <dl>
+               <dl>
                     <dt>
                         Тип кузова:
                     </dt>
                     <dd>
                         <?=$form->dropDownList($searchForm, 'bascet', $Bascet, array( 
-                                'empty'=>'Выберите марку', 'class'=>'select'));
+                                'empty'=>'Выберите марку', 'class'=>'select','id'=>'bascet'));
                         ?>
-                        
                     </dd>
                     <dt>
                         Состояние:
                     </dt>
                     <dd>
                         <?=$form->dropDownList($searchForm, 'state', $State, array( 
-                                'empty'=>'Состояние', 'class'=>'select'));
+                                'empty'=>'Состояние', 'class'=>'select','id'=>'state'));
                         ?>
                     </dd>
                 </dl>
@@ -318,12 +317,12 @@
                         <ul>
                             <li>
                                 <div class="i-text">
-                                    <input type="text" value="" placeholder="100" />
+                                    <?=$form->textField($searchForm,'mileage_st')?>
                                 </div>
                             </li>
                             <li>
                                 <div class="i-text">
-                                    <input type="text" value="" placeholder="" />
+                                    <?=$form->textField($searchForm,'mileage_end')?>
                                 </div>
                             </li>
                         </ul>
@@ -359,8 +358,9 @@
         <div class="coll">
             <?php $form = $this->beginWidget('CActiveForm', array(
                 'id' => 'search-form-weight',
+
                 'action' => $this->createUrl('/site/index'),
-                'htmlOptions' => array('class' => 'request_form')
+                'htmlOptions' => array('class' => 'request_form','data-form'=>'Parts',)
             )) ?>
                 <div class="coll-2">
                 
@@ -370,9 +370,9 @@
                     </dt>
                     <dd>
 <!--                         <input type="hidden" value="2" name="Search[type]"> -->
-                        <input type="hidden" value="parts" name="Search[scenario]">
+                        <?=$form->hiddenField($searchForm,'scenario',array('value' => 'parts'))?>
                         <?=$form->dropDownList($searchForm, 'type', array(1=>'Запчасти для легковых машин','2'=>'Запчасти для грузовых машин'), array( 
-                                                'empty'=>'Выберите тип авто', 'class'=>'select','data-nested'=>'#model_3','data-model'=>'carBrands'));?>
+                                                'empty'=>'Выберите тип авто', 'class'=>'select','data-nested'=>'#carBrands','data-model'=>'Type'));?>
                     </dd>
                 </dl>
                 <span></span>
@@ -383,7 +383,7 @@
                     <dd>
                         
                         <?=$form->dropDownList($searchForm, 'brand', $Brands, array( 
-                                                'empty'=>'Выберите марку', 'class'=>'select','data-nested'=>'#model_3','data-model'=>'carBrands'));?>
+                                                'empty'=>'Выберите марку', 'class'=>'select','data-nested'=>'#carModels','data-model'=>'carBrands','id'=>'carBrands'));?>
                     </dd>
                 </dl>
                 <dl>
@@ -392,7 +392,7 @@
                     </dt>
                     <dd>
                         <?=$form->dropDownList($searchForm, 'car_model_id', array(), array( 
-                                                'empty'=>'Выберите модель', 'class'=>'select','id'=>'model_3'));?>
+                                                'empty'=>'Выберите модель', 'class'=>'select','id'=>'carModels','data-nested'=>'#Categories','data-model'=>'carModels','data-map'=>false));?>
                     </dd>
                 </dl>
             </div>
@@ -404,8 +404,8 @@
                         Раздел:
                     </dt>
                     <dd>
-                        <?=$form->dropDownList($searchForm, 'category_id', CHtml::listData(Categories::model()->findAll('parent=0'),'id','name'), array( 
-                                'empty'=>'Разедл', 'class'=>'select'));
+                        <?=$form->dropDownList($searchForm, 'parent', array(), array( 
+                                'empty'=>'Разедл', 'class'=>'select','id'=>'Categories'));
                         ?>
                     </dd>
                 </dl>
@@ -587,12 +587,12 @@
                         <ul>
                             <li>
                                 <div class="i-text">
-                                    <input type="text" value="" placeholder="100" />
+                                    <?=$form->textField($searchForm,'mileage_st',array('class'=>'i-text'))?>
                                 </div>
                             </li>
                             <li>
                                 <div class="i-text">
-                                    <input type="text" value="" placeholder="" />
+                                    <?=$form->textField($searchForm,'mileage_end',array('class'=>'i-text'))?>
                                 </div>
                             </li>
                         </ul>
@@ -646,14 +646,7 @@
                             Новинки
                         </a>
                     </li>
-                    <li >
-                        <a href="#tabs-6">
-                            Новости
-                        </a>    
-                    </li>
                 </ul>
-
-
                 <dl class="read">
                     <dt>
                         <a href="#">
@@ -672,12 +665,7 @@
                 <div id="tabs-5" class="tab-active">
                     <a href="#" class="prev"></a>
                     <a href="#" class="next"></a>
-                    <?=$this->renderPartial('/site/newsCarusel',array('dataProvider'=>$news->getNews()))?>
-                </div>
-                <div id="tabs-6" class="tab-active">
-                    <a href="#" class="prev"></a>
-                    <a href="#" class="next"></a>
-                    <?=$this->renderPartial('/site/newsCarusel',array('dataProvider'=>$news->getCompany()))?>
+                    <?=$this->renderPartial('/site/newsCarusel',array('dataProvider'=>$newCars))?>
                 </div>
             </div>
         </div>
