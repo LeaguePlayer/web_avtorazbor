@@ -101,7 +101,7 @@
                     </dt>
                     <dd>
                         <?=$form->dropDownList($searchForm, 'car_model_id', array(), array( 
-                                                'empty'=>'Выберите модель', 'class'=>'select','id'=>'carModels','data-model'=>'carModels'));?>
+                                                'empty'=>'Выберите модель', 'class'=>'select','id'=>'carModels','data-model'=>'carModels','data-map'=>true));?>
                     </dd>
                 </dl>
                 <dl class="otdo">
@@ -181,12 +181,12 @@
                         <ul>
                             <li>
                                 <div class="i-text">
-                                    <input type="text" value="" placeholder="100" />
+                                    <?=$form->textField($searchForm,'mileage_st')?>
                                 </div>
                             </li>
                             <li>
                                 <div class="i-text">
-                                    <input type="text" value="" placeholder="" />
+                                    <?=$form->textField($searchForm,'mileage_end')?>
                                 </div>
                             </li>
                         </ul>
@@ -244,7 +244,7 @@
                     </dt>
                     <dd>
                         <?=$form->dropDownList($searchForm, 'car_model_id', array(), array( 
-                                                'empty'=>'Выберите модель', 'class'=>'select','id'=>'carModels','data-model'=>'carModels'));?>
+                                                'empty'=>'Выберите модель', 'class'=>'select','id'=>'carModels','data-model'=>'carModels','data-map'=>true));?>
                     </dd>
                 </dl>
 
@@ -317,12 +317,12 @@
                         <ul>
                             <li>
                                 <div class="i-text">
-                                    <input type="text" value="" placeholder="100" />
+                                    <?=$form->textField($searchForm,'mileage_st')?>
                                 </div>
                             </li>
                             <li>
                                 <div class="i-text">
-                                    <input type="text" value="" placeholder="" />
+                                    <?=$form->textField($searchForm,'mileage_end')?>
                                 </div>
                             </li>
                         </ul>
@@ -358,8 +358,9 @@
         <div class="coll">
             <?php $form = $this->beginWidget('CActiveForm', array(
                 'id' => 'search-form-weight',
+
                 'action' => $this->createUrl('/site/index'),
-                'htmlOptions' => array('class' => 'request_form')
+                'htmlOptions' => array('class' => 'request_form','data-form'=>'Parts',)
             )) ?>
                 <div class="coll-2">
                 
@@ -391,7 +392,7 @@
                     </dt>
                     <dd>
                         <?=$form->dropDownList($searchForm, 'car_model_id', array(), array( 
-                                                'empty'=>'Выберите модель', 'class'=>'select','id'=>'carModels','data-nested'=>'#Categories','data-model'=>'carModels'));?>
+                                                'empty'=>'Выберите модель', 'class'=>'select','id'=>'carModels','data-nested'=>'#Categories','data-model'=>'carModels','data-map'=>false));?>
                     </dd>
                 </dl>
             </div>
@@ -403,7 +404,7 @@
                         Раздел:
                     </dt>
                     <dd>
-                        <?=$form->dropDownList($searchForm, 'category_id', CHtml::listData(Categories::model()->findAll('parent=0'),'id','name'), array( 
+                        <?=$form->dropDownList($searchForm, 'parent', array(), array( 
                                 'empty'=>'Разедл', 'class'=>'select','id'=>'Categories'));
                         ?>
                     </dd>
@@ -586,12 +587,12 @@
                         <ul>
                             <li>
                                 <div class="i-text">
-                                    <input type="text" value="" placeholder="100" />
+                                    <?=$form->textField($searchForm,'mileage_st',array('class'=>'i-text'))?>
                                 </div>
                             </li>
                             <li>
                                 <div class="i-text">
-                                    <input type="text" value="" placeholder="" />
+                                    <?=$form->textField($searchForm,'mileage_end',array('class'=>'i-text'))?>
                                 </div>
                             </li>
                         </ul>

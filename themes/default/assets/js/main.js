@@ -45,10 +45,10 @@ $(document).ready(function(){
 		$(this).selectmenu({
 			change:function(){
 				contextForm=$(this).closest('form');
-				if (nestedMap[$(this).data('model')])
+				if (nestedMap[$(this).data('model')] && $(this).data('map')==true)
 					changeNestedMap($(this,contextForm).data('model'));
 				else 
-				onSelectChanged.apply(this,[]);
+					onSelectChanged.apply(this,[]);
 			}
 		})
 	});
@@ -166,7 +166,7 @@ $(document).ready(function(){
 					model:key,
 					nested:nested,
 					type:contextForm.find('#Search_scenario').val()=="light" ? 1 : 2,
-					searchingIn:'UsedCars'
+					searchingIn:'UsedCars'	
 				};
 				if (params.value)
 				{
@@ -188,14 +188,21 @@ $(document).ready(function(){
 	}
 
 	var changeNested=function(){
-		var params={
-				value:$(this,contextForm).val(),
-				model:$(this).data('model'),
-				nested:$(this).data('nested'),
-				type:contextForm.find('#Search_scenario').val()=="light" ? 1 : 2,
-				searchingIn:'UsedCars'
-			},
-			$_this=$(this);
+			
+		var car_type=contextForm.find('#Search_scenario').val()=="light" ? 1  :
+				(contextForm.find('#Search_scenario').val()=="parts" && 
+				contextForm.find('#Search_type').val()==1 ? 1 : 2);
+			console.log(car_type);
+
+		var $_this=$(this),
+			params={
+				value:$_this.val(),
+				model:$_this.data('model'),
+				nested:$_this.data('nested'),
+				type:car_type,
+				searchingIn:contextForm.data('form')!='Parts' ? 'UsedCars' : 'Parts',
+			}
+		console.log(params);
 		
 		if (params.value)
 		{

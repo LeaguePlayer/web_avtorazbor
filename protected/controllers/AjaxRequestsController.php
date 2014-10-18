@@ -49,15 +49,16 @@ class AjaxRequestsController extends FrontController
 					}
 				break;
 			case 'Type':
-				{
-					$criteria=$searchingIn::getExistsData(null,null,'brand',$value);
+				{		
+					$criteria=$searchingIn::getExistsData(null,null,'brand',$type);
+					
 					$models=CHtml::listData(carBrands::model()->findAll($criteria),'id','name');
 					$htmlOptions=array('id'=>'carBrands', 'data-nested'=>'#carBrands', 'empty'=>'Выберите марку');
 				}
 			break;
 			case 'carBrands':
 					{
-						$criteria=$searchingIn::getExistsData($value,'brand','m.id',$type);
+						$criteria=$searchingIn::getExistsData($value,'brand','car_model_id',$type);
 						$models=CHtml::listData(CarModels::model()->findAll($criteria),'id','name');
 						$htmlOptions=array('id'=>'carModels', 'data-nested'=>'#carModels', 'empty'=>'Выберите модель');
 					}
@@ -76,7 +77,6 @@ class AjaxRequestsController extends FrontController
 			case 'Categories':
 					{
 						$criteria=$searchingIn::getExistsData($value,'car_model_id','category_id',$type);
-						$criteria->addCondition("car_type=$type");
 						$models=CHtml::listData(Categories::model()->findAll($criteria),'id','name');
 						$htmlOptions=array('id'=>'subCategories','empty'=>'Выберите подкатегорию');
 					}
@@ -113,7 +113,7 @@ class AjaxRequestsController extends FrontController
 						$models=array();
 						$transmission=UsedCarInfo::transmissionList();
 						foreach ($criteria->params as $key => $id) {
-							$models[$id]=$transmission[$value];
+							$models[$id]=$transmission[$id];
 						}
 
 						$htmlOptions=array('id'=>'transmission','empty'=>'Выберите подкатегорию');

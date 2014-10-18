@@ -77,7 +77,7 @@ class UsedCars extends EActiveRecord
     public static function join()
     {
         return 
-                "LEFT JOIN  `tbl_UsedCar_Info` ON  `tbl_UsedCar_Info`.used_car_id =  `t`.id
+                "LEFT JOIN  `tbl_UsedCar_Info` userinfo ON  userinfo.used_car_id =  `t`.id
                 LEFT JOIN  `tbl_CarModels` ON  `t`.car_model_id =  `tbl_CarModels`.id
                 LEFT JOIN  `tbl_CarBrands` ON  `tbl_CarModels`.brand =  `tbl_CarBrands`.id
                 LEFT JOIN  `tbl_country` ON  `tbl_CarBrands`.id_country =  `tbl_country`.id";

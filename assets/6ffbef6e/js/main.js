@@ -1,5 +1,13 @@
 $(document).ready(function(){
 
+	var nestedMap={
+		carModels:{
+			bascet:true,
+			state:true,
+			transmission:true
+		}
+	};
+	var contextForm;//Форма фильтра в которой был изменен селект
 	$('.searchform .tabs ul li a').click(function(){
 
 		var tabId=$(this).attr('href');
@@ -36,7 +44,11 @@ $(document).ready(function(){
 
 		$(this).selectmenu({
 			change:function(){
-				onSelectChanged.apply(this,[]);
+				contextForm=$(this).closest('form');
+				if (nestedMap[$(this).data('model')] && $(this).data('map')==true)
+					changeNestedMap($(this,contextForm).data('model'));
+				else 
+					onSelectChanged.apply(this,[]);
 			}
 		})
 	});
@@ -55,7 +67,7 @@ $(document).ready(function(){
 	$('.items-news .items').each(function(){
 		var owl=$(this).owlCarousel({
 				  nav:true,
-				  items:4,
+				  items:5,
 				  navText:[],
 			      margin: 0,
 			      mouseDrag:false,
@@ -143,35 +155,73 @@ $(document).ready(function(){
 			{
 				changeNested.apply(this,[]);
 			}
+			changeView(contextForm);
+	}
+
+	var changeNestedMap=function(nested){
+			$.each(nestedMap[nested],function(key,val){
 				
-			var $_form=$(this).closest('form');
-				changeView($_form);
+				var params={
+					value:$('#'+nested,contextForm).val(),
+					model:key,
+					nested:nested,
+					type:contextForm.find('#Search_scenario').val()=="light" ? 1 : 2,
+					searchingIn:'UsedCars'	
+				};
+				if (params.value)
+				{
+					$_this=$(this);
+					$.ajax({
+						url:'/ajaxRequests/getNestedList',
+						data:params,
+
+						success:function(data){
+
+							$("#"+params.model,contextForm).empty();
+							$("#"+params.model,contextForm).html(data);
+							$("#"+params.model,contextForm).selectmenu('refresh');
+							onSelectChanged.apply($("#"+params.model,contextForm),[]);
+						}
+					});	
+				}
+			})
 	}
 
 	var changeNested=function(){
+			
+		var car_type=contextForm.find('#Search_scenario').val()=="light" ? 1  :
+				(contextForm.find('#Search_scenario').val()=="parts" && 
+				contextForm.find('#Search_type').val()==1 ? 1 : 2);
+			console.log(car_type);
 
-		var params={
-				value:$(this).val(),
-				model:$(this).data('model'),
-				nested:$(this).data('nested')
-			},
-
-			$_this=$(this);
-
-		if ($(this).val())
-			$_this.closest('dd').next().slideDown(200);
-		
-		$.ajax({
-			url:'/ajaxRequests/getNestedList',
-			data:params,
-
-			success:function(data){
-
-				$(params.nested).empty();
-				$(params.nested).html(data);
-				$(params.nested).selectmenu('refresh');
-				onSelectChanged.apply($(params.nested),[]);
+		var $_this=$(this),
+			params={
+				value:$_this.val(),
+				model:$_this.data('model'),
+				nested:$_this.data('nested'),
+				type:car_type,
+				searchingIn:contextForm.data('form')!='Parts' ? 'UsedCars' : 'Parts',
 			}
-		});
+		console.log(params);
+		
+		if (params.value)
+		{
+			if ($_this.val())
+		$_this.closest('dd').next().slideDown(200);
+	
+			$.ajax({
+				url:'/ajaxRequests/getNestedList',
+				data:params,
+
+				success:function(data){
+
+					$(params.nested,contextForm).empty();
+					$(params.nested,contextForm).html(data);
+					$(params.nested,contextForm).selectmenu('refresh');
+					onSelectChanged.apply($(params.nested,contextForm),[]);
+				}
+			});		
+		}
+		
 	}
 });

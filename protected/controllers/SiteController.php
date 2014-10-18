@@ -42,7 +42,6 @@ class SiteController extends FrontController
 			$Transmission=array();
 			$State=array();
 			
-
 			$criteriaCar=new CDbCriteria;
 			$criteriaCar->join=Parts::join();
 			$criteriaCar->addCondition('car_type=1');
