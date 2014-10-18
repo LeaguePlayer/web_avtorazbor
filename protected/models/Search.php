@@ -59,7 +59,6 @@
 		public function afterValidate()
 		{
 			parent::afterValidate();
-
 			if (empty($this->criteria->condition))//если не выбран ни 1 криерий тогда пишем дефолт
 			{
 				$this->criteria=new CDbCriteria;
@@ -153,6 +152,9 @@
 		public function getParts()
 		{
 			$this->criteria=new CDbCriteria;
+			$this->criteria->addCondition('car_type='.$this->type);
+			$this->criteria->join=Parts::join();
+
 			$properties=array('id_country','brand','car_model_id');
 
 			foreach ($properties as $key => $value) {
@@ -188,9 +190,6 @@
 				if (!empty($this->parent))
 					$criteria->addCondition('parent='.$this->parent);
 			}
-			
-			$criteria->addCondition('car_type='.$this->type);
-			
 			
 			$this->criteria=$criteria;
 		}

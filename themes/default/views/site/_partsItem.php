@@ -16,7 +16,7 @@
         <?=$data->comment?>
     </span>
     <span class="price">
-        <?= $data->price_sell ? number_format((int)$data->price_sell,3,' ',' ').'руб.' : ''?> 
+        <?= $data->price_sell ? number_format((int)$data->price_sell,0,' ',' ').' руб.' : ''?> 
     </span>
     <!-- <span class="price_old">    
         как сделать??
