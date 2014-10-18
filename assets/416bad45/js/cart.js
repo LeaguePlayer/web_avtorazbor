@@ -72,6 +72,6 @@ $(function(){
 	if ($('#accordion').length>0)
 		$('#accordion').accordion().accordion('refresh');
 
-	$('select').selectmenu();
+	$('.select').selectmenu();
 
 })

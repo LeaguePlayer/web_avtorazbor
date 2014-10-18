@@ -42,7 +42,7 @@ $(function(){
 
 	//slideToMenu();
 
-	$('select').selectmenu({
+	$('.select').selectmenu({
 		change:function(){
 
 			changeView();
@@ -51,6 +51,7 @@ $(function(){
 					value:$(this).val(),
 					model:$(this).data('model'),
 					nested:$(this).data('nested'),
+					searchingIn:"Parts",
 				},
 
 			$_this=$(this);
