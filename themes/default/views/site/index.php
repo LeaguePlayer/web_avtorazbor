@@ -79,7 +79,6 @@
             <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'search-form-light',
     'action' => $this->createUrl('/site/index'),
-
     'htmlOptions' => array('class' => 'request_form')
 )) ?>
             <div class="coll-2">
@@ -92,7 +91,14 @@
                         <input type="hidden" value="1" name="Search[type]">
                         <?=$form->hiddenField($searchForm,'scenario',array('value' => 'light'));?>
                         <?=$form->dropDownList($searchForm, 'brand', $Brands, array( 
-                                                'empty'=>'Выберите марку', 'class'=>'select','data-nested'=>'#carModels','data-model'=>'carBrands'));?>
+                                                'empty'=>'Выберите марку', 
+                                                'class'=>'select',
+                                                'data-nested'=>'#carModels',
+                                                'data-model'=>'carBrands',
+                                                'data-next'=>'#carModels',
+                                                'data-enabled'=>true,
+                                                )
+                                            );?>
                     </dd>
                 </dl>
                 <dl>
@@ -235,7 +241,14 @@
                         <input type="hidden" value="1" name="Search[type]">
                         <?=$form->hiddenField($searchForm,'scenario',array('value' => 'weight'));?>
                         <?=$form->dropDownList($searchForm, 'brand', $BrandsWeightCars, array( 
-                                                'empty'=>'Выберите марку', 'class'=>'select','data-nested'=>'#carModels','data-model'=>'carBrands'));?>
+                                                'empty'=>'Выберите марку', 
+                                                'class'=>'select',
+                                                'data-nested'=>'#carModels',
+                                                'data-model'=>'carBrands',
+                                                'data-next'=>'#carModels',
+                                                'data-enabled'=>true,
+                                            )
+                                        );?>
                     </dd>
                 </dl>
                 <dl>
@@ -372,7 +385,14 @@
 <!--                         <input type="hidden" value="2" name="Search[type]"> -->
                         <?=$form->hiddenField($searchForm,'scenario',array('value' => 'parts'))?>
                         <?=$form->dropDownList($searchForm, 'type', array(1=>'Запчасти для легковых машин','2'=>'Запчасти для грузовых машин'), array( 
-                                                'empty'=>'Выберите тип авто', 'class'=>'select','data-nested'=>'#carBrands','data-model'=>'Type'));?>
+                                                'empty'=>'Выберите тип авто', 
+                                                'class'=>'select',
+                                                'data-nested'=>'#carBrands',
+                                                'data-model'=>'Type',
+                                                'data-next'=>"#carBrands",
+                                                'data-enabled'=>true,
+                                            )
+                                        );?>
                     </dd>
                 </dl>
                 <span></span>
@@ -382,8 +402,16 @@
                     </dt>
                     <dd>
                         
-                        <?=$form->dropDownList($searchForm, 'brand', $Brands, array( 
-                                                'empty'=>'Выберите марку', 'class'=>'select','data-nested'=>'#carModels','data-model'=>'carBrands','id'=>'carBrands'));?>
+                        <?=$form->dropDownList($searchForm, 'brand', $BrandsParts, array( 
+                                                'empty'=>'Выберите марку', 
+                                                'class'=>'select',
+                                                'data-nested'=>'#carModels',
+                                                'data-model'=>'carBrands',
+                                                'id'=>'carBrands',
+                                                'data-next'=>"#carModels",
+                                                'data-enabled'=>true
+                                            )
+                                        );?>
                     </dd>
                 </dl>
                 <dl>
@@ -392,7 +420,16 @@
                     </dt>
                     <dd>
                         <?=$form->dropDownList($searchForm, 'car_model_id', array(), array( 
-                                                'empty'=>'Выберите модель', 'class'=>'select','id'=>'carModels','data-nested'=>'#Categories','data-model'=>'carModels','data-map'=>false));?>
+                                                'empty'=>'Выберите модель', 
+                                                'class'=>'select',
+                                                'id'=>'carModels',
+                                                'data-nested'=>'#Categories',
+                                                'data-model'=>'carModels',
+                                                'data-map'=>false,
+                                                'data-next'=>"#Categories",
+                                                
+                                            )
+                                        );?>
                     </dd>
                 </dl>
             </div>

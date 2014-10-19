@@ -13,7 +13,15 @@ $(function(){
 				return false;
 			} else {
 				var href=$(this).attr('href');
-				$.fancybox.open(href,{});
+				$.fancybox.open(href,
+					{
+						helpers: {
+					     overlay: {
+					     	locked: false
+					     }
+				  		}
+				  	}
+				  	);
 			}
 			return false;
 		}
@@ -23,6 +31,11 @@ $(function(){
 		fitToView	: true,
 		padding		: 0,
 		autoSize	: true,
+		helpers: {
+		     overlay: {
+		     	locked: false
+		     }
+	  }
 	});
 
     //*дочерние эллементы

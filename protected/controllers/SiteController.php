@@ -35,7 +35,7 @@ class SiteController extends FrontController
 			$Brands=CHtml::listData(CarBrands::model()->findAll(UsedCars::getExistsData(null,null,'brand')),'id','name');
 
 			$BrandsWeightCars=UsedCars::getExistsData(null,null,'brand',2);
-
+			$BrandsParts=CHtml::listData(CarBrands::model()->findAll(Parts::getExistsData(null,null,'brand')),'id','name');
 			$BrandsWeightCars=CHtml::listData(CarBrands::model()->findAll($BrandsWeightCars),'id','name');
 			$Bascet=array();
 			$BascetWeight=array();
@@ -57,6 +57,7 @@ class SiteController extends FrontController
 				array(
 					'Brands'=>$Brands,
 					'BrandsWeightCars'=>$BrandsWeightCars,
+					'BrandsParts'=>$BrandsParts,
 					'Bascet'=>$Bascet,
 					'BascetWeight'=>$BascetWeight,
 					'Transmission'=>$Transmission,
