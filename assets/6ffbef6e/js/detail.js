@@ -10,7 +10,6 @@ $(document).ready(function(){
 					nested:$(this).data('nested'),
 					searchingIn:"Parts"
 				},
-
 			$_this=$(this);
 
 			var parent=$_this.closest('dd'),

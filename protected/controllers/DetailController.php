@@ -109,11 +109,50 @@ class DetailController extends FrontController
 		$searchForm->validate();
 		$countriCriteria=Parts::getExistsData(null,null,'id_country');
 		$Countries=CHtml::listData(Country::model()->findAll($countriCriteria),'id','name');
-		$Categories=CHtml::listData(Categories::model()->findAll('parent=0'),'id','name');
-		$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
-		$Models=!empty($searchForm->brand) ? CHtml::listData(CarBrands::model()->findByPk($searchForm->brand)->models,'id','name') : array();
 
-		$subCategories=!empty($searchForm->category_id) ? CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$searchForm->category_id)),'id','name') : array();
+		$Categories=CHtml::listData(
+				Categories::model()->findAll(
+					Parts::getExistsData(
+						$searchForm->car_model_id,
+						'car_model_id',
+						'parent',
+						$searchForm->type)
+					),
+				'id','name'
+			);
+		$Brands=CHtml::listData(
+					CarBrands::model()
+						->findAll(
+							Parts::getExistsData(
+								null,
+								null,
+								'brand',
+								$searchForm->type)
+						)
+					,'id','name');
+
+		$Models=CHtml::listData(
+					CarModels::model()->findAll(
+						Parts::getExistsData(
+							$searchForm->brand,
+							'brand',
+							'car_model_id',
+							$searchForm->type)
+						),
+					'id','name'
+				);
+
+		$subCategories=CHtml::listData(
+				Categories::model()->findAll(
+					Parts::getExistsData(
+						$searchForm->car_model_id,
+						'car_model_id',
+						'category_id',
+						$searchForm->type)
+					),
+				'id','name'
+			);
+		//$subCategories=!empty($searchForm->category_id) ? CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$searchForm->category_id)),'id','name') : array();
 
 		$searchForm->sort='price_sell';
 
@@ -146,6 +185,7 @@ class DetailController extends FrontController
 			$searchForm->attributes=$_GET['Search'];
 			$searchForm->scenario='parts';
 			$searchForm->validate();
+
 			//die('in controller');
 			$dependecy = new CDbCacheDependency('SELECT MAX(update_time) FROM {{parts}}');
 			$dataProvider=new CActiveDataProvider(Parts::model()->cache(3600,$dependecy,2),array(

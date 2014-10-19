@@ -66,6 +66,86 @@
                                                 'class'=>'select',
                                                 'id'=>'carBrands',
                                                 'data-nested'=>'#carModels',
+                                                'data-model'=>'carBrands',
+                                                'data-enabled'=>true,
+                                            )
+                                        ); 
+                                            //empty since it will be filled by the other dropdown
+                                        ?>
+                                    </dd>
+                                    <dd style="display:none;">
+                                        <label for="model"> 
+                                            Модель:
+                                        </label>
+                                        <?=$form->dropDownList($searchForm,'car_model_id', array(), array(
+                                            'empty'=>'Выберите раздел',
+                                            'class'=>'select',
+                                            'id'=>'carModels',
+                                            'data-nested'=>'#Categories',
+                                            'data-model'=>'carModels'
+                                            ))?>
+                                    </dd>
+                                    <dd style="display:none;">
+                                        <label for="model"> 
+                                            Раздел:
+                                        </label>
+                                        <?=$form->dropDownList($searchForm,'parent', CHtml::listData(Categories::model()->findAll('parent=0'),'id','name'),
+                                        array(
+                                            'empty'=>'Выберите раздел',
+                                            'class'=>'select',
+                                            'id'=>'Categories',
+                                            'data-nested'=>'#subCategories',
+                                            'data-model'=>'categories'
+                                            )
+                                        );
+                                        ?>
+                                    </dd>
+                                    <dd style="display:none;">
+                                        <label for="model">
+                                            Под категория:
+                                        </label>
+                                        <?=$form->dropDownList($searchForm,'category_id', array(),array('id'=>'subCategories'))?>
+                                    </dd>
+                                    <dt>
+                                        <input type="submit" class="i-submit" width="100%" id="sendCriteria" value="Найти">
+                                    </dt>
+                                    </dl>
+                                    <?$this->endWidget()?>
+                                </div>
+                            
+                        </div>
+                        <div class="personal <?=$searchForm->scenario=='weight' ? 'tab-active' : '' ?>" id="weight">
+                            <dl class="desc">
+                                <dt>
+                                    Индивидуальный подбор
+                                </dt>
+                                <dd>
+                                    Для подбора автозапчастей выберите марку, модель и раздел автомобиля.
+                                </dd>
+                            </dl>
+                            <?php $form = $this->beginWidget('CActiveForm', array(
+                                'id' => 'parts-form',
+                                'action' => $this->createUrl('/detail/parts'),
+                                'method'=>'get',
+                                'htmlOptions' => array('class' => 'request_form')
+                            )) ?>
+                                <div class="select">
+                                    <dl>
+                                    <dd>
+                                        <?=$form->hiddenField($searchForm,'type')?>
+
+                                        <?=$form->hiddenField($searchForm,'scenario',array('value'=>'parts'))?>
+
+                                        <label for="mark"> 
+                                            Марка:
+                                        </label>
+                                        
+                                        <?=$form->dropDownList($searchForm,'brand', $Brand,
+                                            array(
+                                                'empty'=>'Выберите марку ',
+                                                'class'=>'select',
+                                                'id'=>'carBrands',
+                                                'data-nested'=>'#carModels',
                                                 'data-model'=>'carBrands'
                                             )
                                         ); 
@@ -113,7 +193,6 @@
                                 </div>
                             
                         </div>
-                        
                         <div id="disc" class="personal <?=$searchForm->scenario=='disc' ? 'tab-active' : '' ?>">
                             <form action="/detail/disc" method="get">
                                 <div class="formCost">

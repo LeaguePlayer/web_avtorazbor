@@ -149,7 +149,7 @@
                                                     Названию
                                                 </a>
                                             </li>
-                                            <li data-sort="brand">
+                                            <li data-sort="category_id">
                                                 <a href="/detail/parts?sort=brand" >
                                                     Разделу
                                                 </a>

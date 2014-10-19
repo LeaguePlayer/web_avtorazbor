@@ -45,7 +45,7 @@ class UsedCars extends EActiveRecord
             ->join('tbl_CarBrands brand','m.brand=brand.id')
             ->join('tbl_country country','country.id=brand.id_country')
             ->from('{{UsedCars}} t')
-            ->where( ($compareField ? "$compareField=$id and t.status=2" : 't.status=2')." and car_type=$type");
+            ->where( ($id ? "$compareField=$id and t.status=2" : 't.status=2')." and car_type=$type");
 
         $result=$query->queryAll();
         $data=array();

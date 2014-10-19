@@ -205,7 +205,7 @@ class Parts extends EActiveRecord implements IECartPosition
             ->join('tbl_country country','country.id=brand.id_country')
             ->join('tbl_categories cat','cat.id=category_id')
             ->from('{{Parts}} t')
-            ->where( ($compareField ? "$compareField=$id and status>6" : 'status>6')." and car_type=$type");
+            ->where( ($id ? "$compareField=$id and status>6" : 'status>6')." and car_type=$type");
 
         $result=$query->queryAll();
         $data=array();

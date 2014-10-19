@@ -1,7 +1,6 @@
 $(document).ready(function(){
 	var dd=$('.request_form dd select').parent();
 	var lastIndex=dd.eq(-1).index();
-	console.log(lastIndex)
 	$('.pag li:first a').click(function(){
 		return false;
 	})
@@ -18,7 +17,6 @@ $(document).ready(function(){
 				},
 
 			$_this=$(this);
-			console.log(params)
 			var parent=$_this.closest('dd'),
 				index=parent.index()+1,
  				elems=dd.slice(index,lastIndex);
@@ -28,7 +26,9 @@ $(document).ready(function(){
 				$_this.selectmenu('close')
 				$(params.nested).find('option:not(:first)').remove();
 				elems.slideUp(200);
-				dd.eq(-1).slideUp(200); 	
+				elems.find('select option:not(:first)').remove();
+				elems.find('select').selectmenu('refresh');
+				dd.eq(-1).slideUp(200);
 			}
 
 			if ($(this).val())
@@ -41,7 +41,6 @@ $(document).ready(function(){
 
 						$(params.nested).empty();
 						$(params.nested).html(data);
-						console.log($(params.nested).length)
 						$(params.nested).selectmenu('refresh');
 					}
 				});	
