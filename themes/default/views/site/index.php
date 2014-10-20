@@ -210,7 +210,7 @@
                         </span>
                     </dt>
                     <dd>
-                        <a href="/catalog" class="i-submit" >Показать</a>
+                        <a data-url="/catalog" href="/catalog" class="i-submit" >Показать</a>
                     </dd>
                 </dl>
             </div>
@@ -353,7 +353,7 @@
                         </span>
                     </dt>
                     <dd>
-                        <a href="/catalog" class="i-submit" >Показать</a>
+                        <a data-url="/catalog" href="/catalog" class="i-submit" >Показать</a>
                     </dd>
                 </dl>
             </div>
@@ -477,7 +477,7 @@
                         </span>
                     </dt>
                     <dd>
-                        <a href="/detail/parts" class="i-submit" >Показать</a>
+                        <a data-url="/detail/parts" href="/detail/parts" class="i-submit" >Показать</a>
                     </dd>
                 </dl>
             </div>
@@ -646,7 +646,7 @@
                         </span>
                     </dt>
                     <dd>
-                        <a href="/detail/parts" class="i-submit" >Показать</a>
+                        <a data-url="/detail/parts" href="/detail/parts" class="i-submit" >Показать</a>
                     </dd>
                 </dl>
             </div>

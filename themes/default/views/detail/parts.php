@@ -104,11 +104,16 @@
                                     Легковые
                                 </a>
                             </li>
+                            <?
+                                if ($WeightBrandsExists)
+                                {
+                            ?>
                             <li <?=$searchForm->type=='2' ? 'class="active"' : '' ?>>
-                                <a href="#" data-scenario="2">
+                                <a href="/detail?Search[scenario]=weight" data-scenario="2">
                                     Грузовые
                                 </a>    
                             </li>
+                            <?}?>
                             <li>
                                 <a href="/detail?Search[scenario]=disc" data-scenario="disc">
                                     Диски

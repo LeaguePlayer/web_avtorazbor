@@ -47,7 +47,6 @@ class SiteController extends FrontController
 			$criteriaCar->addCondition('car_type=1');
 			$criteriaCar->addCondition('status=2');
 			$criteriaCar->order='id desc';
-
 			$dataProviderCar=new CActiveDataProvider('UsedCars', array(
 				'criteria' => $criteriaCar,
 				'pagination'=>false
@@ -73,13 +72,13 @@ class SiteController extends FrontController
 			{
 				$searchForm->attributes=$_GET['Search'];
 				$searchForm->validate();
-
 				$model=$_GET['Search']['scenario']=='light' || $_GET['Search']['scenario']=='weight' ? 'UsedCars' : 'Parts';
-
-				$searchForm->criteria->limit='50';
-				//var_dump($model,$searchForm->criteria->condition,$searchForm->criteria->join);die();
+				$searchForm->criteria->limit=20;
 				$dataProvider=new CActiveDataProvider($model,
-					array('criteria'=>$searchForm->criteria)
+					array(
+						'criteria'=>$searchForm->criteria,
+						'pagination'=>false
+					)
 				);
 				$this->renderPartial('carCarusel',array('dataProvider'=>$dataProvider));
 			}
