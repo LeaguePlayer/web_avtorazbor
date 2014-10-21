@@ -73,6 +73,8 @@ $(document).ready(function(){
       loop: true,
 	}).data('owlCarousel');
 
+	
+
 	$('.items-news .items').each(function(){
 		var owl=$(this).owlCarousel({
 				  nav:true,
