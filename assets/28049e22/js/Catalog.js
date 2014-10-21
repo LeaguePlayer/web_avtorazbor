@@ -40,23 +40,21 @@ $(function(){
 				$(this).attr('href',$_href+'?'+$_url);
 		})
 	}
-
 	$('.select').selectmenu({
 		change:function(){
-
-			changeView();
 
 			var params={
 					value:$(this).val(),
 					model:$(this).data('model'),
 					nested:$(this).data('nested'),
-					searchingIn:"Parts",
+					searchingIn:"UsedCars",
+					type:filterForm.attr('id')=='light' ? 1 : 2,
 				},
-
 			$_this=$(this);
 
 			var index=$_this.closest('dd').index()+1,
 				ddCount=$_this.closest('dl').find('dd').length-4;
+				$_this.closest('dl').children('dd').slice(index,ddCount).find('select option:not(:first)').remove();
 				$_this.closest('dl').children('dd').slice(index,ddCount).find('select').selectmenu('refresh').parent().slideUp(200);
 
 			if ($(this).val())
@@ -69,9 +67,12 @@ $(function(){
 				success:function(data){	
 					$(params.nested).empty();
 					$(params.nested).html(data);
+					console.log(params.nested);
 					$(params.nested).selectmenu('refresh');
 				}
 			});
+
+			changeView();
 		}
 	})
 

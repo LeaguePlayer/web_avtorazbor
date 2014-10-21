@@ -51,7 +51,6 @@ class AjaxRequestsController extends FrontController
 			case 'Type':
 				{		
 					$criteria=$searchingIn::getExistsData(null,null,'brand',$type);
-					
 					$models=CHtml::listData(CarBrands::model()->findAll($criteria),'id','name');
 					$htmlOptions=array('id'=>'carBrands', 'data-nested'=>'#carBrands', 'empty'=>'Выберите марку');
 				}
