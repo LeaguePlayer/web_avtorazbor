@@ -4,7 +4,7 @@
         //$image='/media/car.png';
     ?>
     <a href="/catalog/<?=$data->alias?>/<?=$data->id?>"><img src="<?=$image?>" alt="" title="" /></a>
-    <a href="/catalog?<?=$url?>" class="link">
+    <a href="/catalog/<?=$data->alias?>/<?=$data->id?>" class="link">
         <?=$data->name?>
     </a>
     <span class="dsc">

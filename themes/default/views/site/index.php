@@ -50,11 +50,16 @@
                     Легковые авто
                 </a>
             </li>
+            <?
+                if ($BrandsWeightCars)
+                {
+            ?>
             <li>
-                <a href="#tabs-2" data-url="/catalog?searchFromOnMain[type]=weight&searchFromOnMain[scenario]=weight">
+                <a href="#tabs-2" data-url="/catalog?Search[type]=weight&Search[scenario]=weight">
                     Грузовые авто
                 </a>
             </li>
+            <?}?>
             <li>
                 <a href="#tabs-3" data-url="/detail/parts">
                     Автозапчасти
@@ -210,7 +215,7 @@
                         </span>
                     </dt>
                     <dd>
-                        <a href="/catalog" class="i-submit" >Показать</a>
+                        <a data-url="/catalog" href="/catalog" class="i-submit" >Показать</a>
                     </dd>
                 </dl>
             </div>
@@ -353,7 +358,7 @@
                         </span>
                     </dt>
                     <dd>
-                        <a href="/catalog" class="i-submit" >Показать</a>
+                        <a data-url="/catalog" href="/catalog" class="i-submit" >Показать</a>
                     </dd>
                 </dl>
             </div>
@@ -384,7 +389,12 @@
                     <dd>
 <!--                         <input type="hidden" value="2" name="Search[type]"> -->
                         <?=$form->hiddenField($searchForm,'scenario',array('value' => 'parts'))?>
-                        <?=$form->dropDownList($searchForm, 'type', array(1=>'Запчасти для легковых машин','2'=>'Запчасти для грузовых машин'), array( 
+                        <?
+                            $types=array(1=>'Запчасти для легковых машин');
+                            if ($BrandsWeightPartsExists)
+                                $types[]='Запчасти для грузовых машин';
+                        ?>
+                        <?=$form->dropDownList($searchForm, 'type', $types, array( 
                                                 'empty'=>'Выберите тип авто', 
                                                 'class'=>'select',
                                                 'data-nested'=>'#carBrands',
@@ -477,7 +487,7 @@
                         </span>
                     </dt>
                     <dd>
-                        <a href="/detail/parts" class="i-submit" >Показать</a>
+                        <a data-url="/detail/parts" href="/detail/parts" class="i-submit" >Показать</a>
                     </dd>
                 </dl>
             </div>
@@ -646,7 +656,7 @@
                         </span>
                     </dt>
                     <dd>
-                        <a href="/detail/parts" class="i-submit" >Показать</a>
+                        <a data-url="/detail/parts" href="/detail/parts" class="i-submit" >Показать</a>
                     </dd>
                 </dl>
             </div>
