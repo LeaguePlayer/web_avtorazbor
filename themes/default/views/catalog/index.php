@@ -123,7 +123,7 @@
                                             array('empty'=>'Выберите страну','class'=>'select nested','data-model'=>'country', 'data-nested'=>'#brand', 'id'=>'country'))?>
                                             
                             </dd>
-                            <dd style="display:<?=$searchForm->id_country ? 'block' : 'none'?>">
+                            <dd style="display:<?=$searchForm->id_country || $searchForm->brand ? 'block' : 'none'?>">
                             <label> Марка:</label>
                                 <?=$form->dropDownList($searchForm,'brand', $WeightBrands, array( 'options' => array($Brands_id=>array('selected'=>true)), 
                                                         'empty'=>'Выберите марку', 'class'=>'select nested','data-model'=>'carBrands','data-nested'=>'#model','data-column'=>'brand', 'id'=>'brand'))?>
@@ -153,22 +153,22 @@
                             </dd>
                             <dd>
                                 <label>Тип кузова:</label>
-                                <?=$form->dropDownList($searchForm,'bascet', $Bascet,array('empty'=>'Выберите тип кузова','class'=>'select'))?>
+                                <?=$form->dropDownList($searchForm,'bascet', $WeightBascet,array('empty'=>'Выберите тип кузова','class'=>'select'))?>
                             </dd>
                             <dd>
                                 <label>Тип КПП:</label>
-                                <?=$form->dropDownList($searchForm,'transmission', $Transmission,array('empty'=>'Выберите тип кпп','class'=>'select'))?>
+                                <?=$form->dropDownList($searchForm,'state', $State,array('empty'=>'Выберите тип кпп','class'=>'select'))?>
                             </dd>
                             
                             <dd id="slider2">
-                                <label>Мощность (л.с.):</label>
+                                <label>Пробег(тыс. км) :</label>
                                 <div class="formCost">
                                     <div class="i-text">
-                                        <?=$form->textField($searchForm,'force_st',array('id'=>'minForce'))?>
+                                        <?=$form->textField($searchForm,'mileage_st',array('id'=>'minForce'))?>
                                     <!-- <input type="text" id="minForce" value="0"/> -->
                                     </div>
                                     <label for="maxforce">-</label> <div class="i-text">
-                                    <?=$form->textField($searchForm,'force_end',array('id'=>'maxForce'))?>
+                                    <?=$form->textField($searchForm,'mileage_end',array('id'=>'maxForce'))?>
                                     <!-- <input type="text" id="maxForce" value="1000"/> -->
                                     </div>
                                 </div>
