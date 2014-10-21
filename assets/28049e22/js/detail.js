@@ -50,8 +50,8 @@ $(document).ready(function(){
 		values:[14,25],
 		slide:function(event, ui){
 
-			$_max=$($(this).data('max'));
-			$_min=$($(this).data('min'));
+			$_max=$('#maxSize');
+			$_min=$('#minSize');
 
 			$_min.text(ui.values[0]).val(ui.values[0]);
 			$_max.text(ui.values[1]).val(ui.values[1]);

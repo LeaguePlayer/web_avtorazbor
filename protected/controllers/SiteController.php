@@ -37,6 +37,10 @@ class SiteController extends FrontController
 			$BrandsWeightCars=UsedCars::getExistsData(null,null,'brand',2);
 			$BrandsParts=CHtml::listData(CarBrands::model()->findAll(Parts::getExistsData(null,null,'brand')),'id','name');
 			$BrandsWeightCars=CHtml::listData(CarBrands::model()->findAll($BrandsWeightCars),'id','name');
+
+			$BrandsWeightParts=Parts::getExistsData(null,null,'brand',2);
+			$BrandsWeightParts->limit=1;
+			$BrandsWeightPartsExists=CHtml::listData(CarBrands::model()->findAll($BrandsWeightParts),'id','name')!=array();
 			$Bascet=array();
 			$BascetWeight=array();
 			$Transmission=array();
@@ -58,6 +62,7 @@ class SiteController extends FrontController
 					'BrandsWeightCars'=>$BrandsWeightCars,
 					'BrandsParts'=>$BrandsParts,
 					'Bascet'=>$Bascet,
+					'BrandsWeightPartsExists'=>$BrandsWeightPartsExists,
 					'BascetWeight'=>$BascetWeight,
 					'Transmission'=>$Transmission,
 					'State'=>$State,

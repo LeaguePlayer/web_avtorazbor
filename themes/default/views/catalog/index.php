@@ -177,7 +177,7 @@
                                 </a>
                             </li>
                             <?
-                                if ($WeightExists)
+                                if (!empty($WeightBrands))
                                 {
                             ?>
                             <li class="<?=$searchForm->scenario=="weight" ? 'active' : '' ?>">
