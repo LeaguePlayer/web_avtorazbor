@@ -58,15 +58,19 @@ class CatalogController extends FrontController
 			    ),
 			));
 
-			$countriCriteria=UsedCars::getExistsData(null,null,'id_country');
 
-			$Countries=CHtml::listData(Country::model()->findAll($countriCriteria),'id','name');
-			$Brands=CHtml::listData(UsedCars::getExistsData($searchForm->id_country,'id_country',1),'id','name');
-			$WeightBrands=CHtml::listData(CarBrands::model()->findAll(UsedCars::getExistsData($searchForm->id_country,'id_country',2)),'id','name');
+			$Countries=CHtml::listData(Country::model()->findAll(UsedCars::getExistsData(null,null,'id_country')),'id','name');
+			$WeightCountries=CHtml::listData(Country::model()->findAll(UsedCars::getExistsData(null,null,'id_country',2)),'id','name');
+			$Brands=UsedCars::getExistsData($searchForm->id_country,'id_country','brand');
+			$Brands=CHtml::listData(CarBrands::model()->findAll($Brands),'id','name');
 
+			$WeightBrands=UsedCars::getExistsData($searchForm->id_country,'id_country','brand',2);
+			$WeightBrands=CHtml::listData(CarBrands::model()->findAll($WeightBrands),'id','name');
 			
 			$Bascet=UsedCars::getBasketList();
 			$Models=CHtml::listData(CarModels::model()->findAll('brand=:id',array(':id'=>$searchForm->brand ? $searchForm->brand : 0)),'id','name');
+
+			$WeightModels=CHtml::listData(CarModels::model()->findAll('brand=:id',array(':id'=>$searchForm->brand && $searchForm->scenario=='weight' ? $searchForm->brand : 0)),'id','name');
 
 			$this->render('index',array(
 				'dataProvider'=>$dataProvider,
@@ -76,6 +80,8 @@ class CatalogController extends FrontController
 				'Bascet'=>$Bascet,
 				'brand_id'=>$brand_id,
 				'WeightBrands'=>$WeightBrands,
+				'WeightCountries'=>$WeightCountries,
+				'WeightModels'=>$WeightModels,
 				'Models'=>$Models,
 				'searchForm'=>$searchForm
 
