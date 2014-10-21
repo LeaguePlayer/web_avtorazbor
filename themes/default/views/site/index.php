@@ -29,7 +29,6 @@
                 в Екатеринбурге и области</span>
             </a>
         </li>
-
         <li class="icon spec">
             <a href="/page/Spec-tehnika">
                 <i></i>

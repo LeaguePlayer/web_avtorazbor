@@ -2,9 +2,7 @@
 
 @c: 0 auto;
 @w:1180px;
-.fotorama{
-	height: 130px;
-}
+
 .radius (@radius: 2px) {
   border-radius: @radius;
   -webkit-border-radius: @radius;
@@ -173,11 +171,8 @@ header .item .feature{
 	}
 .clear{
 	clear: both;
-}s
-.fotorama__nav-wrap{
-	position: absolute;
-	top: 95px;
 }
+
 .i-submit{
 	.gradient();
 	color:#fff;
@@ -3035,12 +3030,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 		display: none;
 	}
 }
-.fotorama__nav__frame.fotorama__active .fotorama__dot {
-	background:#fe6a04!important;
-}
-.fotorama__dot{
-	background: none;
-}
+
 .full-width{
 	width: 100%!important;
 }
@@ -3571,4 +3561,50 @@ ul.vacansy{
 }
 .ui-selectmenu-disabled{
 	background: #fff!important;
+}
+
+.head-carusel{
+	height: 150px;
+	width: 100%;
+
+	.owl-controls{
+		width: 100%;
+		display: inline-block;
+		z-index: 223;
+		position: absolute;
+		text-align: center;
+		bottom: -5px;
+
+		.owl-dots{
+			text-align: center;
+			.owl-dot{
+				width: 10px;
+				height: 10px;
+				border-radius: 5px;
+				background: #FFA500;
+				display: inline-block;
+				margin-left: 10px;
+			}
+		}
+	}
+	.info{
+		position: relative;
+		z-index: 2;
+		width: 1180px;
+		margin: 0 auto;
+	}
+	a{
+		position: absolute;
+		right: 0;
+	}
+	.item{
+		color:#fff;
+		display: inline-block;
+		width: 100%!important;
+	}
+	img{
+		position: absolute;
+		z-index: 1;
+		width: 100%;
+	}
 }
