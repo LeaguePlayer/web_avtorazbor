@@ -108,6 +108,7 @@ $(function(){
 	$('.own-price').fancybox({	
 		fitToView	: true,
 		autoSize	: true,
+		padding		: 0,
 	});
 
 	$('#car_type li a').click(function(){

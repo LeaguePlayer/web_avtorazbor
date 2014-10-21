@@ -15,6 +15,7 @@ $(function(){
 				var href=$(this).attr('href');
 				$.fancybox.open(href,
 					{
+						padding:0,
 						helpers: {
 					     overlay: {
 					     	locked: false
@@ -30,6 +31,7 @@ $(function(){
 	$('.auth,.modal').fancybox({
 		fitToView	: true,
 		padding		: 0,
+		margin		: 0,
 		autoSize	: true,
 		helpers: {
 		     overlay: {

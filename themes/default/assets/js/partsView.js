@@ -45,6 +45,7 @@ $(function(){
 		$.fancybox.open({
 	        href : '#alert',
 	        fitToView: true,
+	        padding:0,
 	        autoSize:true,
 
 	    })
