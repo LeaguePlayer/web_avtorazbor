@@ -2,8 +2,10 @@
 	$data=Parts::model()->findByPk($data['id']);
 
     $gallery=$data->getGallery()->galleryPhotos;
-
-    $image=$gallery[0]->getUrl('small') ? $gallery[0]->getUrl('small') : '/media/images/parts/default.jpg';
+    if ($gallery[0])
+        $image=$gallery[0]->getUrl('small') ? $gallery[0]->getUrl('small') : '/media/images/parts/default.jpg';
+    else 
+        $image='/media/images/parts/default.jpg';
 ?>
 <li class="<?=$_GET["id"]==$data->id? 'active' : ''?>">
 

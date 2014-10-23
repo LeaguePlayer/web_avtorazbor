@@ -8,6 +8,11 @@ $(document).ready(function(){
 		}
 	};
 	var contextForm;//Форма фильтра в которой был изменен селект
+
+	// $('.search-text input[type=submit]').click(function(){
+	// 	return false;
+	// })
+
 	$('.searchform .tabs ul li a').click(function(){
 
 		var tabId=$(this).attr('href');
@@ -27,10 +32,9 @@ $(document).ready(function(){
 			return false;
 		} else
 			return false;
-
 	})
 
-	$('.s-big').on('keypress','input[type=text]',function(e){
+	$('.s-big .i-text').on('keypress','input[type=text]',function(e){
 
 		if( e.which!=8 && e.which!=0 && (e.which<48 || e.which>57))
         {

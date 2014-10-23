@@ -73,6 +73,42 @@
 			return true;
 		}
 
+		public static function searchByStr($str,$table)
+		{
+			$result=Yii::app()->db->createCommand()
+				->select('id, name, MATCH (name) AGAINST ("'.$str.'") as REL')
+				->from("tbl_$table")
+				->where('MATCH (name) AGAINST ("'.$str.'") > 0')
+				->queryAll();
+			$strSplit=explode(' ',$str);
+			$criteria=new CDbCriteria;
+			$iDs=array();
+
+			foreach ($result as $key => $data) {
+				$flag=true;
+				foreach ($strSplit as $key => $str) {
+					if (!strpos($data['name'], $str))
+					{
+						$flag=false;
+						break;
+					}
+				}
+				$iDs[]=$data['id'];
+			}
+
+			if ($iDs)
+				$criteria->addInCondition('t.id',$iDs);
+			else 
+				$criteria->addCondition('t.id=-1');
+				$criteria->order="t.id desc";
+			return new CActiveDataProvider($table,
+				array(
+					'criteria'=>$criteria,
+					'pagination'=>array('pageSize'=>10)
+				)
+			);
+		}
+
 		public function getCriteria($properies)
 		{
 			$criteria=new CDbCriteria;
