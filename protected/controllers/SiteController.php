@@ -51,6 +51,13 @@ class SiteController extends FrontController
 			$criteriaCar->addCondition('car_type=1');
 			$criteriaCar->addCondition('status=2');
 			$criteriaCar->order='id desc';
+
+			$autoCompliteParts=Yii::app()->db->createCommand()
+				->select('name')
+				->from('{{Parts}}')
+				->queryAll();
+
+
 			$dataProviderCar=new CActiveDataProvider('UsedCars', array(
 				'criteria' => $criteriaCar,
 				'pagination'=>false
@@ -59,6 +66,7 @@ class SiteController extends FrontController
 			$this->render('index',
 				array(
 					'Brands'=>$Brands,
+					'autoCompliteParts'=>$autoCompliteParts,
 					'BrandsWeightCars'=>$BrandsWeightCars,
 					'BrandsParts'=>$BrandsParts,
 					'Bascet'=>$Bascet,
