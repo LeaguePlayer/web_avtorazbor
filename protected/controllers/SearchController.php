@@ -28,8 +28,33 @@ class SearchController extends Controller
     public function actionFind($str,$table)
     {
         $dataProvider=Search::searchByStr($str,$table);
-        $this->render('find',array('dataProvider'=>$dataProvider,'str'=>$str));
+        $this->render('find',array('dataProvider'=>$dataProvider,'str'=>$str,'model'=>$table));
     }
+    public function actionautoComplete($term,$table)
+    {
+        $retVal = array();
+ 
+        if (strlen($term) >= 2) {
+            $model = $table::model();
+         
+            $criteria = new CDbCriteria();
+            $criteria->compare('name', $term, true);
+            $criteria->limit = 10;
+            $criteria->order="id desc";
 
+            foreach($model->findAll($criteria) as $item) {
+              $retVal[] = array(
+                'label' => $item->some_field,
+                'value' => $item->some_field,
+                'id' => $item->id,
+                'other_field' => $item->other_field,
+                'another_field' => $item->another_field,
+             );
+           }
+         }
+         
+         echo CJSON::encode($retVal);
+         Yii::app()->end();
+    }
 }
 ?>

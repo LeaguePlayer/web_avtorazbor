@@ -56,7 +56,10 @@ class SiteController extends FrontController
 				->select('name')
 				->from('{{Parts}}')
 				->queryAll();
-
+			$autoComplite=array();
+			foreach ($autoCompliteParts as $key => $value) {
+				$autoComplite[]=$value['name'];
+			}
 
 			$dataProviderCar=new CActiveDataProvider('UsedCars', array(
 				'criteria' => $criteriaCar,
@@ -66,7 +69,7 @@ class SiteController extends FrontController
 			$this->render('index',
 				array(
 					'Brands'=>$Brands,
-					'autoCompliteParts'=>$autoCompliteParts,
+					'autoCompliteParts'=>$autoComplite,
 					'BrandsWeightCars'=>$BrandsWeightCars,
 					'BrandsParts'=>$BrandsParts,
 					'Bascet'=>$Bascet,

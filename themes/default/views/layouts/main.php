@@ -176,11 +176,10 @@
 
         		<form action="/search/find" class="search">
                     <input type="text" value="" name="str" placeholder="Введите ваш запрос"/>
-
-                    <input type="button" id="searchBtn" value="По сайту" />
-                    <input hidden type="radio" name="table" checked id="UsedCars" value="UsedCars" />
-                    <input hidden type="radio" name="table" checked id="UsedCars" value="Parts" />
-                    <label for="searchBtn">Авто</label><span></span>
+                    <input hidden type="radio" name="table" <?=!isset($_GET['table']) || $_GET['table']=='UsedCars'  ? 'checked' : ''?> id="UsedCars" value="UsedCars" />
+                    <input hidden type="radio" name="table" <?=$_GET['table']=='Parts' ? 'checked' : ''?> id="Parts" value="Parts" />
+                    <div class="searchType"><?=!$_GET['table'] || $_GET['table']=='UsedCars' ? 'Авто' : "Автозапчасти" ?></div>
+                    <span></span>
                     <div class="searchBy">
                         <ul>
                             <li>
@@ -270,8 +269,7 @@
     			<form action="/search/find" class="search">
                     <input type="text" value="" name="str" placeholder="Введите ваш запрос"/>
                     <input type="submit" value=""/>
-                    <input hidden type="radio" name="table" checked id="UsedCars" value="UsedCars" />
-                    <input hidden type="radio" name="table" checked id="UsedCars" value="Parts" />
+                    <input hidden type="radio" name="table" checked value="Parts" />
                 </form>
     		</div>	
     	</div>
