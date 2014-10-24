@@ -78,7 +78,7 @@ $(function(){
 	})
 
 	var searchDropped=true;
-	$('#searchBtn').click(function(){
+	$('.searchType').click(function(){
 
 		if (searchDropped)
 		{
@@ -94,7 +94,7 @@ $(function(){
 
 		$('.search .searchType').slideDown(100)
 		searchDropped=!searchDropped;
-		$('label[for=searchBtn]').text($(this).text());
+		$('.searchType').text($(this).text());
 		$('.search .searchBy').slideUp(100);
 	})
 

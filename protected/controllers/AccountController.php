@@ -50,6 +50,7 @@
 						}
 					}
 					///Смена пароля!!!!!!!!!!
+					var_dump($_POST['changePwd']);die();
 					if (!empty($_POST['ChangePwd']['oldPassword']) && $modelValid)
 					{
 						$changePwd->attributes=$_POST['ChangePwd'];

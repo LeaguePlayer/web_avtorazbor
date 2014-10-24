@@ -79,28 +79,34 @@
 				->select('id, name, MATCH (name) AGAINST ("'.$str.'") as REL')
 				->from("tbl_$table")
 				->where('MATCH (name) AGAINST ("'.$str.'") > 0')
+				->order('rel desc')
 				->queryAll();
 			$strSplit=explode(' ',$str);
 			$criteria=new CDbCriteria;
 			$iDs=array();
 
-			foreach ($result as $key => $data) {
-				$flag=true;
-				foreach ($strSplit as $key => $str) {
-					if (!strpos($data['name'], $str))
-					{
-						$flag=false;
-						break;
-					}
-				}
-				$iDs[]=$data['id'];
+			foreach ($result as $key => $value) {
+				$iDs[]=$value['id'];
 			}
 
-			if ($iDs)
+			// foreach ($result as $key => $data) {
+			// 	$flag=true;
+			// 	foreach ($strSplit as $key => $str) {
+			// 		if (!strpos($data['name'], $str))
+			// 		{
+			// 			$flag=false;
+			// 			break;
+			// 		}
+			// 	}
+			// 	$iDs[]=$data['id'];
+			// }
+
+			if ($result)
 				$criteria->addInCondition('t.id',$iDs);
 			else 
 				$criteria->addCondition('t.id=-1');
-				$criteria->order="t.id desc";
+
+			//$criteria->order="t.id desc";
 			return new CActiveDataProvider($table,
 				array(
 					'criteria'=>$criteria,

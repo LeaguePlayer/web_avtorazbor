@@ -4,9 +4,12 @@
 	// $bigImage=$gallery ? $gallery[0]->getUrl('big') : '/media/images/parts/default.jpg';
         // $image='/media/car.png';
         // $imageBig='/media/car.png';
+$image=$data->getImageUrl('small');
 ?>
 <div>
-    <a href="/detail/<?=$data->alias?>/<?=$data->id?>"><img src="<?=$data->getImageUrl('small')?>" alt="" title="" /></a>
+    <a href="/detail/<?=$data->alias?>/<?=$data->id?>">
+        <img src="<?=$image?>" alt="" title="" />
+    </a>
     
     <a href="/detail/<?=$data->alias?>/<?=$data->id?>" class="link">
         <?=$data->name?>
