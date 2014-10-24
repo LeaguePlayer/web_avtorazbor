@@ -8,6 +8,11 @@ $(document).ready(function(){
 		}
 	};
 	var contextForm;//Форма фильтра в которой был изменен селект
+
+	// $('.search-text input[type=submit]').click(function(){
+	// 	return false;
+	// })
+
 	$('.searchform .tabs ul li a').click(function(){
 
 		var tabId=$(this).attr('href');
@@ -27,10 +32,9 @@ $(document).ready(function(){
 			return false;
 		} else
 			return false;
-
 	})
 
-	$('.s-big').on('keypress','input[type=text]',function(e){
+	$('.s-big .i-text').on('keypress','input[type=text]',function(e){
 
 		if( e.which!=8 && e.which!=0 && (e.which<48 || e.which>57))
         {
@@ -44,12 +48,21 @@ $(document).ready(function(){
 
 		$(this).selectmenu({
 			change:function(){
+
 				contextForm=$(this).closest('form');
+				processNested($(this));
+
+				if (($(this).data('model')=="carBrands" || $(this).data('model')=='Type') && !$(this).val())
+				{
+					$('.items-auto .items').empty();
+					return;
+				}
 				if (nestedMap[$(this).data('model')] && $(this).data('map')==true)
-					changeNestedMap($(this,contextForm).data('model'));
+					changeNestedMap.apply(this,[$(this,contextForm).data('model')]);
 				else 
 					onSelectChanged.apply(this,[]);
-			}
+			},
+			disabled:typeof $(this).data('enabled')=='undefined',
 		})
 	});
 
@@ -63,6 +76,8 @@ $(document).ready(function(){
       margin: 0,
       loop: true,
 	}).data('owlCarousel');
+
+	
 
 	$('.items-news .items').each(function(){
 		var owl=$(this).owlCarousel({
@@ -103,52 +118,69 @@ $(document).ready(function(){
 		showLoader();
 		$('.items-auto .items').empty();
 		$('.loader').show();
-
+		var formData=form.serialize();
 		setTimeout(function(){
 			$.ajax({
 				url:'/site/index',
-				data:form.serialize(),
+				data:formData,
 				success:function(data){
 					
-					if (data.indexOf('empty')<=0 && $('img',data).length>7)
-					{
-						var owl=$('.items-auto')
-							.empty()
-							.append(data)
-							.find('.items')
-							.owlCarousel({
-								nav:true,
-								items:7,
-								navText:[],
-							    margin: 0,
-							    loop: true,
-							    transitionStyle:'fade',
-							}).data('owlCarousel');
+					owl=$('.items-auto')
+						.empty()
+						.append(data)
+						.find('.items:last')
+						.owlCarousel({
+							nav:true,
+							items:7,
+							navText:[],
+						    margin: 0,
+						    loop: true,
+						}).data('owlCarousel');
 
-						$('.cat-auto .prev').click(function(){
-							owl.prev();
-						})
+					$('.cat-auto .prev').click(function(){
+						owl.prev();
+					})
 
-						$('.cat-auto .next').click(function(){
-							owl.next();
-						})		
-					} else {
-						$('.items-auto')
-							.empty()
-							.append(data).find('.prev,.next').hide();
-					}
+					$('.cat-auto .next').click(function(){
+						owl.next();
+					})		
 				}
 			}).done(function(){
 				var total=parseInt($('.total').eq(0).text(),10);
+				var showAll=$('.i-submit',form);
+					showAll.attr('href',showAll.data('url')+"?"+formData);
+
 				$('.loader').hide();
 				$('.num',form).text(total+" авто");	
-				// hideLoader();
 			})
 		},1000)
-		
 	}
 
-	var onSelectChanged=function ()
+	var processNested=function(base){
+		
+		var next=base.data('next');
+		var elem=base.data('next');
+
+		if (elem)
+			while(typeof elem !='undefined')
+			{
+				$('option:not(:first)',$(elem,contextForm)).remove();
+				
+				$(elem,contextForm).selectmenu('refresh')
+				$(elem,contextForm).selectmenu('disable');
+				
+				if ($(elem).data('map'))
+				{
+					changeNestedMap.apply(elem,[$(elem,contextForm).data('model')]);
+				};
+				base=$(base.data('next'),contextForm)
+				elem=base.data('next');
+			}
+		$(next,contextForm).selectmenu('enable');
+
+	}
+
+	var onSelectChanged=function()
 	{
 		var $nested=$(this).data('nested');
 			if ($nested)
@@ -159,32 +191,40 @@ $(document).ready(function(){
 	}
 
 	var changeNestedMap=function(nested){
-			$.each(nestedMap[nested],function(key,val){
-				
-				var params={
-					value:$('#'+nested,contextForm).val(),
-					model:key,
-					nested:nested,
-					type:contextForm.find('#Search_scenario').val()=="light" ? 1 : 2,
-					searchingIn:'UsedCars'	
-				};
-				if (params.value)
-				{
-					$_this=$(this);
-					$.ajax({
-						url:'/ajaxRequests/getNestedList',
-						data:params,
+			if ($('#'+nested,contextForm).val())
+			{
+				$.each(nestedMap[nested],function(key,val){
+					var params={
+						value:$('#'+nested,contextForm).val(),
+						model:key,
+						nested:nested,
+						type:contextForm.find('#Search_scenario').val()=="light" ? 1 : 2,
+						searchingIn:'UsedCars'	
+					};
 
-						success:function(data){
+				$_this=$(this);
+				$.ajax({
+					url:'/ajaxRequests/getNestedList',
+					data:params,
 
-							$("#"+params.model,contextForm).empty();
-							$("#"+params.model,contextForm).html(data);
-							$("#"+params.model,contextForm).selectmenu('refresh');
-							onSelectChanged.apply($("#"+params.model,contextForm),[]);
-						}
-					});	
-				}
-			})
+					success:function(data){
+						var model=$("#"+params.model,contextForm);
+						model.empty();
+						model.html(data);
+						model.selectmenu('refresh');
+						model.selectmenu('enable');
+						onSelectChanged.apply(model,[]);
+					}
+				});	
+				})
+			} else {
+
+				$.each(nestedMap[nested],function(key,val){
+					$('#'+key+" option:not(:first)",contextForm).remove();
+					$('#'+key,contextForm).selectmenu("refresh");
+					$('#'+key,contextForm).selectmenu("disable");
+				})
+			}
 	}
 
 	var changeNested=function(){
@@ -192,8 +232,6 @@ $(document).ready(function(){
 		var car_type=contextForm.find('#Search_scenario').val()=="light" ? 1  :
 				(contextForm.find('#Search_scenario').val()=="parts" && 
 				contextForm.find('#Search_type').val()==1 ? 1 : 2);
-			console.log(car_type);
-
 		var $_this=$(this),
 			params={
 				value:$_this.val(),
@@ -202,13 +240,8 @@ $(document).ready(function(){
 				type:car_type,
 				searchingIn:contextForm.data('form')!='Parts' ? 'UsedCars' : 'Parts',
 			}
-		console.log(params);
-		
 		if (params.value)
 		{
-			if ($_this.val())
-		$_this.closest('dd').next().slideDown(200);
-	
 			$.ajax({
 				url:'/ajaxRequests/getNestedList',
 				data:params,

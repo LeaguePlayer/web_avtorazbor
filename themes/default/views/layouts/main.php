@@ -1,27 +1,25 @@
 <?php
-
+    $assetUrl=$this->getAssetsUrl('application');
 	$cs = Yii::app()->clientScript;
-	$cs->registerCssFile($this->getAssetsUrl('application').'/css/style.css');
-	$cs->registerCssFile($this->getAssetsUrl('application').'/css/reset.css');
-	$cs->registerCssFile('http://fotorama.s3.amazonaws.com/4.4.9/fotorama.css');
-	$cs->registerCssFile($this->getAssetsUrl('application').'/css/fancybox/jquery.fancybox.css');
-	$cs->registerCssFile($this->getAssetsUrl('application').'/css/main.css?v1');
-    $cs->registerCssFile($this->getAssetsUrl('application').'/css/jquery-ui.min.css');
+	$cs->registerCssFile($assetUrl.'/css/style.css');
+	$cs->registerCssFile($assetUrl.'/css/reset.css');
+	$cs->registerCssFile($assetUrl.'/css/fancybox/jquery.fancybox.css');
+	$cs->registerCssFile($assetUrl.'/css/main.css?v1');
+    $cs->registerCssFile($assetUrl.'/css/jquery-ui.min.css');
 
 
-	$cs->registerCoreScript('jquery');
-    //$cs->registerScriptFile('http://code.jquery.com/jquery-1.11.0.min.js', CClientScript::POS_END);
-    //$cs->registerScriptFile('http://code.jquery.com/jquery-1.11.0.min.js', CClientScript::POS_END);
-	$cs->registerScriptFile('http://fotorama.s3.amazonaws.com/4.4.9/fotorama.js', CClientScript::POS_END);
-    $cs->registerScriptFile($this->getAssetsUrl('application').'/js/tinyscrollbar.js', CClientScript::POS_END);
-    $cs->registerScriptFile($this->getAssetsUrl('application').'/js/jquery-ui.min.js', CClientScript::POS_END);
-	$cs->registerScriptFile($this->getAssetsUrl('application').'/js/jquery.maphilight.js', CClientScript::POS_END);
-	$cs->registerScriptFile($this->getAssetsUrl('application').'/js/jquery.fancybox.js', CClientScript::POS_END);
-    $cs->registerScriptFile($this->getAssetsUrl('application').'/js/owl.carousel.min.js', CClientScript::POS_END);
+	//$cs->registerCoreScript('jquery');
+    //$cs->registerScriptFile('//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js', CClientScript::POS_END);
+    //$cs->registerScriptFile('http://code.jquery.com/jquery-1.11.0.js', CClientScript::POS_END);
+    $cs->registerScriptFile($assetUrl.'/js/tinyscrollbar.js', CClientScript::POS_END);
+    $cs->registerScriptFile('//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js', CClientScript::POS_END);
+	$cs->registerScriptFile($assetUrl.'/js/jquery.maphilight.js', CClientScript::POS_END);
+	$cs->registerScriptFile($assetUrl.'/js/jquery.fancybox.js', CClientScript::POS_END);
+    $cs->registerScriptFile($assetUrl.'/js/owl.carousel.js', CClientScript::POS_END);
 
-	$cs->registerScriptFile($this->getAssetsUrl('application').'/js/script.js', CClientScript::POS_END);
+	$cs->registerScriptFile($assetUrl.'/js/script.js', CClientScript::POS_END);
 
-	$assetUrl=$this->getAssetsUrl('application');
+	
 ?><!DOCTYPE html>
 <html lang="ru">
 	<head>

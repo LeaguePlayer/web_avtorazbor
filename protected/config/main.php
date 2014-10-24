@@ -162,8 +162,8 @@ return array(
             'class'=>'EClientScript',
             'scriptMap' => array(
                 'jquery' => false,
-                'jquery.js' => 'http://code.jquery.com/jquery-1.11.0.min.js',
-                //'form.css' => '/css/blueprint.form.css'
+                'jquery.js' => 'http://code.jquery.com/jquery-1.11.0.js',
+                'jquery.min.js' => '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js',
              ),
         ),
         'date' => array(
