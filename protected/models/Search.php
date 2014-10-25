@@ -51,6 +51,8 @@
 				if ($value)
 					$url.='Search['.$key.']='.$value.'&';
 			}
+			if (!$this->type)	
+				$this->type=1;
 			
 			Yii::app()->session->add('backToResult',substr($url, 0,-1));
 			return parent::beforeValidate();
@@ -62,7 +64,7 @@
 			if (empty($this->criteria->condition))//если не выбран ни 1 криерий тогда пишем дефолт
 			{
 				$this->criteria=new CDbCriteria;
-				$this->criteria->addCondition('car_type='.$this->type);
+				//$this->criteria->addCondition('car_type='.$this->type);
 			}
 
 			$this->criteria->addCondition('`t`.status>6 or `t`.status=2');//>6 - для машин =1 - для запчастей
