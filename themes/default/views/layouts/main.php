@@ -22,7 +22,6 @@
 	$cs->registerScriptFile($this->getAssetsUrl('application').'/js/script.js', CClientScript::POS_END);
 
 	$assetUrl=$this->getAssetsUrl('application');
-
 ?><!DOCTYPE html>
 <html lang="ru">
 	<head>
@@ -173,64 +172,25 @@
                         }
                     ?>
                     </ul>
-	        		<!-- <ul>
-	        			<li>
-	        				<a href="/page/about">
-	        					О компании
-	        				</a>
-	        			</li>
-	        			<li>
-	        				<a href="/catalog">
-	        					Продажа авто
-	        				</a>
-	        			</li>
-	        			<li>
-	        				<a href="/detail">
-	        					Автозапчасти
-	        				</a>
-	        			</li>
-	        			<li>
-	        				<a href="/page/Vse-uslugi">
-	        					Все услуги
-	        				</a>
-	        			</li>
-	        			<li>
-	        				<a href="/news/">
-	        					Новости
-	        				</a>
-	        			</li>
-	        			<li class="active">
-	        				<a href="/page/contacts">
-	        					Контакты
-	        				</a>
-	        			</li>
-	        			<li>
-	        				<a href="/promotions">
-	        					Акции
-	        				</a>
-	        			</li>
-	        		</ul> -->
         		</nav>
 
-        		<div class="search">
-        			<input type="text" value="" placeholder="Введите ваш запрос"/>
-
-        			<input type="button" id="searchBtn" value="По сайту" />
-                    <label for="searchBtn">По сайту</label><span></span>
+        		<form action="/search/find" class="search">
+                    <input type="text" value="" name="str" placeholder="Введите ваш запрос"/>
+                    <input hidden type="radio" name="table" <?=!isset($_GET['table']) || $_GET['table']=='UsedCars'  ? 'checked' : ''?> id="UsedCars" value="UsedCars" />
+                    <input hidden type="radio" name="table" <?=$_GET['table']=='Parts' ? 'checked' : ''?> id="Parts" value="Parts" />
+                    <div class="searchType"><?=!$_GET['table'] || $_GET['table']=='UsedCars' ? 'Авто' : "Автозапчасти" ?></div>
+                    <span></span>
                     <div class="searchBy">
                         <ul>
                             <li>
-                                Авто
+                                <label for="UsedCars">Авто</label>
                             </li>
                             <li>
-                                По сайту
-                            </li>
-                            <li>
-                                Автозапчасти
+                                <label for="Parts">Автозапчасти</label>
                             </li>
                         </ul>
                     </div>
-        		</div>
+                </form>
             
         </div>
         <?if (strpos(get_class($this),"Site")!=-1){?>
@@ -306,10 +266,11 @@
 					</a>
     			</div>
 
-    			<div class="search">
-    				<input type="text" value="" placeholder="Поиск по сайту" />
-    				<input type="submit" value="" class="i-submit"/>
-    			</div>
+    			<form action="/search/find" class="search">
+                    <input type="text" value="" name="str" placeholder="Введите ваш запрос"/>
+                    <input type="submit" value=""/>
+                    <input hidden type="radio" name="table" checked value="Parts" />
+                </form>
     		</div>	
     	</div>
     	<div class="clear"></div>

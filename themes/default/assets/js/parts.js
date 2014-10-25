@@ -77,14 +77,14 @@ $(document).ready(function(){
 
 	$('#car_type li a').click(function(){
 		
-		if($(this).attr('href').indexOf("#")>-1)
-		{
-			$(this).closest('ul').find('.active').removeClass('active');
-			$(this).parent().addClass('active');
-			$('#Search_type').val($(this).data('scenario'));
-			changeView();
-			return false;
-		}
+		// if($(this).attr('href').indexOf("#")>-1)
+		// {
+		// 	$(this).closest('ul').find('.active').removeClass('active');
+		// 	$(this).parent().addClass('active');
+		// 	$('#Search_type').val($(this).data('scenario'));
+		// 	changeView();
+		// 	return false;
+		// }
 
 	})
 	$('#minCost, #maxCost').bind('change click keyup',function(){

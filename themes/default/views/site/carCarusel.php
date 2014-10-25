@@ -9,6 +9,7 @@
 	    'htmlOptions'=>array('class'=>'items-auto'),
 	    'pager' => false
 	));
+	
 ?>
 <div class="total" style="display:none;">
 	<?=$dataProvider->totalItemCount?>

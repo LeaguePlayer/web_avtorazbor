@@ -39,12 +39,13 @@ class DetailController extends FrontController
 		$Brands=Parts::getExistsData(null,null,'brand');
 
 		$Brand=CHtml::listData(CarBrands::model()->findAll($Brands),'id','name');
+		$WeightBrand=CHtml::listData(CarBrands::model()->findAll(Parts::getExistsData(null,null,'brand',2)),'id','name');
 		$searchForm=new Search;
 		
 		if (isset($_GET['Search']))
 			$searchForm->attributes=$_GET['Search'];
 
-		$this->render('index',array('Brand'=>$Brand,'searchForm'=>$searchForm));
+		$this->render('index',array('Brand'=>$Brand,'searchForm'=>$searchForm,'WeightBrand'=>$WeightBrand));
 	}
 
 	public function actionDisc()
@@ -152,8 +153,10 @@ class DetailController extends FrontController
 					),
 				'id','name'
 			);
-		//$subCategories=!empty($searchForm->category_id) ? CHtml::listData(Categories::model()->findAll('parent=:id',array(':id'=>$searchForm->category_id)),'id','name') : array();
+		$WeightBrandsExists=Parts::getExistsData(null,null,'brand',2);
+		$WeightBrandsExists->limit=1;
 
+		$WeightBrandsExists=CarBrands::model()->findAll($WeightBrandsExists)!=array();
 		$searchForm->sort='price_sell';
 
 		$dependecy = new CDbCacheDependency('SELECT MAX(update_time) FROM {{parts}}');
@@ -169,6 +172,7 @@ class DetailController extends FrontController
 				'model'=>$model,
 				'Countries'=>$Countries,
 				'Brands'=>$Brands,
+				'WeightBrandsExists'=>$WeightBrandsExists,
 				'Models'=>$Models,
 				'Categories'=>$Categories,
 				'subCategories'=>$subCategories,

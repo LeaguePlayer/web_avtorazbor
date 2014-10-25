@@ -29,7 +29,6 @@
                 в Екатеринбурге и области</span>
             </a>
         </li>
-
         <li class="icon spec">
             <a href="/page/Spec-tehnika">
                 <i></i>
@@ -42,6 +41,7 @@
 <!--service End-->
 
 <!--search-->
+
 <div class="s-big searchform">
     <div class="tabs">
         <ul>
@@ -50,11 +50,16 @@
                     Легковые авто
                 </a>
             </li>
+            <?
+                if ($BrandsWeightCars)
+                {
+            ?>
             <li>
-                <a href="#tabs-2" data-url="/catalog?searchFromOnMain[type]=weight&searchFromOnMain[scenario]=weight">
+                <a href="#tabs-2" data-url="/catalog?Search[type]=weight&Search[scenario]=weight">
                     Грузовые авто
                 </a>
             </li>
+            <?}?>
             <li>
                 <a href="#tabs-3" data-url="/detail/parts">
                     Автозапчасти
@@ -70,10 +75,43 @@
    <?=$this->renderPartial('//forms/question',array('model'=>new Questions),true);?>
     <div class="parametr tab-active" id="tabs-1">
 
-        <div class="search-text">
-            <input type="text" value="" placeholder="Введите ваш запрос" />
-            <input type="submit" value="" />
-        </div>
+       <?php $form = $this->beginWidget('CActiveForm', array(
+                'action' => $this->createUrl('/search/getCars'),
+                'htmlOptions' => array('class' => 'search-text')
+            ));
+            //echo $form->hiddenField('type',2);
+            $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+                'name'=>'searching',
+                //'source'=>$autoCompliteParts,
+                'sourceUrl'=>'/search/autoComplite',
+                // additional javascript options for the autocomplete plugin
+                'options'=>array(
+                    'minLength'=>'2',
+                    'maxSize'=>'10',
+                    'max'=>'10',
+                ),
+                'htmlOptions'=>array(
+                    'style'=>'height:20px;',
+                    'placeholder'=>'Введите текст запроса',
+                    'class'=>'searching',
+                ),
+            ));
+            echo CHtml::hiddenField('type','1');
+        ?>
+        <?
+            echo CHtml::ajaxSubmitButton('','/search/getCars',
+                array(
+                    'url'=>'/search/getCars',
+                    'type'=>'GET',
+                    'data'=>'js:{type:1,str:$(".searching",$("#tabs-1")).val()}',
+                    'success'=>'function(data){
+                        $(".items-auto").empty().append(data);
+                        $(".items-auto .items").owlCarousel();    
+                    }'
+                )
+            );
+        ?>
+        <?$this->endWidget();?>
 
         <div class="coll">
             <?php $form = $this->beginWidget('CActiveForm', array(
@@ -210,7 +248,7 @@
                         </span>
                     </dt>
                     <dd>
-                        <a href="/catalog" class="i-submit" >Показать</a>
+                        <a data-url="/catalog" href="/catalog" class="i-submit" >Показать</a>
                     </dd>
                 </dl>
             </div>
@@ -220,11 +258,42 @@
     </div>
     <div class="parametr" id="tabs-2">
 
-        <div class="search-text">
-            <input type="text" value="" placeholder="Введите ваш запрос" />
-            <input type="submit" value="" />
-        </div>
-
+         <?php $form = $this->beginWidget('CActiveForm', array(
+                'action' => $this->createUrl('/search/getCars'),
+                'htmlOptions' => array('class' => 'search-text')
+            ));
+            //echo $form->hiddenField('type',2);
+            $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+                'name'=>'searching',
+                'source'=>$autoCompliteParts,
+                // additional javascript options for the autocomplete plugin
+                'options'=>array(
+                    'minLength'=>'2',
+                    'maxSize'=>'10',
+                    'max'=>'10',
+                ),
+                'htmlOptions'=>array(
+                    'style'=>'height:20px;',
+                    'placeholder'=>'Введите текст запроса',
+                    'class'=>'searching',
+                ),
+            ));
+            echo CHtml::hiddenField('type','1');
+        ?>
+        <?
+            echo CHtml::ajaxSubmitButton('','/search/getCars',
+                array(
+                    'url'=>'/search/getCars',
+                    'type'=>'GET',
+                    'data'=>'js:{type:2,str:$(".searching",$("#tabs-2")).val()}',
+                    'success'=>'function(data){
+                        $(".items-auto").empty().append(data);
+                        $(".items-auto .items").owlCarousel();    
+                    }'
+                )
+            );
+        ?>
+         <?$this->endWidget();?>
         <div class="coll">
             <?php $form = $this->beginWidget('CActiveForm', array(
                 'id' => 'search-form-weight',
@@ -353,7 +422,7 @@
                         </span>
                     </dt>
                     <dd>
-                        <a href="/catalog" class="i-submit" >Показать</a>
+                        <a data-url="/catalog" href="/catalog" class="i-submit" >Показать</a>
                     </dd>
                 </dl>
             </div>
@@ -363,10 +432,40 @@
     </div>
     <div class="parametr" id="tabs-3">
 
-        <div class="search-text">
-            <input type="text" value="" placeholder="Введите ваш запрос" />
-            <input type="submit" value="" />
-        </div>
+          <?php $form = $this->beginWidget('CActiveForm', array(
+                'action' => $this->createUrl('/search/getCars'),
+                'htmlOptions' => array('class' => 'search-text')
+            ));
+            //echo $form->hiddenField('type',2);
+            $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+                'name'=>'searching',
+                'source'=>$autoCompliteParts,
+                // additional javascript options for the autocomplete plugin
+                'options'=>array(
+                    'minLength'=>'2',
+                ),
+                'htmlOptions'=>array(
+                    'style'=>'height:20px;',
+                    'placeholder'=>'Введите текст запроса',
+                    'class'=>'searching',
+                ),
+            ));
+            echo CHtml::hiddenField('type','1');
+        ?>
+        <?
+            echo CHtml::ajaxSubmitButton('','/search/getParts',
+                array(
+                    'url'=>'/search/getParts',
+                    'type'=>'GET',
+                    'data'=>'js:{type:$("#Search_type option:selected",$("#tabs-3")).val(),str:$(".searching",$("#tabs-3")).val(),table:"Parts"}',
+                    'success'=>'function(data){
+                        $(".items-auto").empty().append(data);
+                        $(".items-auto .items").owlCarousel();    
+                    }'
+                )
+            );
+        ?>
+        <?$this->endWidget();?>
 
         <div class="coll">
             <?php $form = $this->beginWidget('CActiveForm', array(
@@ -384,7 +483,13 @@
                     <dd>
 <!--                         <input type="hidden" value="2" name="Search[type]"> -->
                         <?=$form->hiddenField($searchForm,'scenario',array('value' => 'parts'))?>
-                        <?=$form->dropDownList($searchForm, 'type', array(1=>'Запчасти для легковых машин','2'=>'Запчасти для грузовых машин'), array( 
+
+                        <?
+                            $types=array(1=>'Запчасти для легковых машин');
+                            if ($BrandsWeightPartsExists)
+                                $types[]='Запчасти для грузовых машин';
+                        ?>
+                        <?=$form->dropDownList($searchForm, 'type', $types, array( 
                                                 'empty'=>'Выберите тип авто', 
                                                 'class'=>'select',
                                                 'data-nested'=>'#carBrands',
@@ -477,7 +582,7 @@
                         </span>
                     </dt>
                     <dd>
-                        <a href="/detail/parts" class="i-submit" >Показать</a>
+                        <a data-url="/detail/parts" href="/detail/parts" class="i-submit" >Показать</a>
                     </dd>
                 </dl>
             </div>
@@ -487,10 +592,39 @@
     </div>
     <div class="parametr" id="tabs-4">
 
-        <div class="search-text">
-            <input type="text" value="" placeholder="Введите ваш запрос" />
-            <input type="submit" value="" />
-        </div>
+          <?php $form = $this->beginWidget('CActiveForm', array(
+                'action' => $this->createUrl('/search/getCars'),
+                'htmlOptions' => array('class' => 'search-text')
+            ));
+            //echo $form->hiddenField('type',2);
+            $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+                'name'=>'searching',
+                'source'=>$autoCompliteParts,
+                // additional javascript options for the autocomplete plugin
+                'options'=>array(
+                    'minLength'=>'2',
+                ),
+                'htmlOptions'=>array(
+                    'style'=>'height:20px;',
+                    'placeholder'=>'Введите текст запроса'
+                ),
+            ));
+            echo CHtml::hiddenField('type','1');
+        ?>
+        <?
+            echo CHtml::ajaxSubmitButton('','/search/getCars',
+                array(
+                    'url'=>'/search/getCars',
+                    'type'=>'GET',
+                    'data'=>'js:{type:1,str:$("#searching",this).val(),table:"UsedCars"}',
+                    'success'=>'function(data){
+                        $(".items-auto").empty().append(data);
+                        $(".items-auto .items").owlCarousel();    
+                    }'
+                )
+            );
+        ?>
+        <?$this->endWidget();?>
 
         <div class="coll">
 
@@ -646,7 +780,7 @@
                         </span>
                     </dt>
                     <dd>
-                        <a href="/detail/parts" class="i-submit" >Показать</a>
+                        <a data-url="/detail/parts" href="/detail/parts" class="i-submit" >Показать</a>
                     </dd>
                 </dl>
             </div>

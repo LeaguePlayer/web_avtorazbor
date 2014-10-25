@@ -37,6 +37,10 @@ class SiteController extends FrontController
 			$BrandsWeightCars=UsedCars::getExistsData(null,null,'brand',2);
 			$BrandsParts=CHtml::listData(CarBrands::model()->findAll(Parts::getExistsData(null,null,'brand')),'id','name');
 			$BrandsWeightCars=CHtml::listData(CarBrands::model()->findAll($BrandsWeightCars),'id','name');
+
+			$BrandsWeightParts=Parts::getExistsData(null,null,'brand',2);
+			$BrandsWeightParts->limit=1;
+			$BrandsWeightPartsExists=CHtml::listData(CarBrands::model()->findAll($BrandsWeightParts),'id','name')!=array();
 			$Bascet=array();
 			$BascetWeight=array();
 			$Transmission=array();
@@ -48,6 +52,15 @@ class SiteController extends FrontController
 			$criteriaCar->addCondition('status=2');
 			$criteriaCar->order='id desc';
 
+			$autoCompliteParts=Yii::app()->db->createCommand()
+				->select('name')
+				->from('{{Parts}}')
+				->queryAll();
+			$autoComplite=array();
+			foreach ($autoCompliteParts as $key => $value) {
+				$autoComplite[]=$value['name'];
+			}
+
 			$dataProviderCar=new CActiveDataProvider('UsedCars', array(
 				'criteria' => $criteriaCar,
 				'pagination'=>false
@@ -56,9 +69,11 @@ class SiteController extends FrontController
 			$this->render('index',
 				array(
 					'Brands'=>$Brands,
+					'autoCompliteParts'=>$autoComplite,
 					'BrandsWeightCars'=>$BrandsWeightCars,
 					'BrandsParts'=>$BrandsParts,
 					'Bascet'=>$Bascet,
+					'BrandsWeightPartsExists'=>$BrandsWeightPartsExists,
 					'BascetWeight'=>$BascetWeight,
 					'Transmission'=>$Transmission,
 					'State'=>$State,
@@ -73,13 +88,13 @@ class SiteController extends FrontController
 			{
 				$searchForm->attributes=$_GET['Search'];
 				$searchForm->validate();
-
 				$model=$_GET['Search']['scenario']=='light' || $_GET['Search']['scenario']=='weight' ? 'UsedCars' : 'Parts';
-
-				$searchForm->criteria->limit='50';
-				//var_dump($model,$searchForm->criteria->condition,$searchForm->criteria->join);die();
+				$searchForm->criteria->limit=20;
 				$dataProvider=new CActiveDataProvider($model,
-					array('criteria'=>$searchForm->criteria)
+					array(
+						'criteria'=>$searchForm->criteria,
+						'pagination'=>false
+					)
 				);
 				$this->renderPartial('carCarusel',array('dataProvider'=>$dataProvider));
 			}

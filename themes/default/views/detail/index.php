@@ -14,11 +14,15 @@
                                     Для легковых
                                 </a>
                             </li>
+                            <?
+                                if ($WeightBrand){
+                            ?>
                             <li <?= $searchForm->scenario=='weight' ? 'class="active"' : '' ?>>
                                 <a href="#weight">
                                     Для грузовых
-                                </a>    
+                                </a>
                             </li>
+                            <?}?>
                             <li <?=$searchForm->scenario=='disc' ? 'class="active"' : '' ?>>
                                 <a href="#disc">
                                     Диски
@@ -33,8 +37,7 @@
                     </div>
 
                     <div class="content clear">
-
-                        <div class="personal <?=$searchForm->scenario!='disc' ? 'tab-active' : '' ?>" id="light">
+                        <div class="personal <?=$searchForm->scenario=='light' ? 'tab-active' : '' ?>" id="light">
                             <dl class="desc">
                                 <dt>
                                     Индивидуальный подбор
@@ -52,7 +55,7 @@
                                 <div class="select">
                                     <dl>
                                     <dd>
-                                        <?=$form->hiddenField($searchForm,'type')?>
+                                        <?=$form->hiddenField($searchForm,'type',array('value'=>1))?>
 
                                         <?=$form->hiddenField($searchForm,'scenario',array('value'=>'parts'))?>
 
@@ -114,6 +117,9 @@
                                 </div>
                             
                         </div>
+
+                        <?if (count($WeightBrand)){?>
+
                         <div class="personal <?=$searchForm->scenario=='weight' ? 'tab-active' : '' ?>" id="weight">
                             <dl class="desc">
                                 <dt>
@@ -132,7 +138,8 @@
                                 <div class="select">
                                     <dl>
                                     <dd>
-                                        <?=$form->hiddenField($searchForm,'type')?>
+
+                                        <?=$form->hiddenField($searchForm,'type',array('value'=>2))?>
 
                                         <?=$form->hiddenField($searchForm,'scenario',array('value'=>'parts'))?>
 
@@ -140,7 +147,7 @@
                                             Марка:
                                         </label>
                                         
-                                        <?=$form->dropDownList($searchForm,'brand', $Brand,
+                                        <?=$form->dropDownList($searchForm,'brand', $WeightBrand,
                                             array(
                                                 'empty'=>'Выберите марку ',
                                                 'class'=>'select',
@@ -193,6 +200,8 @@
                                 </div>
                             
                         </div>
+
+                        <?}?>
                         <div id="disc" class="personal <?=$searchForm->scenario=='disc' ? 'tab-active' : '' ?>">
                             <form action="/detail/disc" method="get">
                                 <div class="formCost">
@@ -211,6 +220,7 @@
                                         <dd>
                                             <input type="hidden" name="Search[category_id]" value="295"/>
                                             <input type="hidden" name="Search[scenario]" value="disc"/>
+                                            <?=$form->hiddenField($searchForm,'type',array('value'=>1))?>
                                             <div class="i-text">
                                                 <?=$form->textField($searchForm,'diametr_st',array('id'=>'minSize','value'=>14))?>
                                             </div>

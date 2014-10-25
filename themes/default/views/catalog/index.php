@@ -5,7 +5,7 @@
             <div class="wr">
 
                 <div class="coll-left">
-                    <div class="modul filter">
+                    <div class="modul filter" id="light" style="display:<?=$searchForm->scenario=='light' ? 'block' : 'none'?>">
                         <?php $form = $this->beginWidget('CActiveForm', array(
                                 'id' => 'parts-form',
                                 'action' => $this->createUrl('/catalog'),
@@ -13,24 +13,43 @@
                                 'htmlOptions' => array('class' => 'request_form')
                             )) ?>
                             <?=$form->hiddenField($searchForm,'display')?>
-                            <?=$form->hiddenField($searchForm,'scenario')?>
+                            <?=$form->hiddenField($searchForm,'scenario',array('value'=>'light'))?>
                             <?=$form->hiddenField($searchForm,'sort')?>
                         <dl>
                             <dd>
-                                
                                 <label>Страна:</label>
                                 <?=$form->dropDownList($searchForm,'id_country', $Countries,
-                                            array('empty'=>'Выберите страну','class'=>'select nested','data-model'=>'country', 'data-nested'=>'#brand', 'id'=>'country'))?>
-                                            
+                                            array('empty'=>'Выберите страну',
+                                                'class'=>'select nested',
+                                                'data-nested'=>'#carBrands',
+                                                'data-model'=>'country', 
+                                                'id'=>'country',
+                                                )
+                                            )?>
                             </dd>
-                            <dd style="display:<?=$searchForm->id_country ? 'block' : 'none'?>">
-                            <label> Марка:</label>
-                                <?=$form->dropDownList($searchForm,'brand', $Brands, array( 'options' => array($Brands_id=>array('selected'=>true)), 
-                                                        'empty'=>'Выберите марку', 'class'=>'select nested','data-model'=>'carBrands','data-nested'=>'#model','data-column'=>'brand', 'id'=>'brand'))?>
-                            </dd>
-                            <dd style="display:<?=$searchForm->brand ? 'block' : 'none'?>">
+                            <dd style="display:<?=($searchForm->brand ? 'block' : 'none')?>">
+                                <label>Марка:</label>
+                                <?=$form->dropDownList($searchForm,'brand', $Brands, 
+                                        array(
+                                            'empty'=>'Выберите марку ',
+                                            'class'=>'select',
+                                            'id'=>'carBrands',
+                                            'data-nested'=>'#carModels',
+                                            'data-model'=>'carBrands'
+                                            )
+                                        )?>
+                            </dd> 
+                            <dd>
                                 <label>Модель автомобиля:</label>
-                                <?=$form->dropDownList($searchForm,'car_model_id', $Models, array( 'options' => array($Model_id=>array('selected'=>true)),'empty'=>'Выберите модель','class'=>'select','id'=>'model'))?>
+                                <?=$form->dropDownList($searchForm,'car_model_id', $Models, 
+                                array( 
+                                    'empty'=>'Выберите раздел',
+                                    'class'=>'select',
+                                    'id'=>'carModels',
+                                    'data-nested'=>'#Categories',
+                                    'data-model'=>'carModels'
+                                    )
+                                )?>
                             </dd>
                             <dd id="slider">
                                 <label> Цена (руб):</label>
@@ -85,6 +104,87 @@
                         </dl>
                         <?$this->endWidget();?>  
                     </div>
+                    <div class="modul filter" id="weight" style="display:<?=$searchForm->scenario=='weight' ? 'block' : 'none'?>">
+                        <?php $form = $this->beginWidget('CActiveForm', array(
+                                'id' => 'parts-form',
+                                'action' => $this->createUrl('/catalog'),
+                                'method'=>'get',
+                                'htmlOptions' => array('class' => 'request_form')
+                            )) ?>
+                            <?=$form->hiddenField($searchForm,'display')?>
+                            <?=$form->hiddenField($searchForm,'scenario',array('value'=>'weight'))?>
+                            <?=$form->hiddenField($searchForm,'type',array('value'=>'1'))?>
+                            <?=$form->hiddenField($searchForm,'sort')?>
+                        <dl>
+                            <dd>
+                                
+                                <label>Страна:</label>
+                                <?=$form->dropDownList($searchForm,'id_country', $WeightCountries,
+                                            array('empty'=>'Выберите страну','class'=>'select nested','data-model'=>'country', 'data-nested'=>'#brand', 'id'=>'country'))?>
+                                            
+                            </dd>
+                            <dd style="display:<?=$searchForm->id_country || $searchForm->brand ? 'block' : 'none'?>">
+                            <label> Марка:</label>
+                                <?=$form->dropDownList($searchForm,'brand', $WeightBrands, array( 'options' => array($Brands_id=>array('selected'=>true)), 
+                                                        'empty'=>'Выберите марку', 'class'=>'select nested','data-model'=>'carBrands','data-nested'=>'#model','data-column'=>'brand', 'id'=>'brand'))?>
+                            </dd>
+                            <dd style="display:<?=$searchForm->brand ? 'block' : 'none'?>">
+                                <label>Модель автомобиля:</label>
+                                <?=$form->dropDownList($searchForm,'car_model_id', $WeightModels, array( 'options' => array($Model_id=>array('selected'=>true)),'empty'=>'Выберите модель','class'=>'select','id'=>'model'))?>
+                            </dd>
+                            <dd id="slider">
+                                <label> Цена (руб):</label>
+                                <div class="formCost">
+                                    <div class="i-text">
+                                    <?=$form->textField($searchForm,'price_st',array('id'=>'minCost'))?>
+                                </div>
+                                    <label for="maxCost">-</label> 
+                                    <div class="i-text">
+                                        <?=$form->textField($searchForm,'price_end',array('id'=>'maxCost'))?>
+                                    </div>
+                                </div>
+                                <div class="sliderCont">
+                                    <div id="slider"></div>
+                                </div>
+                                <div class="calculate">
+                                    <div class="line" data-min="#minCost" data-max="#maxCost">
+                                    </div>
+                                </div>
+                            </dd>
+                            <dd>
+                                <label>Тип кузова:</label>
+                                <?=$form->dropDownList($searchForm,'bascet', $WeightBascet,array('empty'=>'Выберите тип кузова','class'=>'select'))?>
+                            </dd>
+                            <dd>
+                                <label>Тип КПП:</label>
+                                <?=$form->dropDownList($searchForm,'state', $State,array('empty'=>'Выберите тип кпп','class'=>'select'))?>
+                            </dd>
+                            
+                            <dd id="slider2">
+                                <label>Пробег(тыс. км) :</label>
+                                <div class="formCost">
+                                    <div class="i-text">
+                                        <?=$form->textField($searchForm,'mileage_st',array('id'=>'minForce'))?>
+                                    <!-- <input type="text" id="minForce" value="0"/> -->
+                                    </div>
+                                    <label for="maxforce">-</label> <div class="i-text">
+                                    <?=$form->textField($searchForm,'mileage_end',array('id'=>'maxForce'))?>
+                                    <!-- <input type="text" id="maxForce" value="1000"/> -->
+                                    </div>
+                                </div>
+                                <div class="sliderCont">
+                                    <div id="slider2"></div>
+                                </div>
+                                <div class="line-2" data-min="#minForce" data-max="#maxForce">
+                                    </div>
+                            </dd>
+
+                            <dd class="submit">
+                                <a href="/catalog" class="i-submit" >Сбросить</a>
+                            </dd>
+                        </dl>
+                        <?$this->endWidget();?>  
+                    </div>
                 </div>
 
                 <div class="coll-right">
@@ -95,11 +195,16 @@
                                     Легковые
                                 </a>
                             </li>
+                            <?
+                                if (!empty($WeightBrands))
+                                {
+                            ?>
                             <li class="<?=$searchForm->scenario=="weight" ? 'active' : '' ?>">
                                 <a href="#" data-type="2">
                                     Грузовые
                                 </a>    
                             </li>
+                            <?}?>
                         </ul>
                         <h1 class="head">
                             Каталог авто

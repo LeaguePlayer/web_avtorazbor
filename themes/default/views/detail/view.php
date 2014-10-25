@@ -18,8 +18,21 @@
                             <div class="big-img">
                                 <?
                                    $gallery=$model->getGallery()->galleryPhotos;
-                                    $image=$gallery[0]->getUrl('normal') ? $gallery[0]->getUrl('normal') : '/media/images/parts/default.jpg';
-                                    $bigImage=$image ? $gallery[0]->getUrl('big') : '/media/images/parts/default.jpg';
+
+                                   if ($gallery[0])
+                                   {
+                                    
+                                        $image=$gallery[0]->getUrl('normal');
+                                        $bigImage=$gallery[0]->getUrl('big');
+                                   }
+                                    else 
+                                    {
+                                        $image= '/media/images/parts/default.jpg';
+                                        $bigImage='/media/images/parts/default.jpg';
+                                    }
+                                        
+
+                                    
                                 ?>
                                 <a class="imgFancy" rel="1" href="<?=$bigImage?>"><img width="331" height="192" src="<?=$image?>" alt="" title="" />
                             </div>

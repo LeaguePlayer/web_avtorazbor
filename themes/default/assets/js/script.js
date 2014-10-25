@@ -15,6 +15,8 @@ $(function(){
 				var href=$(this).attr('href');
 				$.fancybox.open(href,
 					{
+
+						padding:0,
 						helpers: {
 					     overlay: {
 					     	locked: false
@@ -30,6 +32,7 @@ $(function(){
 	$('.auth,.modal').fancybox({
 		fitToView	: true,
 		padding		: 0,
+		margin		: 0,
 		autoSize	: true,
 		helpers: {
 		     overlay: {
@@ -37,6 +40,17 @@ $(function(){
 		     }
 	  }
 	});
+
+	var owlHead=$('.head-carusel').owlCarousel({
+	  items: 1,
+      navigation:true,
+      loop:true,
+      navigationText:[],
+	  autoPlay:8000,
+	  autoplayTimeout:8000,
+	  singleItem:true,
+	  pagination:true,
+	}).data('owlCarousel');
 
     //*дочерние эллементы
     $('.service li:nth-child(even)').addClass('old');
@@ -48,13 +62,6 @@ $(function(){
 		$(this).find('.niceCheck').css('background-position','-10px 0');
 	},function(){
 		$(this).find('.niceCheck').css('background-position','0 0');
-	});
-
-	$('.fotorama').fotorama({
-	  width: '100%',
-	  maxwidth: '100%',
-	  nav: 'dots',
-	  arrows: false
 	});
 
 	var dropped=true;
@@ -72,7 +79,7 @@ $(function(){
 	})
 
 	var searchDropped=true;
-	$('#searchBtn').click(function(){
+	$('.searchType').click(function(){
 
 		if (searchDropped)
 		{
@@ -88,7 +95,7 @@ $(function(){
 
 		$('.search .searchType').slideDown(100)
 		searchDropped=!searchDropped;
-		$('label[for=searchBtn]').text($(this).text());
+		$('.searchType').text($(this).text());
 		$('.search .searchBy').slideUp(100);
 	})
 
