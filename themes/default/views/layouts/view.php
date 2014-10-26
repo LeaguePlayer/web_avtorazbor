@@ -162,4 +162,4 @@
                 <div class="clear"></div>
             </div>
         </div>  
-    <?=$this->renderPartial('itemIncart',array('model'=>$model))?>
+    <?=$this->renderPartial('iteminCart',array('model'=>$model))?>
