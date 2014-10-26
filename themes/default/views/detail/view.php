@@ -93,7 +93,6 @@
                                             </li>
                                         <?
                                     }
-
                                 ?>
                                 <li>
                                     Комментарий: <?=$model->comment?>
@@ -102,10 +101,13 @@
                                     Цена: <?=number_format($model->price_sell,0,' ',' ')?> руб.
                                 </li>  
                             </ul>
+                            <?
+                                if (!Yii::app()->user->isAdmin){
+                            ?>
                             <div class="submit">
                                 <a href="#" class="i-submit inCart"  data-count="<?=Yii::app()->cart->getCount()?>" data-cost="<?=Yii::app()->cart->getCost()?>" data-price="<?=!$model->inCart() ? $model->getPrice() : ''?>">В корзину</a>
                             </div>
-
+                            <?}?>
                         </div>
 
                         <div class="shared clear">
