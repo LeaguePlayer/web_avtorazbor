@@ -80,24 +80,9 @@
                 'htmlOptions' => array('class' => 'search-text')
             ));
             //echo $form->hiddenField('type',2);
-            $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-                'name'=>'searching',
-                //'source'=>$autoCompliteParts,
-                'sourceUrl'=>'/search/autoComplite',
-                // additional javascript options for the autocomplete plugin
-                'options'=>array(
-                    'minLength'=>'2',
-                    'maxSize'=>'10',
-                    'max'=>'10',
-                ),
-                'htmlOptions'=>array(
-                    'style'=>'height:20px;',
-                    'placeholder'=>'Введите текст запроса',
-                    'class'=>'searching',
-                ),
-            ));
             echo CHtml::hiddenField('type','1');
         ?>
+        <input type="text" data-model="UsedCars" data-type="1" class="searching" value="<?=$_GET[query]?>">
         <?
             echo CHtml::ajaxSubmitButton('','/search/getCars',
                 array(
@@ -263,21 +248,9 @@
                 'htmlOptions' => array('class' => 'search-text')
             ));
             //echo $form->hiddenField('type',2);
-            $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-                'name'=>'searching',
-                'source'=>$autoCompliteParts,
-                // additional javascript options for the autocomplete plugin
-                'options'=>array(
-                    'minLength'=>'2',
-                    'maxSize'=>'10',
-                    'max'=>'10',
-                ),
-                'htmlOptions'=>array(
-                    'style'=>'height:20px;',
-                    'placeholder'=>'Введите текст запроса',
-                    'class'=>'searching',
-                ),
-            ));
+            ?>
+            <input type="text" data-model="UsedCars" data-type="2" class="searching" value="<?=$_GET[query]?>">
+            <?
             echo CHtml::hiddenField('type','1');
         ?>
         <?
@@ -437,21 +410,8 @@
                 'htmlOptions' => array('class' => 'search-text')
             ));
             //echo $form->hiddenField('type',2);
-            $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-                'name'=>'searching',
-                'source'=>$autoCompliteParts,
-                // additional javascript options for the autocomplete plugin
-                'options'=>array(
-                    'minLength'=>'2',
-                ),
-                'htmlOptions'=>array(
-                    'style'=>'height:20px;',
-                    'placeholder'=>'Введите текст запроса',
-                    'class'=>'searching',
-                ),
-            ));
-            echo CHtml::hiddenField('type','1');
         ?>
+            <input type="text" data-model="Parts" data-type="1" class="searching" value="<?=$_GET[query]?>">
         <?
             echo CHtml::ajaxSubmitButton('','/search/getParts',
                 array(
@@ -597,20 +557,9 @@
                 'htmlOptions' => array('class' => 'search-text')
             ));
             //echo $form->hiddenField('type',2);
-            $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-                'name'=>'searching',
-                'source'=>$autoCompliteParts,
-                // additional javascript options for the autocomplete plugin
-                'options'=>array(
-                    'minLength'=>'2',
-                ),
-                'htmlOptions'=>array(
-                    'style'=>'height:20px;',
-                    'placeholder'=>'Введите текст запроса'
-                ),
-            ));
             echo CHtml::hiddenField('type','1');
         ?>
+
         <?
             echo CHtml::ajaxSubmitButton('','/search/getCars',
                 array(

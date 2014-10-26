@@ -30,30 +30,29 @@ class SearchController extends Controller
         $dataProvider=Search::searchByStr($str,$table);
         $this->render('find',array('dataProvider'=>$dataProvider,'str'=>$str,'model'=>$table));
     }
-    public function actionautoComplete($term,$table)
+    public function actionAutoComplite($query,$table,$type)
     {
         $retVal = array();
- 
-        if (strlen($term) >= 2) {
+        
+        if (strlen($query) >= 2) {
             $model = $table::model();
          
             $criteria = new CDbCriteria();
-            $criteria->compare('name', $term, true);
+            $criteria->select="t.name";
+            $criteria->distinct=true;
+            $criteria->join=$table::join();
+            $criteria->compare('t.name', $query, true);
+            $criteria->addCondition("car_type=$type");
             $criteria->limit = 10;
-            $criteria->order="id desc";
-
+            $criteria->order="t.id desc";
             foreach($model->findAll($criteria) as $item) {
               $retVal[] = array(
-                'label' => $item->some_field,
-                'value' => $item->some_field,
-                'id' => $item->id,
-                'other_field' => $item->other_field,
-                'another_field' => $item->another_field,
+                'value' => $item->name,
              );
            }
          }
          
-         echo CJSON::encode($retVal);
+         echo CJSON::encode(array('suggestions'=>$retVal));
          Yii::app()->end();
     }
 }
