@@ -33,7 +33,7 @@ class PageController extends FrontController
 		$model=Page::model()->find('alias=:alias',array(':alias'=>$alias));
 		$this->alias=$model->alias;
 		$this->model=$model;
-		$this->viewTitle=$model->title;
+		$this->viewTitle=$model->name;
 		if (!$model)
 			throw new CHttpException(404,'По вашему запросу не было найдено данных.');
 		$this->render('view',array(
