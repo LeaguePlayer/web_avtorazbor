@@ -32,7 +32,9 @@
 					<li>Коробка передач: <?=$model->dop->getTransmissionType()?></li>
 					<li>Тип кузова: <?=$model->bascet?></li>
 					<li>Цена: <?=number_format($model->price,0,' ',' ') ?> руб.</li>
-					<li><a href="#own-price" class="own-price"><span>Предложить свою цену</span></a></li>
+                    <?if (!Yii::app()->user->isAdmin){?>
+					   <li><a href="#own-price" class="own-price"><span>Предложить свою цену</span></a></li>
+                    <?}?>
                     </ul>
 
                 </div>
@@ -82,4 +84,4 @@
         <div class="clear"></div>
     </div>
 </div>  
-<?=$this->renderPartial('//forms/ownPrice',array('model'=>new Ownprice),true);?>
+<?=$this->renderPartial('//forms/ownPrice',array('model'=>new Ownprice,'user_id'=>Yii::app()->user->id),true);?>
