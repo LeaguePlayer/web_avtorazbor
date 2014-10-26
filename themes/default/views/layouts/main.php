@@ -82,60 +82,12 @@
                     </a>
                 </dd>
             </dl>
-
-        	<div class="reg">
-        			<ul>
-                        <?
-                            $authenticated=Yii::app()->user->isGuest || Yii::app()->user->isAdmin;
-                        ?>
-                    <?if ($authenticated){?>
-        				<li>
-        					<a class="auth" href="#login">Войти</a>
-        				</li>
-        				<li>
-        					<a href="/account/registration">Регистрация</a>
-        				</li>
-                    <?}
-                        else 
-                    {?>
-                        <li>
-                            <a href="/account/">Личный кобинет</a>
-                        </li>
-                        <li>
-                            <a href="/account/logout">Выйти</a>
-                        </li>
-                        <?}?>
-        			</ul>
-        	</div>
-
-        	<dl class="bascet">	
-                
-        		<dt>
-        			<strong>В корзине:</strong> 
-        		</dt>
-        		<dd>
-        			<?
-                        if (!Yii::app()->cart->isEmpty(1) && $authenticated)
-                        {
-                    ?><ul>
-        				    <li>
-        					<a href="/cart"><?=Yii::app()->cart->getItemsCount()?> товар</a>
-        				    </li>
-        				    <li>
-                            <a href="/cart">
-        					На сумму: <strong><?=Yii::app()->cart->getCost()?> руб.</strong>
-                            </a>
-        			     	</li>
-        			  </ul>
-                    <?} else {?>
-                        <span class="empty-cart">
-                            нет товаров
-                        </span>
-                    <?}?>
-        		</dd>
-                
-        	</dl>
-
+            <?if (!Yii::app()->user->isAdmin){
+        	   $this->renderPartial('//layouts/_reg');
+        	   $this->renderPartial('//layouts/_cart');
+            } else {
+                $this->renderPartial('//layouts/_adminMessage');
+            }?>
         </header>
         <!--header End-->
 
