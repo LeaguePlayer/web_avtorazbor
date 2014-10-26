@@ -149,6 +149,7 @@ return array(
 
                 'catalog/<alias:[\w\-]+>/<id:\d+>'=>'catalog/car',
                 'detail/parts'=>'detail/parts',
+                'diagnostic/<alias:[\w\-]+>/<id:\d+>'=>'diagnostic/view',
                 'detail/<alias:[\w\-]+>/<id:\d+>'=>'detail/view',
 
                 '<controller:page|news>/<alias:(\w|\-)+>'=>'<controller>/view',
