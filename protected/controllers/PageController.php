@@ -2,8 +2,9 @@
 
 class PageController extends FrontController
 {
-	public $layout='//layouts/simple';
+	public $layout='//layouts/content';
 	public $alias=null;
+	public $viewTitle="";
 	
 	public function filters()
 	{
@@ -32,6 +33,7 @@ class PageController extends FrontController
 		$model=Page::model()->find('alias=:alias',array(':alias'=>$alias));
 		$this->alias=$model->alias;
 		$this->model=$model;
+		$this->viewTitle=$model->title;
 		if (!$model)
 			throw new CHttpException(404,'По вашему запросу не было найдено данных.');
 		$this->render('view',array(
