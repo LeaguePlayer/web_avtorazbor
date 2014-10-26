@@ -1563,6 +1563,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 						img{
 							border:2px solid #f6821c;
 							box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+
 						}
 					}
 
@@ -1593,6 +1594,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 							margin-bottom: 14px;
 							border:2px solid #255caa;
 							position: inherit;
+							height: 125px;
+							width: 206px;
 						}
 						.section{
 							display: block;
@@ -3443,6 +3446,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 	//border: 2px solid #fe6a04;
 	z-index: 10000000;
 	background: #fff;
+	dl{
+		margin-bottom: 10px;
+	}
 	.req{
 		color: red;
 	}
@@ -3495,7 +3501,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 	border-radius: 10px;
 	background:#fb710b;
 }
-.alert{
+.alert.qst{
 	padding-right: 30px;
 	.caption{
 		text-align: center;
@@ -3661,3 +3667,25 @@ ul.vacansy{
 .breacumbs {
 	margin-top: 20px;
 }
+.alert{
+	padding: 8px 35px 8px 14px;
+	position: relative;
+	border: 1px solid #ddd;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	display: inline-block;
+	left: 2px;
+	background: #fcf8e3;
+	.warning{
+		color:#c09853;
+	}
+}
+
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; cursor: default; overflow: auto; -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-no-suggestion { padding: 2px 5px;}
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: bold; color: #000; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { font-weight: bold; font-size: 16px; color: #000; display: block; border-bottom: 1px solid #000; }
