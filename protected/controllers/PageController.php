@@ -2,7 +2,7 @@
 
 class PageController extends FrontController
 {
-	public $layout='//layouts/content';
+	public $layout='//layouts/simple';
 	public $alias=null;
 	public $viewTitle="";
 	
@@ -34,6 +34,7 @@ class PageController extends FrontController
 		$this->alias=$model->alias;
 		$this->model=$model;
 		$this->viewTitle=$model->name;
+		$this->layout='//layouts/content';
 		if (!$model)
 			throw new CHttpException(404,'По вашему запросу не было найдено данных.');
 		$this->render('view',array(
