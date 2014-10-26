@@ -1,30 +1,31 @@
-<li class="<?=$acive ? 'active' : ''?>">
-    <a href="/vacansy/view?id=<?=$data->id?>">
-        <?=$data->post?>
-    </a>
-    <div class="inf">
-            <dl>
-                <dt>
-                    Условия работы:
-                </dt>
-                <dd>
-                    <?=$data->conditions_work?>
-                </dd>
-                <dt>
-                    Навыки:
-                </dt>
-                <dd>
-                    <?=$data->skill?>
-                </dd>
-                <dt>
-                    Мы предлагаем:
-                </dt>
-                <dd>
-                    <?=$data->condition_our?>
-                </dd>
-            </dl>
-            <p>
-                <?=$data->desc?>
-            </p>    
+<div class="page reg">
+<h1 class="head">
+    Вакансии
+</h1>
+<div class="wr">
+    <div class="coll left">
+        <div class="content clear">
+
+            <?=$content?>
         </div>
-</li>
+    </div>
+    <div class="coll right">
+       <div class="modul one">
+            <p class="phone">+7 (343) 201-36-06</p>
+            <a href="/evackuator">
+                Услуги автоэвакуатора
+            </a>
+        </div>
+        <div class="modul second">
+            <p class="question">Есть вопросы?<br>
+                <span>Напиши нам</span>
+            </p>
+            <a href="#popup" class="modal">
+                Задать вопрос
+            </a>
+        </div>
+    </div>  
+    </div> 
+
+    <div class="clear"></div>
+</div>
