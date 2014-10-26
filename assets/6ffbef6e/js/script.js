@@ -15,10 +15,8 @@ $(function(){
 				var href=$(this).attr('href');
 				$.fancybox.open(href,
 					{
-<<<<<<< HEAD
-=======
+
 						padding:0,
->>>>>>> 37580d015df3be5bdeaf6a4a9524b77dc9971987
 						helpers: {
 					     overlay: {
 					     	locked: false

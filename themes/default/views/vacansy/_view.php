@@ -1,4 +1,4 @@
-<li>
+<li class="<?=$acive ? 'active' : ''?>">
     <a href="/vacansy/view?id=<?=$data->id?>">
         <?=$data->post?>
     </a>

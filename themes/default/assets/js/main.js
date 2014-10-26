@@ -82,7 +82,7 @@ $(document).ready(function(){
 	$('.items-news .items').each(function(){
 		var owl=$(this).owlCarousel({
 				  nav:true,
-				  items:5,
+				  items:4,
 				  navText:[],
 			      margin: 0,
 			      mouseDrag:false,

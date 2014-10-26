@@ -139,7 +139,7 @@
                                     <dl>
                                     <dd>
 
-                                        <?=$form->hiddenField($searchForm,'type',array('value'=>2))?>
+                                        <?=$form->hiddenField($searchForm,'type',array('value'=>2,))?>
 
                                         <?=$form->hiddenField($searchForm,'scenario',array('value'=>'parts'))?>
 

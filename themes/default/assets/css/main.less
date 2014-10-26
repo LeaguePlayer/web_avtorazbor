@@ -25,7 +25,7 @@ a:hover{
 {
 	background-color: @startColor;
 	background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
-	background: -webkit-linear-gradient(top, @startColor, @endColor);
+	background: -webkit-linear-grad	ient(top, @startColor, @endColor);
 	background: -moz-linear-gradient(top, @startColor, @endColor);
 	background: -ms-linear-gradient(top, @startColor, @endColor);
 	background: -o-linear-gradient(top, @startColor, @endColor);
@@ -375,7 +375,7 @@ header{
 	margin:@c;
 	width:@w;
 	overflow: hidden;
-	padding:10px 0 22px;
+	padding:25px 0 22px;
 	.qst-head{
 		float:left;
 		padding-right:20px;
@@ -505,7 +505,7 @@ header{
 .menu{
 	width:@w;
 	margin:@c;
-	padding-bottom:70px;
+	padding-bottom:25px;
 	border-bottom:1px solid #143883;
 	nav{
 		display: inline-block;
@@ -630,6 +630,7 @@ header{
 				span{
 					text-decoration: none;
 					color:#f5841e;
+					font-weight: normal;
 				}
 			}
 			&:first-child{
@@ -718,6 +719,7 @@ header{
 				color:#99aab7;
 				font-size:14px;
 				line-height: 18px;
+				font-weight: normal;
 			}
 		}
 	}
@@ -1455,7 +1457,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 				li{
 					margin-bottom:30px;
 					display: inline-block;
-					width: 47%;
+					width: 50%;
+					vertical-align: top;
+
 					img{
 						display:block;
 						float: left;
@@ -1471,12 +1475,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 					div{
 						display: inline-block;
 						vertical-align: top;
+						width: 56%;
 					}
 					.data{
 						color:#f3851d;
 						font-size: 14px;
 						line-height:1.2;
 						padding-bottom:15px;
+						display: block;
+					}
+					.desc{
+						color: #5E80B5;
 						display: block;
 					}
 					.name{
@@ -1848,7 +1857,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 					}
 				}
 				.auto{
+
 					trasition:1s all;
+					
+					.pagination{
+						position: relative;
+						bottom: 30px;
+						margin-top: 30px;
+						left: -32px;
+						.next{
+							top:0!important;
+						}
+					}
 					li{
 						display: inline-block;
 						vertical-align: top;
@@ -2334,18 +2354,11 @@ div[id^=tabs]{
 		position: relative;
 		width: 1100px;
 		overflow: hidden;
-		height: 260px;
 		margin: 0 auto;
 		.items{
 			div{
 				display:inline-block;
-				height: 260px;
-				position: relative;
 				vertical-align: top;
-				div{
-					height: inherit;
-
-				}
 				img{
 							display: block;
 							margin:0;
@@ -2366,6 +2379,7 @@ div[id^=tabs]{
 								color:#99aab7;
 								display: block;
 								max-width: 200px;
+								padding-bottom: 30px;
 							}
 							.price{
 								display:inline-block;
@@ -3468,6 +3482,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 		border-bottom-right-radius: 19px;
 		border-bottom-left-radius: 19px;
 		border: 2px solid rgb(254, 106, 4);
+		// .fancybox-close{
+		// 	top:13px!important;
+		// 	bottom:13px!important;
+		// 	background: none!important;
+		// }
 	}
 #display .active{
 	color:#fff;
@@ -3583,29 +3602,47 @@ ul.vacansy{
 		z-index: 223;
 		position: absolute;
 		text-align: center;
-		bottom: -5px;
-
+		bottom: -6px;
+		margin-right: 25px;
 		.owl-pagination{
 			text-align: center;
 			.owl-page{
 				width: 10px;
 				height: 10px;
 				border-radius: 5px;
-				background: #FFA500;
+				background: #b4c3d2;
+				
 				display: inline-block;
 				margin-left: 10px;
+			}
+			.owl-page.active{
+				.gradient(#fa6d0d,#f6831e);
 			}
 		}
 	}
 	.info{
 		position: relative;
 		z-index: 2;
+		padding-top: 28px;
 		width: 1180px;
 		margin: 0 auto;
+		height:102px;	
+		.caption{
+			font-size: 30px;
+		}
+		.desc{
+			font-size: 18px;
+		}
 	}
 	a{
 		position: absolute;
 		right: 0;
+		top:0;
+		bottom: 0;
+		margin: auto;
+		height: 15px;
+		font-size: 18px;
+
 	}
 	.item{
 		min-height: 130px;
@@ -3617,5 +3654,9 @@ ul.vacansy{
 		position: absolute;
 		z-index: 1;
 		width: 100%;
+		height: 100%;
 	}
+}
+.breacumbs {
+	margin-top: 20px;
 }

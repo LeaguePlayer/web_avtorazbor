@@ -82,7 +82,7 @@ $(document).ready(function(){
 	$('.items-news .items').each(function(){
 		var owl=$(this).owlCarousel({
 				  nav:true,
-				  items:5,
+				  items:4,
 				  navText:[],
 			      margin: 0,
 			      mouseDrag:false,
@@ -125,33 +125,6 @@ $(document).ready(function(){
 				data:formData,
 				success:function(data){
 					
-<<<<<<< HEAD
-					if (data.indexOf('empty')<=0 && $('img',data).length>7)
-					{
-						owl=$('.items-auto .items')
-							.empty()
-							.append(data)
-							.owlCarousel({
-								nav:true,
-								items:7,
-								navText:[],
-							    margin: 0,
-							    loop: true,
-							}).data('owlCarousel');
-
-						$('.cat-auto .prev').click(function(){
-							owl.prev();
-						})
-
-						$('.cat-auto .next').click(function(){
-							owl.next();
-						})		
-					} else {
-						$('.items-auto')
-							.empty()
-							.append(data).find('.prev,.next').hide();
-					}
-=======
 					owl=$('.items-auto')
 						.empty()
 						.append(data)
@@ -171,7 +144,6 @@ $(document).ready(function(){
 					$('.cat-auto .next').click(function(){
 						owl.next();
 					})		
->>>>>>> 37580d015df3be5bdeaf6a4a9524b77dc9971987
 				}
 			}).done(function(){
 				var total=parseInt($('.total').eq(0).text(),10);
@@ -182,33 +154,7 @@ $(document).ready(function(){
 				$('.num',form).text(total+" авто");	
 			})
 		},1000)
-<<<<<<< HEAD
-	}
 
-	var processNested=function(base){
-		if (base.val())
-		{
-			$(base.data('next'),contextForm).selectmenu('enable');
-		} else {
-			var elem=base.data('next');
-
-			while(typeof elem !='undefined')
-			{
-				$('option:not(:first)',$(elem,contextForm)).remove();
-				$(elem,contextForm).selectmenu('refresh')
-				$(elem,contextForm).selectmenu('disable');
-				
-				if ($(elem).data('map'))
-				{
-					changeNestedMap.apply(elem,[$(elem,contextForm).data('model')]);
-				};
-				base=$(base.data('next'),contextForm)
-				elem=base.data('next');
-			}
-		}
-	}
-
-=======
 	}
 
 	var processNested=function(base){
@@ -235,7 +181,6 @@ $(document).ready(function(){
 
 	}
 
->>>>>>> 37580d015df3be5bdeaf6a4a9524b77dc9971987
 	var onSelectChanged=function()
 	{
 		var $nested=$(this).data('nested');

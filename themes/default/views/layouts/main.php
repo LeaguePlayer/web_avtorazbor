@@ -194,7 +194,7 @@
             
         </div>
         <?if (strpos(get_class($this),"Site")!=-1){?>
-            <div class="breacumbs fix_width" style="margin-top: 20px;">
+            <div class="breacumbs fix_width">
             <?
 
                 $this->widget('zii.widgets.CBreadcrumbs', array(
@@ -240,7 +240,7 @@
         				</a>
         			</li>
         			<li>
-        				<a href="/page/Vse-uslugi">
+        				<a href="/page/service">
         					Все услуги
         				</a>
         			</li>
