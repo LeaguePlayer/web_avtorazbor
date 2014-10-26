@@ -24,7 +24,6 @@ class DiagnosticController extends FrontController
 			),
 		);
 	}
-
 	
 	public function actionView($alias)
 	{
@@ -33,7 +32,6 @@ class DiagnosticController extends FrontController
 		$this->render('view',array('model'=>$model));
 	}
 
-	
 	public function actionIndex()
 	{
 		$dataProvider=new CActiveDataProvider('Diagnostic');
