@@ -99,7 +99,7 @@
                             </dd>
 
                             <dd class="submit">
-                                <a href="/catalog" class="i-submit" >Сбросить</a>
+                                <a href="/catalog?Search[scenario]=light" class="i-submit" >Сбросить</a>
                             </dd>
                         </dl>
                         <?$this->endWidget();?>  
@@ -180,7 +180,7 @@
                             </dd>
 
                             <dd class="submit">
-                                <a href="/catalog" class="i-submit" >Сбросить</a>
+                                <a href="/catalog?Search[scenario]=weight" class="i-submit" >Сбросить</a>
                             </dd>
                         </dl>
                         <?$this->endWidget();?>  

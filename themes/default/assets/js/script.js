@@ -15,6 +15,7 @@ $(function(){
 				var href=$(this).attr('href');
 				$.fancybox.open(href,
 					{
+
 						padding:0,
 						helpers: {
 					     overlay: {

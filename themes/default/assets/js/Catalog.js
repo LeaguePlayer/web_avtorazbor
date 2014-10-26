@@ -78,27 +78,26 @@ $(function(){
 
 	$('#car_type li a').click(function(e){
 		e.preventDefault()
-		$_this=$(this);
-		type=$(this).data('type');
-		if (type==2)
-		{
-			$('#Search_bascet,#Search_transmission').closest('dd').slideUp(200,function(){
+
+		var $_this=$(this),
+			type=$(this).data('type');		
+		
+		filterForm.find('dd').slice(1,3).slideUp(200);
+		setTimeout(function(){
+			if (type==2)
+			{
 				$('#light').hide();
 				$('#weight').show();
 				filterForm=$('#weight');
-			});
-
-			$('#Search_bascet,#Search_transmission').children('option:selected').removeAttr('selected');
-			$('#Search_bascet,#Search_transmission').selectmenu('refresh');
-			
-		} else {
-			$('#Search_bascet,#Search_transmission').closest('dd').slideDown(200,function(){
+			} else {
 				filterForm.hide();
 				filterForm=$('#light');	
 				$('#light').show();
-			});
-			
-		}
+			}
+			$('select option:selected',filterForm).removeAttr('selected');
+			$('select',filterForm).selectmenu('refresh');
+			filterForm.find('dd').slice(1,3).slideUp(200);
+		},300)
 		return false;
 	});
 	

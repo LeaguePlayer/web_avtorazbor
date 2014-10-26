@@ -9,15 +9,14 @@ $(document).ready(function(){
 		change:function(){
 
 			changeView();
-			var params={
+			var $_this=$(this),
+				params={
 					value:$(this).attr('id')!='Categories' ? $(this).val() : $('#carModels').val(),
 					model:$(this).data('model'),
 					nested:$(this).data('nested'),
 					searchingIn:"Parts",
 				},
-
-			$_this=$(this);
-			var parent=$_this.closest('dd'),
+				parent=$_this.closest('dd'),
 				index=parent.index()+1,
  				elems=dd.slice(index,lastIndex);
 
@@ -77,14 +76,14 @@ $(document).ready(function(){
 
 	$('#car_type li a').click(function(){
 		
-		if($(this).attr('href').indexOf("#")>-1)
-		{
-			$(this).closest('ul').find('.active').removeClass('active');
-			$(this).parent().addClass('active');
-			$('#Search_type').val($(this).data('scenario'));
-			changeView();
-			return false;
-		}
+		// if($(this).attr('href').indexOf("#")>-1)
+		// {
+		// 	$(this).closest('ul').find('.active').removeClass('active');
+		// 	$(this).parent().addClass('active');
+		// 	$('#Search_type').val($(this).data('scenario'));
+		// 	changeView();
+		// 	return false;
+		// }
 
 	})
 	$('#minCost, #maxCost').bind('change click keyup',function(){

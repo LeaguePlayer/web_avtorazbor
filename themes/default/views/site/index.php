@@ -483,6 +483,7 @@
                     <dd>
 <!--                         <input type="hidden" value="2" name="Search[type]"> -->
                         <?=$form->hiddenField($searchForm,'scenario',array('value' => 'parts'))?>
+
                         <?
                             $types=array(1=>'Запчасти для легковых машин');
                             if ($BrandsWeightPartsExists)

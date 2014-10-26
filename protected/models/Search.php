@@ -223,7 +223,7 @@
 			$criteria=Parts::model()->search_parts($column,$params);
 			if ($this->car_model_id)
 			{	
-				$select="`t`.id,`t`.name,`t`.price_sell,`t`.price_buy,`t`.comment,`t`.category_id,`t`.car_model_id,`t`.location_id,`t`.supplier_id,`t`.create_time,`t`.update_time,`t`.status";
+				$select="`t`.id,`t`.name,`t`.alias, `t`.price_sell,`t`.price_buy,`t`.comment,`t`.category_id,`t`.car_model_id,`t`.location_id,`t`.supplier_id,`t`.create_time,`t`.update_time,`t`.status";
 
 				$select.=',`t`.car_model_id!='.$this->car_model_id.' as analog';
 				$criteria->select=$select;

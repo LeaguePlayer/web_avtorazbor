@@ -4,6 +4,8 @@ $(function(){
 		  items:5,
 		  navText:[],
 	      margin: 0,
+	      mouseDrag:false,
+		  touchDrag:false,
 	      loop: false,
 	}).data('owlCarousel');
 
@@ -23,6 +25,8 @@ $(function(){
 		  navText:[],
 	      margin: 0,
 	      loop: false,
+	      mouseDrag:false,
+		  touchDrag:false,
 	}).data('owlCarousel');
 
 
