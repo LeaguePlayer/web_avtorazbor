@@ -124,7 +124,9 @@ $(document).ready(function(){
 				url:'/site/index',
 				data:formData,
 				success:function(data){
-					
+
+					$('.items-auto .items').data('owlCarousel').destroy();
+
 					owl=$('.items-auto')
 						.empty()
 						.append(data)
@@ -136,14 +138,6 @@ $(document).ready(function(){
 						    margin: 0,
 						    loop: true,
 						}).data('owlCarousel');
-
-					$('.cat-auto .prev').click(function(){
-						owl.prev();
-					})
-
-					$('.cat-auto .next').click(function(){
-						owl.next();
-					})		
 				}
 			}).done(function(){
 				var total=parseInt($('.total').eq(0).text(),10);
