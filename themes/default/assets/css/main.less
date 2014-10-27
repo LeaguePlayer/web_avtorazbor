@@ -1356,14 +1356,19 @@ header{
 					margin: 5px 0;
 					display: block;
 					padding-bottom:10px;
-				}	
+				}
+				dd:first-child{
+					label:first-child{
+						padding-top: 0px;
+					}
+				}
 				dd{
 					label{
 						font: 14px/1.2 segoe_uiregular;
 						color: #bdc8df;
 						margin: 5px 0;
 						display: block;
-						padding-bottom: 10px;
+						padding:12px 0;
 						display:inline-block;
 					}
 					.line-2{
@@ -1371,7 +1376,7 @@ header{
 						top:0;
 						width: 100%;
 						height: 5px;
-						border: solid 1px #fff;
+						border: solid 2px #fff;
 						border-radius: 10px;
 					}
 					&.submit{
@@ -1416,15 +1421,35 @@ header{
 						width: 92px;
 					}
 				}
-				.calculate{
+				.calculate,#slider2{
 					margin-top: 25px;
+					ul{
+						width: 100%;
+						list-style: none;
+						position: relative;
+						top: 2px;
+						li{
+							display: inline-block;
+							height: 5px;
+							width: 2px;
+							vertical-align: top;
+							margin-left: 18px;
+							background: #fff;
+						}
+						li:nth-child(5)
+						{
+							height: 8px;
+						}
+					}
 				}
 				.calculate .line,.partPrice{
+
 					background:#fafafa;
 					border-radius: 10px;
 					top:0;					
 					height: 6px;
-					border: solid 1px #fff;
+					border: solid 2px #fff;
+
 				}
 				
 				.calculate .line .inner-line .ui-slider-handle{
@@ -1434,7 +1459,7 @@ header{
 					height: 20px;
 					border-radius: 24px;
 					margin-top: -4px;
-					border:#e3e3e3 solid 1px;
+					border:#e3e3e3 solid 2px;
 					background: rgb(235,235,235); /* Old browsers */
 /* IE9 SVG, needs conditional override of 'filter' to 'none' */
 background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ViZWJlYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
@@ -1901,8 +1926,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 				}
 				.auto{
 
-					trasition:1s all;
-					
+					transition:1s all;
+					padding-bottom: 30px;
 					.pagination{
 						position: relative;
 						bottom: 30px;
@@ -2160,6 +2185,11 @@ div[id^=tabs]{
 	#tabs-3{
 		.coll-3{
 			width: 200px;
+		}
+		dl{
+			li:last-child::before{
+				left: -58px;
+			}
 		}
 	}
 	.tabs{
@@ -3212,6 +3242,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 	}
 	.line{
 		margin-top:25px;
+		border-radius: 15px/10px;
 		width:218px;
 		top:0;
 		box-shadow:none;

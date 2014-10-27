@@ -69,9 +69,9 @@
                                 array('empty'=>'Выберите под категорию','id'=>'subCategories'))?>
                             </dd>
                             
-                            <dt>
-                                Цена (руб):
-                            </dt>
+                            <dd>
+                                <label>Цена (руб):</label>
+                            </dd>
                             <dd id="slider">
                                 <div class="formCost">
                                     <div class="i-text">
@@ -86,6 +86,26 @@
                                 <div class="calculate">
                                     <div class="partPrice" data-min="#minCost" data-max="#maxCost">
                                     </div>
+                                    <ul>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                    </ul>
                                 </div>
                             </dd>
                             <dd class="submit">

@@ -10,7 +10,7 @@
 	<a href="/detail/<?=$data->alias?>/<?=$data->id?>" class="link">
 		<?=$data->name?>
 	</a>
-	<span>Коментарий</span>
+	
 	<span class="dsc">
 		<?=$data->comment?>.<br>
 	</span>

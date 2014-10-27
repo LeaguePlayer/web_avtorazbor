@@ -22,7 +22,7 @@
 		public $force_end=1000;
 		public $type=1;
 		public $id_country;
-		public $sort=price_sell;
+		public $sort;
 		public $display=20;
 
 		public function rules() {
@@ -64,12 +64,11 @@
 			if (empty($this->criteria->condition))//если не выбран ни 1 криерий тогда пишем дефолт
 			{
 				$this->criteria=new CDbCriteria;
-				//$this->criteria->addCondition('car_type='.$this->type);
 			}
 
 			$this->criteria->addCondition('`t`.status>6 or `t`.status=2');//>6 - для машин =1 - для запчастей
 			$this->criteria->distinct='`t`.id';
-			$this->criteria->order=$this->sort;
+			$this->criteria->order= $this->scenario=='Parts' && !$this->sort ? 'create_time' : $this->sort ;
 			return true;
 		}
 
