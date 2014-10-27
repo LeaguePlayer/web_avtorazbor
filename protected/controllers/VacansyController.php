@@ -3,7 +3,7 @@
 class VacansyController extends FrontController
 {
 	public $layout='//layouts/simple';
-	public $modelName="Вакансии";
+	public $viewTitle="Вакансии";
 	
 	public function filters()
 	{
@@ -37,6 +37,7 @@ class VacansyController extends FrontController
 	
 	public function actionIndex()
 	{
+		$this->layout='//layouts/content';
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('status=1');
 		$dataProvider=new CActiveDataProvider('Vacansy',

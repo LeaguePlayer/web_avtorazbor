@@ -13,7 +13,6 @@
 					<?=$data->year?>г.
 	</span>
 	<span class="price">
-	цена
 		<?=number_format($data->price,0,'',' ')?> руб.
 	</span>
 </li>
