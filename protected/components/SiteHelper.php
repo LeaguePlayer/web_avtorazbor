@@ -5,6 +5,7 @@ class SiteHelper {
 	public static function translit($str) {
 		$tr = array(
 			"А" => "a", "Б" => "b", "В" => "v", "Г" => "g",
+
 			"Д" => "d", "Е" => "e","Ё" => "yo", "ё" => "yo", "Ж" => "j",
 			"З" => "z", "И" => "i",
 			"Й" => "y", "К" => "k", "Л" => "l", "М" => "m", "Н" => "n",

@@ -30,6 +30,7 @@ class SearchController extends Controller
         $dataProvider=Search::searchByStr($str,$table);
         $this->render('find',array('dataProvider'=>$dataProvider,'str'=>$str,'model'=>$table));
     }
+
     public function actionAutoComplite($query,$table,$type)
     {
         $retVal = array();

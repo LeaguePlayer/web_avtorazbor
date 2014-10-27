@@ -82,7 +82,7 @@
             //echo $form->hiddenField('type',2);
             echo CHtml::hiddenField('type','1');
         ?>
-        <input type="text" data-model="UsedCars" data-type="1" class="searching" value="<?=$_GET[query]?>">
+        <input type="text" data-model="UsedCars" data-type="1" class="searching"  placeholder="Введите Ваш запрос" value="<?=$_GET[query]?>">
         <?
             echo CHtml::ajaxSubmitButton('','/search/getCars',
                 array(
@@ -153,7 +153,7 @@
                     </dd>
                 </dl>
 
-                <dl class="otdo">
+                <dl>
                     <dt>
                         Год выпуска:
                     </dt>
@@ -243,13 +243,13 @@
     </div>
     <div class="parametr" id="tabs-2">
 
-         <?php $form = $this->beginWidget('CActiveForm', array(
+          <?php $form = $this->beginWidget('CActiveForm', array(
                 'action' => $this->createUrl('/search/getCars'),
                 'htmlOptions' => array('class' => 'search-text')
             ));
             //echo $form->hiddenField('type',2);
             ?>
-            <input type="text" data-model="UsedCars" data-type="2" class="searching" value="<?=$_GET[query]?>">
+            <input type="text" data-model="UsedCars" data-type="2" class="searching" placeholder="Введите Ваш запрос"  value="<?=$_GET[query]?>">
             <?
             echo CHtml::hiddenField('type','1');
         ?>
@@ -323,7 +323,7 @@
                     </dd>
                 </dl>
 
-                <dl class="otdo">
+                <dl>
                     <dt>
                         Год выпуска:
                     </dt>
@@ -405,13 +405,13 @@
     </div>
     <div class="parametr" id="tabs-3">
 
-          <?php $form = $this->beginWidget('CActiveForm', array(
+           <?php $form = $this->beginWidget('CActiveForm', array(
                 'action' => $this->createUrl('/search/getCars'),
                 'htmlOptions' => array('class' => 'search-text')
             ));
             //echo $form->hiddenField('type',2);
         ?>
-            <input type="text" data-model="Parts" data-type="1" class="searching" value="<?=$_GET[query]?>">
+            <input type="text" data-model="Parts" data-type="1" class="searching" placeholder="Введите Ваш запрос"  value="<?=$_GET[query]?>">
         <?
             echo CHtml::ajaxSubmitButton('','/search/getParts',
                 array(
@@ -750,7 +750,7 @@
     <div class="clear"></div>
 </div>
 <div class="readmore">
-    <a href="/catalog" class="i-submit">Все Легковые автомобили</a>
+    <a href="/catalog" class="i-submit">Все легковые автомобили</a>
 </div>
 <!--cat auto End-->
 

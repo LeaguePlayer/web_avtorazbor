@@ -40,113 +40,114 @@
 
 		<!--header-->
         <header>
-        	<a href="/" class="logo">
-                <img src="<?=$assetUrl?>/images/lights.png" alt="" title="">
-            </a>
+            <div class="wrap">
+            	<a href="/" class="logo">
+                    <img src="<?=$assetUrl?>/images/lights.png" alt="" title="">
+                </a>
 
-        	<dl class="tel">
-        		<dt>
-        			<strong>Телефон</strong> <a class="dropDown" href="#">автозапчасти</a>
-            <div class="dopMenu">
-              <ul>
-                <li>
-                    <a href=".phone-1">первый</a> 
-                </li>
-                <li>
-                    <a href=".phone-2">второй</a> 
-                </li>
-                <li>
-                    <a href=".phone-3">третий</a> 
-                </li>
-              </ul>
-            </div>
-        		</dt>
-        		<dd>
-                    <div class="phone-1 active">
-            			8-800-500-2019<br/>
-    					+7(343) 288-22-88 
-                    </div>
-                    <div class="phone-2 ">
-                        8-800-500-2019<br/>
-                    </div>
-                    <div class="phone-3">
-                        +7(343) 288-22-88 
-                    </div>
-        		</dd>
-        	</dl>
+            	<dl class="tel">
+            		<dt>
+            			<strong>Телефон</strong> <a class="dropDown" href="#">автозапчасти</a>
+                <div class="dopMenu">
+                  <ul>
+                    <li>
+                        <a href=".phone-1">первый</a> 
+                    </li>
+                    <li>
+                        <a href=".phone-2">второй</a> 
+                    </li>
+                    <li>
+                        <a href=".phone-3">третий</a> 
+                    </li>
+                  </ul>
+                </div>
+            		</dt>
+            		<dd>
+                        <div class="phone-1 active">
+                			8-800-500-2019<br/>
+        					+7(343) 288-22-88 
+                        </div>
+                        <div class="phone-2 ">
+                            8-800-500-2019<br/>
+                        </div>
+                        <div class="phone-3">
+                            +7(343) 288-22-88 
+                        </div>
+            		</dd>
+            	</dl>
 
-        	<dl class="qst-head">
-                <dt>
-                    <strong>Есть вопросы?</strong>
-                </dt>
-                <dd>
-                    <a href="#popup" class="i-submit modal">
-                        Задать вопрос
-                    </a>
-                </dd>
-            </dl>
-            <?if (!Yii::app()->user->isAdmin){
-        	   $this->renderPartial('//layouts/_reg');
-        	   $this->renderPartial('//layouts/_cart');
-            } else {
-                $this->renderPartial('//layouts/_adminMessage');
-            }?>
+            	<dl class="qst-head">
+                    <dt>
+                        <strong>Есть вопросы?</strong>
+                    </dt>
+                    <dd>
+                        <a href="#popup" class="i-submit modal">
+                            Задать вопрос
+                        </a>
+                    </dd>
+                </dl>
+                <?if (!Yii::app()->user->isAdmin){
+            	   $this->renderPartial('//layouts/_reg');
+            	   $this->renderPartial('//layouts/_cart');
+                } else {
+                    $this->renderPartial('//layouts/_adminMessage');
+                }?>
+                <div class="menu">
+                    <nav>
+                     <ul>
+                        <?
+                        $controller=Yii::app()->controller->id;
+                        $action=Yii::app()->controller->action->id;
+                        
+                        if (!$action)
+                            $action=$this->alias; 
+                        $url="/$controller".($action ? "/$action" : '');    
+                        $menu=array(
+                                array('label'=>'О компании', 'url'=>'/page/about'),
+                                array('label'=>'Продажа авто', 'url'=>'/catalog'),
+                                array('label'=>'Автозапчасти', 'url'=>'/detail'),
+                                array('label'=>'Все услуги', 'url'=>'/page/service'),
+                                array('label'=>'Новости', 'url'=>'/news'),
+                                array('label'=>'Контакты', 'url'=>'/page/contacts'),
+                                array('label'=>'Вакансии', 'url'=>'/vacansy'),
+                            );
+
+                            foreach ($menu as $key => $item) {
+                                ?>
+                                    <li class="<?=strpos($item['url'], $url)===0 ? 'active' : ''?>">
+                                        <a href="<?=$item['url']?>"><?=$item['label']?></a>
+                                    </li>
+                                <?
+                            }
+                        ?>
+                        </ul>
+                    </nav>
+
+                    <form action="/search/find" class="search">
+                        <input type="text" value="" name="str" placeholder="Введите ваш запрос"/>
+                        <input hidden type="radio" name="table" <?=!isset($_GET['table']) || $_GET['table']=='UsedCars'  ? 'checked' : ''?> id="UsedCars" value="UsedCars" />
+                        <input hidden type="radio" name="table" <?=$_GET['table']=='Parts' ? 'checked' : ''?> id="Parts" value="Parts" />
+                        <div class="searchType"><?=!$_GET['table'] || $_GET['table']=='UsedCars' ? 'Авто' : "Автозапчасти" ?></div>
+                        <span></span>
+                        <div class="searchBy">
+                            <ul>
+                                <li>
+                                    <label for="UsedCars">Авто</label>
+                                </li>
+                                <li>
+                                    <label for="Parts">Автозапчасти</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+                </div>
         </header>
         <!--header End-->
 
         <!--menu-->
-        <div class="menu">
-
-        		<nav>
-                 <ul>
-                    <?
-                    $controller=Yii::app()->controller->id;
-                    $action=Yii::app()->controller->action->id;
-                    
-                    if (!$action)
-                        $action=$this->alias; 
-                    $url="/$controller".($action ? "/$action" : '');    
-                    $menu=array(
-                            array('label'=>'О компании', 'url'=>'/page/about'),
-                            array('label'=>'Продажа авто', 'url'=>'/catalog'),
-                            array('label'=>'Автозапчасти', 'url'=>'/detail'),
-                            array('label'=>'Все услуги', 'url'=>'/page/service'),
-                            array('label'=>'Новости', 'url'=>'/news'),
-                            array('label'=>'Контакты', 'url'=>'/page/contacts'),
-                            array('label'=>'Вакансии', 'url'=>'/vacansy'),
-                        );
-
-                        foreach ($menu as $key => $item) {
-                            ?>
-                                <li class="<?=strpos($item['url'], $url)===0 ? 'active' : ''?>">
-                                    <a href="<?=$item['url']?>"><?=$item['label']?></a>
-                                </li>
-                            <?
-                        }
-                    ?>
-                    </ul>
-        		</nav>
-
-        		<form action="/search/find" class="search">
-                    <input type="text" value="" name="str" placeholder="Введите ваш запрос"/>
-                    <input hidden type="radio" name="table" <?=!isset($_GET['table']) || $_GET['table']=='UsedCars'  ? 'checked' : ''?> id="UsedCars" value="UsedCars" />
-                    <input hidden type="radio" name="table" <?=$_GET['table']=='Parts' ? 'checked' : ''?> id="Parts" value="Parts" />
-                    <div class="searchType"><?=!$_GET['table'] || $_GET['table']=='UsedCars' ? 'Авто' : "Автозапчасти" ?></div>
-                    <span></span>
-                    <div class="searchBy">
-                        <ul>
-                            <li>
-                                <label for="UsedCars">Авто</label>
-                            </li>
-                            <li>
-                                <label for="Parts">Автозапчасти</label>
-                            </li>
-                        </ul>
-                    </div>
-                </form>
-            
-        </div>
-        <?if (strpos(get_class($this),"Site")!=-1){?>
+        
+        <?if (strpos(get_class($this),"Site")!=false){?>
             <div class="breacumbs fix_width">
             <?
 

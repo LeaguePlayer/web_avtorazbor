@@ -6,7 +6,7 @@
         <img src="<?=$image?>" alt="" title="">
     
 
-    <span class="data">Год выпуска <?=date('d-m-y',time($data->year))?></span>
+    <span class="data"><?=date('d.m.y',time($data->year))?></span>
     </a>
     <a href="/catalog/<?=$data->alias?>/<?=$data->id?>">
         <?=$data->name?>

@@ -1,44 +1,45 @@
 $(document).ready(function(){
 	
-	var lastIndex=$('.request_form dd:last').index();
-	var dd=$('.request_form dd');
-
+	
 	$('select').selectmenu({
 		change:function(){
 
-			var params={
-					value:$(this).attr('id')!='Categories' ? $(this).val() : $('#carModels').val(),
-					model:$(this).attr('id'),
-					nested:$(this).data('nested'),
-					searchingIn:"Parts"
-				},
-			$_this=$(this);
-
-			var parent=$_this.closest('dd'),
+			var $_this=$(this),
+				contextForm=$_this.closest('.request_form'),
+				dd=$('dd',contextForm),
+				lastIndex=dd.length-1,
+				parent=$_this.closest('dd'),
 				index=parent.index()+1,
- 				elems=dd.slice(index,lastIndex);
+	 			elems=dd.slice(index,lastIndex),
+	 			params={
+					value:$_this.attr('id')!='Categories' ? $_this.val() : $('#carModels').val(),
+					model:$_this.attr('id'),
+					nested:$_this.data('nested'),
+					searchingIn:"Parts",
+					type:contextForm.find('#Search_type').val()
+				};
 
 			if (elems.length)
 			{
 				$_this.selectmenu('close')
 				$(params.nested).find('option:not(:first)').remove();
 				elems.slideUp(200).find('select').selectmenu('refresh');
-				dd.eq(-1).slideUp(200); 	
+				elems.eq(-1).next().slideUp(200);
 			};
 
-			if ($(this).val())
-		 	{
+			if ($_this.val())
+			{
 				$.ajax({
 					url:'/ajaxRequests/getNestedList',
 					data:params,
 					success:function(data){
 						parent.next().slideDown(200);
-						$(params.nested).empty();
-						$(params.nested).html(data);
-						$(params.nested).selectmenu('refresh');
+						$(params.nested,contextForm).empty();
+						$(params.nested,contextForm).html(data);
+						$(params.nested,contextForm).selectmenu('refresh');
 					}
 				});	
-			};
+			}
 		}
 	})
 

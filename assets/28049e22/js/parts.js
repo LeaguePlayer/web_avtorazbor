@@ -9,15 +9,14 @@ $(document).ready(function(){
 		change:function(){
 
 			changeView();
-			var params={
+			var $_this=$(this),
+				params={
 					value:$(this).attr('id')!='Categories' ? $(this).val() : $('#carModels').val(),
 					model:$(this).data('model'),
 					nested:$(this).data('nested'),
 					searchingIn:"Parts",
 				},
-
-			$_this=$(this);
-			var parent=$_this.closest('dd'),
+				parent=$_this.closest('dd'),
 				index=parent.index()+1,
  				elems=dd.slice(index,lastIndex);
 

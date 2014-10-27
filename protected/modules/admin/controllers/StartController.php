@@ -6,4 +6,6 @@ class StartController extends AdminController{
     {
         $this->render('index');
     }
+
+    
 }
