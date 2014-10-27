@@ -23,7 +23,6 @@ class Diagnostic extends EActiveRecord
         return '{{diagnostic}}';
     }
 
-
     public function rules()
     {
         return array(
@@ -35,13 +34,11 @@ class Diagnostic extends EActiveRecord
         );
     }
 
-
     public function relations()
     {
         return array(
         );
     }
-
 
     public function attributeLabels()
     {
@@ -59,7 +56,6 @@ class Diagnostic extends EActiveRecord
             'update_time' => 'Дата последнего редактирования',
         );
     }
-
 
     public function behaviors()
     {
@@ -83,6 +79,7 @@ class Diagnostic extends EActiveRecord
 			),
         ));
     }
+
     public function search()
     {
         $criteria=new CDbCriteria;
@@ -98,9 +95,11 @@ class Diagnostic extends EActiveRecord
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
         $criteria->order = 'sort';
+
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
         ));
+        
     }
 
     public static function model($className=__CLASS__)
@@ -112,6 +111,5 @@ class Diagnostic extends EActiveRecord
     {
         return 'Диагностика - слайдер';
     }
-
 
 }

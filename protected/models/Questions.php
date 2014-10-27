@@ -31,7 +31,7 @@ class Questions extends EActiveRecord
             array('theme, create_time, update_time', 'safe'),
             // The following rule is used by search().
             array('id, name, phone, mail, question, theme, status, sort, create_time, update_time', 'safe', 'on'=>'search'),
-            array('id, name, phone, mail, question, theme','required'),
+            array('name, phone, mail, question, theme','required'),
         );
     }
 

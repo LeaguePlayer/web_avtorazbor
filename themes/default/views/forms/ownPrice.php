@@ -1,5 +1,18 @@
 <div id="own-price" name="qst" class="qst" style="display: none;">
         <div class="bx">
+        <?
+        if ($user_id)
+        {
+            $user=Yii::app()->db->createCommand()
+                ->select('id,fio,phone,email')
+                ->from("tbl_clients")
+                ->where("id=$user_id")
+                ->queryRow();
+            $model->name=$user['fio'];
+            $model->phone=$user['phone'];
+            $model->mail=$user['email'];
+        }
+        ?>
 
             <dl>
                 <dt>
@@ -10,6 +23,11 @@
                     - поля, обязательные для заполнения
                 </dd>
             </dl>
+            <div class="alert">
+                <div class="warning" width="auto">
+                    Пожалуйста, убедитесь что все поля введены корректно.
+                </div>
+            </div>
             <div class="form">
             <?php $form = $this->beginWidget('CActiveForm', array(
             'id' => 'ownPrice-form',

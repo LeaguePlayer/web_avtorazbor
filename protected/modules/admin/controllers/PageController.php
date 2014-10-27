@@ -2,19 +2,22 @@
 
 class PageController extends AdminController
 {
-	public function actionSetAliases($model=null)
-    {   
-        foreach (array('UsedCars','Parts') as $key => $data) {
-            $models=Yii::app()->db->createCommand()
-                ->select('id,name')
-                ->from("tbl_$data")
-                ->queryAll();
-            foreach ($models as $key => $value) {
-                Yii::app()->db->createCommand()
-                    ->update("tbl_$data",array('alias'=>SiteHelper::translit($value['name'])),"id=".$value['id']);
-            }
-        }
-        echo "Ок да";
-        
-    }
+	public function actionSetAliases($array=array())
+	{
+		if (!$array)
+			$array=array('Parts','UsedCars');
+
+		foreach ($array as $key => $table) {
+			$result=Yii::app()->db->createCommand()
+				->select('id,name')
+				->from("tbl_$table")
+				->queryAll();
+			foreach($result as $data)
+			{
+				echo "<br>".Yii::app()->db->createCommand()
+					->update("tbl_$table",array('alias'=>SiteHelper::translit($data['name'])),"id=".$data['id']);
+			}
+		}
+		echo "ок";
+	}
 }

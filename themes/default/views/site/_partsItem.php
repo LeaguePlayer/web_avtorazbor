@@ -12,7 +12,6 @@
         <?=$data->car_model->name.' '.$data->category->name?>
     </a>
     <span class="dsc">
-    	<strong>Коментарий:<br></strong>
         <?=$data->comment?>
     </span>
     <span class="price">

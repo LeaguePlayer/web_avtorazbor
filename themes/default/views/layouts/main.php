@@ -1,27 +1,27 @@
 <?php
 
 	$cs = Yii::app()->clientScript;
-	$cs->registerCssFile($this->getAssetsUrl('application').'/css/style.css');
-	$cs->registerCssFile($this->getAssetsUrl('application').'/css/reset.css');
+    $assetsUrl=$this->getAssetsUrl('application');
+	$cs->registerCssFile($assetsUrl.'/css/style.css');
+	$cs->registerCssFile($assetsUrl.'/css/reset.css');
 	$cs->registerCssFile('http://fotorama.s3.amazonaws.com/4.4.9/fotorama.css');
-	$cs->registerCssFile($this->getAssetsUrl('application').'/css/fancybox/jquery.fancybox.css');
-	$cs->registerCssFile($this->getAssetsUrl('application').'/css/main.css?v1');
-    $cs->registerCssFile($this->getAssetsUrl('application').'/css/jquery-ui.min.css');
+	$cs->registerCssFile($assetsUrl.'/css/fancybox/jquery.fancybox.css');
+	$cs->registerCssFile($assetsUrl.'/css/main.css?v1');
+    $cs->registerCssFile($assetsUrl.'/css/jquery-ui.min.css');
 
 
 	$cs->registerCoreScript('jquery');
     //$cs->registerScriptFile('http://code.jquery.com/jquery-1.11.0.min.js', CClientScript::POS_END);
     //$cs->registerScriptFile('http://code.jquery.com/jquery-1.11.0.min.js', CClientScript::POS_END);
 	$cs->registerScriptFile('http://fotorama.s3.amazonaws.com/4.4.9/fotorama.js', CClientScript::POS_END);
-    $cs->registerScriptFile($this->getAssetsUrl('application').'/js/tinyscrollbar.js', CClientScript::POS_END);
-    $cs->registerScriptFile($this->getAssetsUrl('application').'/js/jquery-ui.min.js', CClientScript::POS_END);
-	$cs->registerScriptFile($this->getAssetsUrl('application').'/js/jquery.maphilight.js', CClientScript::POS_END);
-	$cs->registerScriptFile($this->getAssetsUrl('application').'/js/jquery.fancybox.js', CClientScript::POS_END);
-    $cs->registerScriptFile($this->getAssetsUrl('application').'/js/owl.carousel.min.js', CClientScript::POS_END);
+    $cs->registerScriptFile($assetsUrl.'/js/tinyscrollbar.js', CClientScript::POS_END);
+    $cs->registerScriptFile($assetsUrl.'/js/jquery-ui.min.js', CClientScript::POS_END);
+    $cs->registerScriptFile($assetsUrl.'/js/jquery.autocomplete.js', CClientScript::POS_END);
+	$cs->registerScriptFile($assetsUrl.'/js/jquery.maphilight.js', CClientScript::POS_END);
+	$cs->registerScriptFile($assetsUrl.'/js/jquery.fancybox.js', CClientScript::POS_END);
+    $cs->registerScriptFile($assetsUrl.'/js/owl.carousel.min.js', CClientScript::POS_END);
 
-	$cs->registerScriptFile($this->getAssetsUrl('application').'/js/script.js', CClientScript::POS_END);
-
-	$assetUrl=$this->getAssetsUrl('application');
+	$cs->registerScriptFile($assetsUrl.'/js/script.js', CClientScript::POS_END);
 ?><!DOCTYPE html>
 <html lang="ru">
 	<head>
@@ -39,162 +39,115 @@
 
 		<!--header-->
         <header>
-        	<a href="/" class="logo">
-                <img src="<?=$assetUrl?>/images/lights.png" alt="" title="">
-            </a>
+            <div class="wrap">
+            	<a href="/" class="logo">
+                    <img src="<?=$assetUrl?>/images/lights.png" alt="" title="">
+                </a>
 
-        	<dl class="tel">
-        		<dt>
-        			<strong>Телефон</strong> <a class="dropDown" href="#">автозапчасти</a>
-            <div class="dopMenu">
-              <ul>
-                <li>
-                    <a href=".phone-1">первый</a> 
-                </li>
-                <li>
-                    <a href=".phone-2">второй</a> 
-                </li>
-                <li>
-                    <a href=".phone-3">третий</a> 
-                </li>
-              </ul>
-            </div>
-        		</dt>
-        		<dd>
-                    <div class="phone-1 active">
-            			8-800-500-2019<br/>
-    					+7(343) 288-22-88 
-                    </div>
-                    <div class="phone-2 ">
-                        8-800-500-2019<br/>
-                    </div>
-                    <div class="phone-3">
-                        +7(343) 288-22-88 
-                    </div>
-        		</dd>
-        	</dl>
+            	<dl class="tel">
+            		<dt>
+            			<strong>Телефон</strong> <a class="dropDown" href="#">автозапчасти</a>
+                <div class="dopMenu">
+                  <ul>
+                    <li>
+                        <a href=".phone-1">первый</a> 
+                    </li>
+                    <li>
+                        <a href=".phone-2">второй</a> 
+                    </li>
+                    <li>
+                        <a href=".phone-3">третий</a> 
+                    </li>
+                  </ul>
+                </div>
+            		</dt>
+            		<dd>
+                        <div class="phone-1 active">
+                			8-800-500-2019<br/>
+        					+7(343) 288-22-88 
+                        </div>
+                        <div class="phone-2 ">
+                            8-800-500-2019<br/>
+                        </div>
+                        <div class="phone-3">
+                            +7(343) 288-22-88 
+                        </div>
+            		</dd>
+            	</dl>
 
-        	<dl class="qst-head">
-                <dt>
-                    <strong>Есть вопросы?</strong>
-                </dt>
-                <dd>
-                    <a href="#popup" class="i-submit modal">
-                        Задать вопрос
-                    </a>
-                </dd>
-            </dl>
-
-        	<div class="reg">
-        			<ul>
+            	<dl class="qst-head">
+                    <dt>
+                        <strong>Есть вопросы?</strong>
+                    </dt>
+                    <dd>
+                        <a href="#popup" class="i-submit modal">
+                            Задать вопрос
+                        </a>
+                    </dd>
+                </dl>
+                <?if (!Yii::app()->user->isAdmin){
+            	   $this->renderPartial('//layouts/_reg');
+            	   $this->renderPartial('//layouts/_cart');
+                } else {
+                    $this->renderPartial('//layouts/_adminMessage');
+                }?>
+                <div class="menu">
+                    <nav>
+                     <ul>
                         <?
-                            $authenticated=Yii::app()->user->isGuest || Yii::app()->user->isAdmin;
+                        $controller=Yii::app()->controller->id;
+                        $action=Yii::app()->controller->action->id;
+                        
+                        if (!$action)
+                            $action=$this->alias; 
+                        $url="/$controller".($action ? "/$action" : '');    
+                        $menu=array(
+                                array('label'=>'О компании', 'url'=>'/page/about'),
+                                array('label'=>'Продажа авто', 'url'=>'/catalog'),
+                                array('label'=>'Автозапчасти', 'url'=>'/detail'),
+                                array('label'=>'Все услуги', 'url'=>'/page/service'),
+                                array('label'=>'Новости', 'url'=>'/news'),
+                                array('label'=>'Контакты', 'url'=>'/page/contacts'),
+                                array('label'=>'Вакансии', 'url'=>'/vacansy'),
+                            );
+
+                            foreach ($menu as $key => $item) {
+                                ?>
+                                    <li class="<?=strpos($item['url'], $url)===0 ? 'active' : ''?>">
+                                        <a href="<?=$item['url']?>"><?=$item['label']?></a>
+                                    </li>
+                                <?
+                            }
                         ?>
-                    <?if ($authenticated){?>
-        				<li>
-        					<a class="auth" href="#login">Войти</a>
-        				</li>
-        				<li>
-        					<a href="/account/registration">Регистрация</a>
-        				</li>
-                    <?}
-                        else 
-                    {?>
-                        <li>
-                            <a href="/account/">Личный кобинет</a>
-                        </li>
-                        <li>
-                            <a href="/account/logout">Выйти</a>
-                        </li>
-                        <?}?>
-        			</ul>
-        	</div>
+                        </ul>
+                    </nav>
 
-        	<dl class="bascet">	
-                
-        		<dt>
-        			<strong>В корзине:</strong> 
-        		</dt>
-        		<dd>
-        			<?
-                        if (!Yii::app()->cart->isEmpty(1) && $authenticated)
-                        {
-                    ?><ul>
-        				    <li>
-        					<a href="/cart"><?=Yii::app()->cart->getItemsCount()?> товар</a>
-        				    </li>
-        				    <li>
-                            <a href="/cart">
-        					На сумму: <strong><?=Yii::app()->cart->getCost()?> руб.</strong>
-                            </a>
-        			     	</li>
-        			  </ul>
-                    <?} else {?>
-                        <span class="empty-cart">
-                            нет товаров
-                        </span>
-                    <?}?>
-        		</dd>
-                
-        	</dl>
-
+                    <form action="/search/find" class="search">
+                        <input type="text" value="" name="str" placeholder="Введите ваш запрос"/>
+                        <input hidden type="radio" name="table" <?=!isset($_GET['table']) || $_GET['table']=='UsedCars'  ? 'checked' : ''?> id="UsedCars" value="UsedCars" />
+                        <input hidden type="radio" name="table" <?=$_GET['table']=='Parts' ? 'checked' : ''?> id="Parts" value="Parts" />
+                        <div class="searchType"><?=!$_GET['table'] || $_GET['table']=='UsedCars' ? 'Авто' : "Автозапчасти" ?></div>
+                        <span></span>
+                        <div class="searchBy">
+                            <ul>
+                                <li>
+                                    <label for="UsedCars">Авто</label>
+                                </li>
+                                <li>
+                                    <label for="Parts">Автозапчасти</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+                </div>
         </header>
         <!--header End-->
 
         <!--menu-->
-        <div class="menu">
-
-        		<nav>
-                 <ul>
-                    <?
-                    $controller=Yii::app()->controller->id;
-                    $action=Yii::app()->controller->action->id;
-                    
-                    if (!$action)
-                        $action=$this->alias; 
-                    $url="/$controller".($action ? "/$action" : '');    
-                    $menu=array(
-                            array('label'=>'О компании', 'url'=>'/page/about'),
-                            array('label'=>'Продажа авто', 'url'=>'/catalog'),
-                            array('label'=>'Автозапчасти', 'url'=>'/detail'),
-                            array('label'=>'Все услуги', 'url'=>'/page/service'),
-                            array('label'=>'Новости', 'url'=>'/news'),
-                            array('label'=>'Контакты', 'url'=>'/page/contacts'),
-                            array('label'=>'Вакансии', 'url'=>'/vacansy'),
-                        );
-
-                        foreach ($menu as $key => $item) {
-                            ?>
-                                <li class="<?=strpos($item['url'], $url)===0 ? 'active' : ''?>">
-                                    <a href="<?=$item['url']?>"><?=$item['label']?></a>
-                                </li>
-                            <?
-                        }
-                    ?>
-                    </ul>
-        		</nav>
-
-        		<form action="/search/find" class="search">
-                    <input type="text" value="" name="str" placeholder="Введите ваш запрос"/>
-                    <input hidden type="radio" name="table" <?=!isset($_GET['table']) || $_GET['table']=='UsedCars'  ? 'checked' : ''?> id="UsedCars" value="UsedCars" />
-                    <input hidden type="radio" name="table" <?=$_GET['table']=='Parts' ? 'checked' : ''?> id="Parts" value="Parts" />
-                    <div class="searchType"><?=!$_GET['table'] || $_GET['table']=='UsedCars' ? 'Авто' : "Автозапчасти" ?></div>
-                    <span></span>
-                    <div class="searchBy">
-                        <ul>
-                            <li>
-                                <label for="UsedCars">Авто</label>
-                            </li>
-                            <li>
-                                <label for="Parts">Автозапчасти</label>
-                            </li>
-                        </ul>
-                    </div>
-                </form>
-            
-        </div>
-        <?if (strpos(get_class($this),"Site")!=-1){?>
-            <div class="breacumbs fix_width" style="margin-top: 20px;">
+        
+        <?if (strpos(get_class($this),"Site")!=false){?>
+            <div class="breacumbs fix_width">
             <?
 
                 $this->widget('zii.widgets.CBreadcrumbs', array(
@@ -240,7 +193,7 @@
         				</a>
         			</li>
         			<li>
-        				<a href="/page/Vse-uslugi">
+        				<a href="/page/service">
         					Все услуги
         				</a>
         			</li>

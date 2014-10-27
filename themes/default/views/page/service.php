@@ -15,7 +15,7 @@
                             <a href="/catalog">
                                 <i></i>
                                 <span class="h">Продажа авто</span>
-                                <span class="d">Крупнейший парк<br> битых авто в Екатеринбурге</span>
+                                <span class="d">Крупнейший парк<br> битых авто в Тюмени</span>
                             </a>
                         </li>
                         <li class="icon zp old">
@@ -37,7 +37,7 @@
                                 <i></i>
                                 <span class="h">Автоперевозки</span>
                                 <span class="d">Автомобильные перевозки<br>
-                                в Екатеринбурге и области</span>
+                                в Тюмени и области</span>
                             </a>
                         </li>
                         <li class="icon buying">

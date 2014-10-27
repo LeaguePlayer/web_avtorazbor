@@ -117,7 +117,9 @@
                                 </div>
                             
                         </div>
+
                         <?if (count($WeightBrand)){?>
+
                         <div class="personal <?=$searchForm->scenario=='weight' ? 'tab-active' : '' ?>" id="weight">
                             <dl class="desc">
                                 <dt>
@@ -136,7 +138,8 @@
                                 <div class="select">
                                     <dl>
                                     <dd>
-                                        <?=$form->hiddenField($searchForm,'type',array('value'=>2))?>
+
+                                        <?=$form->hiddenField($searchForm,'type',array('value'=>2,))?>
 
                                         <?=$form->hiddenField($searchForm,'scenario',array('value'=>'parts'))?>
 
@@ -197,6 +200,7 @@
                                 </div>
                             
                         </div>
+
                         <?}?>
                         <div id="disc" class="personal <?=$searchForm->scenario=='disc' ? 'tab-active' : '' ?>">
                             <form action="/detail/disc" method="get">

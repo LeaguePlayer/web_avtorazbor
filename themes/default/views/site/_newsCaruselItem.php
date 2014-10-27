@@ -1,12 +1,12 @@
 <div>
     <?
-        $image=$data->getImageUrl('small') ? $data->getImageUrl('small') : '/media/images/news/default.jpg' ;
+        $image=$data->getImageUrl('carusel') ? $data->getImageUrl('carusel') : '/media/images/news/default.jpg' ;
     ?>
     <a href="/catalog/<?=$data->alias?>/<?=$data->id?>">
         <img src="<?=$image?>" alt="" title="">
     
 
-    <span class="data">Год выпуска <?=date('d-m-y',time($data->year))?></span>
+    <span class="data"><?=date('d.m.y',time($data->year))?></span>
     </a>
     <a href="/catalog/<?=$data->alias?>/<?=$data->id?>">
         <?=$data->name?>

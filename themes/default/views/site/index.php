@@ -4,7 +4,7 @@
             <a href="/catalog">
                 <i></i>
                 <span class="h">Продажа авто</span>
-                <span class="d">Крупнейший парк<br/> битых авто в Екатеринбурге</span>
+                <span class="d">Крупнейший парк<br/> битых авто в Тюмени</span>
             </a>
         </li>
         <li class="icon zp">
@@ -26,7 +26,7 @@
                 <i></i>
                 <span class="h">Автоперевозки</span>
                 <span class="d">Автомобильные перевозки<br/>
-                в Екатеринбурге и области</span>
+                в Тюмени и области</span>
             </a>
         </li>
         <li class="icon spec">
@@ -80,24 +80,9 @@
                 'htmlOptions' => array('class' => 'search-text')
             ));
             //echo $form->hiddenField('type',2);
-            $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-                'name'=>'searching',
-                //'source'=>$autoCompliteParts,
-                'sourceUrl'=>'/search/autoComplite',
-                // additional javascript options for the autocomplete plugin
-                'options'=>array(
-                    'minLength'=>'2',
-                    'maxSize'=>'10',
-                    'max'=>'10',
-                ),
-                'htmlOptions'=>array(
-                    'style'=>'height:20px;',
-                    'placeholder'=>'Введите текст запроса',
-                    'class'=>'searching',
-                ),
-            ));
             echo CHtml::hiddenField('type','1');
         ?>
+        <input type="text" data-model="UsedCars" data-type="1" class="searching"  placeholder="Введите Ваш запрос" value="<?=$_GET[query]?>">
         <?
             echo CHtml::ajaxSubmitButton('','/search/getCars',
                 array(
@@ -168,7 +153,7 @@
                     </dd>
                 </dl>
 
-                <dl class="otdo">
+                <dl>
                     <dt>
                         Год выпуска:
                     </dt>
@@ -263,22 +248,9 @@
                 'htmlOptions' => array('class' => 'search-text')
             ));
             //echo $form->hiddenField('type',2);
-            $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-                'name'=>'searching',
-                //'source'=>$autoCompliteParts,
-                'sourceUrl'=>'/search/autoComplite',
-                // additional javascript options for the autocomplete plugin
-                'options'=>array(
-                    'minLength'=>'2',
-                    'maxSize'=>'10',
-                    'max'=>'10',
-                ),
-                'htmlOptions'=>array(
-                    'style'=>'height:20px;',
-                    'placeholder'=>'Введите текст запроса',
-                    'class'=>'searching',
-                ),
-            ));
+            ?>
+            <input type="text" data-model="UsedCars" data-type="2" class="searching" placeholder="Введите Ваш запрос"  value="<?=$_GET[query]?>">
+            <?
             echo CHtml::hiddenField('type','1');
         ?>
         <?
@@ -351,7 +323,7 @@
                     </dd>
                 </dl>
 
-                <dl class="otdo">
+                <dl>
                     <dt>
                         Год выпуска:
                     </dt>
@@ -438,24 +410,8 @@
                 'htmlOptions' => array('class' => 'search-text')
             ));
             //echo $form->hiddenField('type',2);
-            $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-                'name'=>'searching',
-                //'source'=>$autoCompliteParts,
-                'sourceUrl'=>'/search/autoComplite',
-                // additional javascript options for the autocomplete plugin
-                'options'=>array(
-                    'minLength'=>'2',
-                    'maxSize'=>'10',
-                    'max'=>'10',
-                ),
-                'htmlOptions'=>array(
-                    'style'=>'height:20px;',
-                    'placeholder'=>'Введите текст запроса',
-                    'class'=>'searching',
-                ),
-            ));
-            echo CHtml::hiddenField('type','1');
         ?>
+            <input type="text" data-model="Parts" data-type="1" class="searching" placeholder="Введите Ваш запрос"  value="<?=$_GET[query]?>">
         <?
             echo CHtml::ajaxSubmitButton('','/search/getParts',
                 array(
@@ -487,6 +443,7 @@
                     <dd>
 <!--                         <input type="hidden" value="2" name="Search[type]"> -->
                         <?=$form->hiddenField($searchForm,'scenario',array('value' => 'parts'))?>
+
                         <?
                             $types=array(1=>'Запчасти для легковых машин');
                             if ($BrandsWeightPartsExists)
@@ -600,20 +557,9 @@
                 'htmlOptions' => array('class' => 'search-text')
             ));
             //echo $form->hiddenField('type',2);
-            $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-                'name'=>'searching',
-                'source'=>$autoCompliteParts,
-                // additional javascript options for the autocomplete plugin
-                'options'=>array(
-                    'minLength'=>'2',
-                ),
-                'htmlOptions'=>array(
-                    'style'=>'height:20px;',
-                    'placeholder'=>'Введите текст запроса'
-                ),
-            ));
             echo CHtml::hiddenField('type','1');
         ?>
+
         <?
             echo CHtml::ajaxSubmitButton('','/search/getCars',
                 array(
@@ -804,7 +750,7 @@
     <div class="clear"></div>
 </div>
 <div class="readmore">
-    <a href="/catalog" class="i-submit">Все Легковые автомобили</a>
+    <a href="/catalog" class="i-submit">Все легковые автомобили</a>
 </div>
 <!--cat auto End-->
 
@@ -873,7 +819,7 @@
         О компании
     </h1>
     <p>
-        Добро пожаловать в интернет-магазин компании «Разбор66». Мы предлагаем самый  широкий ассортимент авторазбора  в Екатеринбурге на любые марки автомобилей по адекватным ценам. Покупая и запчасти в нашем Интернет-магазине, вы можете быть уверены в качестве — ведь мы работаем только с крупными
+        Добро пожаловать в интернет-магазин компании «Разбор66». Мы предлагаем самый  широкий ассортимент авторазбора  в Тюмени на любые марки автомобилей по адекватным ценам. Покупая и запчасти в нашем Интернет-магазине, вы можете быть уверены в качестве — ведь мы работаем только с крупными
 и проверенными производителями.
     </p>
     <p>         
@@ -894,7 +840,7 @@
         <li class="park">
             <i></i>
             Самый большой парк<br/>
-            битых авто в Екатеринбурге
+            битых авто в Тюмени
         </li>
         <li class="grnt">
             <i></i>

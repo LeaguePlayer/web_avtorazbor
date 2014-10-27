@@ -2,8 +2,8 @@
 
 class DiagnosticController extends FrontController
 {
-	public $layout='//layouts/simple';
-
+	public $layout='//layouts/content';
+	public $viewTitle="";
 	
 	public function filters()
 	{
@@ -24,15 +24,14 @@ class DiagnosticController extends FrontController
 			),
 		);
 	}
-
 	
 	public function actionView($alias)
 	{
 		$model=Diagnostic::model()->published()->find('alias=:alias',array(':alias'=>$alias));
+		$this->viewTitle=$model->title;
 		$this->render('view',array('model'=>$model));
 	}
 
-	
 	public function actionIndex()
 	{
 		$dataProvider=new CActiveDataProvider('Diagnostic');

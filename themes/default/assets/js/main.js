@@ -82,7 +82,7 @@ $(document).ready(function(){
 	$('.items-news .items').each(function(){
 		var owl=$(this).owlCarousel({
 				  nav:true,
-				  items:5,
+				  items:4,
 				  navText:[],
 			      margin: 0,
 			      mouseDrag:false,
@@ -154,6 +154,7 @@ $(document).ready(function(){
 				$('.num',form).text(total+" авто");	
 			})
 		},1000)
+
 	}
 
 	var processNested=function(base){
