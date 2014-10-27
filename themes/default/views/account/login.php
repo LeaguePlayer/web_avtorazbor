@@ -65,11 +65,11 @@
         <li>
             <input type="hidden" name="return" value="<?=$_GET['return']?>">
             <?php echo $form->labelEx($model,'email');?>
-            <?php echo $form->textField($model,'email',array('class'=>'i-text','width'=>'255px')); ?>
+            <?php echo $form->textField($model,'email',array('class'=>'i-text','width'=>'255px','autocomplete'=>'off')); ?>
         </li>
         <li>
             <?php echo $form->labelEx($model,'password');?>
-            <?php echo $form->passwordField($model,'password',array('class'=>'i-text','width'=>'255px')); ?>
+            <?php echo $form->passwordField($model,'password',array('class'=>'i-text','width'=>'255px','autocomplete'=>'off')); ?>
             
         </li>
     </ul>

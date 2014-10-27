@@ -35,6 +35,7 @@
 	<body>
 		<div class="wrap">
 		<!--sale-->
+        
 		<?=$this->renderPartial('//layouts/_diagnosticSlider')?>
 		<!--sale End-->
 
@@ -124,7 +125,7 @@
                     </nav>
 
                     <form action="/search/find" class="search">
-                        <input type="text" value="" name="str" placeholder="Введите ваш запрос"/>
+                        <input type="text" autocomplete="off" value="" name="str" placeholder="Введите ваш запрос"/>
                         <input hidden type="radio" name="table" <?=!isset($_GET['table']) || $_GET['table']=='UsedCars'  ? 'checked' : ''?> id="UsedCars" value="UsedCars" />
                         <input hidden type="radio" name="table" <?=$_GET['table']=='Parts' ? 'checked' : ''?> id="Parts" value="Parts" />
                         <div class="searchType"><?=!$_GET['table'] || $_GET['table']=='UsedCars' ? 'Авто' : "Автозапчасти" ?></div>
@@ -221,7 +222,7 @@
     			</div>
 
     			<form action="/search/find" class="search">
-                    <input type="text" value="" name="str" placeholder="Введите ваш запрос"/>
+                    <input autocomplete="off" type="text" value="" name="str" placeholder="Введите ваш запрос"/>
                     <input type="submit" value=""/>
                     <input hidden type="radio" name="table" checked value="Parts" />
                 </form>
