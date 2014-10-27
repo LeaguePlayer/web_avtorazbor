@@ -258,14 +258,15 @@
     </div>
     <div class="parametr" id="tabs-2">
 
-         <?php $form = $this->beginWidget('CActiveForm', array(
+          <?php $form = $this->beginWidget('CActiveForm', array(
                 'action' => $this->createUrl('/search/getCars'),
                 'htmlOptions' => array('class' => 'search-text')
             ));
             //echo $form->hiddenField('type',2);
             $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
                 'name'=>'searching',
-                'source'=>$autoCompliteParts,
+                //'source'=>$autoCompliteParts,
+                'sourceUrl'=>'/search/autoComplite',
                 // additional javascript options for the autocomplete plugin
                 'options'=>array(
                     'minLength'=>'2',
@@ -432,17 +433,20 @@
     </div>
     <div class="parametr" id="tabs-3">
 
-          <?php $form = $this->beginWidget('CActiveForm', array(
+           <?php $form = $this->beginWidget('CActiveForm', array(
                 'action' => $this->createUrl('/search/getCars'),
                 'htmlOptions' => array('class' => 'search-text')
             ));
             //echo $form->hiddenField('type',2);
             $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
                 'name'=>'searching',
-                'source'=>$autoCompliteParts,
+                //'source'=>$autoCompliteParts,
+                'sourceUrl'=>'/search/autoComplite',
                 // additional javascript options for the autocomplete plugin
                 'options'=>array(
                     'minLength'=>'2',
+                    'maxSize'=>'10',
+                    'max'=>'10',
                 ),
                 'htmlOptions'=>array(
                     'style'=>'height:20px;',

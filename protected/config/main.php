@@ -147,9 +147,9 @@ return array(
 
                 'page/service'=>'page/service',
 
-                'catalog/<alias:[\w\-]+>/<id:\d+>'=>'catalog/car',
+                'catalog/<alias:[\w\-\_]+>/<id:\d+>'=>'catalog/car',
                 'detail/parts'=>'detail/parts',
-                'detail/<alias:[\w\-]+>/<id:\d+>'=>'detail/view',
+                'detail/<alias:[\w\-\_]+>/<id:\d+>'=>'detail/view',
 
                 '<controller:page|news>/<alias:(\w|\-)+>'=>'<controller>/view',
                 '<controller:\w+>'=>'<controller>/index',
