@@ -68,7 +68,10 @@ class CatalogController extends FrontController
 			$WeightBrands=CHtml::listData(CarBrands::model()->findAll($WeightBrands),'id','name');
 			
 			$Bascet=UsedCars::getBasketList();
-			$Models=CHtml::listData(CarModels::model()->findAll('brand=:id',array(':id'=>$searchForm->brand ? $searchForm->brand : 0)),'id','name');
+
+			$Models=UsedCars::getExistsData($searchForm->brand,'brand','car_model_id');
+			$Models=CHtml::listData(CarModels::model()->findAll($Models),'id','name');
+
 			$WeightBascet=UsedCars::getWeightBasketList();
 			
 			$WeightModels=CHtml::listData(CarModels::model()->findAll('brand=:id',array(':id'=>$searchForm->brand && $searchForm->scenario=='WeightModels' ? $searchForm->brand : 0)),'id','name');

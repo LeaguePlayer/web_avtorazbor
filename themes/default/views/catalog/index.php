@@ -68,6 +68,26 @@
                                 <div class="calculate">
                                     <div class="line" data-min="#minCost" data-max="#maxCost">
                                     </div>
+                                    <ul>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                    </ul>
                                 </div>
                             </dd>
                             <dd>
@@ -96,6 +116,26 @@
                                 </div>
                                 <div class="line-2" data-min="#minForce" data-max="#maxForce">
                                     </div>
+                                <ul>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                    </ul>
                             </dd>
 
                             <dd class="submit">
@@ -149,6 +189,26 @@
                                 <div class="calculate">
                                     <div class="line" data-min="#minCost" data-max="#maxCost">
                                     </div>
+                                    <ul>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                    </ul>
                                 </div>
                             </dd>
                             <dd>
@@ -172,11 +232,30 @@
                                     <!-- <input type="text" id="maxForce" value="1000"/> -->
                                     </div>
                                 </div>
-                                <div class="sliderCont">
-                                    <div id="slider2"></div>
-                                </div>
-                                <div class="line-2" data-min="#minForce" data-max="#maxForce">
+                                <div class="calculate">
+                                    <div class="line-2 1" data-min="#minForce" data-max="#maxForce">
                                     </div>
+                                    <ul>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                    </ul>
+                                </div>
                             </dd>
 
                             <dd class="submit">
