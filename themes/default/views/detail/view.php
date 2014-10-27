@@ -30,11 +30,8 @@
                                         $image= '/media/images/parts/default.jpg';
                                         $bigImage='/media/images/parts/default.jpg';
                                     }
-                                        
-
-                                    
                                 ?>
-                                <a class="imgFancy" rel="1" href="<?=$bigImage?>"><img width="331" height="192" src="<?=$image?>" alt="" title="" />
+                                <a class="fancy" rel="1" href="<?=$bigImage?>"><img width="331" height="192" src="<?=$image?>" alt="" title="" />
                             </div>
                             <div class="min-img">
                             <?
@@ -64,9 +61,7 @@
                             <?}?>
                             </div>
                         </div>
-
                         <div class="desc desc-view">
-
                             <ul>
                                 <li>
                                     <?
@@ -76,10 +71,9 @@
                                     Раздел: <a href="/detail/parts?<?=$urlParam?>"><?=$model->category->name;?></a>
                                 </li>
                                 <li>
-                                    Модель авто: <a href="/detail/parts?Search[scenario]=Parts&Search[brand]=<?=$model->car_model->car_brand->id?>&Search[car_model_id]=<?=$model->car_model_id?>&Search[type]=<?=$model->car_model->car_type?>"><?=$model->car_model->name;?></a>
+                                    Модель авто: <a href="<?=$return?>"><?=$model->car_model->name;?></a>
                                 </li>
-                                
-                                <li >
+                                <li>
                                    Артикул:  <span class="articl"><?=$model->id?></span>
                                 </li>
                                 <?
@@ -109,58 +103,31 @@
                             </div>
                             <?}?>
                         </div>
-
                         <div class="shared clear">
                             <dl>
                                 <dt>
                                     Поделиться:
                                 </dt>
                                 <dd>
-                                
-
                                <!-- Go to www.addthis.com/dashboard to customize your tools -->
                                 <div class="addthis_sharing_toolbox"></div>
                                 <!-- Go to www.addthis.com/dashboard to customize your tools -->
                                 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53df85bc15a98471"></script>
-
-                                    <!-- <ul>
-                                        <li class="vk">
-                                            <a href="#"></a>
-                                        </li>
-                                        <li class="fb">
-                                            <a href="#"></a>
-                                        </li>
-                                        <li class="gp">
-                                            <a href="#"></a>
-                                        </li>
-                                        <li class="tw">
-                                            <a href="#"></a>
-                                        </li>
-                                        <li class="od">
-                                            <a href="#"></a>
-                                        </li>
-                                    </ul> -->
                                 </dd>
                             </dl>
                         </div>
-
                         <div class="comeback">
 
-                            <?$url='/detail/parts'.(Yii::app()->session->get('backToResult') ? '?'.Yii::app()->session->get('backToResult') : '');?>
-                            <a href="<?=$url?>">
+                            <?
+                                
+                            ?>
+                            <a href="<?=$return?>">
                                 Вернуться к результатам поиска
                             </a>
                         </div>
-
                         <div class="clear"></div>
-
                     </div>
-
-                    
-
                 </div>
-
-
                 <div class="clear"></div>
             </div>
         </div>  

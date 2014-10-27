@@ -37,7 +37,7 @@ class ChangePwd extends CFormModel {
 	 {
 		 if (Clients::model()->findByPk(Yii::app()->user->id)->password != Yii::app()->getModule('user')->encrypting($this->$attribute))
 		 {
-		 	$this->addError($attribute, "Old Password is incorrect.");
+		 	$this->addError($attribute, "Не правильно введен старый пароль!");
 			Yii::app()->user->setFlash('error', "Не верный старый пароль!");
 		 }
 	 }

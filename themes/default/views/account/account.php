@@ -20,9 +20,14 @@
         					</li>
         				</ul>
         			</div>
-
         			<div class="content clear">
-                        <div clsas="flush"><?=$this->message?></div>
+                        <?
+                            if ($this->message){
+                        ?>
+                        <div class="flash flash-info">
+                            <?=$this->message?>
+                        </div>
+                        <?}?>
         				<div class="form <?=$tabActive == 1 ? 'tab-active' : 'hide'?>" id="phiz">
                             <?
                                 if ($model->requests){
@@ -32,7 +37,7 @@
         					<?php $form = $this->beginWidget('CActiveForm', array(
                                 'id' => 'ownPrice-form',
                                 'action' => $this->createUrl('/account'),
-                                'enableClientValidation' => true,
+                                'enableClientValidation' => false,
                                 'clientOptions' => array(
                                     //'validateOnType' => false,
                                     'validateOnSubmit'=>true,
@@ -156,14 +161,14 @@
                                         </label>
                                         <div class="group">
                                             <!-- <input hidden="" type="checkbox" id="check1"> -->
-                                            <?=$form->checkBox($model,'subscribe_news',array('hidden'=>true))?>
-                                            <label for="Clients_subscribe_news">
+                                            <?=$form->checkBox($model,'subscribe_news',array('hidden'=>true,'id'=>'news'))?>
+                                            <label for="news">
                                                 <span></span>
                                                 На новости
                                             </label>
 
-                                            <?=$form->checkBox($model,'subscribe_new',array('hidden'=>true))?>
-                                            <label for="Clients_subscribe_new"><span>
+                                            <?=$form->checkBox($model,'subscribe_new',array('hidden'=>true,'id'=>'new'))?>
+                                            <label for="new"><span>
                                                   
                                                 </span>
                                                   На новинки

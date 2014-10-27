@@ -1,4 +1,4 @@
-<div class="alert qst" id="alert">
+<div class="qst" id="alert">
 	<p class="caption">
 		Товар добавлен в корзину
 	</p>

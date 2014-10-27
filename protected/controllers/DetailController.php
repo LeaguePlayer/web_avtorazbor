@@ -60,11 +60,14 @@ class DetailController extends FrontController
     	if (isset($_GET['Search']))
     	{
     		$searchForm->attributes=$_GET['Search'];
-    		$searchForm->scenario='disc';
     	}
-
+    	$searchForm->scenario='disc';
     	$searchForm->validate();
     	$dependecy = new CDbCacheDependency('SELECT MAX(update_time) FROM {{parts}}');
+
+    	$weightParts=Parts::getExistsData(null,null,'brand',2);
+    	$weightParts->limit=1;
+    	$weightParts=CHtml::listData(CarBrands::model()->findAll($weightParts),'id','name');
 
     	if( !Yii::app()->request->isAjaxRequest )
     	{
@@ -86,7 +89,7 @@ class DetailController extends FrontController
 					),
     			)
     		);
-			print($this->renderPartial('tabParts',array('dataProvider'=>$dataProvider),true));
+			print($this->renderPartial('tabParts',array('dataProvider'=>$dataProvider,'weightParts'=>$weightParts),true));
 		}
 	}
 	
@@ -248,6 +251,21 @@ class DetailController extends FrontController
 		$car_model=$model->car_model->id;
 		$category_id=$model->category->id;
 
+		
+		if (!$params=Yii::app()->session->get('backToResult'))
+		{
+			$return=$this->createUrl('/detail/parts',array('Search'=>array(
+						'brand'=>$model->car_model->car_brand->id,
+						'car_model_id'=>$model->car_model->id,
+						'type'=>$model->car_model->car_type,
+					)
+				)
+			);
+		}else 
+			$return='/detail/parts?'.$params;	
+
+			
+
 		$criteria=Parts::model()->search_parts('model_cat',array('model_id'=>$car_model,'cat_id'=>$category_id));
 		$criteria->addCondition('category_id='.$model->category->id);
 		$dependecy = new CDbCacheDependency('SELECT MAX(update_time) FROM {{parts}}');
@@ -258,7 +276,7 @@ class DetailController extends FrontController
 				'pagination'=>false,
 			)
 		);
-		$this->render('view',array('model'=>$model,'dataProvider'=>$dataProvider,'backToResultUrl'=>$backToResultUrl));
+		$this->render('view',array('model'=>$model,'dataProvider'=>$dataProvider,'return'=>$return));
 	}
 
 
