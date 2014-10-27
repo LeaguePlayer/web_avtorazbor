@@ -26,7 +26,7 @@
                                                 )
                                             )?>
                             </dd>
-                            <dd style="display:<?=($searchForm->brand ? 'block' : 'none')?>">
+                            <dd style="display:<?=($Brands ? 'block' : 'none')?>">
                                 <label>Марка:</label>
                                 <?=$form->dropDownList($searchForm,'brand', $Brands, 
                                         array(
@@ -38,7 +38,7 @@
                                             )
                                         )?>
                             </dd> 
-                            <dd>
+                            <dd style="display:<?=$Models ? 'block' : ''?>">
                                 <label>Модель автомобиля:</label>
                                 <?=$form->dropDownList($searchForm,'car_model_id', $Models, 
                                 array( 
@@ -50,7 +50,7 @@
                                     )
                                 )?>
                             </dd>
-                            <dd style="display:<?=($searchForm->parent ? 'block' : 'none')?>">
+                            <dd style="display:<?=($Categories ? 'block' : 'none')?>">
                                 <label>Раздел:</label>
                                 <?=$form->dropDownList($searchForm, 'parent', $Categories,
                                     array(
@@ -63,7 +63,7 @@
                                     );
                                 ?>
                             </dd>
-                            <dd style="display:<?=($searchForm->category_id ? 'block' : 'none')?>">
+                            <dd style="display:<?=($subCategories ? 'block' : 'none')?>">
                                 <label>Подраздел:</label>
                                 <?=$form->dropDownList($searchForm,'category_id', $subCategories, 
                                 array('empty'=>'Выберите под категорию','id'=>'subCategories'))?>

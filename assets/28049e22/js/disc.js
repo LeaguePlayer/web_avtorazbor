@@ -70,7 +70,7 @@ $(function(){
 		return false;
 	});
 
-	$('#slider .calculate').slider({
+	$('#slider .calculate .partPrice').slider({
 		range:true,
 		step:1,
 		min:14,
@@ -87,11 +87,10 @@ $(function(){
 			setTimeout(function(){
 				changeView();
 			},500);
-
 		}
 	});
 
-	$('#slider-2 .calculate').slider({
+	$('#slider-2 .calculate .partPrice').slider({
 		range:true,
 		step:50,
 		min:100,

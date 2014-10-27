@@ -35,22 +35,26 @@
 				{
 					$model->attributes=$_POST['Clients'];
 					$modelValid=$model->validate();	
-					$model->save();
-
-					if (isset($_POST['ClientsInfo']) && $modelValid)
+					
+					if (isset($_POST['ClientsInfo']))
 					{
-						$info=new Clientsinfo;
-						$info->attributes=$_POST['ClientsInfo'];
-						$info->client_id=$model->id;
-
-						if ($info->save())
+						if ($modelValid)
 						{
-							$model->type=2;
-							$model->save();
+
+							$info=new Clientsinfo;
+							$info->attributes=$_POST['ClientsInfo'];
+							
+							if ($info->validate())
+							{
+								$model->type=2;
+								$model->save(false);
+								$info->client_id=$model->id;
+								$info->save(false);
+							}
 						}
-					}
+					} else 
+						$model->save();
 					///Смена пароля!!!!!!!!!!
-					var_dump($_POST['changePwd']);die();
 					if (!empty($_POST['ChangePwd']['oldPassword']) && $modelValid)
 					{
 						$changePwd->attributes=$_POST['ChangePwd'];

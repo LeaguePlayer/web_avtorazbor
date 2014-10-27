@@ -36,6 +36,26 @@
                                 <div class="calculate">
                                     <div class="partPrice" data-min="#Search_diametr_st" data-max="#Search_diametr_end">
                                     </div>
+                                    <ul>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                    </ul>
                                 </div>
                             </dd>
 
@@ -56,6 +76,26 @@
                                 <div class="calculate">
                                     <div class="partPrice" data-min="#Search_price_st" data-max="#Search_price_end">
                                     </div>
+                                    <ul>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                    </ul>
                                 </div>
                             </dd>
                             
@@ -75,16 +115,19 @@
                                     Легковые
                                 </a>
                             </li>
+                            <?if ($weightParts){?>
                             <li>
                                 <a href="/detail?Search[scenario]=weight">
                                     Грузовые
                                 </a>    
                             </li>
+                            <?}?>
                             <li class="active">
                                 <a href="#" data-type="2">
                                     Диски
                                 </a>    
                             </li>
+
                         </ul>
                     </div>
                     <div class="content clear">

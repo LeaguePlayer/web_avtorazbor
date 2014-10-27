@@ -529,6 +529,9 @@ header{
 			padding: 0;
 			padding-right: 22px;
 		}
+		li:first-child.active{
+			padding: 0 11px ;
+		}
 		li{
 			display: inline-block;
 			padding:0 22px;
@@ -1384,10 +1387,12 @@ header{
 						margin-top: 30px;
 						width: 143px;
 						margin: 0 auto;
+
 						a{
 							position:relative;
 							display:block;
 							margin-top:20px;
+							text-align: center;
 						}
 						input[type=submit]{
 							width:140px;
@@ -3590,7 +3595,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 	border-radius: 10px;
 	background:#fb710b;
 }
-.alert.qst{
+#alert.qst{
 	padding-right: 30px;
 	.caption{
 		text-align: center;
@@ -3615,7 +3620,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 			vertical-align: top;
 			display: inline-block;
 			list-style: none;
-			max-width: 415px;
+			max-width: 400px;
 			line-height: 30px;
 		}
 		padding-bottom: 20px;
@@ -3779,3 +3784,10 @@ ul.vacansy{
 .autocomplete-suggestions strong { font-weight: bold; color: #000; }
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { font-weight: bold; font-size: 16px; color: #000; display: block; border-bottom: 1px solid #000; }
+
+.flash{
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid rgba(0, 0, 0, 0);
+	border-radius: 4px;
+}

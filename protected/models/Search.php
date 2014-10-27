@@ -43,18 +43,24 @@
 
 		public function beforeValidate()
 		{
-
 			$this->setScenario($this->scenario);
+			
 			$url='';
-
-			foreach ($this->attributes as $key => $value) {
-				if ($value)
-					$url.='Search['.$key.']='.$value.'&';
+			if ($this->id_country || $this->brand)
+			{
+				foreach ($this->attributes as $key => $value) {
+					if ($value)
+						$url.='Search['.$key.']='.$value.'&';
+				}
+				Yii::app()->session->add('backToResult',substr($url, 0,-1));
+			} else {
+				Yii::app()->session->remove('backToResult');
 			}
+
 			if (!$this->type)	
 				$this->type=1;
 			
-			Yii::app()->session->add('backToResult',substr($url, 0,-1));
+			
 			return parent::beforeValidate();
 		}
 		
@@ -239,8 +245,6 @@
 
 		public function getDiscs()
 		{
-			$properties=array('price_, brand, transmission, state');
-
 			$this->criteria=Parts::model()->Disc($this->diametr_st,$this->diametr_end,$this->category_id);
 			$this->criteria->addCondition('price_sell>='.$this->price_st.' and price_sell<='.$this->price_end);
 			//var_dump($this->criteria->condition);die();
