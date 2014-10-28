@@ -108,6 +108,7 @@ html, body {
 }
 body {
 	width:100%;
+	min-width:1180px;
 	margin:0 auto;
 	font-family: 'segoe_uiregular', Arial, sans-serif;
 	font-size:18px;
@@ -1704,6 +1705,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 						padding-bottom: 15px;
 						img{
 							display: block;
+							border-radius: 8px;
 						}
 					}
 					.min-img{
@@ -1716,19 +1718,28 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 							}
 							img{
 								display: block;
+								border-radius: 5px;
 							}
 						}
 					}
 				}
+				.gallery+.desc{
+					li{
+						max-width: 440px;
+					}
+				}
 				.desc-view{
 					padding-left: 30px;
+					.i-submit{
+						padding: 10px 38px;
+					}
 				}
 				.desc{
 					display: inline-block;
 					li{
 						font:14px/16px 'segoe_uiregular';
 						color:#76838d;
-						padding-top:10px;
+						padding-top:23px;
 						&:first-child{
 							padding-top:0;
 						}
@@ -3431,9 +3442,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 	padding: 15px 25px;
 	.flash{
 		text-align: center;
+		padding-bottom: 0!important;
 	}
 	ul{
-		margin-top: 15px;
 	}
 	li{
 		padding: 10px 0;
@@ -3785,7 +3796,7 @@ ul.vacansy{
 
 .flash{
 	padding: 15px;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	border: 1px solid rgba(0, 0, 0, 0);
 	border-radius: 4px;
 }
