@@ -1,6 +1,6 @@
 <div>
     <?
-        $image=$data->getImageUrl('carusel') ? $data->getImageUrl('carusel') : '/media/images/news/default.jpg' ;
+        $image=$data->getImageUrl('small') ? $data->getImageUrl('small') : '/media/images/news/default.jpg' ;
     ?>
     <a href="/catalog/<?=$data->alias?>/<?=$data->id?>">
         <img src="<?=$image?>" alt="" title="">

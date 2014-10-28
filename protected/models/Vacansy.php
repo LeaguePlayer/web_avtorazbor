@@ -44,7 +44,7 @@ class Vacansy extends EActiveRecord
         return array(
             'id' => 'ID',
             'post' => 'Должность',
-            'desc' => 'Аннонс',
+            'desc' => 'Анонс',
             'wswg_body' => 'Описание',
             'status' => 'Статус',
             'sort' => 'Вес для сортировки',
