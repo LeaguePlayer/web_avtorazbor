@@ -31,7 +31,7 @@
                                         $bigImage='/media/images/parts/default.jpg';
                                     }
                                 ?>
-                                <a class="fancy" rel="1" href="<?=$bigImage?>"><img width="331" height="192" src="<?=$image?>" alt="" title="" />
+                                <a class="imgFancy" rel="1" href="<?=$bigImage?>"><img width="331" height="192" src="<?=$image?>" alt="" title="" />
                             </div>
                             <div class="min-img">
                             <?

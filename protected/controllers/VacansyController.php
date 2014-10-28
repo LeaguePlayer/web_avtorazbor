@@ -40,6 +40,7 @@ class VacansyController extends FrontController
 		$this->layout='//layouts/content';
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('status=1');
+		$criteria->order="sort asc";
 		$dataProvider=new CActiveDataProvider('Vacansy',
 			array('criteria'=>$criteria,
 				'pagination'=>array(
