@@ -1,6 +1,6 @@
 <div class="page">
 
-        	<h1 class="head paragraph">
+        	<h1 class="head">
         		Все услуги
         	</h1>
 

@@ -25,7 +25,7 @@ class CartController extends FrontController
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','removePosition','view'),
-				'users'=>array('@'),
+				'users'=>array('*'),
 			),
 			array(
 				'allow',
