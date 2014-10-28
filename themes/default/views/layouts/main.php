@@ -1,6 +1,7 @@
 <?php
-
+    $assetUrl=$this->getAssetsUrl('application');
 	$cs = Yii::app()->clientScript;
+
     $assetsUrl=$this->getAssetsUrl('application');
 	$cs->registerCssFile($assetsUrl.'/css/style.css');
 	$cs->registerCssFile($assetsUrl.'/css/reset.css');
