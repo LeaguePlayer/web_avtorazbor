@@ -9,6 +9,7 @@ framework
 /gallery
 *~
 /index.php
+/assets
 /media-131014.tar.gz
 protected/yiic.php
 protected/yiic.bat
