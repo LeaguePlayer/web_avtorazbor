@@ -30,6 +30,7 @@ class Diagnostic extends EActiveRecord
             array('title, alias, phone', 'length', 'max'=>255),
             array('img_preview, announce, wswg_body, create_time, update_time', 'safe'),
             // The following rule is used by search().
+            array('alias','required'),
             array('id, title, alias, phone, img_preview, announce, wswg_body, status, sort, create_time, update_time', 'safe', 'on'=>'search'),
         );
     }
@@ -45,7 +46,7 @@ class Diagnostic extends EActiveRecord
         return array(
             'id' => 'ID',
             'title' => 'Заголовок',
-            'alias' => 'Алиас',
+            'alias' => 'Сслыка',
             'phone' => 'Телефон',
             'img_preview' => 'фотка',
             'announce' => 'Превью',

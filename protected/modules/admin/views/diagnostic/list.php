@@ -17,9 +17,12 @@ $this->menu=array(
         "class"=>"status_".(isset($data->status) ? $data->status : ""),
     )',
 	'columns'=>array(
-		'title',
 		'alias',
-		'phone',
+		array(
+			'header'=>'Переход',
+			'type'=>'raw',
+			'value'=>'CHtml::link("Перейти",$data->alias)',
+		),
 		array(
 			'header'=>'Фото',
 			'type'=>'raw',
@@ -31,7 +34,6 @@ $this->menu=array(
 			'value'=>'Diagnostic::getStatusAliases($data->status)',
 			'filter'=>Diagnostic::getStatusAliases()
 		),
-		'sort',
 		array(
 			'name'=>'create_time',
 			'type'=>'raw',
@@ -44,6 +46,7 @@ $this->menu=array(
 		),
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
+			'template'=>'{update}{delete}'
 		),
 	),
 )); ?>

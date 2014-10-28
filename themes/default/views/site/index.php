@@ -90,8 +90,9 @@
                     'type'=>'GET',
                     'data'=>'js:{type:1,str:$(".searching",$("#tabs-1")).val()}',
                     'success'=>'function(data){
-                        $(".items-auto").empty().append(data);
-                        $(".items-auto .items").owlCarousel();    
+                        $(".items-auto").remove();
+                        $(".cat-auto").append(data)
+                        $(".items-auto .items").owlCarousel();
                     }'
                 )
             );
@@ -260,8 +261,9 @@
                     'type'=>'GET',
                     'data'=>'js:{type:2,str:$(".searching",$("#tabs-2")).val()}',
                     'success'=>'function(data){
-                        $(".items-auto").empty().append(data);
-                        $(".items-auto .items").owlCarousel();    
+                        $(".items-auto").remove();
+                        $(".cat-auto").append(data)
+                        $(".items-auto .items").owlCarousel();
                     }'
                 )
             );
@@ -419,8 +421,10 @@
                     'type'=>'GET',
                     'data'=>'js:{type:$("#Search_type option:selected",$("#tabs-3")).val(),str:$(".searching",$("#tabs-3")).val(),table:"Parts"}',
                     'success'=>'function(data){
-                        $(".items-auto").empty().append(data);
-                        $(".items-auto .items").owlCarousel();    
+                        
+                        $(".items-auto").remove();
+                        $(".cat-auto").append(data)
+                        $(".items-auto .items").owlCarousel();
                     }'
                 )
             );
@@ -567,8 +571,9 @@
                     'type'=>'GET',
                     'data'=>'js:{type:1,str:$("#searching",this).val(),table:"UsedCars"}',
                     'success'=>'function(data){
-                        $(".items-auto").empty().append(data);
-                        $(".items-auto .items").owlCarousel();    
+                        $(".items-auto").remove();
+                        $(".cat-auto").append(data)
+                        $(".items-auto .items").owlCarousel();
                     }'
                 )
             );

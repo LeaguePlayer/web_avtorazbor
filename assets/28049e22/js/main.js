@@ -104,12 +104,12 @@ $(document).ready(function(){
 	$('#tabs-6').addClass('hide').removeClass('tab-active');
 
 	$('.cat-auto .prev').click(function(){
-			owl.prev();
+			$('.items-auto .items').data('owlCarousel').prev();
 		return false;
 	})
 
 	$('.cat-auto .next').click(function(){
-		owl.next();
+		$('.items-auto .items').data('owlCarousel').next ();
 		return false;		
 	})
 
