@@ -41,18 +41,17 @@
 						if ($modelValid)
 						{
 
-							$info=new Clientsinfo;
+							$info=$model->info ? $model->info : new ClientsInfo;
 							$info->attributes=$_POST['ClientsInfo'];
 							
 							if ($info->validate())
 							{
 								$model->type=2;
-								$model->save(false);
+								$model->save();
 								$info->client_id=$model->id;
-								$info->save(false);
 							}
 						}
-					} else 
+					} else
 						$model->save();
 					///Смена пароля!!!!!!!!!!
 					if (!empty($_POST['ChangePwd']['oldPassword']) && $modelValid)
