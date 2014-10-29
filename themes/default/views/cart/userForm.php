@@ -40,7 +40,7 @@
 	                <li>
 	                	<?php echo $form->labelEx($model,'delivery');?>
 	                	<div class="delivery">
-	                    	<?php echo $form->dropDownList($model,'delivery', Requests::getDeliveryType(),array('empty'=>'Выберите способ получения', 'class'=>'select '));?>
+	                    	<?php echo $form->dropDownList($model,'delivery', Requests::getDeliveryType(),array('empty'=>'Выберите способ получения', 'class'=>'i-text '));?>
 	                    	<?php echo $form->error($model,'delivery',array('style'=>'color:red;font-size:10px;'));?>
 	                    </div>
 	                </li>

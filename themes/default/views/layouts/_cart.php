@@ -5,7 +5,7 @@
         		</dt>
         		<dd>
         			<?
-                        if (!Yii::app()->cart->isEmpty(1) && $authenticated)
+                        if (!Yii::app()->cart->isEmpty(1))
                         {
                     ?><ul>
         				    <li>

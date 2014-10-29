@@ -1,4 +1,8 @@
 <div class="jobs">
+    <?
+    if ($dataProvider->totalItemCount)
+    {
+    ?>
     <dl>
         <dt>
             Здравствуйте! В нашей фирме появились новые вакансии:
@@ -16,5 +20,15 @@
                 телефон для связи <br><strong>8-922-136-06-11</strong> Алексей, <br><strong>8-9222-922-923</strong> Сергей
         </dt>
     </dl>
-    <input type="submit" value="Обратная связь" class="i-submit"> 
+
+    <input href="#vacansyCallBack" type="submit" value="Обратная связь" class="i-submit modal"> 
+    <?} else {?>
+        <div class="empty-vacansy">
+            На данный момент все вакансии заняты!
+        </div>
+    <?}?>
 </div>
+
+<?
+    $this->renderPartial('//forms/vacansyCallBack',array('model'=>new VacansyCallBack));
+?>

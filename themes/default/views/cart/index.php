@@ -22,6 +22,7 @@
         	</div>
         		<div class="content clear">
         			<div class="bascet tab-active" id="cart">
+                    <?if (count($models)){?>
         				<table width="100%">
         					<thead>
         						<tr>
@@ -52,6 +53,13 @@
                                 ?>
         					</tbody>
         				</table>
+                        <?}
+                        else 
+                        {?>
+                            <div class="empty-cart">
+                                Карзина пуста.
+                            </div>
+                        <?}?>
                                         <a href="<?=$this->createUrl('/detail/parts?'.Yii::app()->session->get('backToResult'))?>" class="back">Вернуться в каталог</a>
         			</div>
                         <div id="accept" class="baskets hide">

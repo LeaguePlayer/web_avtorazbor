@@ -186,6 +186,7 @@ $(document).ready(function(){
 	}
 
 	var changeNestedMap=function(nested){
+		
 			if ($('#'+nested,contextForm).val())
 			{
 				$.each(nestedMap[nested],function(key,val){

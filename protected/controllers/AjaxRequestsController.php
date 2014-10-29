@@ -23,13 +23,28 @@ class AjaxRequestsController extends FrontController
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('getNestedList','getCarModels','getSubCategories','getDetail','saveQuestion','saveBookPart','saveOwnPrice'),
+				'actions'=>array('getNestedList','saveVacansy','getCarModels','getSubCategories','getDetail','saveQuestion','saveBookPart','saveOwnPrice'),
 				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function actionSaveVacansy()
+	{
+		if (isset($_POST['VacansyCallBack']))
+		{
+			$model=new VacansyCallBack;
+			$model->attributes=$_POST['VacansyCallBack'];
+			if ($model->validate())
+			{
+				echo $model->save();
+				echo Yii::app()->end();
+			}
+		}
+		die();
 	}
 
 	public function actionGetNestedList()
@@ -188,7 +203,8 @@ class AjaxRequestsController extends FrontController
 	        	echo $model->errors;
 	        }
 	        else {
-	        	echo CActiveForm::validate($model);
+	        	$model;
+	        	echo $model->validate();
 	        	Yii::app()->end();
 	        }
 	    }

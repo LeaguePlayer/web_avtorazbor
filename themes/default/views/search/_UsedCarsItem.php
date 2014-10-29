@@ -5,10 +5,10 @@
         // $image='/media/car.png';
         // $imageBig='/media/car.png';
 ?>
-<div>
-    <a href="/detail/<?=$data->alias?>/<?=$data->id?>"><img src="<?=$data->getImageUrl('small')?>" alt="" title="" /></a>
+<li>
+    <a href="/catalog/<?=$data->alias?>/<?=$data->id?>"><img src="<?=$data->getImageUrl('small')?>" alt="" title="" /></a>
     
-    <a href="/detail/<?=$data->alias?>/<?=$data->id?>" class="link">
+    <a href="/catalog/<?=$data->alias?>/<?=$data->id?>" class="link">
         <?=$data->name?>
     </a>
     <span class="dsc">
@@ -21,4 +21,4 @@
     <!-- <span class="price_old">    
         как сделать??
     </span> -->
-</div>
+</li>

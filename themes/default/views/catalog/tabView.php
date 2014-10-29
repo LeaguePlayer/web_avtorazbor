@@ -19,7 +19,7 @@
             'cssFile' => false,
       	),
 	));
-Yii::app()->clientScript->registerScript('search','
-        changeView();
-    ');
+// Yii::app()->clientScript->registerScript('search','
+//         changeView();
+//     ');
 ?>

@@ -154,10 +154,9 @@
 
         <!--menu-->
         
-        <?if (strpos(get_class($this),"Site")!=false){?>
+        <?if (strpos(get_class($this),"Site")==false){?>
             <div class="breacumbs fix_width">
             <?
-
                 $this->widget('zii.widgets.CBreadcrumbs', array(
                         'links'=>$this->breadcrumbs,
                         'separator'=>'<span>&rarr;</span>'

@@ -15,7 +15,6 @@ $(function(){
 				var href=$(this).attr('href');
 				$.fancybox.open(href,
 					{
-
 						padding:0,
 						helpers: {
 					     overlay: {
@@ -158,7 +157,8 @@ $(function(){
 	}
 
 	$('#tabs-3 #Search_type').on('change',function(){
-		
+		$('#tabs-3').autocomplete('dispose');
+		alert($(this).val())
 		$('#tabs-3 .searching').autocomplete('setOptions',
 			{
 				serviceUrl: '/search/autoComplite?table='+$(this).data('model')+"&type="+$(this).val(),

@@ -232,9 +232,30 @@
                                         </dd>
                                     </dl>
                                 </div>
-                            <div class="sliderCont">
-                                <div id="slider2"></div>
-                            </div>
+                            <div class="calculate">
+                                    <div id="line">
+                                    </div>
+                                    <ul>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                    </ul>
+                                </div>
                             <div class="line"></div>
                                 <input type="submit" class="i-submit" value="Найти"/>
                             </form>

@@ -79,7 +79,6 @@
                 'action' => $this->createUrl('/search/getCars'),
                 'htmlOptions' => array('class' => 'search-text')
             ));
-            //echo $form->hiddenField('type',2);
             echo CHtml::hiddenField('type','1');
         ?>
         <input type="text" data-model="UsedCars" data-type="1" class="searching"  placeholder="Введите Ваш запрос" value="<?=$_GET[query]?>">

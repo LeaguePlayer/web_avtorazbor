@@ -14,7 +14,7 @@
 				'documents' => array('documents', 'templates'),
 				'requests' => array('requests', 'clients', 'employees'),
 				'settings' => array('settings', 'download'),
-				'manage' =>array('page','news','bookPart','questions','ownprice','vacansy','evackuator','diagnostic','buyout'),
+				'manage' =>array('page','news','bookPart','vacansyCallBack','questions','ownprice','vacansy','evackuator','diagnostic','buyout'),
 			);
 
 			$root = 'parts';
@@ -75,15 +75,17 @@
 					array('label'=>'Скачать новое приложение', 'url'=>'/admin/settings/downloadNewApp'),
 				),
 				'manage'=>array(
-					array('label'=>'Вакансии', 'url'=>'/admin/vacansy/list'),
+					
 					array('label'=>'Страницы', 'url'=>'/admin/page/list'),
 					array('label'=>'Новости', 'url'=>'/admin/news/list'),					
-					array('label'=>'Заказ деталей', 'url'=>'/admin/bookpart/list'),
+					array('label'=>'Диагностика', 'url'=>'/admin/diagnostic/list'),
 					array('label'=>'Вопросы', 'url'=>'/admin/questions/list'),
 					array('label'=>'Предложения', 'url'=>'/admin/ownprice/list'),
-					array('label'=>'Диагностика', 'url'=>'/admin/diagnostic/list'),
+					array('label'=>'Заказ деталей', 'url'=>'/admin/bookpart/list'),
 					array('label'=>'Услуги эвакуатора', 'url'=>'/admin/evackuator/list'),
 					array('label'=>'Выкуп авто', 'url'=>'/admin/buyout/list'),
+					array('label'=>'Отклики на вакансии','url'=>'/admin/vacansyCallBack/list'),
+					array('label'=>'Вакансии', 'url'=>'/admin/vacansy/list'),
 				),
 				
 					

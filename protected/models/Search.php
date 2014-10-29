@@ -78,40 +78,39 @@
 			return true;
 		}
 
+		public static function checkWerbInCome($str,$query)
+		{
+			$werbs=explode(' ',strtolower($str));
+			
+			foreach ($werbs as $key => $data) {
+				if (strpos($query,$data)===false)
+					return false;
+			}
+			return true;
+		}
+
+
+
 		public static function searchByStr($str,$table)
 		{
+			$str="+".str_replace(" ", " +", $str);
 			$result=Yii::app()->db->createCommand()
-				->select('id, name, MATCH (name) AGAINST ("'.$str.'") as REL')
+				->select('id, name, MATCH (name) AGAINST ("'.$str.'" IN BOOLEAN MODE) as REL')
 				->from("tbl_$table")
-				->where('MATCH (name) AGAINST ("'.$str.'") > 0')
+				->where('MATCH (name) AGAINST ("'.$str.'" IN BOOLEAN MODE) > 0')
 				->order('rel desc')
 				->queryAll();
-			$strSplit=explode(' ',$str);
 			$criteria=new CDbCriteria;
 			$iDs=array();
 
-			foreach ($result as $key => $value) {
-				$iDs[]=$value['id'];
+			foreach ($result as $key => $data) {
+					$iDs[]=$data['id'];
 			}
-
-			// foreach ($result as $key => $data) {
-			// 	$flag=true;
-			// 	foreach ($strSplit as $key => $str) {
-			// 		if (!strpos($data['name'], $str))
-			// 		{
-			// 			$flag=false;
-			// 			break;
-			// 		}
-			// 	}
-			// 	$iDs[]=$data['id'];
-			// }
-
 			if ($result)
 				$criteria->addInCondition('t.id',$iDs);
 			else 
 				$criteria->addCondition('t.id=-1');
 
-			//$criteria->order="t.id desc";
 			return new CActiveDataProvider($table,
 				array(
 					'criteria'=>$criteria,

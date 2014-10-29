@@ -1,7 +1,6 @@
 
-<div id="popup" class="qst">
+<div id="vacansyCallBack" class="qst">
         <div class="bx">
-
             <dl>
                 <dt class="head">
                     Задать вопрос
@@ -13,15 +12,15 @@
             </dl>
             <div class="form">
                 <?php $form=$this->beginWidget('CActiveForm',array(
-                    'id'=>'question-form',
-                    'action'=>'/ajaxRequests/saveQuestion',
+                    'id'=>'vacansyCallBack-form',
+                    'action'=>'/ajaxRequests/saveVacansy',
                     'enableAjaxValidation'=>true,
                     'enableClientValidation'=>true,
                     'clientOptions'=>array(
                         'validateOnSubmit'=>true,
                         'afterValidate'=>'js:function(form,data,hasError){
                             if (hasError)
-                                return;
+                                return false;
                             window.location="/page/thanks";
                         }'
                     ),
@@ -29,9 +28,9 @@
                 )); ?>
                 <ul>
                     <li>
-                        <?php echo $form->labelEx($model,'name');?>
-                        <?php echo $form->textField($model,'name',array('class'=>'i-text','maxlength'=>255)); ?>
-                        <?php echo $form->error($model,'name',array('style'=>'color:red;font-size:10px;'));?>
+                        <?php echo $form->labelEx($model,'fio');?>
+                        <?php echo $form->textField($model,'fio',array('class'=>'i-text','maxlength'=>255)); ?>
+                        <?php echo $form->error($model,'fio',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
 
                     <li>
@@ -41,23 +40,21 @@
                     </li>
 
                     <li>
-                        <?php echo $form->labelEx($model,'mail');?>
-                        <?php echo $form->textField($model,'mail',array('class'=>'i-text','maxlength'=>255)); ?>
-                        <?php echo $form->error($model,'mail',array('style'=>'color:red;font-size:10px;'));?>
+                        <?php echo $form->labelEx($model,'email');?>
+                        <?php echo $form->textField($model,'email',array('class'=>'i-text','maxlength'=>255)); ?>
+                        <?php echo $form->error($model,'email',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
 
                     <li>
-                        <?php echo $form->labelEx($model,'question');?>
-                        <?php echo $form->textarea($model,'question',array('class'=>'i-text','maxlength'=>255)); ?>
-                        <?php echo $form->error($model,'question',array('style'=>'color:red;font-size:10px;'));?>
+                        <?php echo $form->labelEx($model,'vacansy_id');?>
+                        <?php echo $form->dropDownList($model,'vacansy_id',CHtml::listData(Vacansy::model()->findAll('status=1'),'id','post'),array('empty'=>'Выберите вакансию', 'class'=>'i-text','maxlength'=>255,'style'=>'width:262px;')); ?>
+                        <?php echo $form->error($model,'vacansy_id',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
-
                     <li>
-                        <?php echo $form->labelEx($model,'theme');?>
-                        <?php echo $form->dropDownList($model,'theme',array(1=>'Автозапчасти'),array('class'=>'i-text'));?>
-                        <?php echo $form->error($model,'theme',array('style'=>'color:red;font-size:10px;'));?>
+                        <?php echo $form->labelEx($model,'comment');?>
+                        <?php echo $form->textarea($model,'comment',array('class'=>'i-text','maxlength'=>255,'style'=>'width:262px;')); ?>
+                        <?php echo $form->error($model,'comment',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
-
                     <li class="sub">
                         <input type="submit" class="i-submit" value="Отправить">
                     </li>

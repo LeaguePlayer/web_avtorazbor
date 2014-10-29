@@ -17,7 +17,6 @@ class Seo extends EActiveRecord
         return '{{seo}}';
     }
 
-
     public function rules()
     {
         return array(

@@ -2,14 +2,14 @@
 	<h1 class="head">
 		Результаты поиска по запросу - "<?=$str?>"
 	</h1>
-
+	<?$view='_'.$model.'Item';?>
 	<div class="wr">
 			<div class="content clear">
                 <div class="news tab-active" id="tabs-3">
                     <?
 						$this->widget('zii.widgets.CListView', array(
 						    'dataProvider'=>$dataProvider,
-						    'itemView'=>'_searchItem',   // refers to the partial view named '_post'
+						    'itemView'=>$view,   // refers to the partial view named '_post'
 						    'summaryText' => '',
 						    'pagerCssClass' => 'pagination',
 						    'itemsTagName'=>'ul',
