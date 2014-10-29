@@ -26,7 +26,6 @@ class Buyout extends CActiveRecord
         return '{{buyout}}';
     }
 
-
     public function rules()
     {
         return array(
@@ -35,7 +34,7 @@ class Buyout extends CActiveRecord
             array('comment, create_time, update_time', 'safe'),
             // The following rule is used by search().
             array('name, phone, email, modelName, year','required'),
-            array('phone','match','pattern'=>'/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/','message'=>'Указанный вами номер не верен'),
+            array('phone','match','pattern'=>'/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/','message'=>'Указанный вами номер верен'),
             array('email','match','pattern'=>'/^(\w+\.)*\w+@(\w+\.)+[A-Za-z]+$/','message'=>'Указанный Вами адрес не является адресом электронной почты!'),
             array('id, name, phone, email, brand, modelName, year, capacity, transmission, comment, status, sort, create_time, update_time', 'safe', 'on'=>'search'),
         );

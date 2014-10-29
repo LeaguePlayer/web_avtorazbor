@@ -16,6 +16,7 @@
     //$cs->registerScriptFile('http://code.jquery.com/jquery-1.11.0.min.js', CClientScript::POS_END);
 	$cs->registerScriptFile('http://fotorama.s3.amazonaws.com/4.4.9/fotorama.js', CClientScript::POS_END);
     $cs->registerScriptFile($assetsUrl.'/js/tinyscrollbar.js', CClientScript::POS_END);
+    $cs->registerScriptFile($assetsUrl.'/js/scrollTo.min.js', CClientScript::POS_END);
     $cs->registerScriptFile($assetsUrl.'/js/jquery-ui.min.js', CClientScript::POS_END);
     $cs->registerScriptFile($assetsUrl.'/js/jquery.autocomplete.js', CClientScript::POS_END);
 	$cs->registerScriptFile($assetsUrl.'/js/jquery.maphilight.js', CClientScript::POS_END);

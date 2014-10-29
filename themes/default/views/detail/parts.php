@@ -26,6 +26,7 @@
                                                 )
                                             )?>
                             </dd>
+
                             <dd style="display:<?=($Brands ? 'block' : 'none')?>">
                                 <label>Марка:</label>
                                 <?=$form->dropDownList($searchForm,'brand', $Brands, 
@@ -50,6 +51,7 @@
                                     )
                                 )?>
                             </dd>
+
                             <dd style="display:<?=($Categories ? 'block' : 'none')?>">
                                 <label>Раздел:</label>
                                 <?=$form->dropDownList($searchForm, 'parent', $Categories,
@@ -63,6 +65,7 @@
                                     );
                                 ?>
                             </dd>
+                            
                             <dd style="display:<?=($subCategories ? 'block' : 'none')?>">
                                 <label>Подраздел:</label>
                                 <?=$form->dropDownList($searchForm,'category_id', $subCategories, 

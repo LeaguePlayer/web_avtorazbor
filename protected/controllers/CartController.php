@@ -62,7 +62,7 @@ class CartController extends FrontController
 			$request->client_id=Yii::app()->user->id;
 			$request->from=0;
 			$request->user_id=1;
-			$request->status=7;
+			$request->status=3;
 			$request->date_life=date('d-m-y');
 			$request->save();
 			$dbCommand = Yii::app()->db->createCommand();

@@ -1,11 +1,3 @@
-<?
-	$cs = Yii::app()->clientScript;
-	$cs->registerScriptFile($this->getAssetsUrl('application').'/js/jquery.maskedinput.js', CClientScript::POS_END);
-	
-?>
-<script type="text/javascript">
-	$('#Buyout_phone').mask('+7 (999) 999-9999');
-</script>
 <div class="page">
 
     <h1 class="head">

@@ -168,7 +168,7 @@ class DetailController extends FrontController
 		$countriCriteria=Parts::getExistsData(null,null,'id_country');
 		$Countries=CHtml::listData(Country::model()->findAll($countriCriteria),'id','name');
 
-		$Categories=CHtml::listData(
+		$Categories=$searchForm->parent ? CHtml::listData(
 				Categories::model()->findAll(
 					Parts::getExistsData(
 						$searchForm->car_model_id,
@@ -177,7 +177,8 @@ class DetailController extends FrontController
 						$searchForm->type)
 					),
 				'id','name'
-			);
+			) : array();
+
 		$Brands=CHtml::listData(
 					CarBrands::model()
 						->findAll(
@@ -189,7 +190,7 @@ class DetailController extends FrontController
 						)
 					,'id','name');
 
-		$Models=CHtml::listData(
+		$Models=$searchForm->brand ? CHtml::listData(
 					CarModels::model()->findAll(
 						Parts::getExistsData(
 							$searchForm->brand,
@@ -198,9 +199,11 @@ class DetailController extends FrontController
 							$searchForm->type)
 						),
 					'id','name'
-				);
+				) : array();
+
 		$subCatCriteria=array();
-		if ($searchForm->parent)
+		$subCategories=array();
+		if ($searchForm->parent && $searchForm->car_model_id)
 		{
 			$subCatCriteria=Parts::getExistsData(
 							$searchForm->car_model_id,
@@ -209,11 +212,14 @@ class DetailController extends FrontController
 							$searchForm->type
 						);
 			$subCatCriteria->addCondition('parent='.$searchForm->parent);
+
 			$subCategories=CHtml::listData(
 					Categories::model()->findAll($subCatCriteria),
 					'id','name'
 				);
+
 		}
+
 		$WeightBrandsExists=Parts::getExistsData(null,null,'brand',2);
 		$WeightBrandsExists->limit=1;
 
@@ -227,6 +233,7 @@ class DetailController extends FrontController
 					'pageSize'=>$searchForm->display,
 				),
 		));
+
 
 		$this->render('parts',
 			array(
