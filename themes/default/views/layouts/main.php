@@ -48,7 +48,7 @@
 
             	<dl class="tel">
             		<dt>
-            			<strong>Телефон</strong> <a class="dropDown" href="#"><span><?=Settings::getValue('buy_car')?></span><span></span></a>
+            			<strong>Телефон</strong> <a class="dropDown" href="#"><span><?=Settings::getValue('phone_parts')?></span><span></span></a>
                 <div class="dopMenu">
                   <ul>
                     <li>
@@ -68,16 +68,16 @@
             		</dt>
             		<dd>
                         <div class="phone-1 active">
-                			<?=Settings::getValue('buy_car')?>
+                			<?=Settings::getValue('phone_parts')?>
                         </div>
                         <div class="phone-2 ">
                             <?=Settings::getValue('buy_car')?>
                         </div>
                         <div class="phone-3">
-                            <?=Settings::getValue('buy_car')?>
+                            <?=Settings::getValue('sales')?>
                         </div>
                         <div class="phone-4">
-                            <?=Settings::getValue('buy_car')?>
+                            <?=Settings::getValue('evacuator_phone')?>
                         </div>
             		</dd>
             	</dl>
