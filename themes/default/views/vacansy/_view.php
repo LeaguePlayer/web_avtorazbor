@@ -1,4 +1,4 @@
-<div class="item active">
+<li class="item active">
     <a href="#" class="name ">
         <?=$data->post?>
     </a>
@@ -7,4 +7,4 @@
         <strong>Условия работы</strong>
         <p><?=$data->wswg_body?></p>
     </div>
-</div>
+</li>

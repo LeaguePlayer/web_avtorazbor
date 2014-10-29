@@ -90,14 +90,9 @@
                     'type'=>'GET',
                     'data'=>'js:{type:1,str:$(".searching",$("#tabs-1")).val()}',
                     'success'=>'function(data){
-<<<<<<< HEAD
-                        $(".items-auto").empty().append(data);
-                        $(".items-auto .items").owlCarousel({items:7});
-=======
                         $(".items-auto").remove();
                         $(".cat-auto").append(data)
                         $(".items-auto .items").owlCarousel();
->>>>>>> 5e2ad2a6786e6935d4cd34e31f2629b262e26508
                     }'
                 )
             );
@@ -141,6 +136,25 @@
                 </dl>
                 <dl class="otdo">
                     <dt>
+                        Год выпуска:
+                    </dt>
+                    <dd>
+                        <ul>
+                            <li>
+                                <div class="i-text">
+                                   <?=$form->textField($searchForm,'year_st' )?>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="i-text">
+                                    <?=$form->textField($searchForm,'year_end' )?>
+                                </div>
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+                <dl >
+                    <dt>
                         Цена (тыс. руб.):
                     </dt>
                     <dd>
@@ -159,47 +173,10 @@
                     </dd>
                 </dl>
 
-                <dl>
-                    <dt>
-                        Год выпуска:
-                    </dt>
-                    <dd>
-                        <ul>
-                            <li>
-                                <div class="i-text">
-                                   <?=$form->textField($searchForm,'year_st' )?>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="i-text">
-                                    <?=$form->textField($searchForm,'year_end' )?>
-                                </div>
-                            </li>
-                        </ul>
-                    </dd>
-                </dl>
+                
             </div>
 
             <div class="coll-2">
-                <dl>
-                    <dt>
-                        Тип кузова:
-                    </dt>
-                    <dd>
-                        <?=$form->dropDownList($searchForm, 'bascet', $Bascet, array( 
-                                'empty'=>'Выберите марку', 'class'=>'select','id'=>'bascet'));
-                        ?>
-                        
-                    </dd>
-                    <dt>
-                        Состояние:
-                    </dt>
-                    <dd>
-                        <?=$form->dropDownList($searchForm, 'state', $State, array( 
-                                'empty'=>'Состояние', 'class'=>'select','id'=>'state'));
-                        ?>
-                    </dd>
-                </dl>
                 <dl>
                     <dt>
                         Тип КПП:
@@ -227,6 +204,26 @@
                         </ul>
                     </dd>
                 </dl>
+                <dl>
+                    <dt>
+                        Тип кузова:
+                    </dt>
+                    <dd>
+                        <?=$form->dropDownList($searchForm, 'bascet', $Bascet, array( 
+                                'empty'=>'Выберите марку', 'class'=>'select','id'=>'bascet'));
+                        ?>
+                        
+                    </dd>
+                    <dt>
+                        Состояние:
+                    </dt>
+                    <dd>
+                        <?=$form->dropDownList($searchForm, 'state', $State, array( 
+                                'empty'=>'Состояние', 'class'=>'select','id'=>'state'));
+                        ?>
+                    </dd>
+                </dl>
+                
                 
             </div>
             
@@ -235,7 +232,7 @@
                     <dt>
                         Найдено<br/>
                         <span class="num">
-                            <?=$result['count']?> авто
+                            <?=$result['count']?> Авто
                         </span>
                     </dt>
                     <dd>
@@ -266,14 +263,9 @@
                     'type'=>'GET',
                     'data'=>'js:{type:2,str:$(".searching",$("#tabs-2")).val()}',
                     'success'=>'function(data){
-<<<<<<< HEAD
-                        $(".items-auto").empty().append(data);
-                        $(".items-auto .items").owlCarousel({items:7});
-=======
                         $(".items-auto").remove();
                         $(".cat-auto").append(data)
                         $(".items-auto .items").owlCarousel();
->>>>>>> 5e2ad2a6786e6935d4cd34e31f2629b262e26508
                     }'
                 )
             );
@@ -314,28 +306,7 @@
                                                 'empty'=>'Выберите модель', 'class'=>'select','id'=>'carModels','data-model'=>'carModels','data-map'=>true));?>
                     </dd>
                 </dl>
-
-                <dl class="otdo">
-                    <dt>
-                        Цена (тыс. руб.):
-                    </dt>
-                    <dd>
-                        <ul>
-                            <li>
-                                <div class="i-text">
-                                    <?=$form->textField($searchForm,'price_st' )?>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="i-text">
-                                    <?=$form->textField($searchForm,'price_end' )?>
-                                </div>
-                            </li>
-                        </ul>
-                    </dd>
-                </dl>
-
-                <dl>
+                <dl  class="otdo">
                     <dt>
                         Год выпуска:
                     </dt>
@@ -349,6 +320,25 @@
                             <li>
                                 <div class="i-text">
                                     <?=$form->textField($searchForm,'year_end' )?>
+                                </div>
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                        Цена (тыс. руб.):
+                    </dt>
+                    <dd>
+                        <ul>
+                            <li>
+                                <div class="i-text">
+                                    <?=$form->textField($searchForm,'price_st' )?>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="i-text">
+                                    <?=$form->textField($searchForm,'price_end' )?>
                                 </div>
                             </li>
                         </ul>
@@ -431,15 +421,9 @@
                     'type'=>'GET',
                     'data'=>'js:{type:$("#Search_type option:selected",$("#tabs-3")).val(),str:$(".searching",$("#tabs-3")).val(),table:"Parts"}',
                     'success'=>'function(data){
-<<<<<<< HEAD
-                        $(".items-auto").empty().append(data);
-                        $(".items-auto .items").owlCarousel({items:7});
-=======
-                        
                         $(".items-auto").remove();
                         $(".cat-auto").append(data)
                         $(".items-auto .items").owlCarousel();
->>>>>>> 5e2ad2a6786e6935d4cd34e31f2629b262e26508
                     }'
                 )
             );
@@ -557,7 +541,7 @@
                     <dt>
                         Найдено<br/>
                         <span class="num">
-                            42 авто
+                            42 Запчасти
                         </span>
                     </dt>
                     <dd>
@@ -586,14 +570,9 @@
                     'type'=>'GET',
                     'data'=>'js:{type:1,str:$("#searching",this).val(),table:"UsedCars"}',
                     'success'=>'function(data){
-<<<<<<< HEAD
-                        $(".items-auto").empty().append(data);
-                        $(".items-auto .items").owlCarousel({items:7});
-=======
                         $(".items-auto").remove();
                         $(".cat-auto").append(data)
                         $(".items-auto .items").owlCarousel();
->>>>>>> 5e2ad2a6786e6935d4cd34e31f2629b262e26508
                     }'
                 )
             );

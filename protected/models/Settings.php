@@ -87,6 +87,16 @@ class Settings extends EActiveRecord
         return 'SettingsString';
     }
 
+    public static function getModelBlyAlias($alias){
+        $setting = self::model()->find('name=:name', array(':name' => $alias));
+        if($setting){
+            $type = $setting->{$setting->type};
+            if($type) return $setting;
+        }
+
+        return false;
+    }
+
     public static function getValue($settingName){
         $setting = self::model()->find('name=:name', array(':name' => $settingName));
 

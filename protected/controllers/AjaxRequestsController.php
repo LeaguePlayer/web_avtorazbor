@@ -75,7 +75,8 @@ class AjaxRequestsController extends FrontController
 				break;
 			case 'Categories':
 					{
-						$criteria=$searchingIn::getExistsData($value,'car_model_id','category_id',$type);
+						$criteria=$searchingIn::getExistsData($value['model'],'car_model_id','category_id',$type);
+						$criteria->addCondition('parent='.$value['category']);
 						$models=CHtml::listData(Categories::model()->findAll($criteria),'id','name');
 						$htmlOptions=array('id'=>'subCategories','empty'=>'Выберите подкатегорию');
 					}

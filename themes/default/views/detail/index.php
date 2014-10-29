@@ -76,11 +76,11 @@
                                             //empty since it will be filled by the other dropdown
                                         ?>
                                     </dd>
-                                    <dd style="display:none;">
+                                    <dd style="display:<?=$searchForm->car_model_id ? 'block' : 'none'?>;">
                                         <label for="model"> 
                                             Модель:
                                         </label>
-                                        <?=$form->dropDownList($searchForm,'car_model_id', array(), array(
+                                        <?=$form->dropDownList($searchForm,'car_model_id', $Models, array(
                                             'empty'=>'Выберите раздел',
                                             'class'=>'select',
                                             'id'=>'carModels',

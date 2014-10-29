@@ -107,6 +107,7 @@ $(function(){
 		$(itemClass).addClass('active');
 		$(".dopMenu").slideUp(200);
 		dropped=!dropped;
+		$('.dropDown span:first').text($(this).text());
 		return false; 
 	})
 

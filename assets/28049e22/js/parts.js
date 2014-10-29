@@ -11,7 +11,7 @@ $(document).ready(function(){
 			changeView();
 			var $_this=$(this),
 				params={
-					value:$(this).attr('id')!='Categories' ? $(this).val() : $('#carModels').val(),
+					value:$(this).attr('id')!='Categories' ? $(this).val() : {model:$('#carModels').val(),category:$(this).val()},
 					model:$(this).data('model'),
 					nested:$(this).data('nested'),
 					searchingIn:"Parts",

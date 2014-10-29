@@ -438,15 +438,24 @@ header{
 
 		.tel{
 			float:left;
-			margin-left:47px;
-			width:180px;
+			margin-left:37px;
 			padding-right:20px;
 			position: relative;
 			margin-top: 10px;
 			& a.dropDown{
-						background: url(../images/dropDown.png) no-repeat;
+						
 						background-position: right 8px;
 						padding-right: 15px;
+						width: 150px;
+						display: inline-block;
+						span:last-child{
+							display: inline-block;
+							height: 7px;
+							width: 10px;
+							background: url(../images/dropDown.png) no-repeat;
+							position: relative;
+							left: 5px;
+						}
 					}
 			& div.dopMenu{
 				display: none;
@@ -575,6 +584,7 @@ header{
 			padding:9.5px 13px;
 			width:200px;
 			float:left;
+			background: initial;
 		}
 		& input[type=button]{
 			display: none;
@@ -2424,8 +2434,16 @@ div[id^=tabs]{
 				}
 			}
 		}
+
 	}
 }
+#tabs-3{
+			.coll-3{
+				dt{
+					padding-top: 10px;
+				}
+			}
+		}
 .cat-auto{
 	padding:32px 0 30px;
 	margin:@c;
@@ -3657,32 +3675,47 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 			}
 		}
 }
-ul.vacansy{
-	margin-top: 30px;
-	li{
-		display: block;
-		border: 1px solid #A6A8AB;
-		background: #F2F4F6;
-		margin-bottom: 41px;
-		border-radius: 8px;
-		-webkit-border-radius: 8px;
-		-moz-border-radius: 8px;
-		padding: 20px;
-		margin-bottom: 30px;
+.vacansy{
+	font-size: 14px;
+	.item{
+		margin:28px 10px;
+		position: relative;
+		.name{
+			padding: 10px 12px;
+			width: 47%;
+			color: #8a959d;	
+		}
+		.info{
+			width: 45%;
+			padding: 15px;
+			.gradient(#f5831d,#ff6701);
+			position: absolute;
+			right: 0;	
+			display: none;
+			top:0;
+		}
 	}
-	.caption{
-		padding-bottom: 15px;
-		font: 18px/1.2 segoe_uiregular;
-		color: #333;
+	.item.active{
+		.info{
+			.arr{
+				background: url(../images/vacansy_arr.png) no-repeat;
+				top: 15px;
+				width: 12px;
+				height: 12px;
+				left: -7px;
+				position: absolute;
+			}
+		}
+		.name,.info{
+			border-radius: 5px;
+			z-index: 20;
+			color: #fff!important;
+			display: block!important;
+			.gradient(#f5831d,#ff6701);
+		}
 	}
-	.desc{
-		padding-bottom: 30px;
-		font: 14px/1.2 segoe_uiregular;
-		color: #76838D;
-	}
-	.more{
-		font-size: 12px;
-	}
+
+
 }
 .ui-slider-handle{
 	width: 20px!important;

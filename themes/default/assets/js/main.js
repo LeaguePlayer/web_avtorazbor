@@ -145,7 +145,7 @@ $(document).ready(function(){
 					showAll.attr('href',showAll.data('url')+"?"+formData);
 
 				$('.loader').hide();
-				$('.num',form).text(total+" авто");	
+				$('.num',form).text(total+" "+(form.closest('.parametr').index()==4 ? 'Запчасти' : 'Авто'));	
 			})
 		},1000)
 

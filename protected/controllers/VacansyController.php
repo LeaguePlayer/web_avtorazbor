@@ -37,6 +37,8 @@ class VacansyController extends FrontController
 	
 	public function actionIndex()
 	{
+		Yii::app()->clientScript->registerScriptFile($this->getAssetsUrl().'/js/vacansy.js', CClientScript::POS_END);
+
 		$this->layout='//layouts/content';
 		$criteria=new CDbCriteria;
 		$criteria->addCondition('status=1');

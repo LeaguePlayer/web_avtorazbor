@@ -43,9 +43,63 @@ class DetailController extends FrontController
 		$searchForm=new Search;
 		
 		if (isset($_GET['Search']))
+		{
 			$searchForm->attributes=$_GET['Search'];
+		}
+		
+		$Brands=CHtml::listData(
+					CarBrands::model()
+						->findAll(
+							Parts::getExistsData(
+								null,
+								null,
+								'brand',
+								$searchForm->type)
+						)
+					,'id','name');
 
-		$this->render('index',array('Brand'=>$Brand,'searchForm'=>$searchForm,'WeightBrand'=>$WeightBrand));
+		$Models=CHtml::listData(
+					CarModels::model()->findAll(
+						Parts::getExistsData(
+							$searchForm->brand,
+							'brand',
+							'car_model_id',
+							$searchForm->type)
+						),
+					'id','name'
+				);
+		$Categories=CHtml::listData(
+				Categories::model()->findAll(
+					Parts::getExistsData(
+						$searchForm->car_model_id,
+						'car_model_id',
+						'parent',
+						$searchForm->type)
+					),
+				'id','name'
+			);
+
+		$subCategories=CHtml::listData(
+				Categories::model()->findAll(
+					Parts::getExistsData(
+						$searchForm->car_model_id,
+						'car_model_id',
+						'category_id',
+						$searchForm->type)
+					),
+				'id','name'
+			);
+
+		$this->render('index',
+			array(
+				'Brand'=>$Brand,
+				'Models'=>$Models,
+				'Categories'=>$Categories,
+				'subCategories'=>$subCategories,
+				'searchForm'=>$searchForm,
+				'WeightBrand'=>$WeightBrand)
+
+			);
 	}
 
 	public function actionDisc()
@@ -145,17 +199,21 @@ class DetailController extends FrontController
 						),
 					'id','name'
 				);
-
-		$subCategories=CHtml::listData(
-				Categories::model()->findAll(
-					Parts::getExistsData(
-						$searchForm->car_model_id,
-						'car_model_id',
-						'category_id',
-						$searchForm->type)
-					),
-				'id','name'
-			);
+		$subCatCriteria=array();
+		if ($searchForm->parent)
+		{
+			$subCatCriteria=Parts::getExistsData(
+							$searchForm->car_model_id,
+							'car_model_id',
+							'category_id',
+							$searchForm->type
+						);
+			$subCatCriteria->addCondition('parent='.$searchForm->parent);
+			$subCategories=CHtml::listData(
+					Categories::model()->findAll($subCatCriteria),
+					'id','name'
+				);
+		}
 		$WeightBrandsExists=Parts::getExistsData(null,null,'brand',2);
 		$WeightBrandsExists->limit=1;
 

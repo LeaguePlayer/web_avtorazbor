@@ -12,7 +12,7 @@ $(document).ready(function(){
 				index=parent.index()+1,
 	 			elems=dd.slice(index,lastIndex),
 	 			params={
-					value:$_this.attr('id')!='Categories' ? $_this.val() : $('#carModels').val(),
+					value:$(this).attr('id')!='Categories' ? $(this).val() : {model:$('#carModels').val(),category:$(this).val()},
 					model:$_this.attr('id'),
 					nested:$_this.data('nested'),
 					searchingIn:"Parts",

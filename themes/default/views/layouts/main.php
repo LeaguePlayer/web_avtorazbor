@@ -48,31 +48,36 @@
 
             	<dl class="tel">
             		<dt>
-            			<strong>Телефон</strong> <a class="dropDown" href="#">автозапчасти</a>
+            			<strong>Телефон</strong> <a class="dropDown" href="#"><span><?=Settings::getValue('buy_car')?></span><span></span></a>
                 <div class="dopMenu">
                   <ul>
                     <li>
-                        <a href=".phone-1">первый</a> 
+                        <a href=".phone-1"><?=Settings::getModelBlyAlias('phone_parts')->label?></a> 
                     </li>
                     <li>
-                        <a href=".phone-2">второй</a> 
+                        <a href=".phone-2"><?=Settings::getModelBlyAlias('buy_car')->label?></a> 
                     </li>
                     <li>
-                        <a href=".phone-3">третий</a> 
+                        <a href=".phone-3"><?=Settings::getModelBlyAlias('sales')->label?></a> 
+                    </li>
+                    <li>
+                        <a href=".phone-4"><?=Settings::getModelBlyAlias('evacuator_phone')->label?></a> 
                     </li>
                   </ul>
                 </div>
             		</dt>
             		<dd>
                         <div class="phone-1 active">
-                			8-800-500-2019<br/>
-        					+7(343) 288-22-88 
+                			<?=Settings::getValue('buy_car')?>
                         </div>
                         <div class="phone-2 ">
-                            8-800-500-2019<br/>
+                            <?=Settings::getValue('buy_car')?>
                         </div>
                         <div class="phone-3">
-                            +7(343) 288-22-88 
+                            <?=Settings::getValue('buy_car')?>
+                        </div>
+                        <div class="phone-4">
+                            <?=Settings::getValue('buy_car')?>
                         </div>
             		</dd>
             	</dl>
