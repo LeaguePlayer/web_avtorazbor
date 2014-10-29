@@ -61,12 +61,12 @@ $sum=0;
 print("<br>");
 print("Произведение отрицательных элементов : ".$underZero);
 foreach ($data as $key => $value) {
-if ($value<0)
-{
-if ($value!=$max)
-$sum+=$value;
-else break;
-}
+	if ((int)$value<0)
+	{
+		if ($value<$max)
+			$sum+=(int)$value;
+		else break;
+	} else break;
 }
 print("<br>");
 print("сумма элементов до максимального : ".$sum);
