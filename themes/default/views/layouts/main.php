@@ -48,7 +48,7 @@
 
             	<dl class="tel">
             		<dt>
-            			<strong>Телефон</strong> <a class="dropDown" href="#"><span><?=Settings::getValue('phone_parts')?></span><span></span></a>
+            			<strong>Телефон</strong> <a class="dropDown" href="#"><span><?=Settings::getModelBlyAlias('phone_parts')->label?></span><span></span></a>
                 <div class="dopMenu">
                   <ul>
                     <li>
