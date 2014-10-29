@@ -26,9 +26,8 @@ class PageController extends AdminController
 		$parts=Parts::model()->findAll();
 		foreach ($parts as $key => $data) {
 			if($image=$data->gallery->galleryPhotos[0])
-				if (!file_exists($path=$image->getUrl()))
+				if (file_exists($path=$image->getUrl('small')))
 					echo "$data->id.<img src=\"$path\"><br>";
 		}
 	}
-
 }

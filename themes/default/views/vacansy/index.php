@@ -7,9 +7,9 @@
             <?php $this->widget('zii.widgets.CListView', array(
 				'dataProvider'=>$dataProvider,
 				'itemView'=>'_view',
-				'itemsCssClass'=>'',
-				'itemsTagName'=>'ul',
-				'template'=>'{items}'
+                'itemsTagName'=>'div',
+                'itemsCssClass'=>'vacansy',
+                'template'=>'{items}'
 			)); ?>
         </dd>
         <dt>
