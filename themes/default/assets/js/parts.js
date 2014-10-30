@@ -5,7 +5,7 @@ $(document).ready(function(){
 		return false;
 	})
 
-	$('select').selectmenu({
+	$('.select').selectmenu({
 		change:function(){
 
 			changeView();

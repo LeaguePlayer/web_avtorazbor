@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	
 	
-	$('select').selectmenu({
+	$('.coll select').selectmenu({
 		change:function(){
 
 			var $_this=$(this),
