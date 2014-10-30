@@ -82,7 +82,7 @@ class SiteController extends FrontController
 					'newCars'=>UsedCars::model()->search()
 				)
 			);
-
+			
 		} else {
 			if (isset($_GET['Search']))
 			{
