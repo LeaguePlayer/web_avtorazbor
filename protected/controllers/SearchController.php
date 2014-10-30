@@ -41,18 +41,20 @@ class SearchController extends Controller
             $criteria->select="t.name";
             $criteria->distinct=true;
             $criteria->join=$table::join();
-            $criteria->compare('t.name', $query, true);
+            $criteria->addCondition('lower(t.name) like("%'.$query.'%")','or');
             $criteria->addCondition("car_type=$type");
             $criteria->limit = 10;
             $criteria->order="t.id desc";
-            foreach($model->findAll($criteria) as $item) {
+            $models=$model->findAll($criteria);
+
+            foreach($models as $item) {
               $retVal[] = array(
                 'value' => $item->name,
              );
            }
          }
          
-         echo CJSON::encode(array('suggestions'=>$retVal));
+         echo CJSON::encode(array('suggestions'=>$retVal,'count'=>count($models)));
          Yii::app()->end();
     }
 }

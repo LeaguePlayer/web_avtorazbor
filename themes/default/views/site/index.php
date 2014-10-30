@@ -83,9 +83,7 @@
             ));
             echo CHtml::hiddenField('type','1');
         ?>
-
         <input type="text" data-model="UsedCars" data-type="1" class="searching"  placeholder="Введите Ваш запрос" value="<?=$_GET['query']?>">
-
         <?
             echo CHtml::ajaxSubmitButton('','/search/getCars',
                 array(
@@ -422,7 +420,6 @@
         ?>
 
             <input type="text" data-model="Parts" data-type="1" class="searching" placeholder="Введите Ваш запрос"  value="<?=$_GET['query']?>">
-            
         <?
             echo CHtml::ajaxSubmitButton('','/search/getParts',
                 array(

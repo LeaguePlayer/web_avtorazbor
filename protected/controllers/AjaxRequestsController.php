@@ -191,20 +191,18 @@ class AjaxRequestsController extends FrontController
 
 	public function actionSaveQuestion()
 	{
-	    $model=new Questions;
-	    $this->performAjaxValidation($model);
-	    
 	    if(isset($_POST['Questions']))
 	    {
+	    	$model=new Questions;
 	        $model->attributes=$_POST['Questions'];
+	        
 	        if ($model->validate())
 	        {
 	        	$model->save();
-	        	echo $model->errors;
+	        	echo CJSON::encode(array('success'=>true));
 	        }
 	        else {
-	        	$model;
-	        	echo $model->validate();
+	        	echo CJSON::encode($model->errors,'111');
 	        	Yii::app()->end();
 	        }
 	    }

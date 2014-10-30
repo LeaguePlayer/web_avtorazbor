@@ -28,12 +28,14 @@ class Evackuator extends EActiveRecord
     public function rules()
     {
         return array(
+            array('name, phone, brand, modelName','required'),
             array('status, sort', 'numerical', 'integerOnly'=>true),
             array('distance', 'numerical'),
-            array('name, phone, mail, brand, car_model_id, mass', 'length', 'max'=>255),
+            array('mail','match','pattern'=>'/[0-9a-z_]+@[-0-9a-z_^\.]+\.[a-z]{2,3}/i','message'=>'Введенный адрес не является адресмо электронной почты!'),
+            array('name, phone, mail, brand, modelName, mass', 'length', 'max'=>255),
             array('create_time, update_time', 'safe'),
             // The following rule is used by search().
-            array('id, name, phone, mail, brand, car_model_id, mass, distance, status, sort, create_time, update_time', 'safe', 'on'=>'search'),
+            array('id, name, phone, mail, brand, modelName, mass, distance, status, sort, create_time, update_time', 'safe', 'on'=>'search'),
         );
     }
 
@@ -41,6 +43,8 @@ class Evackuator extends EActiveRecord
     public function relations()
     {
         return array(
+            'Model'=>array(self::BELONGS_TO,'CarModels','modelName'),
+            'Brand'=>array(self::BELONGS_TO,'CarBrands','brand'),
         );
     }
 
@@ -53,7 +57,7 @@ class Evackuator extends EActiveRecord
             'phone' => 'Контактный телефон',
             'mail' => 'E-mail',
             'brand' => 'Марка авто',
-            'car_model_id' => 'Модель авто',
+            'modelName' => 'Модель авто',
             'mass' => 'Масса авто',
             'distance' => 'КМ',
             'status' => 'Статус',
@@ -82,7 +86,7 @@ class Evackuator extends EActiveRecord
 		$criteria->compare('phone',$this->phone,true);
 		$criteria->compare('mail',$this->mail,true);
 		$criteria->compare('brand',$this->brand,true);
-		$criteria->compare('car_model_id',$this->car_model_id,true);
+		$criteria->compare('modelName',$this->modelName,true);
 		$criteria->compare('mass',$this->mass,true);
 		$criteria->compare('distance',$this->distance);
 		$criteria->compare('status',$this->status);

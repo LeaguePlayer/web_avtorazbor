@@ -20,13 +20,15 @@
                     'clientOptions'=>array(
                         'validateOnSubmit'=>true,
                         'afterValidate'=>'js:function(form,data,hasError){
+                            console.log(hasError);
                             if (hasError)
-                                return;
+                                return false;
                             window.location="/page/thanks";
                         }'
                     ),
                     'focus'=>array($model,'name'),
                 )); ?>
+                    <?=$form->hiddenField($model,'status',array('value'=>0));?>
                 <ul>
                     <li>
                         <?php echo $form->labelEx($model,'name');?>

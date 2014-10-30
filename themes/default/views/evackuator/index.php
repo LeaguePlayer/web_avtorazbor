@@ -23,43 +23,50 @@
 		                <ul>
 		                        <li>
 		                            <?php echo $form->labelEx($model,'name');?>
-		                            <?php echo $form->textField($model,'name',array('class'=>'i-text','maxlength'=>255)); ?>
+		                            <?php echo $form->textField($model,'name',array('class'=>'i-text','maxlength'=>255,'placeholder'=>'Ваше имя...')); ?>
 		                            <?php echo $form->error($model,'name',array('style'=>'color:red;font-size:10px;'));?>
 		                        </li>
 
 		                        <li>
 		                            <?php echo $form->labelEx($model,'phone');?>
-		                            <?php echo $form->textField($model,'phone',array('class'=>'i-text','maxlength'=>255)); ?>
+		                            <?php echo $form->textField($model,'phone',array('class'=>'i-text','maxlength'=>255,'placeholder'=>'+7 ___ ___ __ __')); ?>
 		                            <?php echo $form->error($model,'phone',array('style'=>'color:red;font-size:10px;'));?>
 		                        </li>
 
 		                        <li>
 		                            <?php echo $form->labelEx($model,'mail');?>
-		                            <?php echo $form->textField($model,'mail',array('class'=>'i-text','maxlength'=>255)); ?>
+		                            <?php echo $form->textField($model,'mail',array('class'=>'i-text','maxlength'=>255,'placeholder'=>'somemail@gmail.com')); ?>
 		                            <?php echo $form->error($model,'mail',array('style'=>'color:red;font-size:10px;'));?>
 		                        </li>
 
-		                        <li>
-		                            <?php echo $form->labelEx($model,'brand');?>
-		                            <?php echo $form->textField($model,'brand',array('class'=>'i-text','maxlength'=>255)); ?>
-		                            <?php echo $form->error($model,'brand',array('style'=>'color:red;font-size:10px;'));?>
-		                        </li>
-
-		                        <li>
-		                            <?php echo $form->labelEx($model,'car_model_id');?>
-		                            <?php echo $form->textField($model,'car_model_id',array('class'=>'i-text','maxlength'=>255)); ?>
-		                            <?php echo $form->error($model,'car_model_id',array('style'=>'color:red;font-size:10px;'));?>
-		                        </li>
+			                    <li>
+			                    	<?php echo $form->labelEx($model,'brand');?>
+			                        <?=$form->dropDownList($model, 'brand', $Brands, array( 
+			                                                'empty'=>'Выберите марку', 
+			                                                'class'=>'i-text',
+			                                                'data-nested'=>'#carModels',
+			                                                'data-model'=>'carBrands',
+			                                                'data-next'=>'#carModels',
+			                                                'data-enabled'=>true,
+			                                                )
+			                                           );?>
+			                        <?php echo $form->error($model,'brand',array('style'=>'color:red;font-size:10px;'));?>
+			                    </li>
+			                    <li>
+			                    	<?php echo $form->labelEx($model,'modelName');?>
+			                        <?php echo $form->textField($model,'modelName',array('class'=>'i-text','maxlength'=>255,'placeholder'=>'Название модели автомобиля')); ?>
+			                        <?php echo $form->error($model,'modelName',array('style'=>'color:red;font-size:10px;'));?>
+			                    </li>
 
 		                        <li>
 		                            <?php echo $form->labelEx($model,'mass');?>
-		                            <?php echo $form->textField($model,'mass',array('class'=>'i-text','maxlength'=>255)); ?>
+		                            <?php echo $form->textField($model,'mass',array('class'=>'i-text','maxlength'=>255,'placeholder'=>'Вес автомобиля...')); ?>
 		                            <?php echo $form->error($model,'mass',array('style'=>'color:red;font-size:10px;'));?>
 		                        </li>
 
 		                        <li>
 		                            <?php echo $form->labelEx($model,'distance');?>
-		                            <?php echo $form->textField($model,'distance',array('class'=>'i-text')); ?>
+		                            <?php echo $form->textField($model,'distance',array('class'=>'i-text','placeholder'=>'Расстояние от города...')); ?>
 		                            <?php echo $form->error($model,'distance',array('style'=>'color:red;font-size:10px;'));?>
 		                        </li>
 
