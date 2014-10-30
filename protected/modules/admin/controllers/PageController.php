@@ -23,11 +23,33 @@ class PageController extends AdminController
 
 	public function actionCheckParts()
 	{
-		$parts=Parts::model()->findAll();
-		foreach ($parts as $key => $data) {
-			if($image=$data->gallery->galleryPhotos[0])
-				if (file_exists($path=$image->getUrl('small')))
-					echo "$data->id.<img src=\"$path\"><br>";
+		$id=0;
+		
+		$count=Yii::app()->db->createCommand()
+			->select('count(id) as count')
+			->from('tbl_Parts')
+			->queryRow();
+		$count=(int)$count['count'];
+
+		$offset = $count-3000;
+		$limit = 100;
+
+		while ($offset<$count){
+			
+			$criteria=new CDbCriteria;
+			$criteria->addCondition("id>$offset");
+			$criteria->limit=$limit;
+
+			$models=Parts::model()->findAll($criteria);
+			foreach ($models as $key => $data) {
+				$id=$data->id;
+				if (!$data->existsGalleryPhotos())
+					echo $data->id."<br>";
+
+			}
+			$offset+=$limit;
+			unset($models);
+			unset($criteria);
 		}
 	}
 }

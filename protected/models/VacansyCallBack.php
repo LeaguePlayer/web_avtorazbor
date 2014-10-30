@@ -18,7 +18,7 @@ class VacansyCallBack extends EActiveRecord
 {
     public function tableName()
     {
-        return '{{vacansycallback}}';
+        return '{{vacansyCallBack}}';
     }
 
     public function rules()
