@@ -5,17 +5,16 @@
         // $image='/media/car.png';
         // $imageBig='/media/car.png';
 ?>
-<li>
+<div>
     <a href="/detail/<?=$data->alias?>/<?=$data->id?>"><img src="<?=$image?>" alt="" title="" /></a>
     
     <a href="/detail/<?=$data->alias?>/<?=$data->id?>" class="link">
         <?=$data->car_model->name.' '.$data->category->name?>
     </a>
     <span class="dsc">
-    	<strong>Коментарий:<br></strong>
         <?=$data->comment?>
     </span>
     <span class="price">
         <?= $data->price_sell ? number_format((int)$data->price_sell,0,' ',' ').' руб.' : ''?> 
     </span>
-</li>
+</div>

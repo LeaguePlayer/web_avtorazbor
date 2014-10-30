@@ -10,11 +10,11 @@ class m141029_160527_vacansyCallBack_add_comment extends CDbMigration
     // таблицы к удалению, можно использовать '{{table}}'
 	public function up()
     {
-        $this->addColumn('{{VacansyCallBack}}','comment','text');
+        $this->addColumn('{{vacansyCallBack}}','comment','text');
     }
 
     public function down()
     {
-        $this->addColumn('{{VacansyCallBack}}','comment');
+        $this->addColumn('{{vacansyCallBack}}','comment');
     }
 }

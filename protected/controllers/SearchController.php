@@ -25,7 +25,7 @@ class SearchController extends Controller
         die();
     }
 
-    public function actionFind($str,$table,$type)
+    public function actionFind($str,$table,$type=null)
     {
         $dataProvider=Search::searchByStr($str,$table);
         $this->render('find',array('dataProvider'=>$dataProvider,'str'=>$str,'model'=>$table));
@@ -34,7 +34,6 @@ class SearchController extends Controller
     public function actionAutoComplite($query,$table,$type)
     {
         $retVal = array();
-        
         if (strlen($query) >= 2) {
             $model = $table::model();
          

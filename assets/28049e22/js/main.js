@@ -61,6 +61,18 @@ $(document).ready(function(){
 					changeNestedMap.apply(this,[$(this,contextForm).data('model')]);
 				else 
 					onSelectChanged.apply(this,[]);
+
+				if ($(this).attr('id')=='Search_type')
+				{
+					$('.searching','#tabs-3').autocomplete('dispose');
+
+					$('.searching','#tabs-3').autocomplete(
+						{
+							serviceUrl: '/search/autoComplite?table=Parts&type='+$('#tabs-3 select:first').val(),
+							tabDisabled:true,
+						}
+					);
+				}
 			},
 			disabled:typeof $(this).data('enabled')=='undefined',
 		})
@@ -186,6 +198,7 @@ $(document).ready(function(){
 	}
 
 	var changeNestedMap=function(nested){
+		
 			if ($('#'+nested,contextForm).val())
 			{
 				$.each(nestedMap[nested],function(key,val){
@@ -250,6 +263,26 @@ $(document).ready(function(){
 				}
 			});		
 		}
-		
 	}
+
+	$('.searching','#tabs-1').autocomplete(
+			{
+				serviceUrl: '/search/autoComplite?table=UsedCars&type=1',
+				tabDisabled:true,
+			}
+		);
+
+	$('.searching','#tabs-2').autocomplete(
+			{
+				serviceUrl: '/search/autoComplite?table=UsedCars&type=2',
+				tabDisabled:true,
+			}
+		)
+
+	$('.searching','#tabs-3').autocomplete(
+			{
+				serviceUrl: '/search/autoComplite?table=Parts&type=1',
+				tabDisabled:true,
+			}
+		);
 });
