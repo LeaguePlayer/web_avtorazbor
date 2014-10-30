@@ -2,6 +2,8 @@
 	class AccountController extends Controller{
 
 		public $message=false;
+		public $modelName="Личный кабинет";
+
 
 		public function filters()
 	    {
@@ -26,6 +28,7 @@
 
 		public function actionIndex()
 		{
+			$this->breadcrumbs=array('Личный кабинет');
 			if (!Yii::app()->user->isGuest)
 			{
 				$model=Clients::model()->findBypk(Yii::app()->user->id);
@@ -135,7 +138,7 @@
 		public function actionRegistration()
 		{
 			$regForm=new RegistrationForm;
-
+			$this->breadcrumbs=array('Регистрация');
 			if (Yii::app()->user->isGuest)
 			{
 				if (isset($_POST['RegistrationForm']))
@@ -159,6 +162,7 @@
 
 		public function actionEntry_list()
 		{
+			$this->breadcrumbs=array('Личный кабинет'=>'/account/', 'Список заказов');
 			$cs = Yii::app()->clientScript;
 			$cs->registerScriptFile($this->getAssetsUrl('application').'/js/cart.js', CClientScript::POS_END);
 			$client=Clients::model()->findByPk(Yii::app()->user->id);

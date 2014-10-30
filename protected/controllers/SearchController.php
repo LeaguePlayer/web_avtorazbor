@@ -25,7 +25,7 @@ class SearchController extends Controller
         die();
     }
 
-    public function actionFind($str,$table,$type)
+    public function actionFind($str,$table,$type=null)
     {
         $dataProvider=Search::searchByStr($str,$table);
         $this->render('find',array('dataProvider'=>$dataProvider,'str'=>$str,'model'=>$table));
