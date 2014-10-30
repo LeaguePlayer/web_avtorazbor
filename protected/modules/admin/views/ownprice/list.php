@@ -33,24 +33,13 @@ $this->menu=array(
 			'value'=>'$data->car->id',
 		),
 		array(
-			'name'=>'status',
-			'type'=>'raw',
-			'value'=>'Ownprice::getStatusAliases($data->status)',
-			'filter'=>Ownprice::getStatusAliases()
-		),
-		array(
 			'name'=>'create_time',
 			'type'=>'raw',
 			'value'=>'$data->create_time ? SiteHelper::russianDate($data->create_time).\' в \'.date(\'H:i\', strtotime($data->create_time)) : ""'
 		),
 		array(
-			'name'=>'update_time',
-			'type'=>'raw',
-			'value'=>'$data->update_time ? SiteHelper::russianDate($data->update_time).\' в \'.date(\'H:i\', strtotime($data->update_time)) : ""'
-		),
-		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
-			'template'=>'{update}{delete}',
+			'template'=>'{view}{delete}',
 		),
 	),
 )); ?>

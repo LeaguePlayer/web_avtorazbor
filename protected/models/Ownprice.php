@@ -51,6 +51,7 @@ class Ownprice extends EActiveRecord
             'phone' => 'Контактный телефон',
             'mail' => 'Электронная почта',
             'own_price' => 'Ваша цена(руб.)',
+            'car_id' => 'Машина',
             'status' => 'Статус',
             'sort' => 'Вес для сортировки',
             'create_time' => 'Дата создания',
