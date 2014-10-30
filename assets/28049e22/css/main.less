@@ -443,7 +443,7 @@ header{
 			position: relative;
 			margin-top: 10px;
 			& a.dropDown{
-						
+						z-index: 100;
 						background-position: right 8px;
 						padding-right: 15px;
 						width: 110px;
@@ -515,6 +515,9 @@ header{
 			float:left;
 			width:160px;
 			padding-right:20px;
+			img{
+				border-radius: 5px;
+			}
 			dd{
 				strong{
 					color:#f5841e;
@@ -958,12 +961,16 @@ header{
 				display: inline-block;
 				vertical-align: top;
 				position: relative;
-				top: 36px;
 			}
 		}
 		.content{
 			div.personal,div#disc {
 				display: none;
+			}
+			.bascet{
+				img{
+					border-radius: 5px;
+				}
 			}
 			div.tab-active{
 				display: block!important;
@@ -1044,6 +1051,7 @@ header{
 				padding-left: 25px;
 				position: relative;
 				top: -28px;
+				
 				.ui-selectmenu-button{
 					background: #FFF!important;
 					border: solid 1px #B2B2B2;
@@ -1080,8 +1088,6 @@ header{
 			}
 			.bascet{
 				display: none;
-
-				
 				table{
 					th{
 						vertical-align: middle;
@@ -1098,6 +1104,9 @@ header{
 						ul{
 							font:14px/24px 'segoe_uiregular';
 							li{
+								img{
+									border-radius: 5px;
+								}
 								color:#76838d;
 								a{
 									color:#fe6802;
@@ -1539,7 +1548,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 			min-height: 300px;
 			position: relative;
 			.items{
-				li{
+				li,div{
 					margin-bottom:30px;
 					display: inline-block;
 					width: 49%;
@@ -1572,6 +1581,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 					.desc{
 						color: #5E80B5;
 						display: block;
+						font-size: 14px;
 					}
 					.name{
 						font-size:12px;
@@ -1579,9 +1589,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 						display: inline-block;
 						width: 250px;
 					}
-					// &.old{
-					// 	padding-left:60px;
-					// }
+					.price{
+						display: block;
+						font: 18px/1.2 segoe_uisemibold;
+						color: #333;
+						bottom: 0;
+					}
 				}
 			}
 			.navi{
@@ -1960,7 +1973,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb', end
 					padding-bottom: 30px;
 					.pagination{
 						position: relative;
-						bottom: 30px;
 						margin-top: 30px;
 						left: -32px;
 						.next{
@@ -3279,11 +3291,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 		width: 93px;
 	}
 	.line{
-		margin-top:25px;
-		border-radius: 15px/10px;
-		width:218px;
-		top:0;
-		box-shadow:none;
+		background: #fafafa;
+		border-radius: 10px;
+		top: 0;
+		height: 6px;
+		width: 220px;
+		border: solid 2px #fff;
+		margin-top: 20px;
 	}
 	.i-submit{
 		height:auto;
@@ -3528,19 +3542,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 .tabs-type{
 	 ul{
 	 	display: inline-block;
-	 	width: 80%
+		padding-left: 222px;
 	 }
 	 li{
 	 		display: inline-block;
-	 		width: 30%;
 	 		text-align: right;
 	 		a{
+	 			width: 150px;
+	 			padding:4px 23px;
 	 			color: #2455a1;
 	 		}
 	 		a.active{
 	 			.gradient(#f5831d,#ff6600);
 	 			color:#fff;
-	 			padding:4px;
 	 			border-radius: 4px;
 
 	 		}
@@ -3561,6 +3575,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 	}
 	dl+dl{
 		padding-left: 38px;
+	}
+	.i-submit{
+		padding: 10px 43px;
+		margin-top: 40px;
 	}
 	
 }
@@ -3843,4 +3861,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 	margin-bottom: 10px;
 	border: 1px solid rgba(0, 0, 0, 0);
 	border-radius: 4px;
+}
+.empty-cart{
+	text-align: center;
+	padding-top: 30px;
+}
+.empty-vacansy{
+	text-align: center;
+}
+#vacansyCallBack-form
+{
+	textarea{
+		margin-top: 15px;
+	}
 }

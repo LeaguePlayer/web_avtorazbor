@@ -5,7 +5,7 @@
         {
             $user=Yii::app()->db->createCommand()
                 ->select('id,fio,phone,email')
-                ->from("tbl_clients")
+                ->from("tbl_Clients")
                 ->where("id=$user_id")
                 ->queryRow();
             $model->name=$user['fio'];

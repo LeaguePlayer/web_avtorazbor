@@ -12,7 +12,7 @@
 						    'itemView'=>$view,   // refers to the partial view named '_post'
 						    'summaryText' => '',
 						    'pagerCssClass' => 'pagination',
-						    'itemsTagName'=>'ul',
+						    'itemsTagName'=>'div',
 						    'pager' => array(
 					            'prevPageLabel' => '',
 					            'firstPageLabel' => '',

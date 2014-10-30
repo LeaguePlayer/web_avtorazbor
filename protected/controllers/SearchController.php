@@ -34,7 +34,6 @@ class SearchController extends Controller
     public function actionAutoComplite($query,$table,$type)
     {
         $retVal = array();
-        
         if (strlen($query) >= 2) {
             $model = $table::model();
          
