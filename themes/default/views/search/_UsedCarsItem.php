@@ -5,14 +5,13 @@
         // $image='/media/car.png';
         // $imageBig='/media/car.png';
 ?>
-<li>
+<div>
     <a href="/catalog/<?=$data->alias?>/<?=$data->id?>"><img src="<?=$data->getImageUrl('small')?>" alt="" title="" /></a>
     
     <a href="/catalog/<?=$data->alias?>/<?=$data->id?>" class="link">
         <?=$data->name?>
     </a>
-    <span class="dsc">
-    	<strong>Коментарий:<br></strong>
+    <span class="desc">
         <?=$data->comment?>
     </span>
     <span class="price">
@@ -21,4 +20,4 @@
     <!-- <span class="price_old">    
         как сделать??
     </span> -->
-</li>
+</div>

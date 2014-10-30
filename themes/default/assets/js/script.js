@@ -156,22 +156,5 @@ $(function(){
 	     return true;
 	}
 
-	$('#tabs-3 #Search_type').on('change',function(){
-		$('#tabs-3').autocomplete('dispose');
-		alert($(this).val())
-		$('#tabs-3 .searching').autocomplete('setOptions',
-			{
-				serviceUrl: '/search/autoComplite?table='+$(this).data('model')+"&type="+$(this).val(),
-			}
-		)
-	})
 
-	$.each($('.searching'),function(){
-		$(this).autocomplete(
-			{
-				serviceUrl: '/search/autoComplite?table='+$(this).data('model')+"&type="+$('#Search_type').val(),
-				tabDisabled:true,
-			}
-		)		
-	})
 })
