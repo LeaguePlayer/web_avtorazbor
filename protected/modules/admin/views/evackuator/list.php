@@ -30,16 +30,10 @@ $this->menu=array(
 			'value'=>'Evackuator::getStatusAliases($data->status)',
 			'filter'=>Evackuator::getStatusAliases()
 		),
-		'sort',
 		array(
 			'name'=>'create_time',
 			'type'=>'raw',
 			'value'=>'$data->create_time ? SiteHelper::russianDate($data->create_time).\' в \'.date(\'H:i\', strtotime($data->create_time)) : ""'
-		),
-		array(
-			'name'=>'update_time',
-			'type'=>'raw',
-			'value'=>'$data->update_time ? SiteHelper::russianDate($data->update_time).\' в \'.date(\'H:i\', strtotime($data->update_time)) : ""'
 		),
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',

@@ -87,24 +87,6 @@ class GalleryBehavior extends CActiveRecordBehavior
         return $this->_gallery;
     }
     
-    public function existsGalleryPhotos()
-    {
-
-        $photo=$this->getGalleryPhotos();
-        $basePath=Yii::getPathOfAlias('webroot');
-
-        foreach ($photo as $key => $value) {
-
-            if (!file_exists($basePath.$value->getUrl('original')))
-            {
-                unset($photo);
-                return false;
-            }
-        }
-        unset($photo);
-        return true;
-    }
-
     /** @return GalleryPhoto[] Photos from associated gallery */
     public function existsGalleryPhotos()
     {

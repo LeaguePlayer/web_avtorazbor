@@ -23,19 +23,19 @@
 			                <ul>
 			                        <li>
 			                            <?php echo $form->labelEx($model,'name');?>
-			                            <?php echo $form->textField($model,'name',array('class'=>'i-text','maxlength'=>255)); ?>
+			                            <?php echo $form->textField($model,'name',array('class'=>'i-text','maxlength'=>255,'placeholder'=>'Ваше Имя')); ?>
 			                            <?php echo $form->error($model,'name',array('style'=>'color:red;font-size:10px;'));?>
 			                        </li>
 
 			                        <li>
 			                            <?php echo $form->labelEx($model,'phone');?>
-			                            <?php echo $form->textField($model,'phone',array('class'=>'i-text','maxlength'=>255)); ?>
+			                            <?php echo $form->textField($model,'phone',array('class'=>'i-text','maxlength'=>255,'placeholder'=>'+7 ___ ___ __ __')); ?>
 			                            <?php echo $form->error($model,'phone',array('style'=>'color:red;font-size:10px;'));?>
 			                        </li>
 
 			                        <li>
 			                            <?php echo $form->labelEx($model,'email');?>
-			                            <?php echo $form->textField($model,'email',array('class'=>'i-text','maxlength'=>255)); ?>
+			                            <?php echo $form->textField($model,'email',array('class'=>'i-text','maxlength'=>255,'placeholder'=>'somemail@gmail.com')); ?>
 			                            <?php echo $form->error($model,'email',array('style'=>'color:red;font-size:10px;'));?>
 			                        </li>
 
@@ -50,7 +50,7 @@
 
 			                        <li>
 			                            <?php echo $form->labelEx($model,'modelName');?>
-			                            <?php echo $form->textField($model,'modelName',array('class'=>'i-text','maxlength'=>255)); ?>
+			                            <?php echo $form->textField($model,'modelName',array('class'=>'i-text','maxlength'=>255,'placeholder'=>'Модель авто')); ?>
 			                            <?php echo $form->error($model,'modelName',array('style'=>'color:red;font-size:10px;'));?>
 			                        </li>
 
@@ -62,13 +62,18 @@
 
 			                        <li>
 			                            <?php echo $form->labelEx($model,'capacity');?>
-			                            <?php echo $form->textField($model,'capacity',array('class'=>'i-text'));?>
+			                            <?php echo $form->textField($model,'capacity',array('class'=>'i-text','placeholder'=>'1.2 л...'));?>
 			                            <?php echo $form->error($model,'capacity',array('style'=>'color:red;font-size:10px;'));?>
 			                        </li>
 			                        <li>
 			                            <?php echo $form->labelEx($model,'transmission');?>
 			                            <?php echo $form->dropDownList($model,'transmission',UsedCarInfo::transmissionList(),array('class'=>'i-text'));?>
 			                            <?php echo $form->error($model,'transmission',array('style'=>'color:red;font-size:10px;'));?>
+			                        </li>
+			                        <li>
+			                            <?php echo $form->labelEx($model,'comment');?>
+			                            <?php echo $form->textarea($model,'comment',array('class'=>'i-text','placeholder'=>'Текст сообщения...'));?>
+			                            <?php echo $form->error($model,'comment',array('style'=>'color:red;font-size:10px;'));?>
 			                        </li>
 			                        <li class="sub">
 			    	                    <? echo CHtml::submitButton('Отправить',array(
