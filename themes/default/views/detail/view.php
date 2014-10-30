@@ -24,6 +24,7 @@
                                     
                                         $image=$gallery[0]->getUrl('normal');
                                         $bigImage=$gallery[0]->getUrl('big');
+                                        unset($gallery[0]);
                                    }
                                     else 
                                     {
@@ -31,7 +32,7 @@
                                         $bigImage='/media/images/parts/default.jpg';
                                     }
                                 ?>
-                                <a class="imgFancy" rel="1" href="<?=$bigImage?>"><img width="331" height="192" src="<?=$image?>" alt="" title="" />
+                                <a class="imgFancy" rel="1" href="<?=$bigImage?>"><img width="331" height="192" src="<?=$image?>" alt="" title="" /></a>
                             </div>
                             <div class="min-img">
                             <?
@@ -41,21 +42,17 @@
                                 <ul>
                                     <?
                                     $counter=0;
-                                    if (count($gallery)>1)
-                                    {
-                                        for($i=1;$i<count($gallery); $i++){
+                                       foreach ($gallery as $key => $data) {
 
-                                            $value=$gallery[$i];
                                             if (($counter+=1)<6)
                                             {
                                                 ?>
-                                                <a class="imgFancy" rel="1" href="<?=$value->getUrl('big')?>">
-                                                    <img width="100" height="60" src="<?=$value->getUrl('small')?>" />
+                                                <a class="imgFancy" rel="1" href="<?=$data->getUrl('big')?>">
+                                                    <img width="100" height="60" src="<?=$data->getUrl('small')?>" />
                                                 </a>
                                                 <?
                                             }
                                         }
-                                    }
                                     ?>
                                 </ul>
                             <?}?>
