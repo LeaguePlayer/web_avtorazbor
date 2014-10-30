@@ -78,11 +78,13 @@
                             <dd id="slider">
                                 <div class="formCost">
                                     <div class="i-text">
-                                    <input type="text" id="minCost" value="10"/>
+                                    <?=$form->textField($searchForm,'price_st',array('id'=>'minCost','value'=>'10'))?>
+                                    <!-- <input type="text" id="minCost" value="10"/> -->
                                 </div>
                                     <label for="maxCost">-</label> 
                                 <div class="i-text">
-                                <input type="text" id="maxCost" value="10000"/>
+                                <?=$form->textField($searchForm,'price_end',array('id'=>'maxCost','value'=>'10000'))?>
+                                <!-- <input type="text" id="maxCost" value="10000"/> -->
                                 </div>
                                 </div>
 

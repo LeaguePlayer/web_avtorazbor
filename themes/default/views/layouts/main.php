@@ -210,7 +210,7 @@
         				</a>
         			</li>
         			<li class="active">
-        				<a href="/page/Kontakty">
+        				<a href="/page/contacts">
         					Контакты
         				</a>
         			</li>
