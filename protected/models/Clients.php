@@ -38,7 +38,7 @@ class Clients extends EActiveRecord
     public function relations()
     {
         return array(
-            'info' => array(self::HAS_ONE, 'ClientsInfo', 'client_id'),
+            'info' => array(self::HAS_MANY, 'ClientsInfo', 'client_id','limit'=>1),
             'bank_accounts' => array(self::HAS_MANY, 'BankAccounts', 'client_id'),
             'requests'=>array(self::HAS_MANY,'Requests','client_id')
         );

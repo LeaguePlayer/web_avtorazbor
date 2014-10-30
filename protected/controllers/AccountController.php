@@ -32,6 +32,7 @@
 			if (!Yii::app()->user->isGuest)
 			{
 				$model=Clients::model()->findBypk(Yii::app()->user->id);
+				$info=$model->info ? $model->info[0] : new ClientsInfo;
 				$changePwd=new ChangePwd;
 
 				if (isset($_POST['Clients']))
@@ -44,14 +45,13 @@
 						if ($modelValid)
 						{
 
-							$info=$model->info ? $model->info : new ClientsInfo;
 							$info->attributes=$_POST['ClientsInfo'];
-							
 							if ($info->validate())
 							{
 								$model->type=2;
 								$model->save();
 								$info->client_id=$model->id;
+								$info->save();
 							}
 						}
 					} else
@@ -83,7 +83,7 @@
 						'model'=>$model,
 						'changePwd'=>$changePwd,
 						'tabActive'=>($_POST['tabActive'] ? $_POST['tabActive'] : 1),
-						'info'=>$model->info ? $model->info : new ClientsInfo,
+						'info'=>$model->info ? $info : new ClientsInfo,
 						'message'=>$this->message
 					)
 				);
