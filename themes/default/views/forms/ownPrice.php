@@ -23,11 +23,7 @@
                     - поля, обязательные для заполнения
                 </dd>
             </dl>
-            <div class="alert">
-                <div class="warning" width="auto">
-                    Пожалуйста, убедитесь что все поля введены корректно.
-                </div>
-            </div>
+            
             <div class="form">
             <?php $form = $this->beginWidget('CActiveForm', array(
             'id' => 'ownPrice-form',

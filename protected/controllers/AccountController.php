@@ -19,10 +19,15 @@
 	                'actions'=>array('login', 'registration'),
 	                'users'=>array('?'),
 	            ),
+	            array('deny',
+	                'actions'=>array('index','entry_list'),
+	                'roles'=>array('isAdmin'),
+	            ),
 	            array('allow',
 	                'actions'=>array('logout','index','entry_list'),
 	                'roles'=>array('@'),
 	            ),
+
 	        );
 	    }
 
