@@ -11,7 +11,7 @@
     <a href="/detail/<?=$data->alias?>/<?=$data->id?>" class="link">
         <?=$data->car_model->name.' '.$data->category->name?>
     </a>
-    <span class="dsc">
+    <span class="desc">
         <?=$data->comment?>
     </span>
     <span class="price">
