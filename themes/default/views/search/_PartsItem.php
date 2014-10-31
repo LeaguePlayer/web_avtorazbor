@@ -8,10 +8,10 @@
 <div>
     <a href="/detail/<?=$data->alias?>/<?=$data->id?>"><img src="<?=$image?>" alt="" title="" /></a>
     <div>
-        <a href="/detail/<?=$data->alias?>/<?=$data->id?>" class="link">
+        <a href="/detail/<?=$data->alias?>/<?=$data->id?>" class="name">
             <?=$data->car_model->name.' '.$data->category->name?>
         </a>
-        <span class="dsc">
+        <span class="desc">
         	<strong>Коментарий:<br></strong>
             <?=$data->comment?>
         </span>
