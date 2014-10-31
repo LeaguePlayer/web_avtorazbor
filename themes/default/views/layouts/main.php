@@ -7,8 +7,8 @@
 	$cs->registerCssFile($assetsUrl.'/css/reset.css');
 	$cs->registerCssFile('http://fotorama.s3.amazonaws.com/4.4.9/fotorama.css');
 	$cs->registerCssFile($assetsUrl.'/css/fancybox/jquery.fancybox.css');
-	$cs->registerCssFile($assetsUrl.'/css/main.css?v1');
-    $cs->registerCssFile($assetsUrl.'/css/jquery-ui.min.css');
+	$cs->registerCssFile($assetsUrl.'/css/main.css?v=2');
+    $cs->registerCssFile($assetsUrl.'/css/jquery-ui.min.css?v=1');
 
 
 	$cs->registerCoreScript('jquery');
@@ -21,9 +21,9 @@
     $cs->registerScriptFile($assetsUrl.'/js/jquery.autocomplete.js', CClientScript::POS_END);
 	$cs->registerScriptFile($assetsUrl.'/js/jquery.maphilight.js', CClientScript::POS_END);
 	$cs->registerScriptFile($assetsUrl.'/js/jquery.fancybox.js', CClientScript::POS_END);
-    $cs->registerScriptFile($assetsUrl.'/js/owl.carousel.min.js', CClientScript::POS_END);
+    $cs->registerScriptFile($assetsUrl.'/js/owl.carousel.min.js?v=1', CClientScript::POS_END);
 
-	$cs->registerScriptFile($assetsUrl.'/js/script.js', CClientScript::POS_END);
+	$cs->registerScriptFile($assetsUrl.'/js/script.js?v=1', CClientScript::POS_END);
 ?><!DOCTYPE html>
 <html lang="ru">
 	<head>

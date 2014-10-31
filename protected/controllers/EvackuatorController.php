@@ -36,7 +36,7 @@ class EvackuatorController extends FrontController
 	public function actionIndex()
 	{
 		$cs = Yii::app()->clientScript;
-			$cs->registerScriptFile($this->getAssetsUrl().'/js/evacuator.js', CClientScript::POS_END);
+			$cs->registerScriptFile($this->getAssetsUrl().'/js/evacuator.js?v=1', CClientScript::POS_END);
 
 		$model=new Evackuator;
 		$Brands=CHtml::listData(CarBrands::model()->findAll(),'id','name');
