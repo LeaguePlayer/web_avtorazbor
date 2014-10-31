@@ -35,7 +35,7 @@ class DetailController extends FrontController
 	public function actionIndex()
 	{
 		$cs = Yii::app()->clientScript;
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/detail.js', CClientScript::POS_END);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/detail.js?v=1', CClientScript::POS_END);
 		$Brands=Parts::getExistsData(null,null,'brand');
 
 		$Brand=CHtml::listData(CarBrands::model()->findAll($Brands),'id','name');
@@ -106,8 +106,8 @@ class DetailController extends FrontController
 	{
 
 		$cs = Yii::app()->clientScript;
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
-    	$cs->registerScriptFile($this->getAssetsUrl().'/js/disc.js', CClientScript::POS_END);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js?v=1', CClientScript::POS_END);
+    	$cs->registerScriptFile($this->getAssetsUrl().'/js/disc.js?v=1', CClientScript::POS_END);
     	$this->breadcrumbs=array('Запчасти'=>'/detail','фильтр');
     	$searchForm=new Search;
 
@@ -150,9 +150,9 @@ class DetailController extends FrontController
 	public function actionParts()
 	{
 		$cs = Yii::app()->clientScript;
-    	$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
+    	$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js?v=1', CClientScript::POS_END);
 	    $cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.scrollTo.min.js', CClientScript::POS_END);
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js', CClientScript::POS_END);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js?v=1', CClientScript::POS_END);
 
 		$this->breadcrumbs=array('Запчасти'=>'/detail','фильтр');
 		
@@ -308,7 +308,7 @@ class DetailController extends FrontController
 	public function actionView($id)
 	{
 		$cs = Yii::app()->clientScript;
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/partsView.js', CClientScript::POS_END);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/partsView.js?v=1', CClientScript::POS_END);
 
 		$model=Parts::model()->findByPk($id);
 		$this->model=$model;	

@@ -37,7 +37,7 @@ class NewsController extends FrontController
 	public function actionIndex()
 	{
 		$cs = Yii::app()->clientScript;
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/tabNews.js', CClientScript::POS_END);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/tabNews.js?v=1', CClientScript::POS_END);
 
 		$model=UsedCars::model()->search();
 		$this->render('index',array('model'=>$model));
