@@ -31,7 +31,7 @@
                         success: function(data) {
 
                             if ( data.success ) {
-                                window.location.href = '".$this->createUrl('/ajaxRequests/thanks')."';
+                                window.location.href = '".$this->createUrl('/page/thanks')."';
                                 console.log(data);
                             }
 
