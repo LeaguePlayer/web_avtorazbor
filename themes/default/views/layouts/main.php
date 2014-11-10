@@ -220,8 +220,8 @@
 
     			<div class="tel">
     				<?=Settings::getValue('site_phone')?><br/>
-					<a href="mailto:info@razbor72.ru">
-						<?=Settings::getValue('site_name')?>
+					<a href="mailto:Settings::getValue('site_mail')">
+						<?=Settings::getValue('site_mail')?>
 					</a>
     			</div>
     			<form action="/search/find" class="search">
