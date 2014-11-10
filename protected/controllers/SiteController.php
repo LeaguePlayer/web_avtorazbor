@@ -86,6 +86,7 @@ class SiteController extends FrontController
 		} else {
 			if (isset($_GET['Search']))
 			{
+
 				$searchForm->attributes=$_GET['Search'];
 				$searchForm->validate();
 				$model=$_GET['Search']['scenario']=='light' || $_GET['Search']['scenario']=='weight' ? 'UsedCars' : 'Parts';
