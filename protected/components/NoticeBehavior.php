@@ -39,6 +39,7 @@
 			$modelName=get_class($model);
 			$message.='<a href="/admin/'.$modelName.'/'.$this->viewAction.'/id/'.$model->id.'">Перейти к просмотру</a>';
 			$to=Settings::getValue($this->noticeMap[$this->type]['settingName']);
+			$from="Заявка с сайта «".Yii::app()->name."»";
 			SiteHelper::sendMail($subject,$message,$to,'');
 		}
 	}
