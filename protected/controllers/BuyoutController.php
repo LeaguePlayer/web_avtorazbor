@@ -42,7 +42,7 @@ class BuyoutController extends FrontController
 			$valid=$model->validate();
 			if ($valid)
 			{
-				$model->save(false);
+				$model->save();
 				$this->redirect(array('/page/thanks'));
 			}
 		}
