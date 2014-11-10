@@ -38,7 +38,7 @@ $(function(){
 			var itemsCount=parseInt($(this).data('count'),10)+1,
 				itemsCost=parseInt($(this).data('cost'),10)+parseInt($(this).data('price'),10);
 				console.log(itemsCost);
-			$('.totalPrice').text('В корзине '+itemsCount+' на сумму '+itemsCost+" руб.");
+			$('.totalPrice').text('В карзине '+itemsCount+' на сумму '+itemsCost+" руб.");
 		}
 			
 

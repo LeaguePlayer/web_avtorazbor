@@ -57,7 +57,6 @@ class DetailController extends FrontController
 								$searchForm->type)
 						)
 					,'id','name');
-
 		$Models=CHtml::listData(
 					CarModels::model()->findAll(
 						Parts::getExistsData(
