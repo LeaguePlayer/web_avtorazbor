@@ -39,7 +39,6 @@
 			$modelName=get_class($model);
 			$message.='<a href="/admin/'.$modelName.'/'.$this->viewAction.'/id/'.$model->id.'">Перейти к просмотру</a>';
 			$to=Settings::getValue($this->noticeMap[$this->type]['settingName']);
-			var_dump($subject,$message,$to);die();
 			SiteHelper::sendMail($subject,$message,$to,'');
 		}
 	}
