@@ -1,7 +1,7 @@
 <?
     $gallery=$data->getGallery()->galleryPhotos;
 	//$image=$gallery ? $gallery[0]->getUrl('small') : '/media/images/parts/default.jpg';
-	$bigImage=$gallery ? $gallery[0]->getUrl('small') : '/media/images/parts/default.jpg';
+	$image=$gallery ? $gallery[0]->getUrl('small') : '/media/images/parts/default.jpg';
         // $image='/media/car.png';
         // $imageBig='/media/car.png';
 ?>
