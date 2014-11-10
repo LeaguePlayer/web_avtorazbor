@@ -172,11 +172,10 @@
 
     	<dl class="copy">
     		<dt>
-    			© 2013 ООО «Авторазборка72»
+    			<?=Settings::getValue('company_name')?>
     		</dt>
     		<dd>
-    			Использование материалов сайта<br/> 
-				без согласия правообладателя запрещено
+    			<?=Settings::getValue('copy_rights')?>
     		</dd>
     	</dl>
 
@@ -220,12 +219,11 @@
     		<div class="block">
 
     			<div class="tel">
-    				8-800-500-2019<br/>
+    				<?=Settings::getValue('site_phone')?><br/>
 					<a href="mailto:info@razbor72.ru">
-						info@razbor72.ru
+						<?=Settings::getValue('site_name')?>
 					</a>
     			</div>
-
     			<form action="/search/find" class="search">
                     <input autocomplete="off" type="text" value="" name="str" placeholder="Введите ваш запрос"/>
                     <input type="submit" value=""/>

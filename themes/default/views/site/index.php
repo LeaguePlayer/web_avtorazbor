@@ -778,18 +778,6 @@
                         </a>
                     </li>
                 </ul>
-                <dl class="read">
-                    <dt>
-                        <a href="#">
-                            Подписаться на обновления
-                        </a>
-                    </dt>
-                    <dt>
-                        <a href="/news">
-                            Все новости
-                        </a>
-                    </dt>
-                </dl>
             </div>
 
             <div class="content clear">

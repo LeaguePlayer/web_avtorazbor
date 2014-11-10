@@ -26,7 +26,7 @@
 		public function sand(){
 			
 			$model=$this->owner;
-			$subject='Новая заявка из раздела '.$model->translition();
+			$subject='Новая заявка из раздела «'.$model->translition()."»";
 			$attributesLabels=$model->attributeLabels();
 
 			foreach ($model->attributes as $field => $value) {
@@ -40,7 +40,7 @@
 			$message.='<a href="/admin/'.$modelName.'/'.$this->viewAction.'/id/'.$model->id.'">Перейти к просмотру</a>';
 			$to=Settings::getValue($this->noticeMap[$this->type]['settingName']);
 			$from="Заявка с сайта «".Yii::app()->name."»";
-			SiteHelper::sendMail($subject,$message,$to,'');
+			SiteHelper::sendMail($subject,$message,$to,$from);
 		}
 	}
 ?>
