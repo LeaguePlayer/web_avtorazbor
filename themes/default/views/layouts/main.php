@@ -132,17 +132,17 @@
 
                     <form action="/search/find" class="search">
                         <input type="text" autocomplete="off" value="" name="str" placeholder="Введите ваш запрос"/>
-                        <input hidden type="radio" name="table" <?=!isset($_GET['table']) || $_GET['table']=='UsedCars'  ? 'checked' : ''?> id="UsedCars" value="UsedCars" />
-                        <input hidden type="radio" name="table" <?=$_GET['table']=='Parts' ? 'checked' : ''?> id="Parts" value="Parts" />
-                        <div class="searchType"><?=!$_GET['table'] || $_GET['table']=='UsedCars' ? 'Авто' : "Автозапчасти" ?></div>
+                        <input hidden type="radio" name="table" <?=$_GET['table']=='UsedCars'  ? 'checked' : ''?> id="UsedCars" value="UsedCars" />
+                        <input hidden type="radio" name="table" <?=!isset($_GET['table']) || $_GET['table']=='Parts' ? 'checked' : ''?> id="Parts" value="Parts" />
+                        <div class="searchType"><?=!$_GET['table'] || $_GET['table']=='Parts' ? "Автозапчасти" : 'Авто' ?></div>
                         <span></span>
                         <div class="searchBy">
                             <ul>
                                 <li>
-                                    <label for="UsedCars">Авто</label>
+                                    <label for="Parts">Автозапчасти</label>
                                 </li>
                                 <li>
-                                    <label for="Parts">Автозапчасти</label>
+                                    <label for="UsedCars">Авто</label>
                                 </li>
                             </ul>
                         </div>

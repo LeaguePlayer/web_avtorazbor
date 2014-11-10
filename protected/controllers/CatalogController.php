@@ -50,7 +50,7 @@ class CatalogController extends FrontController
 			}
 
 			$searchForm->validate();
-
+			//var_dump($searchForm->criteria->condition);die();
 			$dataProvider=new CActiveDataProvider('UsedCars', array(
 				'criteria' => $searchForm->criteria,
 				'pagination'=>array(
@@ -107,6 +107,7 @@ class CatalogController extends FrontController
 			$searchForm->attributes=$_GET['Search'];
 		}
 		$searchForm->validate();
+
 		$dataProvider=new CActiveDataProvider('UsedCars', array(
 			'criteria' => $searchForm->criteria,
 			'pagination'=>array(

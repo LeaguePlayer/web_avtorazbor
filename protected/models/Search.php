@@ -71,8 +71,10 @@
 			{
 				$this->criteria=new CDbCriteria;
 			}
-
-			$this->criteria->addCondition('`t`.status=7 or `t`.status=1');//>6 - для машин =1 - для запчастей
+			if ($tis->scenario=="parts" || $tis->scenario=="disc" )
+				$this->criteria->addCondition('`t`.status=7 or `t`.status=1');//>6 - для машин =1 - для запчастей
+			else 
+				$this->criteria->addCondition('`t`.status=2');//>6 - для машин =1 - для запчастей
 			$this->criteria->distinct='`t`.id';
 			$this->criteria->order= $this->scenario=='Parts' && !$this->sort ? 'create_time' : $this->sort ;
 			return true;
