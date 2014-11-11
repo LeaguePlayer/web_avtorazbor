@@ -61,7 +61,7 @@
             </li>
             <?}?>
             <li>
-                <a href="#tabs-3" data-url="/detail/parts">
+                <a href="#tabs-3" data-url="/parts">
                     Автозапчасти
                 </a>    
             </li>
@@ -551,7 +551,7 @@
                         </span>
                     </dt>
                     <dd>
-                        <a data-url="/detail/parts" href="/detail/parts" class="i-submit" >Показать</a>
+                        <a data-url="/parts" href="/parts" class="i-submit" >Показать</a>
                     </dd>
                 </dl>
             </div>
@@ -739,7 +739,7 @@
                         </span>
                     </dt>
                     <dd>
-                        <a data-url="/detail/parts" href="/detail/parts" class="i-submit" >Показать</a>
+                        <a data-url="/parts" href="/parts" class="i-submit" >Показать</a>
                     </dd>
                 </dl>
             </div>

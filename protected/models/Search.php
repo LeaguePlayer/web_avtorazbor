@@ -207,7 +207,6 @@
 			$this->criteria=new CDbCriteria;
 			$this->criteria->addCondition('car_type='.$this->type);
 			$this->criteria->join=Parts::join();
-
 			$properties=array('id_country','brand','car_model_id');
 
 			foreach ($properties as $key => $value) {
@@ -236,10 +235,8 @@
 
 				$select.=',`t`.car_model_id!='.$this->car_model_id.' as analog';
 				$criteria->select=$select;
-				$criteria->addCondition('car_model_id='.$this->car_model_id);
-
-				if (!empty($this->category_id))
-					$criteria->addCondition('category_id='.$this->category_id);
+				// if (!empty($this->category_id))
+				// 	$criteria->addCondition('category_id='.$this->category_id);
 				if (!empty($this->parent))
 					$criteria->addCondition('parent='.$this->parent);
 			}

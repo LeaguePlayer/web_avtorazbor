@@ -107,7 +107,7 @@ class DetailController extends FrontController
 		$cs = Yii::app()->clientScript;
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js?v=1', CClientScript::POS_END);
     	$cs->registerScriptFile($this->getAssetsUrl().'/js/disc.js?v=1', CClientScript::POS_END);
-    	$this->breadcrumbs=array('Запчасти'=>'/detail','фильтр');
+    	$this->breadcrumbs=array('Запчасти'=>'/detail');
     	$searchForm=new Search;
 
     	if (isset($_GET['Search']))
@@ -153,7 +153,7 @@ class DetailController extends FrontController
 	    $cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.scrollTo.min.js', CClientScript::POS_END);
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js?v=1', CClientScript::POS_END);
 
-		$this->breadcrumbs=array('Запчасти'=>'/detail','фильтр');
+		$this->breadcrumbs=array('Запчасти'=>'/detail');
 		
 		$searchForm=new Search;
 		$searchForm->scenario= 'parts';
@@ -167,7 +167,7 @@ class DetailController extends FrontController
 		$countriCriteria=Parts::getExistsData(null,null,'id_country');
 		$Countries=CHtml::listData(Country::model()->findAll($countriCriteria),'id','name');
 
-		$Categories=$searchForm->parent ? CHtml::listData(
+		$Categories=$searchForm->car_model_id ? CHtml::listData(
 				Categories::model()->findAll(
 					Parts::getExistsData(
 						$searchForm->car_model_id,
@@ -177,7 +177,6 @@ class DetailController extends FrontController
 					),
 				'id','name'
 			) : array();
-
 		$Brands=CHtml::listData(
 					CarBrands::model()
 						->findAll(
@@ -233,7 +232,6 @@ class DetailController extends FrontController
 				),
 		));
 
-
 		$this->render('parts',
 			array(
 				'model'=>$model,
@@ -266,6 +264,7 @@ class DetailController extends FrontController
 					),
 				)
 			);
+			//var_dump($searchForm->criteria->condition);die();
 			echo $this->renderPartial('//detail/tabParts',array('dataProvider'=>$dataProvider),true);
 			die();
 		}
@@ -315,6 +314,7 @@ class DetailController extends FrontController
 		$car_model=$model->car_model->id;
 		$category_id=$model->category->id;
 
+
 		
 		if (!$params=Yii::app()->session->get('backToResult'))
 		{
@@ -340,7 +340,14 @@ class DetailController extends FrontController
 				'pagination'=>false,
 			)
 		);
-		$this->render('view',array('model'=>$model,'dataProvider'=>$dataProvider,'return'=>$return));
+		$this->render('view',
+			array(
+				'model'=>$model,
+				'dataProvider'=>$dataProvider,
+				'return'=>$return,
+				'state'=>$model->inCart(),
+				)
+			);
 	}
 
 

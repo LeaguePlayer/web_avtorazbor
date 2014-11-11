@@ -60,7 +60,7 @@
                                 Карзина пуста.
                             </div>
                         <?}?>
-                                        <a href="<?=$this->createUrl('/detail/parts?'.Yii::app()->session->get('backToResult'))?>" class="back">Вернуться в каталог</a>
+                                        <a href="<?=$this->createUrl('/parts?'.Yii::app()->session->get('backToResult'))?>" class="back">Вернуться в каталог</a>
         			</div>
                         <div id="accept" class="baskets hide">
                                 <dl class="info">

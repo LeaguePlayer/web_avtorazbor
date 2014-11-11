@@ -65,7 +65,7 @@
                                     $category_id=$model->category->parent ? $model->category->cat_parent->id : $model->category_id;
                                     $urlParam='Search[scenario]=Parts&Search[brand]='.$model->car_model->car_brand->id.'&Search[car_model_id]='.$model->car_model_id.'&Search[category_id]='.$category_id.'&Search[parent]='.$model->category->parent.'&Search[type]='.$model->car_model->car_type;
                                     ?>
-                                    Раздел: <a href="/detail/parts?<?=$urlParam?>"><?=$model->category->name;?></a>
+                                    Раздел: <a href="/parts?<?=$urlParam?>"><?=$model->category->name;?></a>
                                 </li>
                                 <li>
                                     Модель авто: <a href="<?=$return?>"><?=$model->car_model->name;?></a>
@@ -96,7 +96,7 @@
                                 if (!Yii::app()->user->isAdmin){
                             ?>
                             <div class="submit">
-                                <a href="#" class="i-submit inCart"  data-count="<?=Yii::app()->cart->getCount()?>" data-cost="<?=Yii::app()->cart->getCost()?>" data-price="<?=!$model->inCart() ? $model->getPrice() : ''?>">В корзину</a>
+                                <a href="<?=$state ? '/cart' : '#'?>" class="i-submit inCart" data-state="<?=$state?>"  data-count="<?=Yii::app()->cart->getCount()?>" data-cost="<?=Yii::app()->cart->getCost()?>" data-price="<?=!$model->inCart() ? $model->getPrice() : ''?>"><?=$state ? 'Перейти в карзину' : 'В карзину' ?></a>
                             </div>
                             <?}?>
                         </div>

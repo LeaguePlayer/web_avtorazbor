@@ -3,7 +3,7 @@
 
     $gallery=$data->getGallery()->galleryPhotos;
     if ($gallery[0])
-        $image=$gallery[0]->getUrl('small') ? $gallery[0]->getUrl('small') : '/media/images/parts/default.png';
+        $image=$gallery ? $gallery[0]->getUrl('small') : '/media/images/parts/default.png';
     else 
         $image='/media/images/parts/default.png';
 ?>

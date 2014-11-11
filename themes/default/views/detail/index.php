@@ -48,7 +48,7 @@
                             </dl>
                             <?php $form = $this->beginWidget('CActiveForm', array(
                                 'id' => 'parts-form',
-                                'action' => $this->createUrl('/detail/parts'),
+                                'action' => $this->createUrl('/parts'),
                                 'method'=>'get',
                                 'htmlOptions' => array('class' => 'request_form')
                             )) ?>
@@ -131,7 +131,7 @@
                             </dl>
                             <?php $form = $this->beginWidget('CActiveForm', array(
                                 'id' => 'parts-form',
-                                'action' => $this->createUrl('/detail/parts'),
+                                'action' => $this->createUrl('/parts'),
                                 'method'=>'get',
                                 'htmlOptions' => array('class' => 'request_form')
                             )) ?>

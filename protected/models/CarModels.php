@@ -53,6 +53,12 @@ class CarModels extends EActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('brand',$this->brand);
+
+        if ($this->car_type){
+            $criteria->addCondition('car_type=:type');
+            $criteria->params=array(':type'=>$this->car_type);
+        }
+        
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
         ));
