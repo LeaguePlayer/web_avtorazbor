@@ -39,8 +39,26 @@ class NewsController extends FrontController
 		$cs = Yii::app()->clientScript;
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/tabNews.js?v=1', CClientScript::POS_END);
 
-		$model=UsedCars::model()->search();
-		$this->render('index',array('model'=>$model));
+		$criteriaCars=new CDbCriteria;
+		$criteriaCars->order="id desc";
+		$criteriaCars->limit="20";
+		$criteriaCars->addCondition('status=2');
+		
+		$criteriaRazbor=new CDbCriteria;
+		$criteriaRazbor->limit="20";
+		$criteriaRazbor->order="id desc";
+		$criteriaRazbor->addCondition('status=1');
+
+		$razbor=new CActiveDataProvider('UsedCars',array(
+				'criteria'=>$criteriaRazbor,
+
+			)
+		);
+		$cars=new CActiveDataProvider('UsedCars',array(
+				'criteria'=>$criteriaCars,
+			)
+		);
+		$this->render('index',array('razbor'=>$razbor,'cars'=>$cars));
 	}
 
 	// public function getNews(){

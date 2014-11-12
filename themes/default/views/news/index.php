@@ -9,7 +9,12 @@
         				<ul>
                             <li class="active">
                                 <a href="#tabs-3" >
-                                    Новинки
+                                    Поступили в разбор
+                                </a>    
+                            </li>
+                            <li>
+                                <a href="#tabs-4" >
+                                    Поступили в продажу
                                 </a>    
                             </li>
         				</ul>
@@ -19,7 +24,12 @@
 
                         <div class="news tab-active" id="tabs-3">
                             <?
-                                $this->renderPartial('tabView',array('dataProvider'=>$model),false,true);
+                                $this->renderPartial('tabView',array('dataProvider'=>$razbor),false,true);
+                            ?>
+                        </div>
+                        <div class="news" id="tabs-4">
+                            <?
+                                $this->renderPartial('tabView',array('dataProvider'=>$cars),false,true);
                             ?>
                         </div>
                         

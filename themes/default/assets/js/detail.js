@@ -70,6 +70,7 @@ $(document).ready(function(){
 					{
 						fitToView	: true,
 						autoSize	: true,
+						padding:0,
 					});
 				return false;
 			}
