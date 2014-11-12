@@ -26,6 +26,12 @@ class EvackuatorController extends FrontController
 		);
 	}
 
+	public function actionGetModels(){
+
+		
+
+	}
+
 	public function actionView($id)
 	{
 		$this->render('view',array(

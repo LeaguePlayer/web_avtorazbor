@@ -21,6 +21,22 @@
 */
 class Buyout extends CActiveRecord
 {
+    
+    public function getBrandName()
+    {
+        return $this->car_brand->name;
+    }
+
+    public function getTransmissionName()
+    {
+        return UsedCarInfo::transmissionList($this->transmission);
+    }
+
+    public function getModelName()
+    {
+        return $this->car_model->name;
+    }
+
     public function tableName()
     {
         return '{{buyout}}';
@@ -39,7 +55,6 @@ class Buyout extends CActiveRecord
             array('id, name, phone, email, brand, car_model_id, year, capacity, transmission, comment, status, sort, create_time, update_time', 'safe', 'on'=>'search'),
         );
     }
-
 
     public function relations()
     {
@@ -64,15 +79,20 @@ class Buyout extends CActiveRecord
         return $aliases;
     }
 
+
+
     public function attributeLabels()
     {
         return array(
             'id' => 'ID',
             'name' => 'Ваше имя',
             'phone' => 'Контактный телефон',
+            'transmissionName'=>'Тип КПП',
+            'brandName'=>'Марка авто',
             'email' => 'E-mail',
             'brand' => 'Марка авто',
             'car_model_id' => 'Модель авто',
+            'Модель авто'=>'Марка авто',
             'year' => 'Год выпуска',
             'capacity' => 'Объем двигателя',
             'transmission' => 'Тип КПП',
@@ -84,7 +104,6 @@ class Buyout extends CActiveRecord
         );
     }
 
-
     public function behaviors()
     {
         return CMap::mergeArray(parent::behaviors(), array(
@@ -95,7 +114,19 @@ class Buyout extends CActiveRecord
         			),
                     'notice'=>array(
                         'class'=>'NoticeBehavior',
-                        'type'=>'NoticeAdmin'
+                        'type'=>'NoticeAdmin',
+                        'noticeMap'=>array(
+                            'settingName'=>'admin_mail',
+                            'fields'=>array(
+                                'id'=>false,
+                                'status'=>false,
+                                'sort'=>false,
+                                'brand'=>false,
+                                'transmission'=>false,
+                                'car_model_id'=>false,
+                                'update_time'=>false,
+                            ),
+                        ),
                     ),
                 )
             );

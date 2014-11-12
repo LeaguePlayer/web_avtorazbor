@@ -19,6 +19,13 @@
 */
 class Evackuator extends EActiveRecord
 {
+
+    private $_brandName;
+
+    public function getBrandName(){
+        return $this->Brand->name;
+    }
+
     public function tableName()
     {
         return '{{evackuator}}';
@@ -39,7 +46,6 @@ class Evackuator extends EActiveRecord
         );
     }
 
-
     public function relations()
     {
         return array(
@@ -58,6 +64,7 @@ class Evackuator extends EActiveRecord
             'mail' => 'E-mail',
             'brand' => 'Марка авто',
             'modelName' => 'Модель авто',
+            'brandName' => 'Модель авто',
             'mass' => 'Масса авто',
             'distance' => 'КМ',
             'status' => 'Статус',
@@ -71,15 +78,25 @@ class Evackuator extends EActiveRecord
     public function behaviors()
     {
         return CMap::mergeArray(parent::behaviors(), array(
-        			'CTimestampBehavior' => array(
-        				'class' => 'zii.behaviors.CTimestampBehavior',
-                        'createAttribute' => 'create_time',
-                        'updateAttribute' => 'update_time',
-        			),
-                    'notice'=>array(
-                        'class'=>'NoticeBehavior',
-                        'type'=>'NoticeAdmin'
+			'CTimestampBehavior' => array(
+				'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'create_time',
+                'updateAttribute' => 'update_time',
+			),
+            'notice'=>array(
+                'class'=>'NoticeBehavior',
+                'noticeMap'=>array(
+                    'settingName'=>'admin_mail',
+                    'fields'=>array(
+                        'id'=>false,
+                        'status'=>false,
+                        'sort'=>false,
+                        'brand'=>false,
+                        'car_model_id'=>false,
+                        'update_time'=>false,
                     ),
+                ),
+            ),
         ));
     }
     public function search()
