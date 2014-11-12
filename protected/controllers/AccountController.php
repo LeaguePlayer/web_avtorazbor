@@ -1,9 +1,9 @@
 <?
 	class AccountController extends Controller{
-
+		public $layout='/layouts/main';
 		public $message=false;
 		public $modelName="Личный кабинет";
-
+		public $viewTitle='';
 
 		public function filters()
 	    {
@@ -30,7 +30,28 @@
 
 	        );
 	    }
+	    public function actionChangePassword($hash=null){
 
+	    	$this->layout='//layouts/content';
+	    	$this->viewTitle="Смена пароля";
+	    	$ReplacePwd=new ReplacePwd;
+	    	if (!$hash)
+	    	{
+	    		if (isset($_POST['ReplacePwd']))
+	    		{
+	    			$ReplacePwd->attributes=$_POST['ReplacePwd'];
+	    			if ($ReplacePwd->validate())
+	    			{
+	    				$ReplacePwd->save();
+	    				$this->redirect(array('/page/changePwd_instructions'));
+	    			}
+	    		}
+	    		$this->render('changePwd',array('model'=>$ReplacePwd));
+	    	} else {
+	    		$ReplacePwd->hash=$hash;
+	    		$this->render('changePwdHash',array('model'=>$ReplacePwd));
+	    	}
+	    }
 		public function actionIndex()
 		{
 			$this->breadcrumbs=array('Личный кабинет');

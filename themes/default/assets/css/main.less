@@ -533,9 +533,11 @@ header{
 	margin:@c;
 	border-bottom:1px solid #143883;
 	padding-bottom: 10px;
+	position: relative;
 	nav{
 		display: inline-block;
 		vertical-align: top;
+		margin-bottom: 20px;
 		margin-top: 20px;
 		li:first-child{
 			padding: 0;
@@ -572,9 +574,9 @@ header{
 	}
 	.search{
 		border:1px solid #c8d1d9;
-		position: relative;
+		position: absolute;
 		margin-top: 20px;
-		left:5px;
+		right:0px;
 		display: inline-block;
 		.radius(6px);
 		input[type=text]{
@@ -631,7 +633,9 @@ header{
 			display: none;
 			& li{
 				padding: 5px 0;
-				cursor: pointer;
+				label{
+					cursor: pointer;	
+				}
 			}
 		}
 	}
@@ -988,6 +992,9 @@ header{
 				a.cart-list:hover{
 					text-decoration: none;	
 				}
+				dt:last-child{
+					margin-top: 35px;
+				}
 				dt{
 					font:18px/20px 'segoe_uibold';
 					color:#333;
@@ -1087,6 +1094,7 @@ header{
 			}
 			.bascet{
 				display: none;
+				position: relative;
 				table{
 					th{
 						vertical-align: middle;
@@ -1137,7 +1145,7 @@ header{
 			}
 			a.back{
 					margin-top: 40px;
-					display: block;
+					display: inline-block;
 					vertical-align: bottom;
 					color: #fe6802;
 					font-size: 12px;
@@ -3515,6 +3523,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 		margin-top: 20px;
 		font-weight: bold;
 	}
+	li:last-child{
+		padding: 0;
+		text-align: right;
+		padding-right: 55px;
+		font-size: 12px;
+		text-decoration: underline;
+	}
+	li:last-child:hover{
+		text-decoration: none;
+	}
 }
 .owl-hidden{
 	width: 1100px;
@@ -3629,15 +3647,28 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 		height: 100px;
 	}
 	select{
-		width: 264px;
+		width:264px;
 	}
 	input[type=text],textarea{
 
 		width:250px;
 		margin-bottom: 15px;
 	}
+	label{
+		font-size: 18px;
+		.required{
+			color: #fe8345;
+		}
+	}
 	label,input[type=text],textarea{
+		color: #333333;
 		display: inline-block;
+	}
+	.sub{
+		margin-top: 30px;
+		input{
+			padding: 11px 40px;
+		}
 	}
 }
 .fancybox-skin{
@@ -3660,6 +3691,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 }
 #alert.qst{
 	padding-right: 30px;
+	.actions{
+		margin-top: 40px;
+		a{
+			display: inline-block;
+			text-align: center;
+			width: 40%;
+		}
+	}
+
 	.caption{
 		text-align: center;
 		text-align: center;
@@ -3698,7 +3738,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 				width: 40%;
 				display: inline-block;
 				font-weight: normal;
-				border-bottom: dashed 1px;
 			}
 		}
 }
@@ -3749,11 +3788,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 	height: 20px!important;
 }
 .hr{
-	background: gray;
+	background: #808080;
 	width: 2px;
 	display: inline-block;
-	height: 41px;
+	height: 30px;
 	vertical-align: top;
+	margin-top: 5px;
 }
 .reqvizit{
 	overflow: hidden;
@@ -3868,16 +3908,59 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 	border: 1px solid rgba(0, 0, 0, 0);
 	border-radius: 4px;
 }
+
 .empty-cart{
 	text-align: center;
 	padding-top: 30px;
 }
+
 .empty-vacansy{
 	text-align: center;
 }
+
 #vacansyCallBack-form
 {
 	textarea{
 		margin-top: 15px;
 	}
 }
+
+.emptyResult{
+	text-align: center;
+	p{
+		font-family: segoe_uiregular;
+		color: #2455A1;
+		line-height: 1.2;
+		font-size: 20px;
+		padding-bottom: 40px;
+		text-align: center;
+	}
+	a:hover{
+		text-decoration: underline;
+	}
+	a:after{
+		content: '»';
+		display: inline-block;
+		padding-left: 15px;
+		line-height: 16px;
+	}
+}
+.content{
+	.auth{
+		position: absolute;
+		right: 0;
+		margin-top: 30px;
+	}	
+}
+.account{
+	input[type=text]{
+		color: #333333;
+	}
+	input[type=submit]{
+		padding: 11px 58px;
+		margin-top: 50px;
+	}
+	dd+dt{
+		padding-top: 50px;
+	}
+}	

@@ -8,7 +8,7 @@
 
         ?>
 	<td>
-            <a href="<?=$imageBig?>" class="imgFancy">
+            <a href="<?=$imageBig?>" class="imgFancy" rel="1">
 		      <img src="<?=$image?>" alt="" title="" />
             </a>
 	</td>
@@ -18,7 +18,7 @@
 	<td>
 		<ul>
 			<li>
-				<a href="#">
+				<a href="/detail/<?=$data->url?>/<?=$data->id?>">
 					<?=$data->name?>
 				</a>
 			</li>
@@ -27,9 +27,6 @@
 			</li>
 			<li>
 				Volvo FH с 2008г 
-			</li>
-			<li>
-				Артикул: <?=$data->id?>
 			</li>
 		</ul>
 	</td>

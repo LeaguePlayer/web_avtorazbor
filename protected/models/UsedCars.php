@@ -17,7 +17,7 @@ class UsedCars extends EActiveRecord
     const STATUS_BUY = 2;
     const STATUS_LIGHT = 1;
     const STATUS_CARGO = 2;
-
+    public $url;
     public function tableName()
     {
         return '{{UsedCars}}';
@@ -254,7 +254,8 @@ class UsedCars extends EActiveRecord
     public function afterFind(){
         
         if($this->price) $this->price = number_format($this->price, 0, '', '');
-
+        $this->url=SiteHelper::translit($this->model->car_brand->name);
+        $this->url.='/'.SiteHelper::translit($this->model->name);
         parent::afterFind();
     }
 

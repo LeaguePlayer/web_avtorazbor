@@ -144,14 +144,11 @@ return array(
                 'gii'=>'gii',
                 'admin'=>'admin/start/index',
                 '/'=>'site/index',
-
+                'detail/<brand:\w+>/<model:\w+>/<category:\w+>/<id:\d+>'=>'detail/view',
+                'catalog/<brand:\w+>/<model:\w+>/<id:\d+>'=>'catalog/car',
                 'page/service'=>'page/service',
                 'parts'=>'detail/parts',
-                'catalog/<alias:[\w\-\_]+>/<id:\d+>'=>'catalog/car',
-                'detail/parts'=>'detail/parts',
                 'diagnostic/<alias:[\w\-]+>/<id:\d+>'=>'diagnostic/view',
-                'detail/<alias:[\w\-]+>/<id:\d+>'=>'detail/view',
-                'detail/<alias:[\w\-\[\]]+>/<id:\d+>'=>'detail/view',
 
                 '<controller:page|news>/<alias:(\w|\-)+>'=>'<controller>/view',
                 '<controller:\w+>'=>'<controller>/index',

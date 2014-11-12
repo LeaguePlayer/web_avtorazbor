@@ -14,7 +14,7 @@
 				'documents' => array('documents', 'templates'),
 				'requests' => array('requests', 'clients', 'employees'),
 				'settings' => array('settings', 'download'),
-				'manage' =>array('page','news','bookPart','vacansyCallBack','questions','ownprice','vacansy','evackuator','diagnostic','buyout'),
+				'manage' =>array('page','bookPart','vacansyCallBack','questions','ownprice','vacansy','evackuator','diagnostic','buyout'),
 			);
 
 			$root = 'parts';
@@ -77,7 +77,7 @@
 				'manage'=>array(
 					
 					array('label'=>'Страницы', 'url'=>'/admin/page/list'),
-					array('label'=>'Новости', 'url'=>'/admin/news/list'),					
+					//array('label'=>'Новости', 'url'=>'/admin/news/list'),					
 					array('label'=>'Диагностика', 'url'=>'/admin/diagnostic/list'),
 					array('label'=>'Вопросы', 'url'=>'/admin/questions/list'),
 					array('label'=>'Предложения', 'url'=>'/admin/ownprice/list'),

@@ -17,7 +17,7 @@
 			)); ?>
         </dd>
         <dt>
-                телефон для связи <br><strong>8-922-136-06-11</strong> Алексей, <br><strong>8-9222-922-923</strong> Сергей
+                <?=Settings::getValue('vacansy_info')?>
         </dt>
     </dl>
 

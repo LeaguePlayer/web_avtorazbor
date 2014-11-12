@@ -60,7 +60,12 @@
                                 Карзина пуста.
                             </div>
                         <?}?>
-                                        <a href="<?=$this->createUrl('/parts?'.Yii::app()->session->get('backToResult'))?>" class="back">Вернуться в каталог</a>
+                                <a href="<?=$this->createUrl('/parts?'.Yii::app()->session->get('backToResult'))?>" class="back">Вернуться в каталог</a>
+                                <?if (Yii::app()->user->isGuest){?>
+                                    <a class="i-submit auth" href="<?=$models ? '#login' : '/detail'?>">
+                                        <?=$models ? 'Чтобы оформить заказ - авторизируйтесь' : 'Перейти в каталог автозапчастей'?>
+                                    </a>
+                                <?}?>
         			</div>
                         <div id="accept" class="baskets hide">
                                 <dl class="info">
@@ -85,12 +90,12 @@
                                 ?>
                                 </div>
                                 <!-- <a href="/cart/Issue_the_order" class="i-submit right">Оформить аказ</a> -->
+
                         </div>
                         
-                        <?if (Yii::app()->user->isGuest){?>
-                            <a class="i-submit right auth" href="#login">Авторизируйтесь</a>
-                        <?}?>
+                        
                 </div>
         </div>
 </div>	
 <?//$this->renderPartial('//account/loginFromCart',array('model'=>new AuthForm))?>
+<?$this->renderPartial('message')?>

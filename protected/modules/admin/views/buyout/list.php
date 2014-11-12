@@ -18,8 +18,8 @@ $this->menu=array(
     )',
 	'columns'=>array(
 		'name',
-		'brand',
-		'modelName',
+		'car_brand.name',
+		'car_model.name',
 		array(
 			'name'=>'year',
 			'value'=>'UsedCars::getYears($data->year)',

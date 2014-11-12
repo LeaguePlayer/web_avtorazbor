@@ -2,7 +2,7 @@
 	<?
 		$image=$data->img_preview ? $data->getImageUrl('small') : '/media/images/usedcars/default.png';
 	?>
-	<a href="/catalog/<?=$data->alias?>/<?=$data->id?>">
+	<a href="/catalog/<?=$data->url?>/<?=$data->id?>">
 		<img src="<?=$image?>" alt="" title="" />
 	</a>
 	<a href="/catalog/car/<?=$data->id?>" class="link">

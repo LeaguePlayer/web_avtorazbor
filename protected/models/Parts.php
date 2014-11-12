@@ -33,7 +33,7 @@ class Parts extends EActiveRecord implements IECartPosition
     const DISC = 16;
     public $max_sort;
     public $removeOnDelete = true;
-
+    public $url;
     public $analog;
 
     public static function getStatusAliases($status = -1)
@@ -371,9 +371,11 @@ class Parts extends EActiveRecord implements IECartPosition
 
     public function afterFind(){
         parent::afterFind();
-
         $this->price_sell = number_format($this->price_sell, 0, '', '');
         $this->price_buy = number_format($this->price_buy, 0, '', '');
+        $this->url=SiteHelper::translit($this->car_model->car_brand->name);
+        $this->url.='/'.SiteHelper::translit($this->car_model->name);
+        $this->url.='/'.SiteHelper::translit($this->category->name);
     }
 
     public function getJoin($key)

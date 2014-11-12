@@ -31,9 +31,9 @@
                             if ( !data.error ) {
                                 $('.reg').empty().append(data.lk);
                                 $('.right.auth').slideUp().delay(200).remove();
-                                var li=$('.basket li').eq(1);
+                                var li=$('.basket li').removeClass('active').eq(1);
                                 var width=li.removeClass('hide').width();
-
+                                //li.addClass('active');
                                 li.width(0);
                                 li.animate({width:width},200,function(){
                                     li.css('width','auto')

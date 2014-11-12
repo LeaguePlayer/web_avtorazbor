@@ -56,7 +56,7 @@
 
                     <li>
                         <?php echo $form->labelEx($model,'theme');?>
-                        <?php echo $form->dropDownList($model,'theme',array(1=>'Автозапчасти'),array('class'=>'i-text'));?>
+                        <?php echo $form->dropDownList($model,'theme',array(1=>'Автозапчасти',2=>'Автомобили',3=>'Другой вопрос'),array('class'=>'i-text'));?>
                         <?php echo $form->error($model,'theme',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
 

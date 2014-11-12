@@ -14,7 +14,7 @@
                         else 
                     {?>
                         <li>
-                            <a href="/account/">Личный кобинет</a>
+                            <a href="/account/">Личный кабинет</a>
                         </li>
                         <li>
                             <a href="/account/logout">Выйти</a>

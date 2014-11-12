@@ -43,15 +43,24 @@
 			                            <?php echo $form->labelEx($model,'brand');?>
 			                            <?php echo $form->dropDownList($model,'brand',
 			                            		CHtml::listData(CarBrands::model()->findAll(),'id','name'),
-			                            		array('class'=>'i-text','maxlength'=>255)
+			                            		array(
+			                            			'empty'=>'Выберите марку авто',
+			                            			'class'=>'i-text',
+			                            			'maxlength'=>255,
+			                            			'ajax' => array(
+													'type'=>'POST', //request type
+													'url'=>CController::createUrl('buyout/getModels'), //url to call.
+													//Style: CController::createUrl('currentController/methodToCall')
+													'update'=>'#Buyout_car_model_id', //selector to update
+													)
+			                            		)
 			                            	); ?>
 			                            <?php echo $form->error($model,'brand',array('style'=>'color:red;font-size:10px;'));?>
 			                        </li>
-
 			                        <li>
-			                            <?php echo $form->labelEx($model,'modelName');?>
-			                            <?php echo $form->textField($model,'modelName',array('class'=>'i-text','maxlength'=>255,'placeholder'=>'Модель авто')); ?>
-			                            <?php echo $form->error($model,'modelName',array('style'=>'color:red;font-size:10px;'));?>
+			                            <?php echo $form->labelEx($model,'car_model_id');?>
+			                            <?php echo $form->dropDownList($model,'car_model_id',array(), array('empty'=>'Выберите марку авто', 'class'=>'i-text','maxlength'=>255,'placeholder'=>'Модель авто')); ?>
+			                            <?php echo $form->error($model,'car_model_id',array('style'=>'color:red;font-size:10px;'));?>
 			                        </li>
 
 			                        <li>
@@ -71,7 +80,7 @@
 			                            <?php echo $form->error($model,'transmission',array('style'=>'color:red;font-size:10px;'));?>
 			                        </li>
 			                        <li>
-			                            <?php echo $form->labelEx($model,'comment');?>
+			                            <label for="Boyout_comment">Дополнительная<br>информация</label>
 			                            <?php echo $form->textarea($model,'comment',array('class'=>'i-text','placeholder'=>'Текст сообщения...'));?>
 			                            <?php echo $form->error($model,'comment',array('style'=>'color:red;font-size:10px;'));?>
 			                        </li>

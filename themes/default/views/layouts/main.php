@@ -95,6 +95,7 @@
                 } else {
                     $this->renderPartial('//layouts/_adminMessage');
                 }?>
+                <div class="clear"></div>
                 <div class="menu">
                     <nav>
                      <ul>
@@ -104,17 +105,16 @@
                         
                         if (!$action)
                             $action=$this->alias; 
-                        $url="/$controller".($action ? "/$action" : '');    
+                        $url=strtolower("/$controller".($action ? "/$action" : ''));
                         $menu=array(
                                 array('label'=>'О компании', 'url'=>'/page/about'),
                                 array('label'=>'Продажа авто', 'url'=>'/catalog'),
                                 array('label'=>'Автозапчасти', 'url'=>'/detail'),
                                 array('label'=>'Все услуги', 'url'=>'/page/service'),
-                                array('label'=>'Новости', 'url'=>'/news'),
+                                array('label'=>'Новинки', 'url'=>'/news'),
                                 array('label'=>'Контакты', 'url'=>'/page/contacts'),
                                 array('label'=>'Вакансии', 'url'=>'/vacansy'),
                             );
-
                             foreach ($menu as $key => $item) {
                                 ?>
                                     <li class="<?=strpos($item['url'], $url)===0 ? 'active' : ''?>">
@@ -130,6 +130,9 @@
                         <input type="text" autocomplete="off" value="" name="str" placeholder="Введите ваш запрос"/>
                         <input hidden type="radio" name="table" <?=$_GET['table']=='UsedCars'  ? 'checked' : ''?> id="UsedCars" value="UsedCars" />
                         <input hidden type="radio" name="table" <?=!isset($_GET['table']) || $_GET['table']=='Parts' ? 'checked' : ''?> id="Parts" value="Parts" />
+
+                        <input hidden type="radio" name="table" <?=$_GET['table']=='articul' ? 'checked' : ''?> id="articul" value="articul" />
+                        
                         <div class="searchType"><?=!$_GET['table'] || $_GET['table']=='Parts' ? "Автозапчасти" : 'Авто' ?></div>
                         <span></span>
                         <div class="searchBy">
@@ -138,7 +141,10 @@
                                     <label for="Parts">Автозапчасти</label>
                                 </li>
                                 <li>
-                                    <label for="UsedCars">Авто</label>
+                                    <label for="UsedCars">Автомобили</label>
+                                </li>
+                                <li>
+                                    <label for="articul">Артикул</label>
                                 </li>
                             </ul>
                         </div>
@@ -201,7 +207,7 @@
         			</li>
         			<li>
         				<a href="/news">
-        					Новости
+        					Новинки
         				</a>
         			</li>
         			<li class="active">

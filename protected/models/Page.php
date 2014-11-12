@@ -27,6 +27,7 @@ class Page extends EActiveRecord
     public function rules()
     {
         return array(
+            array('name,alias,wswg_body','required'),
             array('status, sort', 'numerical', 'integerOnly'=>true),
             array('name, alias', 'length', 'max'=>255),
             array('img_preview, description, wswg_body, create_time, update_time', 'safe'),
