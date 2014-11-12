@@ -227,21 +227,18 @@
 			$params=$category ? array('model_id'=>$this->$column,'cat_id'=>$category) : $this->$column;
 
 			$column=$category ? 'model_cat' : $column;
-
+			
 			$criteria=Parts::model()->search_parts($column,$params);
-
 			if ($this->car_model_id)
-			{
+			{	
 				$select="`t`.id,`t`.name,`t`.alias, `t`.price_sell,`t`.price_buy,`t`.comment,`t`.category_id,`t`.car_model_id,`t`.location_id,`t`.supplier_id,`t`.create_time,`t`.update_time,`t`.status";
 
 				$select.=',`t`.car_model_id!='.$this->car_model_id.' as analog';
 				$criteria->select=$select;
-				
 				// if (!empty($this->category_id))
 				// 	$criteria->addCondition('category_id='.$this->category_id);
-				
-				if (!empty($this->category_id))
-					$criteria->addCondition('parent='.$this->parent);
+				// if (!empty($this->parent))
+				// 	$criteria->addCondition('parent='.$this->parent);
 			}
 			
 			$this->criteria=$criteria;
