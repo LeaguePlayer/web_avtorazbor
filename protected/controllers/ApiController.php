@@ -17,12 +17,9 @@ class ApiController extends FrontController
 
 	public function actionTest(){
 		header('Content-Type: application/json');
-
 		$item = Parts::model()->find();
 		$this->response->data['item'] = $item;
-
 		echo CJSON::encode($this->response);
-
 		Yii::app()->end();
 	}
 

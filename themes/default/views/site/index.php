@@ -61,7 +61,7 @@
             </li>
             <?}?>
             <li>
-                <a href="#tabs-3" data-url="/detail/parts">
+                <a href="#tabs-3" data-url="/parts">
                     Автозапчасти
                 </a>    
             </li>
@@ -72,7 +72,9 @@
             </li>
         </ul>
     </div>
+
    <?=$this->renderPartial('//forms/question',array('model'=>new Questions),true);?>
+
     <div class="parametr tab-active" id="tabs-1">
 
        <?php $form = $this->beginWidget('CActiveForm', array(
@@ -96,6 +98,7 @@
                 )
             );
         ?>
+
         <?$this->endWidget();?>
 
         <div class="coll">
@@ -243,6 +246,7 @@
             <div class="clear"></div>
         </div>
     </div>
+
     <div class="parametr" id="tabs-2">
 
           <?php $form = $this->beginWidget('CActiveForm', array(
@@ -251,6 +255,7 @@
             ));
             //echo $form->hiddenField('type',2);
             ?>
+
             <input type="text" data-model="UsedCars" data-type="2" class="searching" placeholder="Введите Ваш запрос"  value="<?=$_GET['query']?>">
             <?
             echo CHtml::hiddenField('type','1');
@@ -404,6 +409,7 @@
             <div class="clear"></div>
         </div>
     </div>
+
     <div class="parametr" id="tabs-3">
 
            <?php $form = $this->beginWidget('CActiveForm', array(
@@ -412,6 +418,7 @@
             ));
             //echo $form->hiddenField('type',2);
         ?>
+
             <input type="text" data-model="Parts" data-type="1" class="searching" placeholder="Введите Ваш запрос"  value="<?=$_GET['query']?>">
         <?
             echo CHtml::ajaxSubmitButton('','/search/getParts',
@@ -428,7 +435,7 @@
             );
         ?>
         <?$this->endWidget();?>
-
+        
         <div class="coll">
             <?php $form = $this->beginWidget('CActiveForm', array(
                 'id' => 'search-form-weight',
@@ -500,7 +507,7 @@
                     </dd>
                 </dl>
             </div>
-
+            
             <div class="coll-1">
                 <dl class="full-width">
                     
@@ -544,7 +551,7 @@
                         </span>
                     </dt>
                     <dd>
-                        <a data-url="/detail/parts" href="/detail/parts" class="i-submit" >Показать</a>
+                        <a data-url="/parts" href="/parts" class="i-submit" >Показать</a>
                     </dd>
                 </dl>
             </div>
@@ -732,7 +739,7 @@
                         </span>
                     </dt>
                     <dd>
-                        <a data-url="/detail/parts" href="/detail/parts" class="i-submit" >Показать</a>
+                        <a data-url="/parts" href="/parts" class="i-submit" >Показать</a>
                     </dd>
                 </dl>
             </div>
@@ -750,6 +757,7 @@
     </a>
     <img class="loader" src="/media/images/loader-fff.gif"/>
     <?=$this->renderPartial('//site/carCarusel',array('dataProvider'=>$dataProviderCar),true);?>
+
     <div class="clear"></div>
 </div>
 <div class="readmore">
@@ -770,18 +778,6 @@
                         </a>
                     </li>
                 </ul>
-                <dl class="read">
-                    <dt>
-                        <a href="#">
-                            Подписаться на обновления
-                        </a>
-                    </dt>
-                    <dt>
-                        <a href="/news">
-                            Все новости
-                        </a>
-                    </dt>
-                </dl>
             </div>
 
             <div class="content clear">
@@ -822,7 +818,7 @@
         О компании
     </h1>
     <p>
-        Добро пожаловать в интернет-магазин компании «Разбор66». Мы предлагаем самый  широкий ассортимент авторазбора  в Тюмени на любые марки автомобилей по адекватным ценам. Покупая и запчасти в нашем Интернет-магазине, вы можете быть уверены в качестве — ведь мы работаем только с крупными
+        Добро пожаловать в интернет-магазин компании «Разбор72». Мы предлагаем самый  широкий ассортимент авторазбора  в Тюмени на любые марки автомобилей по адекватным ценам. Покупая и запчасти в нашем Интернет-магазине, вы можете быть уверены в качестве — ведь мы работаем только с крупными
 и проверенными производителями.
     </p>
     <p>         

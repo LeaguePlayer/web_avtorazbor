@@ -28,9 +28,9 @@ class SiteController extends FrontController
 		$searchForm=new Search;
 		if (!Yii::app()->request->isAjaxRequest)
 		{
-			$cs = Yii::app()->clientScript;
-			$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
-			$cs->registerScriptFile($this->getAssetsUrl().'/js/main.js', CClientScript::POS_END);
+			$cs = Yii::app()->clientScript; 
+			$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js?v=1', CClientScript::POS_END);
+			$cs->registerScriptFile($this->getAssetsUrl().'/js/main.js?v=1', CClientScript::POS_END);
 			$news=new News;
 			$Brands=CHtml::listData(CarBrands::model()->findAll(UsedCars::getExistsData(null,null,'brand')),'id','name');
 
@@ -82,10 +82,11 @@ class SiteController extends FrontController
 					'newCars'=>UsedCars::model()->search()
 				)
 			);
-
+			
 		} else {
 			if (isset($_GET['Search']))
 			{
+
 				$searchForm->attributes=$_GET['Search'];
 				$searchForm->validate();
 				$model=$_GET['Search']['scenario']=='light' || $_GET['Search']['scenario']=='weight' ? 'UsedCars' : 'Parts';

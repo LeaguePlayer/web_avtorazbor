@@ -36,13 +36,13 @@ class SearchController extends Controller
         $retVal = array();
         if (strlen($query) >= 2) {
             $model = $table::model();
-         
             $criteria = new CDbCriteria();
             $criteria->select="t.name";
             $criteria->distinct=true;
             $criteria->join=$table::join();
-            $criteria->addCondition('lower(t.name) like("%'.$query.'%")','or');
+            $criteria->addCondition('lower(t.name) like("%:query%")','or');
             $criteria->addCondition("car_type=$type");
+            $criteria->params=array(':query'=>$query);
             $criteria->limit = 10;
             $criteria->order="t.id desc";
             $models=$model->findAll($criteria);

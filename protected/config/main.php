@@ -146,7 +146,7 @@ return array(
                 '/'=>'site/index',
 
                 'page/service'=>'page/service',
-
+                'parts'=>'detail/parts',
                 'catalog/<alias:[\w\-\_]+>/<id:\d+>'=>'catalog/car',
                 'detail/parts'=>'detail/parts',
                 'diagnostic/<alias:[\w\-]+>/<id:\d+>'=>'diagnostic/view',

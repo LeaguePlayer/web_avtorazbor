@@ -72,10 +72,14 @@ class Evackuator extends EActiveRecord
     {
         return CMap::mergeArray(parent::behaviors(), array(
         			'CTimestampBehavior' => array(
-				'class' => 'zii.behaviors.CTimestampBehavior',
-                'createAttribute' => 'create_time',
-                'updateAttribute' => 'update_time',
-			),
+        				'class' => 'zii.behaviors.CTimestampBehavior',
+                        'createAttribute' => 'create_time',
+                        'updateAttribute' => 'update_time',
+        			),
+                    'notice'=>array(
+                        'class'=>'NoticeBehavior',
+                        'type'=>'NoticeAdmin'
+                    ),
         ));
     }
     public function search()

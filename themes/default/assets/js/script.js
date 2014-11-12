@@ -27,7 +27,7 @@ $(function(){
 			return false;
 		}
 	});
-
+	$('.imgFancy').fancybox();
 	$('.auth,.modal').fancybox({
 		fitToView	: true,
 		padding		: 0,

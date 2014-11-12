@@ -14,7 +14,7 @@
 	<span class="dsc">
 		<?=$data->comment?>.<br>
 	</span>
-	<span class="dsc"><?=$data->analog ? 'Аналог' : ''?></span>
+	<span class="dsc" style="fron-size:16px;color:red"><?=$data->analog ? 'Аналог' : ''?></span>
 	<span class="price">
 		<?=$data->price_sell?> руб.
 	</span>

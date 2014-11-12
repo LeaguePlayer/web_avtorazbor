@@ -73,10 +73,10 @@
                                     $category_id=$model->category->parent ? $model->category->cat_parent->id : $model->category_id;
                                     $urlParam='Search[scenario]=Parts&Search[brand]='.$model->car_model->car_brand->id.'&Search[car_model_id]='.$model->car_model_id.'&Search[category_id]='.$category_id.'&Search[parent]='.$model->category->parent.'&Search[type]='.$model->car_model->car_type;
                                     ?>
-                                    Раздел: <a href="/detail/parts?<?=$urlParam?>"><?=$model->category->name;?></a>
+                                    Раздел: <a href="/parts?<?=$urlParam?>"><?=$model->category->name;?></a>
                                 </li>
                                 <li>
-                                    Модель авто: <a href="/detail/parts?Search[scenario]=Parts&Search[brand]=<?=$model->car_model->car_brand->id?>&Search[car_model_id]=<?=$model->car_model_id?>&Search[type]=<?=$model->car_model->car_type?>"><?=$model->car_model->name;?></a>
+                                    Модель авто: <a href="/parts?Search[scenario]=Parts&Search[brand]=<?=$model->car_model->car_brand->id?>&Search[car_model_id]=<?=$model->car_model_id?>&Search[type]=<?=$model->car_model->car_type?>"><?=$model->car_model->name;?></a>
                                 </li>
                                 
                                 <li >
@@ -103,7 +103,7 @@
                                 </li>  
                             </ul>
                             <div class="submit">
-                                <a href="#" class="i-submit inCart"  data-count="<?=Yii::app()->cart->getCount()?>" data-cost="<?=Yii::app()->cart->getCost()?>" data-price="<?=!$model->inCart() ? $model->getPrice() : ''?>">В корзину</a>
+                                <a href="#" class="i-submit inCart"  data-count="<?=Yii::app()->cart->getCount()?>" data-cost="<?=Yii::app()->cart->getCost()?>" data-price="<?=!$model->inCart() ? $model->getPrice() : ''?>">В карзину</a>
                             </div>
 
                         </div>
@@ -144,7 +144,7 @@
 
                         <div class="comeback">
 
-                            <?$url='/detail/parts'.(Yii::app()->session->get('backToResult') ? '?'.Yii::app()->session->get('backToResult') : '');?>
+                            <?$url='/parts'.(Yii::app()->session->get('backToResult') ? '?'.Yii::app()->session->get('backToResult') : '');?>
                             <a href="<?=$url?>">
                                 Вернуться к результатам поиска
                             </a>

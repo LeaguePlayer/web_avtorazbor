@@ -7,7 +7,7 @@
     <a href="/catalog/<?=$data->alias?>/<?=$data->id?>" class="link">
         <?=$data->name?>
     </a>
-    <span class="dsc">
+    <span class="desc">
         <?=$data->comment?><br/>
         <?=$data->year ? $data->year.'г.' : '' ?> , <?=$data->dop->mileage ? $data->dop->mileage.' км' :''?>.
     </span>

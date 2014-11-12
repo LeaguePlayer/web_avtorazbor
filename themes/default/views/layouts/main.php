@@ -5,21 +5,21 @@
     $assetsUrl=$this->getAssetsUrl('application');
 	$cs->registerCssFile($assetsUrl.'/css/style.css');
 	$cs->registerCssFile($assetsUrl.'/css/reset.css');
-	$cs->registerCssFile('http://fotorama.s3.amazonaws.com/4.4.9/fotorama.css');
 	$cs->registerCssFile($assetsUrl.'/css/fancybox/jquery.fancybox.css');
-	$cs->registerCssFile($assetsUrl.'/css/main.css?v1');
-    $cs->registerCssFile($assetsUrl.'/css/jquery-ui.min.css');
+
+	$cs->registerCssFile($assetsUrl.'/css/main.css?v=2');
+    $cs->registerCssFile($assetsUrl.'/css/jquery-ui.min.css?v=1');
+
 	$cs->registerCoreScript('jquery');
-	$cs->registerScriptFile('http://fotorama.s3.amazonaws.com/4.4.9/fotorama.js', CClientScript::POS_END);
     $cs->registerScriptFile($assetsUrl.'/js/tinyscrollbar.js', CClientScript::POS_END);
     $cs->registerScriptFile($assetsUrl.'/js/scrollTo.min.js', CClientScript::POS_END);
     $cs->registerScriptFile($assetsUrl.'/js/jquery-ui.min.js', CClientScript::POS_END);
     $cs->registerScriptFile($assetsUrl.'/js/jquery.autocomplete.js', CClientScript::POS_END);
 	$cs->registerScriptFile($assetsUrl.'/js/jquery.maphilight.js', CClientScript::POS_END);
 	$cs->registerScriptFile($assetsUrl.'/js/jquery.fancybox.js', CClientScript::POS_END);
-    $cs->registerScriptFile($assetsUrl.'/js/owl.carousel.min.js', CClientScript::POS_END);
+    $cs->registerScriptFile($assetsUrl.'/js/owl.carousel.min.js?v=1', CClientScript::POS_END);
 
-	$cs->registerScriptFile($assetsUrl.'/js/script.js', CClientScript::POS_END);
+	$cs->registerScriptFile($assetsUrl.'/js/script.js?v=1', CClientScript::POS_END);
 ?><!DOCTYPE html>
 <html lang="ru">
 	<head>
@@ -128,17 +128,17 @@
 
                     <form action="/search/find" class="search">
                         <input type="text" autocomplete="off" value="" name="str" placeholder="Введите ваш запрос"/>
-                        <input hidden type="radio" name="table" <?=!isset($_GET['table']) || $_GET['table']=='UsedCars'  ? 'checked' : ''?> id="UsedCars" value="UsedCars" />
-                        <input hidden type="radio" name="table" <?=$_GET['table']=='Parts' ? 'checked' : ''?> id="Parts" value="Parts" />
-                        <div class="searchType"><?=!$_GET['table'] || $_GET['table']=='UsedCars' ? 'Авто' : "Автозапчасти" ?></div>
+                        <input hidden type="radio" name="table" <?=$_GET['table']=='UsedCars'  ? 'checked' : ''?> id="UsedCars" value="UsedCars" />
+                        <input hidden type="radio" name="table" <?=!isset($_GET['table']) || $_GET['table']=='Parts' ? 'checked' : ''?> id="Parts" value="Parts" />
+                        <div class="searchType"><?=!$_GET['table'] || $_GET['table']=='Parts' ? "Автозапчасти" : 'Авто' ?></div>
                         <span></span>
                         <div class="searchBy">
                             <ul>
                                 <li>
-                                    <label for="UsedCars">Авто</label>
+                                    <label for="Parts">Автозапчасти</label>
                                 </li>
                                 <li>
-                                    <label for="Parts">Автозапчасти</label>
+                                    <label for="UsedCars">Авто</label>
                                 </li>
                             </ul>
                         </div>
@@ -168,11 +168,10 @@
 
     	<dl class="copy">
     		<dt>
-    			© 2013 ООО «Авторазборка72»
+    			<?=Settings::getValue('company_name')?>
     		</dt>
     		<dd>
-    			Использование материалов сайта<br/> 
-				без согласия правообладателя запрещено
+    			<?=Settings::getValue('copy_rights')?>
     		</dd>
     	</dl>
 
@@ -216,12 +215,11 @@
     		<div class="block">
 
     			<div class="tel">
-    				8-800-500-2019<br/>
-					<a href="mailto:info@razbor72.ru">
-						info@razbor72.ru
+    				<?=Settings::getValue('site_phone')?><br/>
+					<a href="mailto:Settings::getValue('site_mail')">
+						<?=Settings::getValue('site_mail')?>
 					</a>
     			</div>
-
     			<form action="/search/find" class="search">
                     <input autocomplete="off" type="text" value="" name="str" placeholder="Введите ваш запрос"/>
                     <input type="submit" value=""/>

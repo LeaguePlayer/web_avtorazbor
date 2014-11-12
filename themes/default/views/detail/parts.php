@@ -7,7 +7,7 @@
                     <div class="modul filter">
             <?php $form = $this->beginWidget('CActiveForm', array(
                 'id' => 'parts-form',
-                'action' => $this->createUrl('/detail/parts'),
+                'action' => $this->createUrl('/parts'),
                 'htmlOptions' => array('class' => 'request_form')
             )) ?>
                 <?=$form->hiddenField($searchForm,'type')?>
@@ -51,7 +51,6 @@
                                     )
                                 )?>
                             </dd>
-
                             <dd style="display:<?=($Categories ? 'block' : 'none')?>">
                                 <label>Раздел:</label>
                                 <?=$form->dropDownList($searchForm, 'parent', $Categories,
@@ -69,7 +68,7 @@
                             <dd style="display:<?=($subCategories ? 'block' : 'none')?>">
                                 <label>Подраздел:</label>
                                 <?=$form->dropDownList($searchForm,'category_id', $subCategories, 
-                                array('empty'=>'Выберите под категорию','id'=>'subCategories'))?>
+                                array('empty'=>'Выберите под категорию','id'=>'subCategories','class'=>'select'))?>
                             </dd>
                             
                             <dd>
@@ -114,7 +113,7 @@
                                 </div>
                             </dd>
                             <dd class="submit">
-                                <a href="/detail/parts" class="i-submit" >Сбросить</a>
+                                <a href="/parts" class="i-submit" >Сбросить</a>
                             </dd>
                         </dl> 
                         <?php $this->endWidget(); ?>
@@ -170,17 +169,17 @@
                                     <dd>
                                         <ul id="sort">
                                             <li class="active" data-sort="price_sell">
-                                                <a href="/detail/parts?sort=price_sell">
+                                                <a href="/parts?sort=price_sell">
                                                     Цене
                                                 </a>
                                             </li>
                                             <li data-sort="name">
-                                                <a href="/detail/parts?sort=name" >
+                                                <a href="/parts?sort=name" >
                                                     Названию
                                                 </a>
                                             </li>
                                             <li data-sort="category_id">
-                                                <a href="/detail/parts?sort=brand" >
+                                                <a href="/parts?sort=brand" >
                                                     Разделу
                                                 </a>
                                             </li>

@@ -1,7 +1,7 @@
 <dl class="bascet">	
                 
         		<dt>
-        			<strong>В корзине:</strong> 
+        			<strong>В карзине:</strong> 
         		</dt>
         		<dd>
         			<?

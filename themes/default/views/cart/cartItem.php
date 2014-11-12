@@ -8,7 +8,7 @@
 
         ?>
 	<td>
-            <a href="<?=$imageBig?>" class="modal">
+            <a href="<?=$imageBig?>" class="imgFancy">
 		      <img src="<?=$image?>" alt="" title="" />
             </a>
 	</td>

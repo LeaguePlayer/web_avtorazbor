@@ -38,7 +38,7 @@ class RedeemController extends FrontController
 	public function actionIndex()
 	{
 		$cs = Yii::app()->clientScript;
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/redeem.js', CClientScript::POS_END);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/redeem.js?v=1', CClientScript::POS_END);
 
 		$model=new Redeem;
 		

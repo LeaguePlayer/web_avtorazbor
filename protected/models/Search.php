@@ -72,9 +72,14 @@
 				$this->criteria=new CDbCriteria;
 			}
 
-			$this->criteria->addCondition('`t`.status>6 or `t`.status=2');//>6 - для машин =1 - для запчастей
+			if ($this->scenario=="parts" || $this->scenario=="disc")
+				$this->criteria->addCondition('`t`.status=7 or `t`.status=1');//>6 - для машин =1 - для запчастей
+			else 
+				$this->criteria->addCondition('`t`.status=2');//>6 - для машин =1 - для запчастей
+
 			$this->criteria->distinct='`t`.id';
-			$this->criteria->order= $this->scenario=='Parts' && !$this->sort ? 'create_time' : $this->sort ;
+			$this->criteria->order= $this->scenario=='parts' && !$this->sort ? 'create_time' : $this->sort ;
+
 			return true;
 		}
 
@@ -93,11 +98,11 @@
 
 		public static function searchByStr($str,$table)
 		{
-			$str="+".str_replace(" ", " +", $str);
+
 			$result=Yii::app()->db->createCommand()
-				->select('id, name, MATCH (name) AGAINST ("'.$str.'" IN BOOLEAN MODE) as REL')
+				->select('id, name, MATCH (name) AGAINST (:str IN BOOLEAN MODE) as REL')
 				->from("tbl_$table")
-				->where('MATCH (name) AGAINST ("'.$str.'" IN BOOLEAN MODE) > 0')
+				->where('MATCH (name) AGAINST (:str IN BOOLEAN MODE) > 0',array(':str'=>$str))
 				->order('rel desc')
 				->queryAll();
 			$criteria=new CDbCriteria;
@@ -202,7 +207,6 @@
 			$this->criteria=new CDbCriteria;
 			$this->criteria->addCondition('car_type='.$this->type);
 			$this->criteria->join=Parts::join();
-
 			$properties=array('id_country','brand','car_model_id');
 
 			foreach ($properties as $key => $value) {
@@ -231,10 +235,8 @@
 
 				$select.=',`t`.car_model_id!='.$this->car_model_id.' as analog';
 				$criteria->select=$select;
-				$criteria->addCondition('car_model_id='.$this->car_model_id);
-
-				if (!empty($this->category_id))
-					$criteria->addCondition('category_id='.$this->category_id);
+				// if (!empty($this->category_id))
+				// 	$criteria->addCondition('category_id='.$this->category_id);
 				if (!empty($this->parent))
 					$criteria->addCondition('parent='.$this->parent);
 			}

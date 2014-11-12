@@ -38,8 +38,8 @@ class CatalogController extends FrontController
 		{
 
 			$cs = Yii::app()->clientScript;
-			$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
-			$cs->registerScriptFile($this->getAssetsUrl().'/js/Catalog.js', CClientScript::POS_END);
+			$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js?v=1', CClientScript::POS_END);
+			$cs->registerScriptFile($this->getAssetsUrl().'/js/Catalog.js?v=1', CClientScript::POS_END);
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.scrollTo.min.js', CClientScript::POS_END);
 
 			$searchForm=new Search;
@@ -50,7 +50,7 @@ class CatalogController extends FrontController
 			}
 
 			$searchForm->validate();
-
+			//var_dump($searchForm->criteria->condition);die();
 			$dataProvider=new CActiveDataProvider('UsedCars', array(
 				'criteria' => $searchForm->criteria,
 				'pagination'=>array(
@@ -107,6 +107,7 @@ class CatalogController extends FrontController
 			$searchForm->attributes=$_GET['Search'];
 		}
 		$searchForm->validate();
+
 		$dataProvider=new CActiveDataProvider('UsedCars', array(
 			'criteria' => $searchForm->criteria,
 			'pagination'=>array(
