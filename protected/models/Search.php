@@ -237,8 +237,8 @@
 				$select.=',`t`.car_model_id!='.$this->car_model_id.' as analog';
 				$criteria->select=$select;
 				
-				if (!empty($this->category_id))
-					$criteria->addCondition('category_id='.$this->category_id);
+				// if (!empty($this->category_id))
+				// 	$criteria->addCondition('category_id='.$this->category_id);
 				
 				if (!empty($this->category_id))
 					$criteria->addCondition('parent='.$this->parent);
