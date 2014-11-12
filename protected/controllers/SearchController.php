@@ -27,8 +27,18 @@ class SearchController extends Controller
 
     public function actionFind($str,$table,$type=null)
     {
-        $dataProvider=Search::searchByStr($str,$table);
-        $this->render('find',array('dataProvider'=>$dataProvider,'str'=>$str,'model'=>$table));
+        if ($table!="articul")
+        {
+            $dataProvider=Search::searchByStr($str,$table);
+            $this->render('find',array('dataProvider'=>$dataProvider,'str'=>$str,'model'=>$table));
+        }
+        else {
+            $id=(int)$str;
+            $model=Parts::model()->findByPk($id);
+            if ($model)
+                $this->redirect('/detail/'.$model->url.'/'.$model->id);
+            $this->render('emptyResult',array('table'=>'detail','section'=>'Запчастей'));
+         }
     }
 
     public function actionAutoComplite($query,$table,$type)
@@ -51,9 +61,9 @@ class SearchController extends Controller
               $retVal[] = array(
                 'value' => $item->name,
              );
+
            }
-         }
-         
+        }
          echo CJSON::encode(array('suggestions'=>$retVal,'count'=>count($models)));
          Yii::app()->end();
     }

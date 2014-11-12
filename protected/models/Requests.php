@@ -108,13 +108,13 @@ class Requests extends EActiveRecord
             'address' => 'Адрес регистрации',
             'dt_of_issue' => 'Дата выдачи',
             'city'=>'Город',
-            'adress'=>'Адресс',
+            'adress'=>'Адрес',
             'company_name'=>'Название компании',
             'inn'=>'ИНН',
             'okpo'=>'ОКПО',
             'kpp'=>'КПП',
-            'ur_adress'=> 'Юридический адресс',
-            'piz_adress'=>'Физический адресс'
+            'ur_adress'=> 'Юридический адрес',
+            'piz_adress'=>'Физический адрес'
         );
     }
 

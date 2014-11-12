@@ -35,9 +35,11 @@
 
                                 $('.reg').empty().append(data.lk);
                                 $('.right.auth').slideUp().delay(200).remove();
-                                var li=$('.basket li').eq(1);
+                                var li=$('.basket li').removeClass('active').eq(1);
                                 var width=li.removeClass('hide').width();
-
+                                li.addClass('active');
+                                $('.bascet:first').addClass('hide').removeClass('tab-active');
+                                $('#accept').addClass('tab-active').removeClass('hide');
                                 li.width(0);
                                 li.animate({width:width},200,function(){
                                     li.css('width','auto')
@@ -70,6 +72,10 @@
         <li>
             <?php echo $form->labelEx($model,'password');?>
             <?php echo $form->passwordField($model,'password',array('class'=>'i-text','width'=>'255px','autocomplete'=>'off')); ?>
+            
+        </li>
+        <li>
+            <a href="/account/registration">Регистрация</a>
             
         </li>
     </ul>

@@ -1,6 +1,6 @@
 <div class="page">
         	<h1 class="head">
-        		Новинки автокаров
+        		Новые автомобили в разборе
         	</h1>
 
         	<div class="wr">

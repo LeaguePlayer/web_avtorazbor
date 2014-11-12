@@ -9,7 +9,7 @@
     * @property string $phone
     * @property string $email
     * @property integer $brand
-    * @property string $modelName
+    * @property int $car_model_id
     * @property integer $year
     * @property string $capacity
     * @property integer $transmission
@@ -29,14 +29,14 @@ class Buyout extends CActiveRecord
     public function rules()
     {
         return array(
-            array('brand, year, transmission, status, sort', 'numerical', 'integerOnly'=>true),
-            array('name, phone, email, modelName, capacity', 'length', 'max'=>255),
+            array('brand, year, transmission, car_model_id, status, sort', 'numerical', 'integerOnly'=>true),
+            array('name, phone, email, capacity', 'length', 'max'=>255),
             array('comment, create_time, update_time', 'safe'),
             // The following rule is used by search().
-            array('name, phone, email, modelName, year','required'),
+            array('name, phone, email, car_model_id, year','required'),
             array('phone','match','pattern'=>'/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/','message'=>'Указанный вами номер верен'),
             array('email','match','pattern'=>'/^(\w+\.)*\w+@(\w+\.)+[A-Za-z]+$/','message'=>'Указанный Вами адрес не является адресом электронной почты!'),
-            array('id, name, phone, email, brand, modelName, year, capacity, transmission, comment, status, sort, create_time, update_time', 'safe', 'on'=>'search'),
+            array('id, name, phone, email, brand, car_model_id, year, capacity, transmission, comment, status, sort, create_time, update_time', 'safe', 'on'=>'search'),
         );
     }
 
@@ -44,6 +44,8 @@ class Buyout extends CActiveRecord
     public function relations()
     {
         return array(
+            'car_brand'=>array(self::BELONGS_TO,'CarBrands','brand'),
+            'car_model'=>array(self::BELONGS_TO,'CarModels','car_model_id'),
         );
     }
 
@@ -70,7 +72,7 @@ class Buyout extends CActiveRecord
             'phone' => 'Контактный телефон',
             'email' => 'E-mail',
             'brand' => 'Марка авто',
-            'modelName' => 'Модель авто',
+            'car_model_id' => 'Модель авто',
             'year' => 'Год выпуска',
             'capacity' => 'Объем двигателя',
             'transmission' => 'Тип КПП',
@@ -106,7 +108,7 @@ class Buyout extends CActiveRecord
 		$criteria->compare('phone',$this->phone,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('brand',$this->brand);
-		$criteria->compare('modelName',$this->modelName,true);
+		$criteria->compare('car_model_id',$this->car_model_id,true);
 		$criteria->compare('year',$this->year);
 		$criteria->compare('capacity',$this->capacity,true);
 		$criteria->compare('transmission',$this->transmission);

@@ -20,9 +20,13 @@ $this->menu=array(
 		array(
 			'header'=>'Фото',
 			'type'=>'raw',
-			'value'=>'TbHtml::imageCircle($data->imgBehaviorPreview->getImageUrl("icon"))'
+			'value'=>'CHtml::link(TbHtml::imageCircle($data->img_preview ? $data->imgBehaviorPreview->getImageUrl("icon") : "/media/default.png"),"/admin/page/update/".$data->id)'
 		),
-		'name',
+		array(
+			'name'=>'name',
+			'type'=>'raw',
+			'value'=>'CHtml::link($data->name,"/admin/page/update/".$data->id)',
+		),
 		'alias',
 		array(
 			'name'=>'status',

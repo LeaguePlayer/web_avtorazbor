@@ -35,14 +35,14 @@
                                 <a href="/account/entry_list" class="cart-list">Список заказов</a>
                             <?}?>
         					<?php $form = $this->beginWidget('CActiveForm', array(
-                                'id' => 'ownPrice-form',
+                                'id' => 'account-form',
                                 'action' => $this->createUrl('/account'),
                                 'enableClientValidation' => false,
                                 'clientOptions' => array(
                                     //'validateOnType' => false,
                                     'validateOnSubmit'=>true,
                                 ),
-                                'htmlOptions' => array('class' => 'request_form')
+                                'htmlOptions' => array('class' => 'request_form account')
                             )) ?>
                             <dl>
                                 <dt>Личные данные</dt>
@@ -133,7 +133,7 @@
                                 'clientOptions' => array(
                                     'validateOnType' => true,
                                 ),
-                                'htmlOptions' => array('class' => 'request_form')
+                                'htmlOptions' => array('class' => 'request_form account')
                             )) ?>
                             <dl>
                                 <dt>Личные данные</dt>
