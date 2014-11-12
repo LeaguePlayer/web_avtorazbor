@@ -235,12 +235,12 @@
 
 				$select.=',`t`.car_model_id!='.$this->car_model_id.' as analog';
 				$criteria->select=$select;
-				// if (!empty($this->category_id))
-				// 	$criteria->addCondition('category_id='.$this->category_id);
-				// if (!empty($this->parent))
-				// 	$criteria->addCondition('parent='.$this->parent);
+				if (!empty($this->category_id))
+					$criteria->addCondition('category_id='.$this->category_id);
+				if (!empty($this->parent))
+					$criteria->addCondition('parent='.$this->parent);
 			}
-			
+			//var_dump($criteria->condition);die();
 			$this->criteria=$criteria;
 		}
 
