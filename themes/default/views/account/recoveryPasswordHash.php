@@ -9,15 +9,23 @@
         ),
      'htmlOptions' => array('class' => 'changePwdHash')
     )) ?>
+    <p>
+        <strong>Новый пароль</strong>
+        <br>
+        <br>
+            
+        <br>
+        <br>
+    </p>
     <ul>
         <li>
             <?php echo $form->labelEx($model,'newPassword');?>
-            <?php echo $form->textField($model,'newPassword',array('class'=>'i-text','maxlength'=>255)); ?>
+            <?php echo $form->passwordField($model,'newPassword',array('class'=>'i-text','maxlength'=>255)); ?>
             <?php echo $form->error($model,'newPassword',array('style'=>'color:red;font-size:10px;'));?>
         </li>
         <li>
             <?php echo $form->labelEx($model,'verifyPassword');?>
-            <?php echo $form->textField($model,'verifyPassword',array('class'=>'i-text','maxlength'=>255)); ?>
+            <?php echo $form->passwordField($model,'verifyPassword',array('class'=>'i-text','maxlength'=>255)); ?>
             <?php echo $form->error($model,'verifyPassword',array('style'=>'color:red;font-size:10px;'));?>
         </li>
         <li class="sub">
