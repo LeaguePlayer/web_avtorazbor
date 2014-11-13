@@ -20,7 +20,7 @@ class PageController extends AdminController
 		}
 		echo "ок";
 	}
-
+	
 	public function actionCheckParts()
 	{
 		$id=0;

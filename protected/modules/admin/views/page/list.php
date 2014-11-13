@@ -20,12 +20,12 @@ $this->menu=array(
 		array(
 			'header'=>'Фото',
 			'type'=>'raw',
-			'value'=>'CHtml::link(TbHtml::imageCircle($data->img_preview ? $data->imgBehaviorPreview->getImageUrl("icon") : "/media/default.png"),"/admin/page/update/".$data->id)'
+			'value'=>'CHtml::link(TbHtml::imageCircle($data->img_preview ? $data->imgBehaviorPreview->getImageUrl("icon") : "/media/default.png"),"/admin/page/update/id/".$data->id)'
 		),
 		array(
 			'name'=>'name',
 			'type'=>'raw',
-			'value'=>'CHtml::link($data->name,"/admin/page/update/".$data->id)',
+			'value'=>'CHtml::link($data->name,"/admin/page/update/id/".$data->id)',
 		),
 		'alias',
 		array(
