@@ -13,7 +13,7 @@
         <strong>Новый пароль</strong>
         <br>
         <br>
-            
+            Введиде Ваш новый паролья в поля Новый пароль и Повторите ввод нового пароля и нажмите кнопку сохранить.
         <br>
         <br>
     </p>
@@ -29,7 +29,7 @@
             <?php echo $form->error($model,'verifyPassword',array('style'=>'color:red;font-size:10px;'));?>
         </li>
         <li class="sub">
-        	<input type="submit" class="i-submit">
+        	<input type="submit" class="i-submit" value="Сохранить">
         </li>
     </ul>
 
