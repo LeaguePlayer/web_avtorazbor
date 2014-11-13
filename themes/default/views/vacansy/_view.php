@@ -1,4 +1,4 @@
-<li class="item active">
+<li class="item">
     <a href="#" class="name ">
         <?=$data->post?>
     </a>

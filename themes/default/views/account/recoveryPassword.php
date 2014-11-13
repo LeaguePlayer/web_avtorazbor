@@ -9,6 +9,14 @@
         ),
      'htmlOptions' => array('class' => 'changePwdHash')
     )) ?>
+    <p>
+        <strong>Забыли пароль?</strong>
+        <br>
+        <br>
+        Введите в «E-mail» адрес Вашей электронной почты<br> и Вам будет отправлено письмо с инстркцией дальнейших действий!
+        <br>
+        <br>
+    </p>
     <ul>
         <li>
             <?php echo $form->labelEx($model,'email');?>

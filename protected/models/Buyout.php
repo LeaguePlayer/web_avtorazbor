@@ -21,6 +21,22 @@
 */
 class Buyout extends CActiveRecord
 {
+    
+    public function getBrandName()
+    {
+        return $this->car_brand->name;
+    }
+
+    public function getCarModelName()
+    {
+        return $this->car_model->name;
+    }
+
+    public function getTransmissionName()
+    {
+        return UsedCarInfo::transmissionList($this->transmission);
+    }
+
     public function tableName()
     {
         return '{{buyout}}';
@@ -31,7 +47,7 @@ class Buyout extends CActiveRecord
         return array(
             array('brand, year, transmission, car_model_id, status, sort', 'numerical', 'integerOnly'=>true),
             array('name, phone, email, capacity', 'length', 'max'=>255),
-            array('comment, create_time, update_time', 'safe'),
+            array('comment, brandName,carModelName, create_time, update_time', 'safe'),
             // The following rule is used by search().
             array('name, phone, email, car_model_id, year','required'),
             array('phone','match','pattern'=>'/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/','message'=>'Указанный вами номер верен'),
@@ -39,7 +55,6 @@ class Buyout extends CActiveRecord
             array('id, name, phone, email, brand, car_model_id, year, capacity, transmission, comment, status, sort, create_time, update_time', 'safe', 'on'=>'search'),
         );
     }
-
 
     public function relations()
     {
@@ -64,6 +79,8 @@ class Buyout extends CActiveRecord
         return $aliases;
     }
 
+
+
     public function attributeLabels()
     {
         return array(
@@ -71,6 +88,9 @@ class Buyout extends CActiveRecord
             'name' => 'Ваше имя',
             'phone' => 'Контактный телефон',
             'email' => 'E-mail',
+            'brandName'=>'Марка авто',
+            'carModelName'=>'Модель авто',
+            'transmissionName'=>'Тип КПП',
             'brand' => 'Марка авто',
             'car_model_id' => 'Модель авто',
             'year' => 'Год выпуска',
@@ -84,7 +104,6 @@ class Buyout extends CActiveRecord
         );
     }
 
-
     public function behaviors()
     {
         return CMap::mergeArray(parent::behaviors(), array(
@@ -95,7 +114,22 @@ class Buyout extends CActiveRecord
         			),
                     'notice'=>array(
                         'class'=>'NoticeBehavior',
-                        'type'=>'NoticeAdmin'
+                        'type'=>'NoticeAdmin',
+                        'noticeMap'=>array(
+                            'NoticeAdmin'=>array(
+                                'settingName'=>'admin_mail',
+                                'fields'=>array(
+                                    'id'=>false,
+                                    'status'=>false,
+                                    'sort'=>false,
+                                    'brand'=>false,
+                                    'transmission'=>false,
+                                    'car_model_id'=>false,
+                                    'create_time'=>false,
+                                    'update_time'=>false,
+                                ),
+                            ),
+                        ),
                     ),
                 )
             );

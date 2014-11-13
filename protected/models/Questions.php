@@ -17,6 +17,11 @@
 */
 class Questions extends EActiveRecord
 {
+
+    public function getThemeName(){
+        return self::Themes($this->theme);
+    }
+
     public function tableName()
     {
         return '{{questions}}';
@@ -39,6 +44,7 @@ class Questions extends EActiveRecord
     public function relations()
     {
         return array(
+
         );
     }
 
@@ -52,6 +58,7 @@ class Questions extends EActiveRecord
             'mail' => 'Электронная почта:',
             'question' => 'Ваш вопрос',
             'theme' => 'Тема письма',
+            'themeName' =>'Тема обащения',
             'status' => 'Статус',
             'sort' => 'Вес для сортировки',
             'create_time' => 'Дата создания',
@@ -70,10 +77,31 @@ class Questions extends EActiveRecord
         			),
                     'notice'=>array(
                         'class'=>'NoticeBehavior',
-                        'type'=>'NoticeAdmin'
+                        'type'=>'NoticeAdmin',
+                        'noticeMap'=>array(
+                            'NoticeAdmin'=>array(
+                                'settingName'=>'admin_mail',
+                                'fields'=>array(
+                                    'id'=>false,
+                                    'status'=>false,
+                                    'sort'=>false,
+                                    'theme',
+                                    'create_time'=>false,
+                                    'update_time'=>false,
+                                ),
+                            ),
+                        ),
                     ),
         ));
     }
+
+    public static function Themes($theme=null){
+        $themes=array(1=>'Автозапчасти',2=>'Автомобили',3=>'Другой вопрос');
+        if ($theme)
+            return $themes[$theme];
+        return $themes;
+    }
+
     public function search()
     {
         $criteria=new CDbCriteria;

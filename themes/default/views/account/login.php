@@ -34,16 +34,19 @@
                                 }
 
                                 $('.reg').empty().append(data.lk);
-                                $('.right.auth').slideUp().delay(200).remove();
-                                var li=$('.basket li').removeClass('active').eq(1);
-                                var width=li.removeClass('hide').width();
-                                li.addClass('active');
-                                $('.bascet:first').addClass('hide').removeClass('tab-active');
-                                $('#accept').addClass('tab-active').removeClass('hide');
-                                li.width(0);
-                                li.animate({width:width},200,function(){
-                                    li.css('width','auto')
-                                });
+                                if ($('.content .bascet').length)
+                                {
+                                    $('.right.auth').slideUp().delay(200).remove();
+                                    var li=$('.content .basket li').removeClass('active').eq(1);
+                                    var width=li.removeClass('hide').width();
+                                    li.addClass('active');
+                                    $('.bascet:first').addClass('hide').removeClass('tab-active');
+                                    $('#accept').addClass('tab-active').removeClass('hide');
+                                    li.width(0);
+                                    li.animate({width:width},200,function(){
+                                        li.css('width','auto')
+                                    });
+                                }
                                 $.fancybox.close();
                             } else {
                                 var error=data.error.email ? data.error.email : data.error.password;
@@ -75,8 +78,7 @@
             
         </li>
         <li>
-            <a href="/account/registration">Регистрация</a>
-            
+            <a href="/account/recoveryPassword">Забыли пароль?</a>
         </li>
     </ul>
     <?=CHtml::submitButton('Авторизироваться',array('class'=>'i-submit'))?>

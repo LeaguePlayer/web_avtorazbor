@@ -6,9 +6,9 @@
 
         ?>
 	<td>
-                <a href="<?=$imageBig?>" class="imgFancy">
-		      <img src="<?=$image?>" alt="" title="" />
-                </a>
+        <a href="<?=$imageBig?>" rel="1" class="imgFancy">
+	      <img src="<?=$image?>" alt="" title="" />
+        </a>
 	</td>
         <td class="articul">
                 <?=$data->id?>

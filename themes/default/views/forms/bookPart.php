@@ -3,7 +3,7 @@
 
             <dl>
                 <dt>
-                    Задать вопрос
+                    Заказать деталь
                 </dt>
                 <dd>
                     <span class="req">*</span>
@@ -31,7 +31,7 @@
                         success: function(data) {
                             console.log(data)
                             if ( data.success ) {
-                                window.location.href = '".$this->createUrl('/ajaxRequests/thanks')."';
+                                window.location.href = '".$this->createUrl('/page/thanks')."';
                             } else {
                                 
                             }
@@ -67,7 +67,7 @@
                     </li>
                     <li>
                         <?php echo $form->labelEx($model,'year');?>
-                        <?php echo $form->textArea($model,'year',array('class'=>'i-text','maxlength'=>255)); ?>
+                        <?php echo $form->textField($model,'year',array('class'=>'i-text','maxlength'=>255)); ?>
                         <?php echo $form->error($model,'year',array('style'=>'color:red;font-size:10px;'));?>
                     </li>
                     <li>

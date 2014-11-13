@@ -44,6 +44,7 @@ class Bookpart extends EActiveRecord
     public function relations()
     {
         return array(
+
         );
     }
 
@@ -78,10 +79,22 @@ class Bookpart extends EActiveRecord
                         'updateAttribute' => 'update_time',
         			),
                     'notice'=>array(
-                        'class'=>'NoticeBehavior',
-                        'type'=>'NoticeAdmin'
+                    'class'=>'NoticeBehavior',
+                    'noticeMap'=>array(
+                        'NoticeAdmin'=>array(
+                            'settingName'=>'admin_mail',
+                            'fields'=>array(
+                                'id'=>false,
+                                'status'=>false,
+                                'sort'=>false,
+                                'create_time'=>false,
+                                'update_time'=>false,
+                            ),
+                        ),
                     ),
-        ));
+                ),
+            )
+        );
     }
 
     public static function getStatusAliases($status = -1)
