@@ -27,7 +27,6 @@ class Questions extends EActiveRecord
         return '{{questions}}';
     }
 
-
     public function rules()
     {
         return array(
@@ -40,14 +39,12 @@ class Questions extends EActiveRecord
         );
     }
 
-
     public function relations()
     {
         return array(
 
         );
     }
-
 
     public function attributeLabels()
     {
@@ -65,7 +62,6 @@ class Questions extends EActiveRecord
             'update_time' => 'Дата последнего редактирования',
         );
     }
-
 
     public function behaviors()
     {
@@ -85,7 +81,7 @@ class Questions extends EActiveRecord
                                     'id'=>false,
                                     'status'=>false,
                                     'sort'=>false,
-                                    'theme',
+                                    'theme'=>false,
                                     'create_time'=>false,
                                     'update_time'=>false,
                                 ),

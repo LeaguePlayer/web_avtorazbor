@@ -222,7 +222,19 @@
 				$category=$this->category_id ? $this->category_id : ($this->parent  ? $this->parent : 0);
 				$params=$category ? array('model_id'=>$this->$column,'cat_id'=>$category) : $this->$column;
 				$column=$category ? 'model_cat' : $column;
-				$criteria=Parts::model()->search_parts($column,$params);
+				$this->criteria=Parts::model()->search_parts($column,$params);
+				if ($this->category_id)
+				{
+					$this->criteria->addCondition('category_id=:category');
+					$this->criteria->params[':category']=>$this->category_id;
+				}
+					
+				if ($this->parent)
+				{
+					$this->criteria->addCondition('parent=:parent');
+					$this->criteria->params[':parent']=>$this->parent;
+				}
+					
 			}
 			$criteria=$this->criteria;
 
