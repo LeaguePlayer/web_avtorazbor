@@ -96,7 +96,7 @@
                                 if (!Yii::app()->user->isAdmin){
                             ?>
                             <div class="submit">
-                                <a href="<?=$state ? '/cart' : '#'?>" class="i-submit inCart" data-state="<?=$state?>"  data-count="<?=Yii::app()->cart->getCount()?>" data-cost="<?=Yii::app()->cart->getCost()?>" data-price="<?=!$model->inCart() ? $model->getPrice() : ''?>"><?=$state ? 'Перейти в карзину' : 'В карзину' ?></a>
+                                <a href="<?=$state ? '/cart' : '#'?>" class="i-submit <?=!$state ? 'inCart' : ''?>" data-state="<?=$state?>"  data-count="<?=Yii::app()->cart->getCount()?>" data-cost="<?=Yii::app()->cart->getCost()?>" data-price="<?=!$model->inCart() ? $model->getPrice() : ''?>"><?=$state ? 'Перейти в карзину' : 'В карзину' ?></a>
                             </div>
                             <?}?>
                         </div>
