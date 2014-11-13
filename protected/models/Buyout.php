@@ -27,14 +27,14 @@ class Buyout extends CActiveRecord
         return $this->car_brand->name;
     }
 
+    public function getCarModelName()
+    {
+        return $this->car_model->name;
+    }
+
     public function getTransmissionName()
     {
         return UsedCarInfo::transmissionList($this->transmission);
-    }
-
-    public function getModelName()
-    {
-        return $this->car_model->name;
     }
 
     public function tableName()
@@ -47,7 +47,7 @@ class Buyout extends CActiveRecord
         return array(
             array('brand, year, transmission, car_model_id, status, sort', 'numerical', 'integerOnly'=>true),
             array('name, phone, email, capacity', 'length', 'max'=>255),
-            array('comment, create_time, update_time', 'safe'),
+            array('comment, brandName,carModelName, create_time, update_time', 'safe'),
             // The following rule is used by search().
             array('name, phone, email, car_model_id, year','required'),
             array('phone','match','pattern'=>'/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/','message'=>'Указанный вами номер верен'),
@@ -87,12 +87,12 @@ class Buyout extends CActiveRecord
             'id' => 'ID',
             'name' => 'Ваше имя',
             'phone' => 'Контактный телефон',
-            'transmissionName'=>'Тип КПП',
-            'brandName'=>'Марка авто',
             'email' => 'E-mail',
+            'brandName'=>'Марка авто',
+            'carModelName'=>'Модель авто',
+            'transmissionName'=>'Тип КПП',
             'brand' => 'Марка авто',
             'car_model_id' => 'Модель авто',
-            'Модель авто'=>'Марка авто',
             'year' => 'Год выпуска',
             'capacity' => 'Объем двигателя',
             'transmission' => 'Тип КПП',
@@ -116,15 +116,18 @@ class Buyout extends CActiveRecord
                         'class'=>'NoticeBehavior',
                         'type'=>'NoticeAdmin',
                         'noticeMap'=>array(
-                            'settingName'=>'admin_mail',
-                            'fields'=>array(
-                                'id'=>false,
-                                'status'=>false,
-                                'sort'=>false,
-                                'brand'=>false,
-                                'transmission'=>false,
-                                'car_model_id'=>false,
-                                'update_time'=>false,
+                            'NoticeAdmin'=>array(
+                                'settingName'=>'admin_mail',
+                                'fields'=>array(
+                                    'id'=>false,
+                                    'status'=>false,
+                                    'sort'=>false,
+                                    'brand'=>false,
+                                    'transmission'=>false,
+                                    'car_model_id'=>false,
+                                    'create_time'=>false,
+                                    'update_time'=>false,
+                                ),
                             ),
                         ),
                     ),

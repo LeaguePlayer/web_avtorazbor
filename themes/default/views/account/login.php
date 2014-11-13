@@ -78,8 +78,7 @@
             
         </li>
         <li>
-            <a href="/account/registration">Регистрация</a>
-            
+            <a href="/account/recoveryPassword">Забыли пароль?</a>
         </li>
     </ul>
     <?=CHtml::submitButton('Авторизироваться',array('class'=>'i-submit'))?>

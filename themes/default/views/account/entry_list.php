@@ -9,7 +9,7 @@
 						  <?
 						  	if ($models)
 						  	foreach ($models as $key => $value) {
-						  		echo $this->renderPartial('_BookList',array('data'=>$value));
+						  		echo $this->renderPartial('_bookList',array('data'=>$value));
 						  	}
 						  	else 
 						  		print('Для данного аккаунта не было найдено заявок!');

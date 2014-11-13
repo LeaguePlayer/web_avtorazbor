@@ -26,6 +26,10 @@ class Evackuator extends EActiveRecord
         return $this->Brand->name;
     }
 
+     public function getCarModelName(){
+        return $this->Model->name;
+    }
+
     public function tableName()
     {
         return '{{evackuator}}';
@@ -35,8 +39,8 @@ class Evackuator extends EActiveRecord
     public function rules()
     {
         return array(
-            array('name, phone, brand, modelName','required'),
-            array('status, sort', 'numerical', 'integerOnly'=>true),
+            array('name, phone, brand','required'),
+            array('status, sort, car_model_id', 'numerical', 'integerOnly'=>true),
             array('distance', 'numerical'),
             array('mail','match','pattern'=>'/[0-9a-z_]+@[-0-9a-z_^\.]+\.[a-z]{2,3}/i','message'=>'Введенный адрес не является адресмо электронной почты!'),
             array('name, phone, mail, brand, modelName, mass', 'length', 'max'=>255),
@@ -49,7 +53,7 @@ class Evackuator extends EActiveRecord
     public function relations()
     {
         return array(
-            'Model'=>array(self::BELONGS_TO,'CarModels','modelName'),
+            'Model'=>array(self::BELONGS_TO,'CarModels','car_model_id'),
             'Brand'=>array(self::BELONGS_TO,'CarBrands','brand'),
         );
     }
@@ -63,8 +67,8 @@ class Evackuator extends EActiveRecord
             'phone' => 'Контактный телефон',
             'mail' => 'E-mail',
             'brand' => 'Марка авто',
-            'modelName' => 'Модель авто',
-            'brandName' => 'Модель авто',
+            'carModelName' => 'Модель авто',
+            'brandName' => 'Марка авто',
             'mass' => 'Масса авто',
             'distance' => 'КМ',
             'status' => 'Статус',
@@ -86,14 +90,19 @@ class Evackuator extends EActiveRecord
             'notice'=>array(
                 'class'=>'NoticeBehavior',
                 'noticeMap'=>array(
-                    'settingName'=>'admin_mail',
-                    'fields'=>array(
-                        'id'=>false,
-                        'status'=>false,
-                        'sort'=>false,
-                        'brand'=>false,
-                        'car_model_id'=>false,
-                        'update_time'=>false,
+                    'NoticeAdmin'=>array(
+                        'settingName'=>'admin_mail',
+                        'fields'=>array(
+                            'id'=>false,
+                            'status'=>false,
+                            'sort'=>false,
+                            'brand'=>false,
+                            'transmission'=>false,
+                            'modelName'=>false,
+                            'car_model_id'=>false,
+                            'create_time'=>false,
+                            'update_time'=>false,
+                        ),
                     ),
                 ),
             ),

@@ -25,7 +25,7 @@ class Clients extends EActiveRecord
         return array(
             array('fio', 'required'),
             array('type, used_car_id', 'numerical', 'integerOnly'=>true),
-            array('fio, email, passport_num', 'length', 'max'=>255),
+            array('fio, email, passport_num,hash', 'length', 'max'=>255),
             array('email', 'email'),
             array('subscribe_news,subscribe_new','boolean'),
             array('phone', 'length', 'max'=>30),

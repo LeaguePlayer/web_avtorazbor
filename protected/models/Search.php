@@ -217,18 +217,25 @@
 				}
 			}
 
-			if (!$column){//если не выбран не 1 из критериев фильтра
+			if ($column){//если не выбран не 1 из критериев фильтра
 				$this->criteria->order=$this->sort;
-				return;
+				$category=$this->category_id ? $this->category_id : ($this->parent  ? $this->parent : 0);
+				$params=$category ? array('model_id'=>$this->$column,'cat_id'=>$category) : $this->$column;
+				$column=$category ? 'model_cat' : $column;
+				$criteria=Parts::model()->search_parts($column,$params);
 			}
+			$criteria=$this->criteria;
 
-			$category=$this->category_id ? $this->category_id : ($this->parent  ? $this->parent : 0);
-
-			$params=$category ? array('model_id'=>$this->$column,'cat_id'=>$category) : $this->$column;
-
-			$column=$category ? 'model_cat' : $column;
-			
-			$criteria=Parts::model()->search_parts($column,$params);
+			if ($this->price_st)
+			{
+				$criteria->addCondition('price_sell>=:price_st');
+				$criteria->params[':price_st']=$this->price_st;
+			}
+			if ($this->price_end)
+			{
+				$criteria->addCondition('price_sell<=:price_end');
+				$criteria->params[':price_end']=$this->price_end;
+			}
 			if ($this->car_model_id)
 			{	
 				$select="`t`.id,`t`.name,`t`.alias, `t`.price_sell,`t`.price_buy,`t`.comment,`t`.category_id,`t`.car_model_id,`t`.location_id,`t`.supplier_id,`t`.create_time,`t`.update_time,`t`.status";

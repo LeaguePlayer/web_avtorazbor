@@ -28,16 +28,15 @@
 			$model=$this->owner;
 			$subject='Новая заявка из раздела «'.$model->translition()."»";
 			$attributesLabels=$model->attributeLabels();
-
-			foreach ($model->attributes as $field => $value) {
+			foreach ($attributesLabels as $field => $value) {
 				if ($this->noticeMap[$this->type]['fields'][$field]===null)
 				{
-					$message.=$attributesLabels[$field].': '.$value.'<br>';
+					if ($model->$field)
+						$message.=$attributesLabels[$field].': '.$model->$field.'<br>';
 				}
 			}
-
 			$modelName=get_class($model);
-			$message.='<a href="/admin/'.$modelName.'/'.$this->viewAction.'/id/'.$model->id.'">Перейти к просмотру</a>';
+			$message.='<a href="'.Yii::app()->controller->createAbsoluteUrl('/').'/admin/'.$modelName.'/'.$this->viewAction.'/id/'.$model->id.'">Перейти к просмотру</a>';
 			$to=Settings::getValue($this->noticeMap[$this->type]['settingName']);
 			$from="Заявка с сайта «".Yii::app()->name."»";
 			SiteHelper::sendMail($subject,$message,$to,$from);

@@ -17,7 +17,7 @@ class EvackuatorController extends FrontController
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','nestedList'),
+				'actions'=>array('index','view','getModels'),
 				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
@@ -28,8 +28,19 @@ class EvackuatorController extends FrontController
 
 	public function actionGetModels(){
 
-		
+		$models=CarModels::model()->findAll('brand=:brand',array(':brand'=>$_POST['Evackuator']['brand']));
+		if ($models)
+		{
+			$models=array('empty'=>'Выберите модель авто')+CHtml::listData($models,'id','name');
+			foreach ($models as $value => $name) {
 
+				 echo CHtml::tag('option',
+                   array('value'=>$value),CHtml::encode($name),true);
+			}
+			Yii::app()->end();
+		}
+		echo '<option>Для данного бренда не было найдено автомобилей</option>';
+		Yii::app()->end();
 	}
 
 	public function actionView($id)

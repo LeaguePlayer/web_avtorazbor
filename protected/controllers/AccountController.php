@@ -16,11 +16,11 @@
 	    {
 	        return array(
 	            array('allow',
-	                'actions'=>array('login', 'registration'),
+	                'actions'=>array('login', 'registration','recoveryPassword'),
 	                'users'=>array('?'),
 	            ),
 	            array('deny',
-	                'actions'=>array('index','entry_list'),
+	                'actions'=>array('index','entry_list','RecoveryPassword'),
 	                'roles'=>array('isAdmin'),
 	            ),
 	            array('allow',
@@ -30,26 +30,42 @@
 
 	        );
 	    }
-	    public function actionChangePassword($hash=null){
+	    public function actionRecoveryPassword($hash=null){
 
 	    	$this->layout='//layouts/content';
-	    	$this->viewTitle="Смена пароля";
-	    	$ReplacePwd=new ReplacePwd;
-	    	if (!$hash)
+	    	$this->viewTitle="Восстановление пароля";
+	    	$RecoveryPassword=new RecoveryPassword;
+	    	$RecoveryPassword->hash=$hash;
+	    	$RecoveryPassword->validate();
+
+	    	if ($RecoveryPassword->errors['hash'] && $hash!=null)
+	    			throw new CHttpException(404,'Страница не найдена');
+
+	    	if ($hash===null)
 	    	{
-	    		if (isset($_POST['ReplacePwd']))
+	    		if (isset($_POST['RecoveryPassword']))
 	    		{
-	    			$ReplacePwd->attributes=$_POST['ReplacePwd'];
-	    			if ($ReplacePwd->validate())
+	    			$RecoveryPassword->attributes=$_POST['RecoveryPassword'];
+	    			if ($RecoveryPassword->validate())
 	    			{
-	    				$ReplacePwd->save();
-	    				$this->redirect(array('/page/changePwd_instructions'));
+	    				$RecoveryPassword->sandHash();
+	    				$this->redirect(array('/page/recover_password_instructions'));
 	    			}
 	    		}
-	    		$this->render('changePwd',array('model'=>$ReplacePwd));
+	    		$this->render('recoveryPassword',array('model'=>$RecoveryPassword));
 	    	} else {
-	    		$ReplacePwd->hash=$hash;
-	    		$this->render('changePwdHash',array('model'=>$ReplacePwd));
+	    		if (isset($_POST['RecoveryPassword'])){
+
+	    			$RecoveryPassword->attributes=$_POST['RecoveryPassword'];
+	    			if ($RecoveryPassword->validate())
+	    			{
+	    				if ($RecoveryPassword->changePwd()){
+	    					$this->redirect(array('/page/password_changed'));
+	    				}
+	    			}
+	    			
+	    		}
+	    		$this->render('recoveryPasswordHash',array('model'=>$RecoveryPassword));
 	    	}
 	    }
 		public function actionIndex()

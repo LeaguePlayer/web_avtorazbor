@@ -144,6 +144,7 @@ return array(
                 'gii'=>'gii',
                 'admin'=>'admin/start/index',
                 '/'=>'site/index',
+                'account/recoveryPassword/<hash:\w+>'=>'account/recoveryPassword',
                 'detail/<brand:\w+>/<model:\w+>/<category:\w+>/<id:\d+>'=>'detail/view',
                 'catalog/<brand:\w+>/<model:\w+>/<id:\d+>'=>'catalog/car',
                 'page/service'=>'page/service',
