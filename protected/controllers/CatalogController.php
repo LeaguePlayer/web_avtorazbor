@@ -38,8 +38,8 @@ class CatalogController extends FrontController
 		{
 
 			$cs = Yii::app()->clientScript;
-			$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js?v=1', CClientScript::POS_END);
-			$cs->registerScriptFile($this->getAssetsUrl().'/js/Catalog.js?v=1', CClientScript::POS_END);
+			$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js?v=2', CClientScript::POS_END);
+			$cs->registerScriptFile($this->getAssetsUrl().'/js/Catalog.js?v=2', CClientScript::POS_END);
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.scrollTo.min.js', CClientScript::POS_END);
 
 			$searchForm=new Search;
@@ -129,8 +129,8 @@ class CatalogController extends FrontController
 	{
 		$cs = Yii::app()->clientScript;
 		
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/Catalog.js', CClientScript::POS_END);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js?v=1', CClientScript::POS_END);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/Catalog.js?v=2', CClientScript::POS_END);
 
 		$model=UsedCars::model()->find('id=:id',array(':id'=>$id));
 

@@ -37,7 +37,7 @@ class NewsController extends FrontController
 	public function actionIndex()
 	{
 		$cs = Yii::app()->clientScript;
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/tabNews.js?v=1', CClientScript::POS_END);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/tabNews.js?v=2', CClientScript::POS_END);
 
 		$criteriaCars=new CDbCriteria;
 		$criteriaCars->order="id desc";

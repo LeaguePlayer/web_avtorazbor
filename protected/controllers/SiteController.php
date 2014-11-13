@@ -29,9 +29,8 @@ class SiteController extends FrontController
 		if (!Yii::app()->request->isAjaxRequest)
 		{
 			$cs = Yii::app()->clientScript; 
-			$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js?v=1', CClientScript::POS_END);
-			$cs->registerScriptFile($this->getAssetsUrl().'/js/main.js?v=1', CClientScript::POS_END);
-			$news=new News;
+			$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js?v=2', CClientScript::POS_END);
+			$cs->registerScriptFile($this->getAssetsUrl().'/js/main.js?v=2', CClientScript::POS_END);
 			$Brands=CHtml::listData(CarBrands::model()->findAll(UsedCars::getExistsData(null,null,'brand')),'id','name');
 
 			$BrandsWeightCars=UsedCars::getExistsData(null,null,'brand',2);
@@ -66,6 +65,25 @@ class SiteController extends FrontController
 				'pagination'=>false
 			));
 
+			$criteriaCars=new CDbCriteria;
+			$criteriaCars->order="id desc";
+			$criteriaCars->limit="20";
+			$criteriaCars->addCondition('status=2');
+			
+			$criteriaRazbor=new CDbCriteria;
+			$criteriaRazbor->limit="20";
+			$criteriaRazbor->order="id desc";
+			$criteriaRazbor->addCondition('status=1');
+			$razbor=new CActiveDataProvider('UsedCars',array(
+					'criteria'=>$criteriaRazbor,
+
+				)
+			);
+			$cars=new CActiveDataProvider('UsedCars',array(
+					'criteria'=>$criteriaCars,
+				)
+			);
+
 			$this->render('index',
 				array(
 					'Brands'=>$Brands,
@@ -79,18 +97,17 @@ class SiteController extends FrontController
 					'State'=>$State,
 					'dataProviderCar'=>$dataProviderCar,
 					'searchForm'=>$searchForm,
-					'newCars'=>UsedCars::model()->search()
+					'razbor'=>$razbor,'cars'=>$cars
 				)
 			);
-			
 		} else {
 			if (isset($_GET['Search']))
 			{
-
 				$searchForm->attributes=$_GET['Search'];
 				$searchForm->validate();
-				$model=$_GET['Search']['scenario']=='light' || $_GET['Search']['scenario']=='weight' ? 'UsedCars' : 'Parts';
 				$searchForm->criteria->limit=20;
+				$model=$_GET['Search']['scenario']=='light' || $_GET['Search']['scenario']=='weight' ? 'UsedCars' : 'Parts';
+
 				$dataProvider=new CActiveDataProvider($model,
 					array(
 						'criteria'=>$searchForm->criteria,

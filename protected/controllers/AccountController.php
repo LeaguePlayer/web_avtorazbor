@@ -206,7 +206,7 @@
 		{
 			$this->breadcrumbs=array('Личный кабинет'=>'/account/', 'Список заказов');
 			$cs = Yii::app()->clientScript;
-			$cs->registerScriptFile($this->getAssetsUrl('application').'/js/cart.js?v=1', CClientScript::POS_END);
+			$cs->registerScriptFile($this->getAssetsUrl('application').'/js/cart.js?v=2', CClientScript::POS_END);
 			$client=Clients::model()->findByPk(Yii::app()->user->id);
 
 			$this->render('entry_list',array('models'=>$client->requests));

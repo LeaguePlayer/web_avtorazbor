@@ -48,8 +48,26 @@ class PageController extends FrontController
 		$this->modelName="Все услуги";
 		$this->alias='service';
 		$this->breadcrumbs=array('Все услуги');
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/pageService.js', CClientScript::POS_END);
-		$this->render('service',array('news'=>new News));
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/pageService.js?v=2', CClientScript::POS_END);
+		$criteriaCars=new CDbCriteria;
+		$criteriaCars->order="id desc";
+		$criteriaCars->limit="20";
+		$criteriaCars->addCondition('status=2');
+		
+		$criteriaRazbor=new CDbCriteria;
+		$criteriaRazbor->limit="20";
+		$criteriaRazbor->order="id desc";
+		$criteriaRazbor->addCondition('status=1');
+		$razbor=new CActiveDataProvider('UsedCars',array(
+				'criteria'=>$criteriaRazbor,
+
+			)
+		);
+		$cars=new CActiveDataProvider('UsedCars',array(
+				'criteria'=>$criteriaCars,
+			)
+		);
+		$this->render('service',array('news'=>new News,'cars'=>$cars,'razbor'=>$razbor));
 	}
 	
 	public function actionIndex()
