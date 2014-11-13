@@ -226,13 +226,13 @@
 				if ($this->category_id)
 				{
 					$this->criteria->addCondition('category_id=:category');
-					$this->criteria->params[':category']=>$this->category_id;
+					$this->criteria->params[':category']=$this->category_id;
 				}
 					
 				if ($this->parent)
 				{
 					$this->criteria->addCondition('parent=:parent');
-					$this->criteria->params[':parent']=>$this->parent;
+					$this->criteria->params[':parent']=$this->parent;
 				}
 					
 			}
