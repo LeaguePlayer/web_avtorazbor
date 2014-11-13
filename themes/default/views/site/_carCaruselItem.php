@@ -1,6 +1,6 @@
 <div>
     <?
-        $image=$data->getImageUrl('small') ? $data->getImageUrl('small') : '/media/images/usedcars/default.jpg';
+        $image=$data->getImageUrl() ? $data->getImageUrl('small') : '/media/images/usedcars/default.jpg';
         //$image='/media/car.png';
     ?>
     <a href="/catalog/<?=$data->url?>/<?=$data->id?>"><img src="<?=$image?>" alt="" title="" /></a>

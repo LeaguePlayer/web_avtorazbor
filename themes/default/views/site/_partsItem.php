@@ -1,9 +1,6 @@
 <?
-    $gallery=$data->getGallery()->galleryPhotos;
-	//$image=$gallery ? $gallery[0]->getUrl('small') : '/media/images/parts/default.jpg';
-	$image=$gallery ? $gallery[0]->getUrl('small') : '/media/images/parts/default.jpg';
-        // $image='/media/car.png';
-        // $imageBig='/media/car.png';
+	$glr=$data->getGallery()->galleryPhotos;
+    $image=$glr ? $glr[0]->getUrl('small') : '/media/images/parts/default.png';
 ?>
 <div>
     <a href="/detail/<?=$data->url?>/<?=$data->id?>"><img src="<?=$image?>" alt="" title="" /></a>
