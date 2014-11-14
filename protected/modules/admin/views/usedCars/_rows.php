@@ -11,7 +11,7 @@
 
 	<?php echo $form->textFieldControlGroup($model,'name',array('class'=>'span8 name','maxlength'=>255)); ?>	
 	<?php echo $form->textFieldControlGroup($model,'alias',array('class'=>'span8 alias','maxlength'=>255)); ?>	
-
+	
 	<div class="control-group">
 		<label class="control-label" for="UsedCars_car_model_id"><?=$model->getAttributeLabel('car_model_id')?></label>
 		<div class="controls">

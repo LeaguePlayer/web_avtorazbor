@@ -8,7 +8,7 @@
 
 	<?php $tabs = array(); ?>
 	<?php $tabs[] = array('label' => 'Основные данные', 'content' => $this->renderPartial('_rows', array('form'=>$form, 'model' => $model, 'dop' => $dop, 'owner' => $owner), true), 'active' => true); ?>
-	
+	<?php $tabs[] = array('label' => 'Галерея', 'content' => $this->renderPartial('_gallery', array('form'=>$form, 'model' => $model, 'dop' => $dop, 'owner' => $owner), true), 'active' => false); ?>
 	<?php $this->widget('bootstrap.widgets.TbTabs', array( 'tabs' => $tabs)); ?>
 
 	<div class="form-actions">

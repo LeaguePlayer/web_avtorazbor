@@ -13,8 +13,32 @@
                     <div class="big-img">
                         <?
                             $image=$model->getImageUrl('medium') ? $model->getImageUrl('medium') : '/media/images/default.png';
+                            $gallery=$model->getGallery()->galleryPhotos;
                         ?>
                         <a class="imgFancy" href="<?=$model->getImageUrl() ? $model->getImageUrl() : '/media/images/default.png' ?>"><img width="331" height="192" src="<?=$image?>" alt="" title="" /></a>
+                    </div>
+                    <div class="min-img">
+                    <?
+                        if ($gallery)
+                        {
+                    ?>
+                        <ul>
+                            <?
+                            $counter=0;
+                               foreach ($gallery as $key => $data) {
+
+                                    if (($counter+=1)<6)
+                                    {
+                                        ?>
+                                        <a class="imgFancy" rel="1" href="<?=$data->getUrl('big')?>">
+                                            <img width="100" height="60" src="<?=$data->getUrl('small')?>" />
+                                        </a>
+                                        <?
+                                    }
+                                }
+                            ?>
+                        </ul>
+                    <?}?>
                     </div>
                 </div>
 

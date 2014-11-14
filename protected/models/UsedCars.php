@@ -137,7 +137,7 @@ class UsedCars extends EActiveRecord
     {
         return array(
             array('car_model_id, vin, name, price, force', 'required'),
-            array('car_model_id, status, buyer_id', 'numerical', 'integerOnly'=>true),
+            array('car_model_id, status, buyer_id, gallery_id', 'numerical', 'integerOnly'=>true),
             array('name, alias', 'length', 'max'=>255),
             array('vin', 'length', 'max'=>20),
             array('price', 'length', 'max'=>10),
@@ -168,7 +168,27 @@ class UsedCars extends EActiveRecord
                         'adaptiveResize' => array(200,120),
                     )
                 ),
-            )
+            ),
+            'galleryBehaviorGallery' => array(
+                'class' => 'appext.imagesgallery.GalleryBehavior',
+                'idAttribute' => 'gallery_id',
+                'versions' => array(
+                    'small' => array(
+                        'adaptiveResize' => array(135, 90),
+                    ),
+                    'medium' => array(
+                        'resize' => array(600, 400),
+                    ),
+                    'view'=>array(
+                        'resize' => array(331)
+                    ),
+                    'original' => array(
+                        'resize' => array(1200)
+                    ),
+                ),
+                'name' => false,
+                'description' => false,
+            ),
         ));
     }
 
@@ -200,6 +220,7 @@ class UsedCars extends EActiveRecord
             'enter_date' => 'Дата поступления',
             'name' => 'Марка, модель (как в ПТС)',
             'img_preview'=>'фотом машины',
+            'gallery_id' => 'Галерея',
             'bascet'=>'Тип кузова',
             'force'=>'Мощность двигателя (л.с.)'
         );
