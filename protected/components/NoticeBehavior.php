@@ -15,14 +15,15 @@
 
 			$modelName=strtolower(get_class($this->owner));
 			$template=EmailTemplates::model()->findByAttributes(array('model_name'=>$modelName));
-			$message=$template->$contentField;
+			$field=$this->contentField;
+			$message=$template->$field;
 			$to=Settings::getValue($this->noticeMap[$this->type]['settingName']);
 			$from="Заявка с сайта «".Yii::app()->name."»";
 
 			foreach ($this->owner->attributeLabels() as $key => $label) {
-				$message=str_replace("{{$key}}", $label, $message);
+				$message=str_replace("{{$key}}", $this->owner->$key, $message);
 			}
-			SiteHelper::sendMail($subject,$message,$to,$from);
+			SiteHelper::sendMail($template->subject,$message,$to,$from);
 		}
 
 		public function AfterSave($event){

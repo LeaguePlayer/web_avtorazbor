@@ -22,16 +22,7 @@
 
 	<?php echo $form->textFieldControlGroup($model,'type_ts',array('class'=>'span8','maxlength'=>255)); ?>
 
-	<div class='control-group'>
-		<?php echo CHtml::activeLabelEx($model, 'passport_ts'); ?>
-		<?php
-			$this->widget('CMaskedTextField', array(
-			'model' => $model,
-			'attribute' => 'passport_ts',
-			'mask' => '**** 999999'));
-		?>
-		<?php echo $form->error($model, 'passport_ts'); ?>
-	</div>
+	<?php echo $form->textFieldControlGroup($model,'passport_ts',array('class'=>'span8'))?>
 
 	<?php //echo $form->textFieldControlGroup($model,'passport_ts',array('class'=>'span8','maxlength'=>255)); ?>
 

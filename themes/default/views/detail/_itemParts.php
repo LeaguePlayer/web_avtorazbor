@@ -1,4 +1,5 @@
 	<?
+		$data=Parts::model()->findByPk($data['id']);
 		$glr=$data->getGallery()->galleryPhotos;
 		$image=$glr ? $glr[0]->getUrl('small') : '/media/images/parts/default.png';
 	?>
