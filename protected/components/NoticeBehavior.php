@@ -4,7 +4,7 @@
 
 		public $type='NoticeAdmin';
 		public $viewAction='view';
-		public $contentField="content",
+		public $contentField="content";
 		public $noticeMap=array(
 			'NoticeAdmin'=>array(
 				'settingName'=>'admin_mail',

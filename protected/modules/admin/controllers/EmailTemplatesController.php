@@ -5,7 +5,7 @@ class EmailTemplatesController extends AdminController
 	public function actionGetAttributes($model){
 
 		$modelMap=array(
-			'questions'=>'Question',
+			'questions'=>'Questions',
 			'ownprice'=>'Ownprice',
 			'bookpart'=>'Bookpart',
 			'evackuator'=>'Evackuator',
