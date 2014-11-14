@@ -39,10 +39,11 @@
 	<div class="labels">
 
 	</div>
-	<div class='control-group'>
+	<?php echo $form->textFieldControlGroup($model,'content',array('class'=>'span8')); ?>
+	<!-- <div class='control-group'>
 		<?php echo CHtml::activeLabelEx($model, 'content'); ?>
 		<?php $this->widget('appext.ckeditor.CKEditorWidget', array('model' => $model, 'attribute' => 'content',
 		)); ?>
 		<?php echo $form->error($model, 'content'); ?>
-	</div>
+	</div> -->
 
