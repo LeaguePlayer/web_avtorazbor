@@ -8,7 +8,7 @@ class UploadableImageBehavior extends CActiveRecordBehavior
      * @var string название атрибута, хранящего в себе имя файла и файл
      */
     public $attributeName='image';
-
+    public $saveOriginal=false;
     /**
      * @var string алиас директории, куда будем сохранять файлы (убедись, что директория существует)
      */
@@ -57,7 +57,6 @@ class UploadableImageBehavior extends CActiveRecordBehavior
             }
             $this->absoluteSavePath = $path;
         }
-
         return $this->absoluteSavePath;
     }
 
@@ -71,7 +70,6 @@ class UploadableImageBehavior extends CActiveRecordBehavior
             }
             $this->absoluteThumbsPath = $path;
         }
-        
         return $this->absoluteThumbsPath;
     }
 
@@ -88,23 +86,46 @@ class UploadableImageBehavior extends CActiveRecordBehavior
         if(in_array($owner->scenario,$this->scenarios)){
             // добавляем валидатор файла
             $fileValidator=CValidator::createValidator('file',$owner,$this->attributeName,
-                array('types'=>$this->fileTypes,'allowEmpty'=>true));
+                array('types'=>$this->fileTypes,'allowEmpty'=>true,'safe'=>false));
             $owner->validatorList->add($fileValidator);
         }
     }
 
     // имейте ввиду, что методы-обработчики событий в поведениях должны иметь
     // public-доступ начиная с 1.1.13RC
+
     public function beforeSave($event){
+
+        set_time_limit(180);
         if(in_array($this->owner->scenario,$this->scenarios) &&
             ($file=CUploadedFile::getInstance($this->owner,$this->attributeName))){
             $this->processDelete(); // старые файлы удалим, потому что загружаем новый
+
             $fileName = SiteHelper::genUniqueKey().'.'.$file->extensionName;
             $this->owner->setAttribute($this->attributeName,$fileName);
             $file->saveAs($this->getAbsoluteSavePath().DIRECTORY_SEPARATOR.$fileName);
             $this->createThumbs($this->getAbsoluteSavePath(), $fileName);
+
+            if (!$this->saveOriginal)
+            {
+                $this->replaceOriginal($this->getAbsoluteSavePath(),$fileName);
+            }
         }
+        set_time_limit(30);
         return true;
+    }
+
+    public function replaceOriginal($filePath,$fileName,$_version=980)
+    {
+        if (file_exists($filePath.DIRECTORY_SEPARATOR.$fileName))
+        {
+            $savePath = $this->getAbsoluteSavePath();
+            $thumb = new EPhpThumb();
+            $thumb->init();
+            $image = $thumb->create($filePath.DIRECTORY_SEPARATOR.$fileName);
+            call_user_func_array(array($image, 'resize'), array($_version));
+            $image->save($savePath.DIRECTORY_SEPARATOR.$fileName);    
+        }
     }
 
     // имейте ввиду, что методы-обработчики событий в поведениях должны иметь
@@ -171,10 +192,11 @@ class UploadableImageBehavior extends CActiveRecordBehavior
 
     public function getImageUrl($version = false)
     {
+        $ownerName=strtolower((get_class($this->owner)));
         if ($version) {
             return '/'.$this->getThumbsUrl().'/'.$version.'_'.$this->owner->getAttribute($this->attributeName);
         } else {
-            return '/'.$this->saveUrl.'/'.strtolower(get_class($this->owner)).'/'.$this->owner->getAttribute($this->attributeName);
+            return '/'.$this->saveUrl.'/'.$ownerName.'/'.$this->owner->getAttribute($this->attributeName);
         }
     }
 }
