@@ -4,42 +4,32 @@
 
 		public $type='NoticeAdmin';
 		public $viewAction='view';
+		public $contentField="content",
 		public $noticeMap=array(
 			'NoticeAdmin'=>array(
 				'settingName'=>'admin_mail',
-					'fields'=>array(
-					'id'=>false,
-					'status'=>false,
-	            	'sort'=>false,
-	            	//'create_time',
-	            	'update_time'=>false,
 				),
 
 			)
 		); //admin_notice - уникальное имя настройки из таблицы Settings
 
+		public function sand(){
+
+			$modelName=strtolower(get_class($this->owner));
+			$template=EmailTemplates::model()->findByAttributes('model_name'=>$model_name);
+			$message=$template->$contentField;
+			$to=Settings::getValue($this->noticeMap[$this->type]['settingName']);
+			$from="Заявка с сайта «".Yii::app()->name."»";
+
+			foreach ($this->owner->attributeLabels() as $key => $label) {
+				$message=str_replace("{{$key}}", $label, $message);
+			}
+			SiteHelper::sendMail($subject,$message,$to,$from);
+		}
+
 		public function AfterSave($event){
 			parent::afterSave($event);
 			$this->sand();
-		}
-
-		public function sand(){
-			
-			$model=$this->owner;
-			$subject='Новая заявка из раздела «'.$model->translition()."»";
-			$attributesLabels=$model->attributeLabels();
-			foreach ($attributesLabels as $field => $value) {
-				if ($this->noticeMap[$this->type]['fields'][$field]===null)
-				{
-					if ($model->$field)
-						$message.=$attributesLabels[$field].': '.$model->$field.'<br>';
-				}
-			}
-			$modelName=get_class($model);
-			$message.='<a href="'.Yii::app()->controller->createAbsoluteUrl('/').'/admin/'.$modelName.'/'.$this->viewAction.'/id/'.$model->id.'">Перейти к просмотру</a>';
-			$to=Settings::getValue($this->noticeMap[$this->type]['settingName']);
-			$from="Заявка с сайта «".Yii::app()->name."»";
-			SiteHelper::sendMail($subject,$message,$to,$from);
 		}
 	}
 ?>
