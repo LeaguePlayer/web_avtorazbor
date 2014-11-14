@@ -9,8 +9,6 @@
 			'NoticeAdmin'=>array(
 				'settingName'=>'admin_mail',
 				),
-
-			)
 		); //admin_notice - уникальное имя настройки из таблицы Settings
 
 		public function sand(){
