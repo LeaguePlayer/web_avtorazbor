@@ -1,6 +1,7 @@
 <li>
-	<?
-		$image=$data->img_preview ? $data->getImageUrl('small') : '/media/images/usedcars/default.png';
+	 <?
+	    $glr=$data->getGallery()->galleryPhotos;
+	    $image= $glr ? $glr[0]->getUrl('small') : '/media/images/usedcars/default.jpg';
 	?>
 	<a href="/catalog/<?=$data->url?>/<?=$data->id?>">
 		<img src="<?=$image?>" alt="" title="" />

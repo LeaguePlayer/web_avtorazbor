@@ -1,9 +1,10 @@
 <?
+    $data=Parts::model()->findByPk($data['id']);
 	$glr=$data->getGallery()->galleryPhotos;
     $image=$glr ? $glr[0]->getUrl('small') : '/media/images/parts/default.png';
 ?>
 <div>
-    <a href="/detail/<?=$data->url?>/<?=$data->id?>"><img src="<?=$image?>" alt="" title="" /></a>
+    <a href="/detail/<?=$data->url?>/<?=$data->id?>"><img src="<?=$image?>" alt="" title="" data-glr="<?=count($glr)?>"/></a>
     
     <a href="/detail/<?=$data->url?>/<?=$data->id?>" class="link">
         <?=$data->car_model->name.' '.$data->category->name?>

@@ -28,6 +28,7 @@
 			$this->widget('CMaskedTextField', array(
 			'model' => $model,
 			'attribute' => 'passport_ts',
+			'charMap' =>array('a'=>'a'),
 			'mask' => '**** 999999'));
 		?>
 		<?php echo $form->error($model, 'passport_ts'); ?>

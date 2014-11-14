@@ -1,6 +1,8 @@
 <div>
-    <?
-        $image=$data->getImageUrl() ? $data->getImageUrl('small') : '/media/images/usedcars/default.jpg';
+    <? 
+        $data=UsedCars::model()->findByPk($data['id']);
+        $glr=$data->getGallery()->galleryPhotos;
+        $image= $glr ? $glr[0]->getUrl('small') : '/media/images/usedcars/default.jpg';
         //$image='/media/car.png';
     ?>
     <a href="/catalog/<?=$data->url?>/<?=$data->id?>"><img src="<?=$image?>" alt="" title="" /></a>
