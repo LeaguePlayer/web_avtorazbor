@@ -12,7 +12,7 @@
                 <div class="gallery">
                     <div class="big-img">
                         <?
-                            $image=$model->getImageUrl('medium') ? $model->getImageUrl('medium') : '/media/images/default.png';
+                            $image=$gallery[0] ? $gallery[0]->getUrl('medium') : '/media/images/default.png';
                             $gallery=$model->getGallery()->galleryPhotos;
                         ?>
                         <a class="imgFancy" href="<?=$gallery[0] ? $gallery[0]->getUrl('original') : '/media/images/default.png' ?>"><img width="331" height="192" src="<?=$image?>" alt="" title="" /></a>
