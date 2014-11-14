@@ -14,7 +14,7 @@
 		public function sand(){
 
 			$modelName=strtolower(get_class($this->owner));
-			$template=EmailTemplates::model()->findByAttributes('model_name'=>$model_name);
+			$template=EmailTemplates::model()->findByAttributes(array('model_name'=>$modelName));
 			$message=$template->$contentField;
 			$to=Settings::getValue($this->noticeMap[$this->type]['settingName']);
 			$from="Заявка с сайта «".Yii::app()->name."»";
