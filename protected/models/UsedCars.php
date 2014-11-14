@@ -182,6 +182,9 @@ class UsedCars extends EActiveRecord
                     'view'=>array(
                         'resize' => array(331)
                     ),
+                    'big' => array(
+                        'resize' => array(1000, 1000)
+                    ),
                     'original' => array(
                         'resize' => array(1200)
                     ),
