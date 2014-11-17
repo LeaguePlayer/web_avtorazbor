@@ -23,7 +23,7 @@ class DetailController extends FrontController
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','parts','AjaxUpdate','disc','addToCart'),
+				'actions'=>array('index','view','parts','AjaxUpdate','disc','addToCart','testApi'),
 				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
@@ -31,7 +31,14 @@ class DetailController extends FrontController
 			),	
 		);
 	}
-	
+
+	public function actionTestApi($id){
+		
+		$model=Parts::model()->findByPk($id);
+
+		$this->render('testApi',array('model'=>$model));
+	}
+
 	public function actionIndex()
 	{
 		$cs = Yii::app()->clientScript;

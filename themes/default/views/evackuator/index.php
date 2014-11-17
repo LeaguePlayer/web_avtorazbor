@@ -90,30 +90,25 @@
 		</div>
 		<br>
 		<div class="desc">
-			<p style="outline: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(9, 9, 9); font-family: Arial, Helvetica, sans-serif;">Если вы хотите заказать эвакуатор по Екатеринбургу, Березовскому или для транспортировки авто&nbsp; по Свердловской области. Мы поможем вам быстро и дешево.</p>
-
-<h2 style="outline: 0px; font-size: 22px; font-family: Arial, Helvetica, sans-serif; font-weight: normal; line-height: normal; margin-top: 30px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(131, 111, 68);">Услуги грузового автоэвакуатора</h2>
-
-<ul style="outline: 0px; margin-top: 9px; margin-bottom: 20px; margin-left: 0px; border: 0px; vertical-align: baseline; color: rgb(9, 9, 9); font-family: Arial, Helvetica, sans-serif; line-height: normal;">
-	<li style="outline: 0px; margin: 0px; padding: 0px 0px 10px 28px; border: 0px; vertical-align: baseline; list-style: none; background: url(http://razbor66.ru/Content/images/line.png) 0px 10px no-repeat;"><strong style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline;">Время заказа</strong>: с 9 до 20 часов.</li>
-	<li style="outline: 0px; margin: 0px; padding: 0px 0px 10px 28px; border: 0px; vertical-align: baseline; list-style: none; background: url(http://razbor66.ru/Content/images/line.png) 0px 10px no-repeat;"><strong style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline;">Цена услуги</strong>: договорная, минимальный заказ от 1 300 рублей. Стоимость уточняйте по телефону.</li>
-	<li style="outline: 0px; margin: 0px; padding: 0px 0px 10px 28px; border: 0px; vertical-align: baseline; list-style: none; background: url(http://razbor66.ru/Content/images/line.png) 0px 10px no-repeat;"><strong style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline;">Грузоподъемность</strong>&nbsp;эвакуатора&nbsp;<span style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; background-color: rgb(201, 215, 241);">Hyundai</span>&nbsp;HD-78 -&nbsp; 3,5 тонны</li>
-</ul>
-
-<h2 style="outline: 0px; font-size: 22px; font-family: Arial, Helvetica, sans-serif; font-weight: normal; line-height: normal; margin-top: 30px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(131, 111, 68);">Номер телефона для вызова эвакуатора: +7 (343) 201-36-06</h2>
-
-<p style="outline: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(9, 9, 9); font-family: Arial, Helvetica, sans-serif;">Служба автоэвакуации &laquo;Разбор66&raquo; предлагает следующие услуги:</p>
-
-<ul style="outline: 0px; margin-top: 9px; margin-bottom: 20px; margin-left: 0px; border: 0px; vertical-align: baseline; color: rgb(9, 9, 9); font-family: Arial, Helvetica, sans-serif; line-height: normal;">
-	<li style="outline: 0px; margin: 0px; padding: 0px 0px 10px 28px; border: 0px; vertical-align: baseline; list-style: none; background: url(http://razbor66.ru/Content/images/line.png) 0px 10px no-repeat;"><span class="black" style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(0, 0, 0) !important;">эвакуацию легковых автомобилей с поломками (в том&nbsp; числе аварийных);</span></li>
-	<li style="outline: 0px; margin: 0px; padding: 0px 0px 10px 28px; border: 0px; vertical-align: baseline; list-style: none; background: url(http://razbor66.ru/Content/images/line.png) 0px 10px no-repeat;"><span class="black" style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(0, 0, 0) !important;">перевозку автомобилей в любом состоянии без сопровождения собственником;</span></li>
-	<li style="outline: 0px; margin: 0px; padding: 0px 0px 10px 28px; border: 0px; vertical-align: baseline; list-style: none; background: url(http://razbor66.ru/Content/images/line.png) 0px 10px no-repeat;"><span class="black" style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(0, 0, 0) !important;">перевозку спортивных автомобилей с малым дорожным просветом;</span></li>
-	<li style="outline: 0px; margin: 0px; padding: 0px 0px 10px 28px; border: 0px; vertical-align: baseline; list-style: none; background: url(http://razbor66.ru/Content/images/line.png) 0px 10px no-repeat;"><span class="black" style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(0, 0, 0) !important;">эвакуацию и транспортировку квадроциклов, мототехники и снегоходов;</span></li>
-	<li style="outline: 0px; margin: 0px; padding: 0px 0px 10px 28px; border: 0px; vertical-align: baseline; list-style: none; background: url(http://razbor66.ru/Content/images/line.png) 0px 10px no-repeat;"><span class="black" style="outline: 0px; margin: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(0, 0, 0) !important;">услугу &laquo;трезвый водитель&raquo;.</span></li>
-</ul>
-
-<p style="outline: 0px; padding: 0px; border: 0px; vertical-align: baseline; color: rgb(9, 9, 9); font-family: Arial, Helvetica, sans-serif;">Звоните, и мы поможем вам в любой ситуации!</p>
-
+			<p>Хотите заказать эвакуатор по Тюмени и Тюменской области? &nbsp;Мы поможем вам быстро и</p>
+			<p>недорого.</p>
+			<p>&nbsp; &nbsp;&bull; Эвакуатор круглосуточно и без выходных.</p>
+			<p>&nbsp; &nbsp;&bull; Оперативная подача эвакуатора.</p>
+			<p>&nbsp; &nbsp;&bull; Эвакуация авто по Тюмени и близлежащим областям.</p>
+			<p>Номер телефона для вызова эвакуатора: +7 (9088) 73-55-73; +7 (9044) 96-44-00</p>
+			<p>Служба автоэвакуации &laquo;Авторазбор72&raquo; предлагает следующие услуги:</p>
+			<p>&nbsp; &nbsp;&bull; эвакуация легковых автомобилей с поломками, &nbsp;аварийных после ДТП</p>
+			<p>&nbsp; &nbsp;&bull; перевозка автомобилей в любом состоянии без сопровождения собственником</p>
+			<p>&nbsp; &nbsp;&bull; перевозка спортивных автомобилей до мест проведения соревнований</p>
+			<p>&nbsp; &nbsp;&bull; эвакуация и транспортировка мототехники и снегоходов квадроциклов</p>
+			<p>Услуги автоэвакуатора в Тюмени</p>
+			<p>&nbsp; &nbsp;&bull;&nbsp;Время заказа: круглосуточно</p>
+			<p>&nbsp; &nbsp;&bull; Цена услуги: договорная, минимальный заказ от 1 000 &nbsp;рублей. Стоимость&nbsp;</p>
+			<p>уточняйте по телефону: &nbsp;+7 (9088) 73-55-73; +7 (9044) 96-44-00</p>
+			<p>&nbsp; &nbsp;&bull; Автопарк Эвакуаторов: Isuzu до 4,5 тонн &laquo;сдвижная платформа&raquo;, Isuzu до 4,5 тонн&nbsp;</p>
+			<p>&laquo;сдвижная платформа&raquo;, ГАЗ Газель 3302 до 2-х тонн &laquo;ломаная платформа&raquo; все наши&nbsp;</p>
+			<p>эвакуаторы оборудованы профессиональной электрической сдвижной или гидравлической&nbsp;</p>
+			<p>лебедкой.</p>
 		</div>
 	</div>
 	</div>
