@@ -94,7 +94,7 @@ $(document).ready(function(){
 	$('.items-news .items').each(function(){
 		var owl=$(this).owlCarousel({
 				  nav:true,
-				  items:4,
+				  items:5,
 				  navText:[],
 			      margin: 0,
 			      mouseDrag:false,
