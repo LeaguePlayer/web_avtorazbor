@@ -97,7 +97,8 @@
 
 
 		public static function searchByStr($str,$table)
-		{
+		{	
+			$str='+'.trim($str);
 			$str=str_replace(" ", " +", $str);
 			$result=Yii::app()->db->createCommand()
 				->select('id, name, MATCH (name) AGAINST (:str IN BOOLEAN MODE) as REL')
