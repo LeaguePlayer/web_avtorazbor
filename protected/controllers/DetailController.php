@@ -31,7 +31,14 @@ class DetailController extends FrontController
 			),	
 		);
 	}
-	
+
+	public function actionTestApi($id){
+		
+		$model=Parts::model()->findByPk($id);
+
+		$this->render('testApi',array('model'=>$model));
+	}
+
 	public function actionIndex()
 	{
 		$cs = Yii::app()->clientScript;
