@@ -9,7 +9,7 @@
                         {
                     ?><ul>
         				    <li>
-        					<a href="/cart"><?=Yii::app()->cart->getItemsCount()?> товар</a>
+        					<a href="/cart"><?=Yii::t('app', '{n} товар|{n} товара|{n} товаров', Yii::app()->cart->getItemsCount())?> </a>
         				    </li>
         				    <li>
                             <a href="/cart">

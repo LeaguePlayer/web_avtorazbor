@@ -12,5 +12,5 @@
 	
 ?>
 <div class="total" style="display:none;">
-	<?=$dataProvider->totalItemCount?>
+	<?=get_class($dataProvider->model)!=='UsedCars' ? Yii::t('app','{n}<br> Запчасть|{n}<br> Запчасти|{n}<br> Запчастей|',$dataProvider->totalItemCount) : $dataProvider->totalItemCount.'<br> Авто'?>
 </div>

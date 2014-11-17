@@ -126,7 +126,7 @@ class CartController extends FrontController
 			$response['html']= $cart->getCount() ? 
 						'<ul>
         				    <li>
-        						<a href="/cart">'.$cart->getCount()." товар".'</a>
+        						<a href="/cart">'.Yii::t('app', '{n} товар|{n} товара|{n} товаров', $cart->getCount()).'</a>
         				    </li>
         				    <li>
 	        				    <a href="/cart">

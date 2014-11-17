@@ -89,8 +89,6 @@ $(document).ready(function(){
       loop: true,
 	}).data('owlCarousel');
 
-	
-
 	$('.items-news .items').each(function(){
 		var owl=$(this).owlCarousel({
 				  nav:true,
@@ -152,12 +150,12 @@ $(document).ready(function(){
 						}).data('owlCarousel');
 				}
 			}).done(function(){
-				var total=parseInt($('.total').eq(0).text(),10);
+				var total=$('.total').eq(0).text();
 				var showAll=$('.i-submit',form);
 					showAll.attr('href',showAll.data('url')+"?"+formData);
 
 				$('.loader').hide();
-				$('.num',form).text(total+" "+(form.closest('.parametr').index()==4 ? 'Запчасти' : 'Авто'));	
+				$('.num',form).text(total);	
 			})
 		},1000)
 
