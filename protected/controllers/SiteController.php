@@ -79,6 +79,7 @@ class SiteController extends FrontController
 
 				)
 			);
+
 			$cars=new CActiveDataProvider('UsedCars',array(
 					'criteria'=>$criteriaCars,
 				)
@@ -100,6 +101,7 @@ class SiteController extends FrontController
 					'razbor'=>$razbor,'cars'=>$cars
 				)
 			);
+			
 		} else {
 			if (isset($_GET['Search']))
 			{

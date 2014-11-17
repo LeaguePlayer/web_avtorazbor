@@ -68,6 +68,7 @@ class Evackuator extends EActiveRecord
             'mail' => 'E-mail',
             'brand' => 'Марка авто',
             'carModelName' => 'Модель авто',
+            'car_model_id' => 'Модель авто',
             'brandName' => 'Марка авто',
             'mass' => 'Масса авто',
             'distance' => 'КМ',

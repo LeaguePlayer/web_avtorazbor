@@ -289,7 +289,7 @@ class DetailController extends FrontController
 				$cart->put($model);
 			}
 
-			$response['count']=$cart->getItemsCount();
+			$response['count']=Yii::t('app', '{n} товар|{n} товара|{n} товаров',$cart->getItemsCount());
 				$response['summ']=$cart->getCost();
 
 				if ($response['count'])

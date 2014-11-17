@@ -35,7 +35,7 @@ $(function(){
 			dataType:'JSON',
 			success:function(data){
 				
-				var html='<ul><li><a href="/cart">'+data['count']+' товар</a></li><li>На сумму: <strong>'+data['summ']+' руб.</strong></li></ul>';
+				var html='<ul><li><a href="/cart">'+data['count']+'</a></li><li>На сумму: <strong>'+data['summ']+' руб.</strong></li></ul>';
 
 	        	$('.bascet dd').empty().append(html);
 
@@ -48,7 +48,7 @@ $(function(){
 
 		if ($(this).data('price')!='' && $(this).data('price')!=undefined)
 		{
-			var itemsCount=parseInt($(this).data('count'),10)+1,
+			var itemsCount=$(this).data('count'),
 				itemsCost=parseInt($(this).data('cost'),10)+parseInt($(this).data('price'),10);
 			$('.totalPrice').text('В карзине '+itemsCount+' на сумму '+parseInt(itemsCost,10).formatMoney(0,' ',' ')+" руб.");
 		}
