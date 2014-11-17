@@ -98,7 +98,7 @@
 
 		public static function searchByStr($str,$table)
 		{
-
+			$str=str_replace(" ", " +", $str);
 			$result=Yii::app()->db->createCommand()
 				->select('id, name, MATCH (name) AGAINST (:str IN BOOLEAN MODE) as REL')
 				->from("tbl_$table")
@@ -111,6 +111,7 @@
 			foreach ($result as $key => $data) {
 					$iDs[]=$data['id'];
 			}
+
 			if ($result)
 				$criteria->addInCondition('t.id',$iDs);
 			else 
