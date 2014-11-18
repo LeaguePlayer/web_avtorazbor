@@ -4,9 +4,9 @@
         		Все услуги
         	</h1>
 
-            <p class="desc-text">
+            <div>
                <?=$content?>
-            </p>
+            </div>
 
         	<div class="wr">
                 <div class="service">
