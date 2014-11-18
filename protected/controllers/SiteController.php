@@ -98,7 +98,8 @@ class SiteController extends FrontController
 					'State'=>$State,
 					'dataProviderCar'=>$dataProviderCar,
 					'searchForm'=>$searchForm,
-					'razbor'=>$razbor,'cars'=>$cars
+					'razbor'=>$razbor,'cars'=>$cars,
+					'content'=>Page::model()->findByPk(14)->wswg_body,
 				)
 			);
 			

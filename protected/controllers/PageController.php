@@ -67,7 +67,14 @@ class PageController extends FrontController
 				'criteria'=>$criteriaCars,
 			)
 		);
-		$this->render('service',array('news'=>new News,'cars'=>$cars,'razbor'=>$razbor));
+		$this->render('service',
+			array(
+				'news'=>new News,
+				'cars'=>$cars,
+				'razbor'=>$razbor,
+				'content'=>Page::model()->findByPk(11)->wswg_body,
+			)
+		);
 	}
 	
 	public function actionIndex()
