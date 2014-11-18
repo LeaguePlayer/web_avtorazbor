@@ -23,9 +23,10 @@ $this->menu=array(
         'car_model.name',
         'year',
         'capacity',
-        array(
-            'header'=>'Тип КПП',
-            'value'=>'UsedCarInfo::transmissionList($data->info->transmission)'
+        array(               // related city displayed as a link
+            'label'=>'Тип КПП',
+            'type'=>'raw',
+            'value'=>UsedCarInfo::transmissionList($model->info->transmission),
         ),
         'comment',
         'status',
