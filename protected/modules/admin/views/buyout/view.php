@@ -26,7 +26,7 @@ $this->menu=array(
         array(               // related city displayed as a link
             'label'=>'Тип КПП',
             'type'=>'raw',
-            'value'=>UsedCarInfo::transmissionList($model->info->transmission),
+            'value'=>UsedCarInfo::transmissionList($model->transmission),
         ),
         'comment',
         'status',
