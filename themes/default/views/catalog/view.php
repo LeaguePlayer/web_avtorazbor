@@ -55,7 +55,7 @@
 					<li>Состояние: <?=$model->dop->getState()?></li>
 					<li>Объем двигателя: <?=$model->force?></li>
 					<li>Коробка передач: <?=$model->dop->getTransmissionType()?></li>
-					<li>Тип кузова: <?=$model->bascet?></li>
+					<li>Тип кузова: <?=UsedCars::getBasketList($model->bascet)?></li>
 					<li>Цена: <?=number_format($model->price,0,' ',' ') ?> руб.</li>
                     <?if (!Yii::app()->user->isAdmin){?>
 					   <li><a href="#own-price" class="own-price"><span>Предложить свою цену</span></a></li>
