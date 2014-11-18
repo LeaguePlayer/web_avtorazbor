@@ -11,7 +11,7 @@
         </div>
         <div class="coll right">
            <div class="modul one">
-                <p class="phone">+7 (343) 201-36-06</p>
+                <p class="phone"><?=Settings::getValue('evacuator_phone')?></p>
                 <a href="/evackuator">
                     Услуги автоэвакуатора
                 </a>
