@@ -107,7 +107,7 @@ class Parts extends EActiveRecord implements IECartPosition
     public function rules()
     {
         return array(
-            array('name, price_sell, price_buy', 'required'),
+            array('price_sell, price_buy', 'required'),
             array('category_id, car_model_id, location_id, supplier_id, status, gallery_id, user_id', 'numerical', 'integerOnly'=>true),
             array('name, alias', 'length', 'max'=>255),
             // array('price_sell, price_buy', 'numerical', 'integerOnly'=>false, 'min' => 1),
