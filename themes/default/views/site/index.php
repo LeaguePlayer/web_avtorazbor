@@ -24,7 +24,7 @@
         <li class="icon med">
             <a href="/evackuator">
                 <i></i>
-                <span class="h">Эвакуатор, манипулятор</span>
+                <span class="h">Эвакуатор</span>
                 <span class="d">Эвакуируем авто<br/> из любой точки города</span>
             </a>
         </li>
