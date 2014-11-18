@@ -21,19 +21,19 @@
                 <span class="d">Выкуп автомобилей<br/> после ДТП, пожара и т.п.</span>
             </a>
         </li>
+        <li class="icon med">
+            <a href="/evackuator">
+                <i></i>
+                <span class="h">Эвакуатор, манипулятор</span>
+                <span class="d">Эвакуируем авто<br/> из любой точки города</span>
+            </a>
+        </li>
         <li class="icon transport">
             <a href="/page/Avtoperevozki">
                 <i></i>
                 <span class="h">Автоперевозки</span>
                 <span class="d">Автомобильные перевозки<br/>
                 в Тюмени и области</span>
-            </a>
-        </li>
-        <li class="icon spec">
-            <a href="/page/Spec-tehnika">
-                <i></i>
-                <span class="h">Спецтехника</span>
-                <span class="d">Продаем<br/> подержанную спецтехнику</span>
             </a>
         </li>
     </ul>
