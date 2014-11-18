@@ -1,14 +1,18 @@
 <?php
 $this->menu=array(
 	array('label'=>'Добавить','url'=>array('create')),
+	array('label'=>'Контент разделов','url'=>array('list?system=true')),
 );
 ?>
 
 <h1>Управление <?php echo $model->translition(); ?></h1>
-
+<?
+	$dataProvider=$model->search();
+	$dataProvider->criteria->addCondition('status'.(isset($_GET['system']) ? '=':'!=').'4');
+?>
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'page-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$dataProvider,
 	'filter'=>$model,
 	'type'=>TbHtml::GRID_TYPE_HOVER,
     'afterAjaxUpdate'=>"function() {sortGrid('page')}",
