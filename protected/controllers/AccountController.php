@@ -1,6 +1,6 @@
 <?
 	class AccountController extends Controller{
-		public $layout='/layouts/main';
+		public $layout='/layouts/content';
 		public $message=false;
 		public $modelName="Личный кабинет";
 		public $viewTitle='';
@@ -71,6 +71,7 @@
 		public function actionIndex()
 		{
 			$this->breadcrumbs=array('Личный кабинет');
+			$this->viewTitle="Личный кабинет";
 			if (!Yii::app()->user->isGuest)
 			{
 				$model=Clients::model()->findBypk(Yii::app()->user->id);
@@ -137,7 +138,7 @@
 		public function actionLogin()
 		{
 			$response['success']=false;
-
+			$this->viewTitle="Авторизация";
 			$authForm=new AuthForm;
 			if (isset($_POST['AuthForm']))
 			{
@@ -181,6 +182,7 @@
 		{
 			$regForm=new RegistrationForm;
 			$this->breadcrumbs=array('Регистрация');
+			$this->viewTitle="Регистрация";
 			if (Yii::app()->user->isGuest)
 			{
 				if (isset($_POST['RegistrationForm']))
@@ -205,6 +207,7 @@
 		public function actionEntry_list()
 		{
 			$this->breadcrumbs=array('Личный кабинет'=>'/account/', 'Список заказов');
+			$this->viewTitle="Список заказов";
 			$cs = Yii::app()->clientScript;
 			$cs->registerScriptFile($this->getAssetsUrl('application').'/js/cart.js?v=2', CClientScript::POS_END);
 			$client=Clients::model()->findByPk(Yii::app()->user->id);
