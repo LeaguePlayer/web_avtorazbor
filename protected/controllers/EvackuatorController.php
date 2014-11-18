@@ -72,6 +72,7 @@ class EvackuatorController extends FrontController
 		$this->render('index',array(
 			'model'=>$model,
 			'Brands'=>$Brands,
+			'content'=>Page::model()->findByPk(13)->wswg_body,
 		));
 	}
 }
