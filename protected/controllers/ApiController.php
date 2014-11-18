@@ -53,10 +53,11 @@ class ApiController extends FrontController
 
 		if(!$part)
 			$this->response->errors[] = array('part' => 'Запчасть не найдена');
+		$content=array('POST'=>$_POST,'error_before'=>$this->response->errors);
 
 		if($part && isset($_POST['Parts'])){
 			$part->attributes = $_POST['Parts'];
-
+			$content['attr_after_post_get']=$part->attributes;
 			//create name
 			$name = "";
 
@@ -64,8 +65,12 @@ class ApiController extends FrontController
 				$name .= $part->category->name.", ".$part->car_model->car_brand->name." ".$part->car_model->name;
 
 			$part->name = $name;
-
+			$content['model_validate']=$part->validate();
+			$content['model_errors']=$part->errors;
+			$content=$this->renderPartial('//site/_test',array('content'=>$content));
+			SiteHelper::sandMail('Дебаг апи',$content,'minderov@amobile-studio.ru','Авторазбор');
 			if($part->validate()){
+
 				$this->attachUsedCar($part);
 				// $part->status = Parts::STATUS_PUBLISH;
 				$part->save(false);
