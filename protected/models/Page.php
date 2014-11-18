@@ -18,11 +18,26 @@
 class Page extends EActiveRecord
 {
     public $marks=array( 'News'=>'news-news','news-company',);
+    public $statusBefore;
     public function tableName()
     {
         return '{{page}}';
     }
 
+    public function beforeFind(){
+        parent::beforeFind();
+
+        $this->statusBefore=$this->before;
+
+        return true;
+    }
+
+    public function beforeSave(){
+        parent::beforeSave();
+        if ($this->statusBefore==4)
+            $this->status=4;
+        return true;
+    }
 
     public function rules()
     {
@@ -104,7 +119,6 @@ class Page extends EActiveRecord
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('wswg_body',$this->wswg_body,true);
 		$criteria->compare('status',$this->status);
-        $criteria->addCondition('status!=4');
 		$criteria->compare('sort',$this->sort);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
