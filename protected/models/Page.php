@@ -27,7 +27,7 @@ class Page extends EActiveRecord
     public function beforeFind(){
         parent::beforeFind();
 
-        $this->statusBefore=$this->before;
+        $this->statusBefore=$this->status;
 
         return true;
     }
