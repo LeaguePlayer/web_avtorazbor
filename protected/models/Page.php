@@ -104,6 +104,7 @@ class Page extends EActiveRecord
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('wswg_body',$this->wswg_body,true);
 		$criteria->compare('status',$this->status);
+        $criteria->addCondition('status!=4');
 		$criteria->compare('sort',$this->sort);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);

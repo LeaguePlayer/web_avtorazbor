@@ -2,19 +2,14 @@
     <h1 class="head">
         <?=$model->name?>
     </h1>
-
     <div class="wr">
-
         <div class="coll left" >
-
             <div class="content clear">
-
                 <div class="gallery">
                     <div class="big-img">
                         <?
                             $gallery=$model->getGallery()->galleryPhotos;
                             $image=$gallery[0] ? $gallery[0]->getUrl('view') : '/media/images/default.png';
-                            
                         ?>
                         <a class="imgFancy" href="<?=$gallery[0] ? $gallery[0]->getUrl('original') : '/media/images/default.png' ?>"><img width="331" height="192" src="<?=$image?>" alt="" title="" /></a>
                     </div>
@@ -51,7 +46,7 @@
                         ?>
                     <li class="articul">Артикул: <span><?=$model->id?></span></li>
                     <li>Марка: <a href="<?=$url?>"><?=$model->model->car_brand->name?></a></li>
-					<li>Пробег: <?=$model->dop->mileage?></li>
+					<li>Пробег: <?=number_format($model->dop->mileage,0,' ',' ')?></li>
 					<li>Состояние: <?=$model->dop->getState()?></li>
 					<li>Объем двигателя: <?=$model->force?></li>
 					<li>Коробка передач: <?=$model->dop->getTransmissionType()?></li>
