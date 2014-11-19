@@ -23,7 +23,7 @@ class DetailController extends FrontController
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','parts','AjaxUpdate','disc','addToCart','TestApi'),
+				'actions'=>array('index','view','parts','AjaxUpdate','disc','addToCart','testApi'),
 				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
