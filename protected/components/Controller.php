@@ -63,6 +63,7 @@ class Controller extends CController
     }
 
     //Check home page
+
     public function is_home(){
         return $this->route == 'site/index';
     }
@@ -109,7 +110,7 @@ class Controller extends CController
                 $this->breadcrumbs=array($this->model->$column);
             else 
                 $this->breadcrumbs=array($this->model->translition()=>'/'.$modelName, $this->model->$column);
-
+            
         }
         
         if ($view=='index' && $this->modelName)

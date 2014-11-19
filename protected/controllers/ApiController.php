@@ -280,12 +280,9 @@ class ApiController extends FrontController
 	}
 
 	public function actionAllParts($user_id){
+		
 		header('Content-Type: application/json');
-
-		/*$parts = Parts::model()->findAll('status=7');
-		foreach ($parts as $key => $part) {
-			$part->delete();
-		}*/
+		
 		if($user_id > 0){
 			$data = Yii::app()->db->createCommand()
 				->select('p.id, name, create_time, update_time, price_sell, price_buy, comment, category_id, car_model_id, location_id, supplier_id, u.used_car_id, status, user_id')
@@ -294,12 +291,10 @@ class ApiController extends FrontController
 				->where('(status=7 OR status=8) AND user_id=:user_id', array(':user_id' => $user_id)) //DEVICE
 				->order('create_time DESC')
 				->queryAll();
-
 			$this->response->data['parts'] = $data;
 		}
-
 		$this->printJSON();
-
+		
 		Yii::app()->end();
 	}
 
