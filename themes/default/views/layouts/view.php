@@ -103,7 +103,7 @@
                                 </li>  
                             </ul>
                             <div class="submit">
-                                <a href="#" class="i-submit inCart"  data-count="<?=Yii::app()->cart->getCount()?>" data-cost="<?=Yii::app()->cart->getCost()?>" data-price="<?=!$model->inCart() ? $model->getPrice() : ''?>">В карзину</a>
+                                <a href="#" class="i-submit inCart"  data-count="<?=Yii::app()->cart->getCount()?>" data-cost="<?=Yii::app()->cart->getCost()?>" data-price="<?=!$model->inCart() ? $model->getPrice() : ''?>">В корзину</a>
                             </div>
 
                         </div>

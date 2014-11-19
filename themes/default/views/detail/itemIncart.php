@@ -1,6 +1,6 @@
 <div class="qst" id="alert">
 	<p class="caption">
-		Товар добавлен в карзину
+		Товар добавлен в корзину
 	</p>
 	<div class="part"><img src="\media/images\parts\1289\2854normal.jpg" alt="">
 
@@ -23,7 +23,7 @@
                             </ul>
                         </div>
 	<div class="message">
-		<a class="totalPrice i-submit" href="/cart">В карзине <?=Yii::app()->cart->getCount()?> товар на сумму <?=Yii::app()->cart->getCost()?> руб.</a>
+		<a class="totalPrice i-submit" href="/cart">В корзине <?=Yii::app()->cart->getCount()?> товар на сумму <?=Yii::app()->cart->getCost()?> руб.</a>
         <div class="hr"></div>
         <a href="#" class="stay i-cancel">Продолжить покупку</a>
 	</div>
