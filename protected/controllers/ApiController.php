@@ -42,7 +42,6 @@ class ApiController extends FrontController
 			$this->response->errors[] = 'Невозможно создать запчасть.';
 		}
 		$this->printJSON();
-		
 		Yii::app()->end();
 	}
 
@@ -53,22 +52,15 @@ class ApiController extends FrontController
 
 		if(!$part)
 			$this->response->errors[] = array('part' => 'Запчасть не найдена');
-		$content=array('POST'=>$_POST,'error_before'=>$this->response->errors);
 
-		if($part && isset($_POST['Parts'])){
-			$part->attributes = $_POST['Parts'];
-			$content['attr_after_post_get']=$part->attributes;
+		if($part && isset($_POST['Part'])){
+			$part->attributes = $_POST['Part'];
 			//create name
-			$name = "";
+			if($part->category_id && $part->car_model_id)
+			{
+				$part->createName();
+			}
 
-			if($part->category && $part->car_model)
-				$name .= $part->category->name.", ".$part->car_model->car_brand->name." ".$part->car_model->name;
-
-			$part->name = $name;
-			$content['model_validate']=$part->validate();
-			$content['model_errors']=$part->errors;
-			$content=$this->renderPartial('//site/_test',array('content'=>$content));
-			SiteHelper::sandMail('Дебаг апи',$content,'minderov@amobile-studio.ru','Авторазбор');
 			if($part->validate()){
 
 				$this->attachUsedCar($part);
@@ -80,7 +72,6 @@ class ApiController extends FrontController
 		}
 
 		$this->printJSON();
-		
 		Yii::app()->end();
 	}
 
