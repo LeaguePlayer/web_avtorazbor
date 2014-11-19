@@ -57,7 +57,7 @@
                         else 
                         {?>
                             <div class="empty-cart">
-                                Карзина пуста.
+                                корзина пуста.
                             </div>
                         <?}?>
                                 <a href="<?=$this->createUrl('/parts?'.Yii::app()->session->get('backToResult'))?>" class="back">Вернуться в каталог</a>

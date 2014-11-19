@@ -42,7 +42,6 @@ class ApiController extends FrontController
 			$this->response->errors[] = 'Невозможно создать запчасть.';
 		}
 		$this->printJSON();
-		
 		Yii::app()->end();
 	}
 
@@ -53,22 +52,16 @@ class ApiController extends FrontController
 
 		if(!$part)
 			$this->response->errors[] = array('part' => 'Запчасть не найдена');
-		$content=array('POST'=>$_POST,'error_before'=>$this->response->errors);
 
-		if($part && isset($_POST['Parts'])){
-			$part->attributes = $_POST['Parts'];
-			$content['attr_after_post_get']=$part->attributes;
+		if($part && isset($_POST['Part'])){
+			$part->attributes = $_POST['Part'];
 			//create name
-			$name = "";
 
-			if($part->category && $part->car_model)
-				$name .= $part->category->name.", ".$part->car_model->car_brand->name." ".$part->car_model->name;
+			if($part->category_id && $part->car_model_id)
+			{
+				$part->createName();
+			}
 
-			$part->name = $name;
-			$content['model_validate']=$part->validate();
-			$content['model_errors']=$part->errors;
-			$content=$this->renderPartial('//site/_test',array('content'=>$content));
-			SiteHelper::sandMail('Дебаг апи',$content,'minderov@amobile-studio.ru','Авторазбор');
 			if($part->validate()){
 
 				$this->attachUsedCar($part);
@@ -80,7 +73,6 @@ class ApiController extends FrontController
 		}
 
 		$this->printJSON();
-		
 		Yii::app()->end();
 	}
 
@@ -288,12 +280,9 @@ class ApiController extends FrontController
 	}
 
 	public function actionAllParts($user_id){
+		
 		header('Content-Type: application/json');
-
-		/*$parts = Parts::model()->findAll('status=7');
-		foreach ($parts as $key => $part) {
-			$part->delete();
-		}*/
+		
 		if($user_id > 0){
 			$data = Yii::app()->db->createCommand()
 				->select('p.id, name, create_time, update_time, price_sell, price_buy, comment, category_id, car_model_id, location_id, supplier_id, u.used_car_id, status, user_id')
@@ -302,12 +291,10 @@ class ApiController extends FrontController
 				->where('(status=7 OR status=8) AND user_id=:user_id', array(':user_id' => $user_id)) //DEVICE
 				->order('create_time DESC')
 				->queryAll();
-
 			$this->response->data['parts'] = $data;
 		}
-
 		$this->printJSON();
-
+		
 		Yii::app()->end();
 	}
 

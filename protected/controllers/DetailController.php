@@ -23,7 +23,7 @@ class DetailController extends FrontController
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','parts','AjaxUpdate','disc','addToCart','TestApi'),
+				'actions'=>array('index','view','parts','AjaxUpdate','disc','addToCart','testApi'),
 				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
@@ -320,8 +320,6 @@ class DetailController extends FrontController
 		$brand=$model->car_model->car_brand->id;
 		$car_model=$model->car_model->id;
 		$category_id=$model->category->id;
-
-
 		
 		if (!$params=Yii::app()->session->get('backToResult'))
 		{
@@ -347,6 +345,8 @@ class DetailController extends FrontController
 				'pagination'=>false,
 			)
 		);
+		$this->title=$model->name;
+		 Yii::app()->clientScript->registerMetaTag($this->title, 'title', null, array('id'=>'meta_title'), 'meta_title');
 		$this->render('view',
 			array(
 				'model'=>$model,

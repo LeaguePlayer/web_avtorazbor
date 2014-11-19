@@ -38,7 +38,7 @@ $(function(){
 							$(this).slideUp(300).delay(300).empty();
 						});	
 						$('table').slideUp(400).delay(400).empty();
-						$('.bascet').prepend('<div class="empty-cart">Карзина пуста.</div>');
+						$('.bascet').prepend('<div class="empty-cart">корзина пуста.</div>');
 						$('.content .auth').attr('href','/detail').text('Перейти в каталог автозапчастей');
 						
 					} else {

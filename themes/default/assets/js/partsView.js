@@ -20,7 +20,7 @@ $(function(){
 	});
 
 	$('.stay').click(function(){
-		$('.inCart').attr('href','/cart').text('Перейти в карзину').removeClass('inCart');
+		$('.inCart').attr('href','/cart').text('Перейти в корзину').removeClass('inCart');
 		$.fancybox.close();
 	})
 
@@ -50,7 +50,7 @@ $(function(){
 		{
 			var itemsCount=$(this).data('count'),
 				itemsCost=parseInt($(this).data('cost'),10)+parseInt($(this).data('price'),10);
-			$('.totalPrice').text('В карзине '+itemsCount+' на сумму '+parseInt(itemsCost,10).formatMoney(0,' ',' ')+" руб.");
+			$('.totalPrice').text('В корзине '+itemsCount+' на сумму '+parseInt(itemsCost,10).formatMoney(0,' ',' ')+" руб.");
 		}
 			
 

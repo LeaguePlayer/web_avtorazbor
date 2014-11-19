@@ -104,10 +104,39 @@ class Parts extends EActiveRecord implements IECartPosition
         return $criteria;
     }
 
+    public function createName(){
+
+
+        $cat_name=Yii::app()->db->createCommand()
+            ->select('name')
+            ->from('{{categories}}')
+            ->where('id=:id',array(':id'=>$this->category_id))
+            ->queryRow();
+        
+        $model_name=Yii::app()->db->createCommand()
+            ->select('name')
+            ->from('{{CarModels}}')
+            ->where('id=:id',array(':id'=>$this->car_model_id))
+            ->queryRow();
+        
+        $brand_name=Yii::app()->db->createCommand()
+            ->select('name')
+            ->from('{{CarBrands}}')
+            ->where('id=:id',array(':id'=>$this->category_id))
+            ->queryRow();
+
+        $this->name=$cat_name['name'].','.$brand_name['name'].' '.$model_name['name'];
+
+        if (!$this->alias)
+            $this->alias=SiteHelper::translit($this->name);
+
+            return $this->name;
+    }
+
     public function rules()
     {
         return array(
-            array('name, price_sell, price_buy', 'required'),
+            array('price_sell, price_buy', 'required'),
             array('category_id, car_model_id, location_id, supplier_id, status, gallery_id, user_id', 'numerical', 'integerOnly'=>true),
             array('name, alias', 'length', 'max'=>255),
             // array('price_sell, price_buy', 'numerical', 'integerOnly'=>false, 'min' => 1),
@@ -294,7 +323,7 @@ class Parts extends EActiveRecord implements IECartPosition
             $pageSize = false;
 
         $criteria = $this->getCommonCriteria();
-		$criteria->compare('status',$this->status);
+        $criteria->compare('status',$this->status);
 
         $criteria->addCondition('status!=:status');
         $criteria->params[':status'] = self::STATUS_REMOVED;
@@ -394,10 +423,13 @@ class Parts extends EActiveRecord implements IECartPosition
         return $joins[$key];
     }
 
-    public function beforeSave(){
+     public function beforeSave(){
         
         if($this->isNewRecord)
             $this->create_time = date("Y-m-d H:i:s");
+
+        if (!$this->name)
+            $this->createName();
 
         return parent::beforeSave();
     }

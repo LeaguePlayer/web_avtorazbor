@@ -134,6 +134,8 @@ class CatalogController extends FrontController
 
 		$model=UsedCars::model()->find('id=:id',array(':id'=>$id));
 
+		$this->title=$model->model->car_brand->name.'/'.$model->model->name;
+		 Yii::app()->clientScript->registerMetaTag($this->title, 'title', null, array('id'=>'meta_title'), 'meta_title');
 		$this->render('view',array('model'=>$model));
 	}
 

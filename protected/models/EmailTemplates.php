@@ -29,6 +29,7 @@ class EmailTemplates extends EActiveRecord
         return array(
             array('subject, from, content', 'required'),
             array('send_interval, send_status, create_time, update_time', 'numerical', 'integerOnly'=>true),
+
             array('name, alias, subject, from, model_name', 'length', 'max'=>255),
             array('model_name','model_name'),
             array('model_name','unique','message'=>'Разрешено создавать только 1 шаблон письма для модели!'),
