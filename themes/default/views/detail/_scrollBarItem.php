@@ -1,4 +1,5 @@
 <?
+    $model=$data;
 	$data=Parts::model()->findByPk($data['id']);
     $gallery=$data->getGallery()->galleryPhotos;
     if ($gallery[0])
@@ -16,5 +17,5 @@
     <a href="/detail/<?=$data->url?>/<?=$data->id?>" data-id="<?=$data->id?>" class="name">
         <?=$data->name;?>
     </a>
-    <span class="dsc" style="fron-size:16px;color:red"><?=$data->analog ? 'Аналог' : ''?></span>
+    <span class="dsc" style="fron-size:16px;color:red;font-size:12px;"><?=$model['analog'] ? 'Аналог' : ''?></span>
 </li>
