@@ -17,13 +17,13 @@ $this->menu=array(
         "class"=>"status_".(isset($data->status) ? $data->status : ""),
     )',
 	'columns'=>array(
-		'name',
+		array(
+			'name'=>'name',
+			'type' => 'html',
+			'value' => 'CHtml::link($data->name, Yii::app()->createUrl("admin/bookpart/update", array("id" => $data->id)))'
+		),
 		'phone',
 		'mail',
-		'car_info',
-		'year',
-		'capacity',
-		'fuel',
 		'vin',
 		'parts',
 		array(
@@ -32,19 +32,14 @@ $this->menu=array(
 			'value'=>' !empty($data->status) ? Bookpart::getStatusAliases($data->status) : Bookpart::getStatusAliases(0)',
 			'filter'=>Bookpart::getStatusAliases()
 		),
-		'sort',
 		array(
 			'name'=>'create_time',
 			'type'=>'raw',
 			'value'=>'$data->create_time ? SiteHelper::russianDate($data->create_time).\' в \'.date(\'H:i\', strtotime($data->create_time)) : ""'
 		),
 		array(
-			'name'=>'update_time',
-			'type'=>'raw',
-			'value'=>'$data->update_time ? SiteHelper::russianDate($data->update_time).\' в \'.date(\'H:i\', strtotime($data->update_time)) : ""'
-		),
-		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
+			'template'=>'{update}{delete}',
 		),
 	),
 )); ?>

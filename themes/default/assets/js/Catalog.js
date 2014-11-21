@@ -164,8 +164,8 @@ $(function(){
 		range:true,
 		step:1000,
 		min:1000,
-		max:3000000,
-		values:[0,3000000],
+		max:1000000,
+		values:[0,1000000],
 		slide:function(event, ui){
 
 			$_max=$($(this).data('max'));

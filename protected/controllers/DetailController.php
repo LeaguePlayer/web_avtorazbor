@@ -152,7 +152,6 @@ class DetailController extends FrontController
 			print($this->renderPartial('tabParts',array('dataProvider'=>$dataProvider,'weightParts'=>$weightParts),true));
 		}
 	}
-	
 	public function actionParts()
 	{
 		$cs = Yii::app()->clientScript;
@@ -163,14 +162,17 @@ class DetailController extends FrontController
 		$this->breadcrumbs=array('Запчасти'=>'/detail');
 		
 		$searchForm=new Search;
-		$searchForm->scenario= 'parts';
+		
 
 		if (isset($_GET['Search']))
 		{
 			$searchForm->attributes=$_GET['Search'];
-		}
 
+		}
+		$searchForm->scenario= 'parts';
 		$searchForm->validate();
+		
+		
 		$countriCriteria=Parts::getExistsData(null,null,'id_country');
 		$Countries=CHtml::listData(Country::model()->findAll($countriCriteria),'id','name');
 
@@ -261,7 +263,7 @@ class DetailController extends FrontController
 			$searchForm->attributes=$_GET['Search'];
 			$searchForm->scenario='parts';
 			$searchForm->validate();
-
+			
 			//die('in controller');
 			$dependecy = new CDbCacheDependency('SELECT MAX(update_time) FROM {{parts}}');
 			$dataProvider=new CActiveDataProvider(Parts::model()->cache(3600,$dependecy,2),array(
@@ -299,7 +301,7 @@ class DetailController extends FrontController
 	        					<a href="/cart">'+$response['count']+' товар</a>
 	        				    </li>
 	        				    <li>
-	        					На сумму: <strong>'+$response['sum']+' руб.</strong>
+	        					На сумму: <strong>'+number_format($response['sum'],0,' ',' ')+' руб.</strong>
 	        			     	</li>
 	        			  	</ul>';
 	        	else 
@@ -316,6 +318,11 @@ class DetailController extends FrontController
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/partsView.js?v=2', CClientScript::POS_END);
 
 		$model=Parts::model()->findByPk($id);
+		if (!$model)
+		{
+			throw new CHttpException("По вашему запросу не было найдено данных", 404);
+			die();
+		}
 		$this->model=$model;	
 		$brand=$model->car_model->car_brand->id;
 		$car_model=$model->car_model->id;

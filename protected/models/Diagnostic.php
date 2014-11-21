@@ -46,7 +46,7 @@ class Diagnostic extends EActiveRecord
         return array(
             'id' => 'ID',
             'title' => 'Заголовок',
-            'alias' => 'Сслыка',
+            'alias' => 'Ссылка',
             'phone' => 'Телефон',
             'img_preview' => 'фотка',
             'announce' => 'Превью',

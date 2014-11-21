@@ -12,7 +12,7 @@
 
 	$cs->registerCoreScript('jquery');
     $cs->registerScriptFile($assetsUrl.'/js/tinyscrollbar.js', CClientScript::POS_END);
-    $cs->registerScriptFile($assetsUrl.'/js/scrollTo.min.js', CClientScript::POS_END);
+    //$cs->registerScriptFile($assetsUrl.'/js/scrollTo.min.js', CClientScript::POS_END);
     $cs->registerScriptFile($assetsUrl.'/js/jquery-ui.min.js', CClientScript::POS_END);
     $cs->registerScriptFile($assetsUrl.'/js/jquery.autocomplete.js', CClientScript::POS_END);
 	$cs->registerScriptFile($assetsUrl.'/js/jquery.maphilight.js', CClientScript::POS_END);

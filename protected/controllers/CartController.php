@@ -63,7 +63,10 @@ class CartController extends FrontController
 			$request->from=0;
 			$request->user_id=1;
 			$request->status=3;
-			$request->date_life=date('d-m-y');
+			$hours=Settings::getValue('request_time');
+			$hours=!empty($hours) ? $hours : 0;
+			$time = strtotime("+ $hours hours");
+			$request->date_life=date('Y-m-d', $time);
 			$request->save();
 			$dbCommand = Yii::app()->db->createCommand();
 			foreach ($positions as $key => $item) {

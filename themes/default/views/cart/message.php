@@ -1,7 +1,7 @@
 <div class="qst" id="alert">
 	<input type="hidden" id="articul">
 	<p class="caption">
-		Вы действительно хостите удалить товар из корзины?
+		Вы действительно хотите удалить товар из корзины?
 	</p>
 	<div class="actions">
 		<a href="#" class="i-submit">Да</a>

@@ -23,11 +23,18 @@ class UsedCarInfo extends EActiveRecord
         return '{{UsedCar_Info}}';
     }
 
+    public static function getEngineList($engine=null){
+        $list=array(1=>'Бензин',2=>'Дизель',3=>"Гибрид");
+        
+        if ($engine)
+            return $list[$engine];
+        return $list;
+    }
 
     public function rules()
     {
         return array(
-            array('year, used_car_id, mileage, state, transmission', 'numerical', 'integerOnly'=>true),
+            array('year, engine, used_car_id, mileage, state, transmission', 'numerical', 'integerOnly'=>true),
             array('price_sell', 'length', 'max'=>10),
             array('model_num_engine, chassis_num, carcass_num, color, type_ts, passport_ts', 'length', 'max'=>255),
             array('issued_by,dt_of_issue', 'safe'),
@@ -54,6 +61,7 @@ class UsedCarInfo extends EActiveRecord
             'chassis_num' => 'Шасси (Рама) №',
             'carcass_num' => 'Кузов №',
             'color' => 'Цвет',
+            'engine'=>'Двигатель',
             'type_ts' => 'Тип ТС',
             'passport_ts' => 'Паспорт ТС',
             'issued_by' => 'Кем выдан',

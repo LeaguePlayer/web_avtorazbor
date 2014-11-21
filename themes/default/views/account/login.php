@@ -27,25 +27,28 @@
                         success: function(data) {
 
                             if ( !data.error ) {
+                                $('.reg').empty().append(data.lk);
                                 if (data.user)
                                 {
                                     $('#accept .user').empty();
                                     $('#accept .user').append(data.user);
+                                    $('#accept').removeClass('hide').addClass('tab-active');
+                                    $('#cart').addClass('hide');
                                 }
-
-                                $('.reg').empty().append(data.lk);
-                                if ($('.content .bascet').length)
+                                if ($('.wr .basket').length)
                                 {
                                     $('.right.auth').slideUp().delay(200).remove();
-                                    var li=$('.content .basket li').removeClass('active').eq(1);
-                                    var width=li.removeClass('hide').width();
+                                    var li=$('.basket .tabs li')
+                                            .removeClass('active')
+                                            .eq(1);
+                                            
+                                    var width=li.width();
                                     li.addClass('active');
-                                    $('.bascet:first').addClass('hide').removeClass('tab-active');
-                                    $('#accept').addClass('tab-active').removeClass('hide');
                                     li.width(0);
                                     li.animate({width:width},200,function(){
                                         li.css('width','auto')
                                     });
+                                    
                                 }
                                 $.fancybox.close();
                             } else {
@@ -78,6 +81,7 @@
             
         </li>
         <li>
+            <a href="/account/registration" style="float:left">Регистрация</a>
             <a href="/account/recoveryPassword">Забыли пароль?</a>
         </li>
     </ul>

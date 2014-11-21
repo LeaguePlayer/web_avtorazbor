@@ -84,7 +84,7 @@ class SiteController extends FrontController
 					'criteria'=>$criteriaCars,
 				)
 			);
-
+			$searchForm->criteria->order="t.id desc";
 			$this->render('index',
 				array(
 					'Brands'=>$Brands,

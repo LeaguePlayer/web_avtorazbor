@@ -443,6 +443,10 @@ header{
 			position: relative;
 			margin-top: 10px;
 			width: 200px;
+			div[class^=phone]
+			{
+				width: 118px;
+			}
 			& a.dropDown{
 						z-index: 100;
 						background-position: right 8px;
@@ -1403,7 +1407,7 @@ header{
 						color: #bdc8df;
 						margin: 5px 0;
 						display: block;
-						padding:12px 0;
+						padding:12px 3px;
 						display:inline-block;
 					}
 					.line-2{
@@ -3993,4 +3997,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 		font: 14px/1.2 segoe_uiregular;
 		color: #76838D;
 	}
+}
+.formCost{
+	font-size: 0;
+	text-align: justify;
+}
+.formCost:after{
+	height: 0px;
+	width: 100%;
+	content: '';
+	overflow: hidden;
+	opacity: 0;
+	visibility: hidden;
 }
