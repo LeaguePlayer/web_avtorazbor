@@ -13,7 +13,7 @@
 				'parts' => array( 'parts', 'carBrands', 'carModels', 'categories'),
 				'documents' => array('documents', 'templates'),
 				'requests' => array('requests', 'clients', 'employees'),
-				'settings' => array('settings', 'download'),
+				'settings' => array('settings', 'download','emailTemplates'),
 				'manage' =>array('page','bookPart','vacansyCallBack','questions','ownprice','vacansy','evackuator','diagnostic','buyout'),
 			);
 
@@ -73,6 +73,7 @@
 					//array('label'=>'Скачать приложение', 'url'=>'/admin/settings/downloadApp'),
 					array('label'=>'Скачать старое приложение', 'url'=>'/admin/settings/downloadOldApp'),
 					array('label'=>'Скачать новое приложение', 'url'=>'/admin/settings/downloadNewApp'),
+					array('label'=>'Шаблоны писем', 'url'=>'/admin/emailTemplates/list'),
 				),
 				'manage'=>array(
 					
