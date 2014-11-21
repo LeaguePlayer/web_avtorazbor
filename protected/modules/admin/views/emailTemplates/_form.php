@@ -4,7 +4,7 @@
 )); ?>
 
 	<?php echo $form->errorSummary($model); ?>
-
+<?die();?>
 	<?php $tabs = array(); ?>
 	<?php $tabs[] = array('label' => 'Основные данные', 'content' => $this->renderPartial('_rows', array('form'=>$form, 'model' => $model), true), 'active' => true); ?>
 	
