@@ -16,6 +16,7 @@
 			$modelName=strtolower(get_class($this->owner));
 			$template=EmailTemplates::model()->findByAttributes(array('model_name'=>$modelName));
 			$sender=Settings::getValue('sender');
+			var_dump($sender);
 			$field=$this->contentField;
 			$message=$template->$field;
 			$to=Settings::getValue($this->noticeMap[$this->type]['settingName']);
