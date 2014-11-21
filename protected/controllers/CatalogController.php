@@ -133,7 +133,11 @@ class CatalogController extends FrontController
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/Catalog.js?v=2', CClientScript::POS_END);
 
 		$model=UsedCars::model()->find('id=:id',array(':id'=>$id));
-
+		if (!$model)
+		{
+			throw new CHttpException("По вашему запросу не было найдено данных", 404);
+			die();
+		}
 		$this->title=$model->model->car_brand->name.'/'.$model->model->name;
 		 Yii::app()->clientScript->registerMetaTag($this->title, 'title', null, array('id'=>'meta_title'), 'meta_title');
 		$this->render('view',array('model'=>$model));

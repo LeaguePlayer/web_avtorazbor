@@ -9,7 +9,7 @@
                     <div class="big-img">
                         <?
                             $gallery=$model->getGallery()->galleryPhotos;
-                            $image=$gallery[0] ? $gallery[0]->getUrl('original') : '/media/images/default.png';
+                            $image=$gallery[0] ? $gallery[0]->getUrl('view') : '/media/images/default.png';
                         ?>
                         <a class="imgFancy" href="<?=$gallery[0] ? $gallery[0]->getUrl('original') : '/media/images/default.png' ?>"><img width="100%" src="<?=$image?>" alt="" title="" /></a>
                     </div>
@@ -45,12 +45,15 @@
                             $url=$this->createUrl('/catalog'.$param);
                         ?>
                     <li class="articul">Артикул: <span><?=$model->id?></span></li>
+                    <li>Двигатель: <?=$model->dop->engine ? UsedCarInfo::getEngineList($model->dop->engine):' ' ?> <?=$model->force ? $model->force.'(Л.С.)' : ''?></li>
+                    <li>Коробка передач: <?=$model->dop->getTransmissionType()?></li>
+                    <li>Тип кузова: <?=UsedCars::getBasketList($model->bascet)?></li>
                     <li>Марка: <a href="<?=$url?>"><?=$model->model->car_brand->name?></a></li>
 					<li>Пробег: <?=number_format($model->dop->mileage,0,' ',' ')?></li>
-					<li>Состояние: <?=$model->dop->getState()?></li>
+					<li><strong>Состояние:</strong> <?=$model->dop->getState()?></li>
 					<li>Объем двигателя: <?=$model->force?></li>
-					<li>Коробка передач: <?=$model->dop->getTransmissionType()?></li>
-					<li>Тип кузова: <?=UsedCars::getBasketList($model->bascet)?></li>
+					
+					
 					<li>Цена: <?=number_format($model->price,0,' ',' ') ?> руб.</li>
                     <?if (!Yii::app()->user->isAdmin){?>
 					   <li><a href="#own-price" class="own-price"><span>Предложить свою цену</span></a></li>

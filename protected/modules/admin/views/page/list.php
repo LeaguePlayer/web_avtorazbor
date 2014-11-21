@@ -22,35 +22,24 @@ $this->menu=array(
     )',
 	'columns'=>array(
 		array(
-			'header'=>'Фото',
-			'type'=>'raw',
-			'value'=>'CHtml::link(TbHtml::imageCircle($data->img_preview ? $data->imgBehaviorPreview->getImageUrl("icon") : "/media/default.png"),"/admin/page/update/id/".$data->id)'
-		),
-		array(
 			'name'=>'name',
 			'type'=>'raw',
 			'value'=>'CHtml::link($data->name,"/admin/page/update/id/".$data->id)',
 		),
-		'alias',
 		array(
 			'name'=>'status',
 			'type'=>'raw',
 			'value'=>'Page::getStatusAliases($data->status)',
 			'filter'=>Page::getStatusAliases()
 		),
-		'sort',
 		array(
 			'name'=>'create_time',
 			'type'=>'raw',
 			'value'=>'$data->create_time ? SiteHelper::russianDate($data->create_time).\' в \'.date(\'H:i\', strtotime($data->create_time)) : ""'
 		),
 		array(
-			'name'=>'update_time',
-			'type'=>'raw',
-			'value'=>'$data->update_time ? SiteHelper::russianDate($data->update_time).\' в \'.date(\'H:i\', strtotime($data->update_time)) : ""'
-		),
-		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
+			'template'=>'{update}{delete}',
 		),
 	),
 )); ?>

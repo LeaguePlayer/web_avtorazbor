@@ -16,9 +16,7 @@
 	<td>
 		<ul>
 			<li>
-				<a href="#">
-					<?=$data->name?>
-				</a>
+				<?=$data->name?>
 			</li>
 			<li>
 				Модель авто: <?=$data->car_model->name?>

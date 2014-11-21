@@ -14,7 +14,7 @@
 				'documents' => array('documents', 'templates'),
 				'requests' => array('requests', 'clients', 'employees'),
 				'settings' => array('settings', 'download'),
-				'manage' =>array('page','bookPart','vacansyCallBack','questions','ownprice','vacansy','evackuator','diagnostic','buyout'),
+				'manage' =>array('page','bookpart','vacansyCallBack','questions','ownprice','vacansy','evackuator','diagnostic','buyout'),
 			);
 
 			$root = 'parts';

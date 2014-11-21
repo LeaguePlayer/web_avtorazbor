@@ -303,11 +303,6 @@
                                     </li>
                                     <li>    
                                     </li>
-                                    <li>
-                                        <a class="news" href="#">
-                                            Новинки
-                                        </a>    
-                                    </li>
                                 </ul>
 
                                 <dl>

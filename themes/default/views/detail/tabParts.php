@@ -1,6 +1,7 @@
 <?
 if (!empty($dataProvider))
 {
+    //var_dump($dataProvider->criteria->condition);die();
     $this->widget('zii.widgets.CListView', array(
         'dataProvider'=>$dataProvider,
         'itemView'=>'_itemParts',

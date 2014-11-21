@@ -7,7 +7,7 @@
 	<?php //echo $form->textFieldControlGroup($model,'year',array('class'=>'span8')); ?>
 
 	<?php echo $form->textFieldControlGroup($model,'mileage',array('class'=>'span8')); ?>
-
+	<?php echo $form->dropDownListControlGroup($model, 'engine',UsedCarInfo::getEngineList(), array('empty'=>'Выберите тип двигателя', 'class'=>'span8', 'displaySize'=>1,)); ?>
 	<?php echo $form->dropDownListControlGroup($model,'state', UsedCarInfo::statesList()); ?>
 
 	<?php echo $form->dropDownListControlGroup($model,'transmission', UsedCarInfo::transmissionList()); ?>

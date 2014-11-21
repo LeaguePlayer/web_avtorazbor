@@ -32,6 +32,7 @@
 	<?php echo $form->textFieldControlGroup($model,'vin',array('class'=>'span8','maxlength'=>20)); ?>
 
 	<?php echo $form->dropDownListControlGroup($model, 'bascet', array("Легковые"=>UsedCars::getBasketList(),'Грузовые'=>UsedCars::getWeightBasketList()), array('empty'=>'Выберите тип кузова', 'class'=>'span8', 'displaySize'=>1, 'id' => 'bascet1')); ?>
+	
 
 	<?php echo $form->textFieldControlGroup($model,'force',array('class'=>'span8','maxlength'=>20)); ?>
 

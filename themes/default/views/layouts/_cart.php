@@ -13,7 +13,7 @@
         				    </li>
         				    <li>
                             <a href="/cart">
-        					На сумму: <strong><?=Yii::app()->cart->getCost()?> руб.</strong>
+        					На сумму: <strong><?=number_format(Yii::app()->cart->getCost(),0,' ',' ')?> руб.</strong>
                             </a>
         			     	</li>
         			  </ul>

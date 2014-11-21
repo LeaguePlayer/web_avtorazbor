@@ -29,6 +29,8 @@ $this->menu=array(
 		'capacity',
 		array(
 			'name'=>'transmission',
+
+			'filter'=>UsedCarInfo::transmissionList(),
 			'value'=>'UsedCarInfo::transmissionList($data->transmission)',
 		),
 		array(

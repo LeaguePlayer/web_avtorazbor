@@ -5,7 +5,7 @@
 		public $bascet;
 		public $transmission;
 		public $price_st=50;
-		public $price_end=3000000;
+		public $price_end=1000000;
 		public $state;
 		public $mileage_st;
 		public $mileage_end;

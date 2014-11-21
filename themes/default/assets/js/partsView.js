@@ -35,7 +35,7 @@ $(function(){
 			dataType:'JSON',
 			success:function(data){
 				
-				var html='<ul><li><a href="/cart">'+data['count']+'</a></li><li>На сумму: <strong>'+data['summ']+' руб.</strong></li></ul>';
+				var html='<ul><li><a href="/cart">'+data['count']+'</a></li><li>На сумму: <strong>'+parseInt(data['summ'],10).formatMoney(0,' ',' ')+' руб.</strong></li></ul>';
 
 	        	$('.bascet dd').empty().append(html);
 

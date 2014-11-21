@@ -24,9 +24,14 @@ $this->menu=array(
 	    array(
 	    	'label'=>'Артикул Авто',
 	    	'type'=>'raw',
-	    	'value'=>$model->car->id,
+	    	'value'=>CHtml::link($model->car->id.' - Пререйти ',
+	    		Yii::app()->createUrl("/admin/usedCars/update",array("id"=>$model->car->id))),
 	    ),
-	    'status',
+	    // array(
+	    // 	'label'=>'Статус',
+	    // 	'type'=>'raw',
+	    // 	'value'=>Parts::getStatusAliases($model->status)
+	    // ),
     ),
 ));
 ?>
