@@ -318,7 +318,7 @@ class DetailController extends FrontController
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/partsView.js?v=2', CClientScript::POS_END);
 
 		$model=Parts::model()->findByPk($id);
-		if (!$model)
+		if (!$model && $model->status!=1 && $model->status!=7)
 		{
 			throw new CHttpException("По вашему запросу не было найдено данных", 404);
 			die();
@@ -339,11 +339,14 @@ class DetailController extends FrontController
 			);
 		}else 
 			$return='/detail/parts?'.$params;	
-
-			
-
-		$criteria=Parts::model()->search_parts('model_cat',array('model_id'=>$car_model,'cat_id'=>$category_id));
-		$criteria->addCondition('category_id='.$model->category->id);
+		$search=new Search;
+		$search->car_model_id=$car_model;
+		$search->category_id=$category_id;
+		$search->scenario="parts";
+		$search->validate();
+		//$criteria=Parts::model()->search_parts('model_cat',array('model_id'=>$car_model,'cat_id'=>$category_id));
+		$criteria=$search->criteria;
+		//$criteria->addCondition('category_id='.$model->category->id);
 		$dependecy = new CDbCacheDependency('SELECT MAX(update_time) FROM {{parts}}');
 		
 		$dataProvider=new CActiveDataProvider(Parts::model()->cache(3600,$dependecy,2),
@@ -352,6 +355,7 @@ class DetailController extends FrontController
 				'pagination'=>false,
 			)
 		);
+
 		$this->title=$model->name;
 		 Yii::app()->clientScript->registerMetaTag($this->title, 'title', null, array('id'=>'meta_title'), 'meta_title');
 		$this->render('view',

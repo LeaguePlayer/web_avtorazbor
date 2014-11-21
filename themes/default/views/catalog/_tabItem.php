@@ -9,6 +9,8 @@
 	<a href="/catalog/car/<?=$data->id?>" class="link">
 		<?=$data->name?>
 	</a>
+
+	
 	<span class="dsc">
 		<?=$data->comment?><br/>
 					<?=$data->year?>г.
