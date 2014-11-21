@@ -112,24 +112,17 @@ class Parts extends EActiveRecord implements IECartPosition
             ->from('{{categories}}')
             ->where('id=:id',array(':id'=>$this->category_id))
             ->queryRow();
-        
-        $model_name=Yii::app()->db->createCommand()
-            ->select('name')
-            ->from('{{CarModels}}')
-            ->where('id=:id',array(':id'=>$this->car_model_id))
-            ->queryRow();
-        
-        $brand_name=Yii::app()->db->createCommand()
-            ->select('name')
-            ->from('{{CarBrands}}')
-            ->where('id=:id',array(':id'=>$this->category_id))
-            ->queryRow();
 
-        $this->name=$cat_name['name'].','.$brand_name['name'].' '.$model_name['name'];
+        $model=Yii::app()->db->createCommand()
+            ->select('t.name,b.name as brand')
+            ->from('{{CarModels}} t')
+            ->join('{{CarBrands}} b','b.id=t.brand')
+            ->where('t.id=:id',array(':id'=>$this->car_model_id))
+            ->queryRow();
+        $this->name=$cat_name['name'].','.$model['brand'].' '.$model_name['name'];
 
         if (!$this->alias)
             $this->alias=SiteHelper::translit($this->name);
-
             return $this->name;
     }
 
