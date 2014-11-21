@@ -25,6 +25,6 @@
 	<div class="message">
 		<a class="totalPrice i-submit" href="/cart">В корзине <?=Yii::app()->cart->getCount()?> товар на сумму <?=Yii::app()->cart->getCost()?> руб.</a>
         <div class="hr"></div>
-        <a href="#" class="stay i-cancel">Продолжить покупку</a>
+        <a href="#" class="stay i-submit">Продолжить покупку</a>
 	</div>
 </div>
