@@ -49,10 +49,9 @@
                     <li>Коробка передач: <?=$model->dop->getTransmissionType()?></li>
                     <li>Тип кузова: <?=UsedCars::getBasketList($model->bascet)?></li>
                     <li>Марка: <a href="<?=$url?>"><?=$model->model->car_brand->name?></a></li>
-					<li>Пробег: <?=number_format($model->dop->mileage,0,' ',' ')?></li>
+					<li>Пробег: <?=number_format($model->dop->mileage,0,' ',' ')?> км</li>
 					<li>Состояние: <?=$model->dop->getState()?></li>
-					<li>Объем двигателя: <?=$model->force?></li>
-					
+					<li>Цвет: <?=$model->dop->color?></li>
 					
 					<li>Цена: <?=number_format($model->price,0,' ',' ') ?> руб.</li>
                     <?if (!Yii::app()->user->isAdmin){?>
