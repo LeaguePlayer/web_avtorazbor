@@ -53,8 +53,8 @@ class ApiController extends FrontController
 		if(!$part)
 			$this->response->errors[] = array('part' => 'Запчасть не найдена');
 
-		if($part && isset($_POST['Parts'])){
-			$part->attributes = $_POST['Parts'];
+		if($part && isset($_POST['Part'])){
+			$part->attributes = $_POST['Part'];
 			//create name
 			
 			if($part->category_id && $part->car_model_id)
