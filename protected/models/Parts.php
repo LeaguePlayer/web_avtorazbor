@@ -119,7 +119,7 @@ class Parts extends EActiveRecord implements IECartPosition
             ->join('{{CarBrands}} b','b.id=t.brand')
             ->where('t.id=:id',array(':id'=>$this->car_model_id))
             ->queryRow();
-        $this->name=$cat_name['name'].','.$model['brand'].' '.$model_name['name'];
+        $this->name=$cat_name['name'].','.$model['brand'].' '.$model['name'];
 
         if (!$this->alias)
             $this->alias=SiteHelper::translit($this->name);

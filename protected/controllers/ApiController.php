@@ -60,6 +60,7 @@ class ApiController extends FrontController
 			if($part->category_id && $part->car_model_id)
 			{
 				$part->createName();
+
 			}
 
 			if($part->validate()){
