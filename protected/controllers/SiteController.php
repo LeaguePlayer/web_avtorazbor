@@ -28,6 +28,8 @@ class SiteController extends FrontController
 		$searchForm=new Search;
 		if (!Yii::app()->request->isAjaxRequest)
 		{
+
+
 			$cs = Yii::app()->clientScript; 
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js?v=2', CClientScript::POS_END);
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/main.js?v=2', CClientScript::POS_END);
@@ -84,7 +86,9 @@ class SiteController extends FrontController
 					'criteria'=>$criteriaCars,
 				)
 			);
+			$searchForm->validate();
 			$searchForm->criteria->order="t.id desc";
+
 			$this->render('index',
 				array(
 					'Brands'=>$Brands,

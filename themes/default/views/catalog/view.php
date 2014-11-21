@@ -50,7 +50,7 @@
                     <li>Тип кузова: <?=UsedCars::getBasketList($model->bascet)?></li>
                     <li>Марка: <a href="<?=$url?>"><?=$model->model->car_brand->name?></a></li>
 					<li>Пробег: <?=number_format($model->dop->mileage,0,' ',' ')?></li>
-					<li><strong>Состояние:</strong> <?=$model->dop->getState()?></li>
+					<li>Состояние: <?=$model->dop->getState()?></li>
 					<li>Объем двигателя: <?=$model->force?></li>
 					
 					

@@ -28,27 +28,24 @@
 
                             if ( !data.error ) {
                                 $('.reg').empty().append(data.lk);
-                                if (data.user)
+                                if (data.user && $('.empty-cart').length==0)
                                 {
                                     $('#accept .user').empty();
                                     $('#accept .user').append(data.user);
                                     $('#accept').removeClass('hide').addClass('tab-active');
-                                    $('#cart').addClass('hide');
-                                }
-                                if ($('.wr .basket').length)
-                                {
-                                    $('.right.auth').slideUp().delay(200).remove();
-                                    var li=$('.basket .tabs li')
-                                            .removeClass('active')
-                                            .eq(1);
-                                            
+                                    $('#cart').removeClass('tab-active').addClass('hide');
+                                    var li=$('.basket li').removeClass('active').removeClass('hide').eq(1).addClass('active');
                                     var width=li.width();
+                                    
                                     li.addClass('active');
                                     li.width(0);
                                     li.animate({width:width},200,function(){
                                         li.css('width','auto')
                                     });
-                                    
+                                }
+                                if ($('.wr .basket').length)
+                                {
+                                    //$('.right.auth').slideUp().delay(200).remove();
                                 }
                                 $.fancybox.close();
                             } else {
