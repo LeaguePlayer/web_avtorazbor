@@ -16,4 +16,5 @@
     <a href="/detail/<?=$data->url?>/<?=$data->id?>" data-id="<?=$data->id?>" class="name">
         <?=$data->name;?>
     </a>
+    <span class="dsc" style="fron-size:16px;color:red"><?=$data->analog ? 'Аналог' : ''?></span>
 </li>
