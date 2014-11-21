@@ -10,7 +10,7 @@
 		);
 	?>
 	<?php echo $form->textFieldControlGroup($model,'alias',array('class'=>'span8','maxlength'=>255)); ?>
-	<?php echo $form->dropDownList($model,'model_name',$data,array('empty'=>'Выберите модель','class'=>'span8','maxlength'=>255)); ?>
+	<?//php echo $form->dropDownList($model,'model_name',$data,array('empty'=>'Выберите модель','class'=>'span8','maxlength'=>255)); ?>
 	<script>
 		$(function(){
 			$('#EmailTemplates_model_name').on("change",function(){
