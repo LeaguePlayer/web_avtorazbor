@@ -11,7 +11,7 @@
     </a>
     <span class="desc">
         <?=$data->comment?><br/>
-        <?=$data->year ? $data->year.'г.' : '' ?> , <?=$data->dop->mileage ? $data->dop->mileage.' км' :''?>.
+        <?=$data->year ? $data->year.'г.' : '' ?> <?=$data->dop->mileage ? $data->dop->mileage.' км' :''?>.
     </span>
     <span class="price">
         <?=$data->dop->price_sell ?  number_format((int)$data->dop->price_sell ,0,' ',' ') .' руб.' : ''?> 

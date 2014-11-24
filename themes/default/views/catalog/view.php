@@ -44,7 +44,7 @@
                             $param="?Search[brand]=".$model->model->car_brand->id."&Search[id_country]=".$model->model->car_brand->country->id;
                             $url=$this->createUrl('/catalog'.$param);
                         ?>
-                    <li class="articul">Артикул: <span><?=$model->id?></span></li>
+                    
                     <li>Двигатель: <?=$model->dop->engine ? UsedCarInfo::getEngineList($model->dop->engine):' ' ?> <?=$model->force ? $model->force.'(Л.С.)' : ''?></li>
                     <li>Коробка передач: <?=$model->dop->getTransmissionType()?></li>
                     <li>Тип кузова: <?=UsedCars::getBasketList($model->bascet)?></li>
@@ -52,17 +52,12 @@
 					<li>Пробег: <?=number_format($model->dop->mileage,0,' ',' ')?> км</li>
 					<li>Состояние: <?=$model->dop->getState()?></li>
 					<li>Цвет: <?=$model->dop->color?></li>
-<<<<<<< HEAD
                     <?
                         if ($model->more_info){
                     ?>
                     <li>Дополнительно: <?=$model->more_info?></li>
 					<?}?>
-					<li>Цена: <?=number_format($model->price,0,' ',' ') ?> руб.</li>
-=======
-					
 					<li>Цена: <?=number_format($model->dop->price,0,' ',' ') ?> руб.</li>
->>>>>>> 85a5e88fab1079cc3a771bfe1151fab9d72278c5
                     <?if (!Yii::app()->user->isAdmin){?>
 					   <li><a href="#own-price" class="own-price"><span>Предложить свою цену</span></a></li>
                     <?}?>
