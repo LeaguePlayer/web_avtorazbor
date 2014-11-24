@@ -50,6 +50,10 @@ class UsedCarInfo extends EActiveRecord
         );
     }
 
+    public function getPrivodVal(){
+        return self::getPridovList($this->privod);
+    }
+
     public static function getPridovList($id=null){
         $list=array(0=>'Задний',1=>'Передний',2=>'Полный');
         return $id ? $list[$id] : $list;
