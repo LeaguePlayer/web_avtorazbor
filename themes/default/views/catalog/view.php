@@ -53,7 +53,7 @@
 					<li>Состояние: <?=$model->dop->getState()?></li>
 					<li>Цвет: <?=$model->dop->color?></li>
 					
-					<li>Цена: <?=number_format($model->price,0,' ',' ') ?> руб.</li>
+					<li>Цена: <?=number_format($model->dop->price,0,' ',' ') ?> руб.</li>
                     <?if (!Yii::app()->user->isAdmin){?>
 					   <li><a href="#own-price" class="own-price"><span>Предложить свою цену</span></a></li>
                     <?}?>
