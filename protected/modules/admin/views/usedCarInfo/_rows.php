@@ -10,6 +10,8 @@
 	<?php echo $form->dropDownListControlGroup($model, 'engine',UsedCarInfo::getEngineList(), array('empty'=>'Выберите тип двигателя', 'class'=>'span8', 'displaySize'=>1,)); ?>
 	<?php echo $form->dropDownListControlGroup($model,'state', UsedCarInfo::statesList()); ?>
 
+
+	<?php echo $form->dropDownListControlGroup($model,'privod', UsedCarInfo::getPridovList()); ?>
 	<?php echo $form->dropDownListControlGroup($model,'transmission', UsedCarInfo::transmissionList()); ?>
 
 	<?php echo $form->textFieldControlGroup($model,'model_num_engine',array('class'=>'span8','maxlength'=>255)); ?>

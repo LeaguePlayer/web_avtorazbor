@@ -57,7 +57,7 @@
                     ?>
                     <li>Дополнительно: <?=$model->more_info?></li>
 					<?}?>
-					<li>Цена: <?=number_format($model->dop->price,0,' ',' ') ?> руб.</li>
+					<li>Цена: <?=number_format($model->dop->price_sell,0,' ',' ') ?> руб.</li>
                     <?if (!Yii::app()->user->isAdmin){?>
 					   <li><a href="#own-price" class="own-price"><span>Предложить свою цену</span></a></li>
                     <?}?>
