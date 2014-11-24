@@ -95,7 +95,8 @@ class DetailController extends FrontController
 					),
 				'id','name'
 			);
-
+		$this->title=$this->modelName;
+		Yii::app()->clientScript->registerMetaTag($this->title, 'title', null, array('id'=>'meta_title'), 'meta_title');
 		$this->render('index',
 			array(
 				'Brand'=>$Brand,
@@ -158,7 +159,7 @@ class DetailController extends FrontController
     	$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js?v=2', CClientScript::POS_END);
 	    $cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.scrollTo.min.js', CClientScript::POS_END);
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js?v=2', CClientScript::POS_END);
-
+		Yii::app()->clientScript->registerMetaTag('123123', 'title', null, array('id'=>'meta_title'), 'meta_title');
 		$this->breadcrumbs=array('Запчасти'=>'/detail');
 		
 		$searchForm=new Search;
@@ -316,6 +317,7 @@ class DetailController extends FrontController
 	{
 		$cs = Yii::app()->clientScript;
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/partsView.js?v=2', CClientScript::POS_END);
+		Yii::app()->clientScript->registerMetaTag($this->modelName, 'title', null, array('id'=>'meta_title'), 'meta_title');
 
 		$model=Parts::model()->findByPk($id);
 		if (!$model && $model->status!=1 && $model->status!=7)
