@@ -12,7 +12,7 @@
 
 	
 	<span class="dsc">
-		<?=$data->dop->more_info?><br/>
+		<?=$data->more_info?><br/>
 					<?=$data->year?>г.
 	</span>
 	<span class="price">
