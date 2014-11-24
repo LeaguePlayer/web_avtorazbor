@@ -10,7 +10,7 @@
         <?=$data->name?>
     </a>
     <span class="desc">
-        <?=$data->comment?><br/>
+        <?=$data->dop->more_info?><br/>
         <?=$data->year ? $data->year.'г.' : '' ?> <?=$data->dop->mileage ? $data->dop->mileage.' км' :''?>.
     </span>
     <span class="price">
