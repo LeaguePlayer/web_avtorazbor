@@ -57,6 +57,7 @@
 	<?php echo $form->textFieldControlGroup($model,'price',array('class'=>'span8','maxlength'=>10)); ?>
 
 	<?php echo $form->textAreaControlGroup($model,'comment',array('class'=>'span8')); ?>
+	<?php echo $form->textAreaControlGroup($model,'more_info',array('class'=>'span8')); ?>
 
 	<div class='control-group'>
 		<?php echo CHtml::activeLabelEx($model, 'enter_date'); ?>

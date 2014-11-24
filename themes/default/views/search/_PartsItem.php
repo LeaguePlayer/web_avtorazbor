@@ -15,6 +15,7 @@
         	<strong>Коментарий:<br></strong>
             <?=$data->comment?>
         </span>
+        
         <span class="price">
             <?= $data->price_sell ? number_format((int)$data->price_sell,0,' ',' ').' руб.' : ''?> 
         </span>

@@ -1,12 +1,16 @@
 <?
- //    $gallery=$data->getGallery()->galleryPhotos;
-	// $image=$gallery ? $gallery[0]->getUrl('small') : '/media/images/parts/default.jpg';
+     $gallery=$data->getGallery()->galleryPhotos;
+	   
 	// $bigImage=$gallery ? $gallery[0]->getUrl('big') : '/media/images/parts/default.jpg';
         // $image='/media/car.png';
         // $imageBig='/media/car.png';
 ?>
 <div>
-    <a href="/catalog/<?=$data->url?>/<?=$data->id?>"><img src="<?=$data->getImageUrl('small')?>" alt="" title="" /></a>
+    <?
+        $image=$gallery ? $gallery[0]->getUrl('small') : '/media/images/parts/default.jpg';
+        //$data=UsedCars::model()->findByPk($data['id']);
+    ?>
+    <a href="/catalog/<?=$data->url?>/<?=$data->id?>"><img src="<?=$image?>" alt="" title="" /></a>
     
     <a href="/catalog/<?=$data->url?>/<?=$data->id?>" class="link">
         <?=$data->name?>

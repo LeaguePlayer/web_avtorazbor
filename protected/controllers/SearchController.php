@@ -11,7 +11,7 @@ class SearchController extends Controller
         $dataProvider->criteria->addCondition("car_type=$type");
         $dataProvider->criteria->join=Parts::join();
         $this->renderPartial('carusel',array('dataProvider'=>$dataProvider,'str'=>$str,'model'=>'Parts'));
-        die();
+        Yii::app()->end();
     }
 
     public function actionGetCars()
@@ -22,7 +22,7 @@ class SearchController extends Controller
         $dataProvider->criteria->addCondition("car_type=$type");
         $dataProvider->criteria->join=UsedCars::join();
         $this->renderPartial('carusel',array('dataProvider'=>$dataProvider,'str'=>$str,'model'=>'UsedCars'));
-        die();
+        Yii::app()->end();
     }
 
     public function actionFind($str,$table,$type=null)

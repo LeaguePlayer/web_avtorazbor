@@ -148,6 +148,7 @@ return array(
                 'detail/<brand:\w+>/<model:\w+>/<category:\w+>/<id:\d+>'=>'detail/view',
                 'catalog/<brand:\w+>/<model:\w+>/<id:\d+>'=>'catalog/car',
                 'page/service'=>'page/service',
+                'search/getParts|search/getparts'=>'search/getParts',
                 'parts|Parts'=>'detail/parts',
                 'diagnostic/<alias:[\w\-]+>/<id:\d+>'=>'diagnostic/view',
 
