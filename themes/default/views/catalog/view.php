@@ -44,7 +44,7 @@
                             $param="?Search[brand]=".$model->model->car_brand->id."&Search[id_country]=".$model->model->car_brand->country->id;
                             $url=$this->createUrl('/catalog'.$param);
                         ?>
-                    <li class="articul">Артикул: <span><?=$model->id?></span></li>
+                    
                     <li>Двигатель: <?=$model->dop->engine ? UsedCarInfo::getEngineList($model->dop->engine):' ' ?> <?=$model->force ? $model->force.'(Л.С.)' : ''?></li>
                     <li>Коробка передач: <?=$model->dop->getTransmissionType()?></li>
                     <li>Тип кузова: <?=UsedCars::getBasketList($model->bascet)?></li>
