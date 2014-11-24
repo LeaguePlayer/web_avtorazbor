@@ -14,7 +14,7 @@
         <?=$data->year ? $data->year.'г.' : '' ?> , <?=$data->dop->mileage ? $data->dop->mileage.' км' :''?>.
     </span>
     <span class="price">
-        <?=$data->price_sell ?  number_format((int)$data->price_sell,0,' ',' ') .' руб.' : ''?> 
+        <?=$data->dop->price_sell ?  number_format((int)$data->dop->price_sell ,0,' ',' ') .' руб.' : ''?> 
     </span>
     <!-- <span class="price_old">    
         как сделать??
