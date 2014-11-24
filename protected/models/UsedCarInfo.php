@@ -51,7 +51,7 @@ class UsedCarInfo extends EActiveRecord
     }
 
     public function getPrivodVal(){
-        return self::getPridovList($this->privod);
+        return $this->privod!==null ? self::getPridovList($this->privod) : 'Не указано';
     }
 
     public static function getPridovList($id=null){
