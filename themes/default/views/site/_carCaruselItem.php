@@ -2,10 +2,10 @@
     <? 
         $data=UsedCars::model()->findByPk($data['id']);
         $glr=$data->getGallery()->galleryPhotos;
-        $image= $glr ? $glr[0]->getUrl('small') : '/media/images/usedcars/default.jpg';
+        $image= $glr ? $glr[0]->getUrl('small') : '/media/images/parts/default.jpg';
         //$image='/media/car.png';
     ?>
-    <a href="/catalog/<?=$data->url?>/<?=$data->id?>"><img src="<?=$image?>" alt="" title="" /></a>
+    <a href="/catalog/<?=$data->url?>/<?=$data->id?>"><img height="100px" width="140px" src="<?=$image?>" alt="" title="" /></a>
     <a href="/catalog/<?=$data->url?>/<?=$data->id?>" class="link">
         <?=$data->name?>
     </a>
