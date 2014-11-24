@@ -21,19 +21,6 @@ $this->menu=array(
 		'alias',
 		'subject',
 		'from',
-		'send_interval',
-		'last_send_date',
-		'send_status',
-		array(
-			'name'=>'create_time',
-			'type'=>'raw',
-			'value'=>'$data->create_time ? SiteHelper::russianDate($data->create_time).\' в \'.date(\'H:i\', strtotime($data->create_time)) : ""'
-		),
-		array(
-			'name'=>'update_time',
-			'type'=>'raw',
-			'value'=>'$data->update_time ? SiteHelper::russianDate($data->update_time).\' в \'.date(\'H:i\', strtotime($data->update_time)) : ""'
-		),
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
 		),

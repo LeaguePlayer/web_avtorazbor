@@ -13,6 +13,7 @@
 				'parts' => array( 'parts', 'carBrands', 'carModels', 'categories'),
 				'documents' => array('documents', 'templates'),
 				'requests' => array('requests', 'clients', 'employees'),
+
 				'settings' => array('settings', 'download','emailTemplates'),
 				'manage' =>array('page','bookPart','vacansyCallBack','questions','ownprice','vacansy','evackuator','diagnostic','buyout'),
 			);

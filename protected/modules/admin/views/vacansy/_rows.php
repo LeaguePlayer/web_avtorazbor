@@ -1,6 +1,6 @@
 	<?php echo $form->textFieldControlGroup($model,'post',array('class'=>'span8','maxlength'=>255)); ?>
 
-	<?php echo $form->textAreaControlGroup($model,'desc',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
+	<?//php echo $form->textAreaControlGroup($model,'desc',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
 	<div class='control-group'>
 		<?php echo CHtml::activeLabelEx($model, 'wswg_body'); ?>

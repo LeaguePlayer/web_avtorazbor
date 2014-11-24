@@ -93,7 +93,7 @@
                     'success'=>'function(data){
                         $(".items-auto").remove();
                         $(".cat-auto").append(data)
-                        $(".items-auto .items").owlCarousel();
+                        $(".items-auto .items").owlCarousel({items:7});
                     }'
                 )
             );
@@ -269,7 +269,7 @@
                     'success'=>'function(data){
                         $(".items-auto").remove();
                         $(".cat-auto").append(data)
-                        $(".items-auto .items").owlCarousel();
+                        $(".items-auto .items").owlCarousel({items:7});
                     }'
                 )
             );
@@ -413,7 +413,7 @@
     <div class="parametr" id="tabs-3">
 
            <?php $form = $this->beginWidget('CActiveForm', array(
-                'action' => $this->createUrl('/search/getCars'),
+                'action' => $this->createUrl('/search/getParts'),
                 'htmlOptions' => array('class' => 'search-text')
             ));
             //echo $form->hiddenField('type',2);
@@ -424,12 +424,12 @@
             echo CHtml::ajaxSubmitButton('','/search/getParts',
                 array(
                     'url'=>'/search/getParts',
-                    'type'=>'GET',
+                    'type'=>'POST',
                     'data'=>'js:{type:$("#Search_type option:selected",$("#tabs-3")).val(),str:$(".searching",$("#tabs-3")).val(),table:"Parts"}',
                     'success'=>'function(data){
                         $(".items-auto").remove();
                         $(".cat-auto").append(data)
-                        $(".items-auto .items").owlCarousel();
+                        $(".items-auto .items").owlCarousel({items:7});
                     }'
                 )
             );
@@ -578,7 +578,7 @@
                     'success'=>'function(data){
                         $(".items-auto").remove();
                         $(".cat-auto").append(data)
-                        $(".items-auto .items").owlCarousel();
+                        $(".items-auto .items").owlCarousel({items:7});
                     }'
                 )
             );
