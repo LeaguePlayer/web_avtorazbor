@@ -539,6 +539,18 @@ header{
 	border-bottom:1px solid #143883;
 	padding-bottom: 10px;
 	position: relative;
+	.search{
+		input[type=submit]{
+			height: 37px;
+			width: 20px;
+			border: 0;
+			cursor: pointer;
+			background: url(../images/i-search2.png) no-repeat;
+			background-position: center;
+			float: left;
+			display: none;
+		}
+	}
 	nav{
 		display: inline-block;
 		vertical-align: top;
@@ -4013,4 +4025,23 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d16e17', end
 	overflow: hidden;
 	opacity: 0;
 	visibility: hidden;
+}
+
+
+
+@media screen and (max-width:1000px){
+	header{
+		div,p,a,span{
+			font-weight: bold!important;	
+		}
+		
+	}
+	.menu{
+		.search{
+			input[type=submit]{
+				display: inline-block!important;	
+			}
+			
+		}
+	}
 }
