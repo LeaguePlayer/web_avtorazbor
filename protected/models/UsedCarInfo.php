@@ -34,7 +34,7 @@ class UsedCarInfo extends EActiveRecord
     public function rules()
     {
         return array(
-            array('year, engine, used_car_id, mileage, state, transmission', 'numerical', 'integerOnly'=>true),
+            array('year, privod, engine, used_car_id, mileage, state, transmission', 'numerical', 'integerOnly'=>true),
             array('price_sell', 'length', 'max'=>10),
             array('model_num_engine, chassis_num, carcass_num, color, type_ts, passport_ts', 'length', 'max'=>255),
             array('issued_by,dt_of_issue', 'safe'),
@@ -50,6 +50,10 @@ class UsedCarInfo extends EActiveRecord
         );
     }
 
+    public static function getPridovList($id=null){
+        $list=array(0=>'Задний',1=>'Передний',2=>'Полный');
+        return $id ? $list[$id] : $list;
+    }
 
     public function attributeLabels()
     {
@@ -65,6 +69,7 @@ class UsedCarInfo extends EActiveRecord
             'type_ts' => 'Тип ТС',
             'passport_ts' => 'Паспорт ТС',
             'issued_by' => 'Кем выдан',
+            'privod'=>'Привод',
             'used_car_id' => 'Б/У автомобиль',
             'mileage' => 'Пробег',
             'state' => 'Состояние',
