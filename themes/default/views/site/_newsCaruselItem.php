@@ -1,7 +1,7 @@
 <div>
     <?
         $glr=$data->getGallery()->galleryPhotos;
-        $image= $glr ? $glr[0]->getUrl('small') : '/media/images/usedcars/default.jpg';
+        $image= $glr ? $glr[0]->getUrl('small') : '/media/images/parts/default.jpg';
     ?>
     <a href="/catalog/<?=$data->url?>/<?=$data->id?>">
         <img src="<?=$image?>" alt="" title="">
