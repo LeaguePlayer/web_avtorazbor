@@ -57,10 +57,12 @@ class UsedCarsController extends AdminController
 	private function saveModels(&$model, &$dop, &$owner){
 
 		
+
 		if(isset($_POST['UsedCars'])){
+
 			$model->attributes = $_POST['UsedCars'];
 			$model->more_info=$_POST['UsedCars']['more_info'];
-			
+			$model->year=$_POST['UsedCars']['year'];
 			$model->force = $model->force ? $model->force : 0;
 			$model->price = $model->price ? $model->price : 0;
 			
