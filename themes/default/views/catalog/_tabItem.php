@@ -16,6 +16,6 @@
 					<?=$data->year?>г.
 	</span>
 	<span class="price">
-		<?=number_format($data->price,0,'',' ')?> руб.
+		<?=number_format($data->dop->price_sell,0,'',' ')?> руб.
 	</span>
 </li>

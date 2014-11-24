@@ -52,12 +52,17 @@
 					<li>Пробег: <?=number_format($model->dop->mileage,0,' ',' ')?> км</li>
 					<li>Состояние: <?=$model->dop->getState()?></li>
 					<li>Цвет: <?=$model->dop->color?></li>
+<<<<<<< HEAD
                     <?
                         if ($model->more_info){
                     ?>
                     <li>Дополнительно: <?=$model->more_info?></li>
 					<?}?>
 					<li>Цена: <?=number_format($model->price,0,' ',' ') ?> руб.</li>
+=======
+					
+					<li>Цена: <?=number_format($model->dop->price,0,' ',' ') ?> руб.</li>
+>>>>>>> 85a5e88fab1079cc3a771bfe1151fab9d72278c5
                     <?if (!Yii::app()->user->isAdmin){?>
 					   <li><a href="#own-price" class="own-price"><span>Предложить свою цену</span></a></li>
                     <?}?>
