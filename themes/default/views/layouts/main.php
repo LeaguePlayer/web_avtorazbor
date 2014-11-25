@@ -240,5 +240,11 @@
     <div class="over" id="hide-layout"></div>
     <?=$this->renderPartial('//account/login',array('model'=>new AuthForm),true)?>
     <?=$this->renderPartial('//forms/bookPart',array('model'=>new Bookpart));?>
+    <script type="text/javascript">
+    var __cs = __cs || [];
+    __cs.push(["setAccount", "nvhuVPPprlE1nkOBxUt__QWZQAi8i_2G"]);
+    __cs.push(["setHost", "http://server.comagic.ru/comagic"]);
+    </script>
+    <script type="text/javascript" async src="http://app.comagic.ru/static/cs.min.js"></script>
 	</body>
 </html>
