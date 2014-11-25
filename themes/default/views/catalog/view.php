@@ -1,6 +1,6 @@
 <div class="page">
     <h1 class="head">
-        <?=$model->name?>
+        <?=$model->name.($model->year ? ', '.$model->year.' год':'')?>
     </h1>
     <div class="wr">
         <div class="coll left" >
@@ -46,19 +46,19 @@
                         ?>
                     
                     <li>Двигатель: <?=$model->dop->engine ? UsedCarInfo::getEngineList($model->dop->engine):' ' ?> <?=$model->force ? $model->force.'(Л.С.)' : ''?></li>
+                    <li>Трансмиссия: <?=$model->dop->getTransmissionType()?></li>
                     <li>Привод: <?=$model->dop->getPrivodVal()?></li>
-                    <li>Коробка передач: <?=$model->dop->getTransmissionType()?></li>
+                    
                     <li>Тип кузова: <?=UsedCars::getBasketList($model->bascet)?></li>
-                    <li>Марка: <a href="<?=$url?>"><?=$model->model->car_brand->name?></a></li>
+                    <li>Цвет: <?=$model->dop->color?></li>
 					<li>Пробег: <?=number_format($model->dop->mileage,0,' ',' ')?> км</li>
 					<li>Состояние: <?=$model->dop->getState()?></li>
-					<li>Цвет: <?=$model->dop->color?></li>
                     <?
                         if ($model->more_info){
                     ?>
                     <li>Дополнительно: <?=$model->more_info?></li>
 					<?}?>
-					<li>Цена: <?=number_format($model->dop->price_sell,0,' ',' ') ?> руб.</li>
+					<li class="price">Цена: <?=number_format($model->dop->price_sell,0,' ',' ') ?> руб.</li>
                     <?if (!Yii::app()->user->isAdmin){?>
 					   <li><a href="#own-price" class="own-price"><span>Предложить свою цену</span></a></li>
                     <?}?>
