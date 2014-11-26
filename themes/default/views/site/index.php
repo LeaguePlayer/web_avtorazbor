@@ -229,7 +229,7 @@
                 
             </div>
             
-            <div class="coll-3" style="background:red">
+            <div class="coll-3" style="width:180px;">
                 <dl>
                     <dt>
                         Найдено<br/>
