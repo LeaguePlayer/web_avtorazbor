@@ -45,7 +45,7 @@
                             $url=$this->createUrl('/catalog'.$param);
                         ?>
                     
-                    <li>Двигатель: <?=$model->dop->engine ? UsedCarInfo::getEngineList($model->dop->engine):' ' ?> <?=$model->force ? $model->force.'(л.с.)' : ''?></li>
+                    <li>Двигатель: <?=$model->dop->engine ? UsedCarInfo::getEngineList($model->dop->engine):' ' ?> <?=$model->force ? $model->force.' л.с.' : ''?></li>
                     <li>Трансмиссия: <?=$model->dop->getTransmissionType()?></li>
                     <li>Привод: <?=$model->dop->getPrivodVal()?></li>
                     
