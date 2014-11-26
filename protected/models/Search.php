@@ -168,6 +168,7 @@
 			{
 				$criteria->addCondition('mileage<='.$this->mileage_end);
 			}
+			$criteria->status=2;
 			$criteria->addCondition('car_type=1');
 			$criteria->join=UsedCars::join();
 			$this->criteria = $criteria;
@@ -197,7 +198,7 @@
 			{
 				$criteria->addCondition('mileage<='.$this->mileage_end);
 			}
-
+			$criteria->status=2;
 			$criteria->addCondition('car_type=2');
 			$criteria->join=UsedCars::join();
 			$this->criteria = $criteria;

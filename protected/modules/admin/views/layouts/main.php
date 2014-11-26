@@ -13,7 +13,6 @@
 				'parts' => array( 'parts', 'carBrands', 'carModels', 'categories'),
 				'documents' => array('documents', 'templates'),
 				'requests' => array('requests', 'clients', 'employees'),
-
 				'settings' => array('settings', 'download','emailTemplates'),
 				'manage' =>array('page','bookPart','vacansyCallBack','questions','ownprice','vacansy','evackuator','diagnostic','buyout'),
 			);
@@ -43,7 +42,7 @@
 				array('label'=>'Документы', 'url'=>'/admin/documents'),
 				array('label'=>'Пользователи', 'url'=>'/user/admin'),
 				array('label'=>'Настройки', 'url'=>'/admin/settings'),
-				array('label'=>'Управление сайтов','url'=>'/admin/page',
+				array('label'=>'Управление сайтом','url'=>'/admin/page',
 					
 				)
 			);
