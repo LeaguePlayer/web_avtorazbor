@@ -21,4 +21,4 @@
 		<?php echo $form->error($model, 'wswg_body'); ?>
 	</div>
 
-	<?php echo $form->dropDownListControlGroup($model, 'status', Page::getStatusAliases(), array('class'=>'span8', 'displaySize'=>1)); ?>
+	<?php if (!$_GET['system']) echo $form->dropDownListControlGroup($model, 'status', Page::getStatusAliases(), array('class'=>'span8', 'displaySize'=>1)); ?>
