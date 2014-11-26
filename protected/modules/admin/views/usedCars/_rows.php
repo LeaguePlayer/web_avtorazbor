@@ -79,7 +79,7 @@
 
 	<?php echo $form->dropDownListControlGroup($model, 'status', UsedCars::getStatusAliases(), array('class'=>'span8', 'displaySize'=>1, 'id' => 'type')); ?>
 	
-
+	<?php echo $form->textFieldControlGroup($model, 'capacity', array('class'=>'span8')); ?>
 
 	<div class="dop">
 	<?php
