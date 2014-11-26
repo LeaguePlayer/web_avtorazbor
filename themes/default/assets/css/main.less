@@ -2268,6 +2268,7 @@ div[id^=tabs]{
 	}
 	.i-text,textarea{
 		box-shadow: inset 0 -2px 25px rgba(0, 0, 0, 0.14);
+		display: inline-block;
 	}
 	.parametr{
 		background:#255caa;
@@ -2355,7 +2356,6 @@ div[id^=tabs]{
 					display: block;
 					position: relative;
 					padding-left:0;
-					float:right;
 					&:first-child{
 						float:left;
 						&:before{
@@ -2368,12 +2368,10 @@ div[id^=tabs]{
 					}
 					&:before{
 						content:'—';
-						position: absolute;
 						height:37px;
 						line-height:37px;
 						color:#fff;
-						left:-40px;
-						top:0;
+						display: inline-block;
 						width:40px;
 						text-align: center;
 					}
