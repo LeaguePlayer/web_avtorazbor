@@ -138,7 +138,7 @@ class UsedCars extends EActiveRecord
         return array(
             array('car_model_id, vin, name, price, force', 'required'),
             array('car_model_id, status, buyer_id, gallery_id', 'numerical', 'integerOnly'=>true),
-            array('name, alias', 'length', 'max'=>255),
+            array('name, capacity, alias', 'length', 'max'=>255),
             array('vin', 'length', 'max'=>20),
             array('price', 'length', 'max'=>10),
             array('comment, more_info year, enter_date, force, img_preview, bascet', 'safe'),
@@ -222,6 +222,7 @@ class UsedCars extends EActiveRecord
             'year' => 'Год выпуска',
             'buyer_id' => 'Покупатель',
             'enter_date' => 'Дата поступления',
+            'capacity' => 'Объем двигателя',
             'name' => 'Марка, модель (как в ПТС)',
             'img_preview'=>'фотом машины',
             'gallery_id' => 'Галерея',
