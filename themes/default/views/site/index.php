@@ -787,12 +787,12 @@
             </div>
 
             <div class="content clear">
-                <div id="tabs-6">
+                <div id="tabs-6"  class="tab-active">
                     <a href="#" class="prev"></a>
                     <a href="#" class="next"></a>
                     <?=$this->renderPartial('/site/newsCarusel',array('dataProvider'=>$razbor))?>
                 </div>
-                <div id="tabs-5" class="tab-active">
+                <div id="tabs-5">
                     <a href="#" class="prev"></a>
                     <a href="#" class="next"></a>
                     <?=$this->renderPartial('/site/newsCarusel',array('dataProvider'=>$cars))?>
