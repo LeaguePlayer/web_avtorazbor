@@ -117,7 +117,7 @@
                             );
                             foreach ($menu as $key => $item) {
                                 ?>
-                                    <li class="<?=strpos($item['url'], $url)===0 || $item['url']==='/page/about' ? 'active' : ''?>">
+                                    <li class="<?=strpos($item['url'], $url)===0 ? 'active' : ''?>">
                                         <a href="<?=$item['url']?>"><?=$item['label']?></a>
                                     </li>
                                 <?
@@ -128,7 +128,7 @@
 
                     <form action="/search/find" class="search">
                         <input type="text" autocomplete="off" value="" name="str" placeholder="Введите ваш запрос"/>
-                        
+                        <input type="submit" value>
                         <input hidden type="radio" name="table" <?=$_GET['table']=='UsedCars'  ? 'checked' : ''?> id="UsedCars" value="UsedCars" />
                         <input hidden type="radio" name="table" <?=!isset($_GET['table']) || $_GET['table']=='Parts' ? 'checked' : ''?> id="Parts" value="Parts" />
 
