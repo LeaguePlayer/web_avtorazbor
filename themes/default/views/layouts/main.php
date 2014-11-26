@@ -150,6 +150,7 @@
                             </ul>
                         </div>
                     </form>
+                    <div class="clr"></div>
                 </div>
                 </div>
         </header>
