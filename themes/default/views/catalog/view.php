@@ -58,7 +58,9 @@
                     ?>
                     <li>Дополнительно: <?=$model->more_info?></li>
 					<?}?>
+                    <?if ($model->status==2){?>
 					<li class="price">Цена: <?=number_format($model->dop->price_sell,0,' ',' ') ?> руб.</li>
+                    <?}?>
                     <?if (!Yii::app()->user->isAdmin && $model->status=2){?>
 					   <li><a href="#own-price" class="own-price"><span>Предложить свою цену</span></a></li>
                     <?}?>
