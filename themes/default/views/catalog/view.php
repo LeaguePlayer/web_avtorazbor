@@ -63,6 +63,7 @@
                     
                         <?if (!Yii::app()->user->isAdmin){?>
     					   <li><a href="#own-price" class="own-price"><span>Предложить свою цену</span></a></li>
+                           <?}?>
                     <?}?>
                     </ul>
 
