@@ -117,7 +117,7 @@
                             );
                             foreach ($menu as $key => $item) {
                                 ?>
-                                    <li class="<?=strpos($item['url'], $url)===0 ? 'active' : ''?>">
+                                    <li class="<?=strpos($item['url'], $url)===0 || $item['url']==='/page/about' ? 'active' : ''?>">
                                         <a href="<?=$item['url']?>"><?=$item['label']?></a>
                                     </li>
                                 <?
