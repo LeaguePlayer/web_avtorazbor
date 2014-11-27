@@ -4,7 +4,7 @@
         		Все услуги
         	</h1>
 
-            <div>
+            <div class="wswg_content">
                <?=$content?>
             </div>
 
