@@ -49,16 +49,17 @@
                 <div class="dopMenu">
                   <ul>
                     <li>
-                        <a href=".phone-1"><?=Settings::getModelBlyAlias('phone_parts')->label?></a> 
+                        <??>
+                        <a href=".phone-1"><?=str_replace('.','<br>',Settings::getModelBlyAlias('phone_parts')->label)?></a> 
                     </li>
                     <li>
-                        <a href=".phone-2"><?=Settings::getModelBlyAlias('buy_car')->label?></a> 
+                        <a href=".phone-2"><?=str_replace('.','<br>',Settings::getModelBlyAlias('buy_car')->label)?></a> 
                     </li>
                     <li>
-                        <a href=".phone-3"><?=Settings::getModelBlyAlias('sales')->label?></a> 
+                        <a href=".phone-3"><?=str_replace('.','<br>',Settings::getModelBlyAlias('sales')->label)?></a> 
                     </li>
                     <li>
-                        <a href=".phone-4"><?=Settings::getModelBlyAlias('evacuator_phone')->label?></a> 
+                        <a href=".phone-4"><?=str_replace('.','<br>',Settings::getModelBlyAlias('evacuator_phone')->label)?></a> 
                     </li>
                   </ul>
                 </div>
