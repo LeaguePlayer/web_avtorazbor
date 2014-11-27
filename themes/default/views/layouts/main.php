@@ -84,7 +84,7 @@
                     <dt>
                         <strong>Есть вопросы?</strong>
                     </dt>
-                    <dd>
+                    <dd style="text-align:center">
                         <a href="#popup" class="i-submit modal">
                             Задать вопрос
                         </a>
