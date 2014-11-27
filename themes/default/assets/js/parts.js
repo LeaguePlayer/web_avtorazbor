@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	var dd=$('.request_form dd select').parent();
-	var lastIndex=dd.eq(-1).index();
+	var lastIndex=dd.eq(-1).index()+1;
 	$('.pag li:first a').click(function(){
 		return false;
 	})

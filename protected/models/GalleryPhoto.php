@@ -124,8 +124,9 @@ class GalleryPhoto extends CActiveRecord
 
     public function getPreview($version = '')
     {
-        if($this->gallery->part){
-            return Yii::app()->request->baseUrl.DIRECTORY_SEPARATOR.$this->galleryDir.DIRECTORY_SEPARATOR."parts".DIRECTORY_SEPARATOR.$this->gallery->part->id.DIRECTORY_SEPARATOR."_".$this->getFileName($version).'.'.$this->ext;
+        $model=$this->gallery->part ? $this->gallery->part : $this->gallery->car;
+        if($model){
+            return Yii::app()->request->baseUrl.DIRECTORY_SEPARATOR.$this->galleryDir.DIRECTORY_SEPARATOR.strtolower(get_class($model)).DIRECTORY_SEPARATOR.$model->id.DIRECTORY_SEPARATOR.'_'.$this->getFileName($version).'.'.$this->ext;
         }
 
         return Yii::app()->request->baseUrl . '/' . $this->galleryDir . '/_' . $this->getFileName($version) . '.' . $this->ext;
@@ -138,8 +139,11 @@ class GalleryPhoto extends CActiveRecord
 
     public function getUrl($version = '')
     {
-        if($this->gallery->part){
-            return Yii::app()->request->baseUrl.DIRECTORY_SEPARATOR.$this->galleryDir.DIRECTORY_SEPARATOR."parts".DIRECTORY_SEPARATOR.$this->gallery->part->id.DIRECTORY_SEPARATOR.$this->getFileName($version).'.'.$this->ext;
+
+        $model=$this->gallery->part ? $this->gallery->part : $this->gallery->car;
+
+        if($model){
+            return Yii::app()->request->baseUrl.DIRECTORY_SEPARATOR.$this->galleryDir.DIRECTORY_SEPARATOR.strtolower(get_class($model)).DIRECTORY_SEPARATOR.$model->id.DIRECTORY_SEPARATOR.$this->getFileName($version).'.'.$this->ext;
         }
 
         return Yii::app()->request->baseUrl . '/' . $this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->ext;
@@ -147,12 +151,18 @@ class GalleryPhoto extends CActiveRecord
 
     public function setImage($path)
     {
-        if($this->gallery->part){
-            $mediaTypeDir = $this->galleryDir.DIRECTORY_SEPARATOR."parts";
+        $model=$this->gallery->part;
+        if (!$model)
+            $model=$this->gallery->car;
+
+        if($model){
+
+            $modelName=strtolower(get_class($model));
+            $mediaTypeDir = $this->galleryDir.DIRECTORY_SEPARATOR.$modelName;
             if(!is_dir($mediaTypeDir))
                 mkdir($mediaTypeDir);
 
-            $mediaTypeIdDir = $mediaTypeDir.DIRECTORY_SEPARATOR.$this->gallery->part->id;
+            $mediaTypeIdDir = $mediaTypeDir.DIRECTORY_SEPARATOR.$model->id;
             if(!is_dir($mediaTypeIdDir))
                 mkdir($mediaTypeIdDir);
 
