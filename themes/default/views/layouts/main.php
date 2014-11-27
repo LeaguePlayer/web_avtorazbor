@@ -88,6 +88,8 @@
                         <a href="#popup" class="i-submit modal">
                             Задать вопрос
                         </a>
+                        <span class="free-call"><?=Settings::getValue('free_call')?></span>
+                        <span class="free">(Бесплатно по РФ)</span>
                     </dd>
                 </dl>
                 <?if (!Yii::app()->user->isAdmin){
