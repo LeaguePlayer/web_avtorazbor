@@ -66,7 +66,7 @@ class BuyoutController extends FrontController
 		
 		$this->render('index',array(
 			'model'=>$model,
-			'content'=>Page::model()->findByPk(13)->wswg_body,
+			'content'=>Page::model()->findByPk(12)->wswg_body,
 			)
 		);
 	}
