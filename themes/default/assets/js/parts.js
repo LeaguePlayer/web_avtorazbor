@@ -132,8 +132,14 @@ $(document).ready(function(){
 		}
 	});
 	
-	function changeMetaTitle(){
+	function changeTitle(){
 		
+		var title="Каталог Автозапчастей "
+			+($('#country').val() ? $('#country option:selected').text() : "" )+" "
+			+($('#carBrands').val() ? $('#carBrands option:selected').text() : "" )+" "
+			+($('#carModels').val() ? $('#carModels option:selected').text() : "" )+" "
+			+($('#subCategories').val() ? $('#subCategories option:selected').text() : $('#Categories').val() ? $('#Categories option:selected').text() : "")+"| Авторазбор72";
+		$('title').text(title);
 	}	
 
 	changeView=function(){
@@ -143,6 +149,7 @@ $(document).ready(function(){
 		setTimeout(function(){
 			var $form=$('#parts-form').serialize();
 			ViewItems($('.auto'),$form,'/detail/ajaxUpdate',onViewChangedCallBack);
+			changeTitle();
 		},1000)
 	}
 

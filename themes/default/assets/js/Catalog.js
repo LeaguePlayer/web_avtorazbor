@@ -14,6 +14,17 @@ $(function(){
 		return false;
 	}
 
+	function changeTitle(){
+		
+		var title="Каталог Автомобилей "
+			+($('#country').val() ? $('#country option:selected').text() : "" )+" "
+			+($('#carBrands').val() ? $('#carBrands option:selected').text() : "" )+" "
+			+($('#carModels').val() ? $('#carModels option:selected').text() : "" )+" "
+			+($('#Search_bascet').val() ? $('#Search_bascet option:selected').text() : "") + " "
+			+($('#Search_transmission').val() ? $('#Search_transmission option:selected').text() : "")+"| Авторазбор72";
+		$('title').text(title);
+	}
+
 	changeView=function(){
 
 		showLoader();
@@ -24,6 +35,7 @@ $(function(){
 			var $form=$('form',filterForm).serialize();
 
 			ViewItems($('.auto'),$form,'/catalog',onViewChangedCallBack);
+
 		},1000)
 	}
 
@@ -39,6 +51,7 @@ $(function(){
 				$_href=$(this).attr('href');
 				$(this).attr('href',$_href+'?'+$_url);
 		})
+		changeTitle();
 	}
 	$('.select').selectmenu({
 		change:function(){

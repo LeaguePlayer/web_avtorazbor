@@ -3,7 +3,7 @@
 class DetailController extends FrontController
 {
 	public $layout = '//layouts/simple';
-	public $modelName="Запчасти";
+	public $modelName="Каталог Автозапчастей";
 	/**
 	 * Declares class-based actions.
 	 */
