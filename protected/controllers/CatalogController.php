@@ -40,7 +40,7 @@ class CatalogController extends FrontController
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js?v=2', CClientScript::POS_END);
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/Catalog.js?v=2', CClientScript::POS_END);
 			$cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.scrollTo.min.js', CClientScript::POS_END);
-			$this->title="Запчасти";
+			$this->title="Каталог Автомобилей";
 			Yii::app()->clientScript->registerMetaTag($this->title, 'title', null, array('id'=>'meta_title'), 'meta_title');
 
 			$searchForm=new Search;
