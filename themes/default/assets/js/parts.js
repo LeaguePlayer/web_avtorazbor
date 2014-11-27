@@ -5,6 +5,8 @@ $(document).ready(function(){
 		return false;
 	})
 
+
+
 	$('.select').selectmenu({
 		change:function(){
 
@@ -130,7 +132,9 @@ $(document).ready(function(){
 		}
 	});
 	
-	
+	function changeMetaTitle(){
+		
+	}	
 
 	changeView=function(){
 
