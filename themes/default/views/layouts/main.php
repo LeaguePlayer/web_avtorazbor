@@ -49,6 +49,7 @@
                 <div class="dopMenu">
                   <ul>
                     <li>
+                        <??>
                         <a href=".phone-1"><?=Settings::getModelBlyAlias('phone_parts')->label?></a> 
                     </li>
                     <li>
@@ -65,16 +66,16 @@
             		</dt>
             		<dd>
                         <div class="phone-1 active">
-                			<?=Settings::getValue('phone_parts')?>
+                			<?=str_replace('.','<br>',Settings::getValue('phone_parts'))?>
                         </div>
                         <div class="phone-2 ">
-                            <?=Settings::getValue('buy_car')?>
+                            <?=str_replace('.','<br>',Settings::getValue('buy_car'))?>
                         </div>
                         <div class="phone-3">
-                            <?=Settings::getValue('sales')?>
+                            <?=str_replace('.','<br>',Settings::getValue('sales'))?>
                         </div>
                         <div class="phone-4">
-                            <?=Settings::getValue('evacuator_phone')?>
+                            <?=str_replace('.','<br>',Settings::getValue('evacuator_phone'))?>
                         </div>
             		</dd>
             	</dl>
