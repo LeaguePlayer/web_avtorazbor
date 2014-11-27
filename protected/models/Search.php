@@ -22,7 +22,7 @@
 		public $force_end=1000;
 		public $type=1;
 		public $id_country;
-		public $sort;
+		public $sort='t.id desc';
 		public $display=20;
 
 		public function rules() {
