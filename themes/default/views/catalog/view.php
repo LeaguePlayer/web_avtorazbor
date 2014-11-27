@@ -45,7 +45,7 @@
                             $url=$this->createUrl('/catalog'.$param);
                         ?>
                     
-                    <li>Двигатель: <?=($model->dop->engine ? UsedCarInfo::getEngineList($model->dop->engine):' ').($model->capacity ? $model->capacity.' куб. см. ' :' ').($model->force ? $model->force.'л.с. ' : '')?></li>
+                    <li>Двигатель: <?=($model->dop->engine ? UsedCarInfo::getEngineList($model->dop->engine).', ':' ').($model->capacity ? ' объем '.$model->capacity.' куб. см., ' :' ').($model->force ? ' мощность '.$model->force.' л.с. ' : '')?></li>
                     <li>Трансмиссия: <?=$model->dop->getTransmissionType()?></li>
                     <li>Привод: <?=$model->dop->getPrivodVal()?></li>
                     
@@ -59,7 +59,7 @@
                     <li>Дополнительно: <?=$model->more_info?></li>
 					<?}?>
                     <?if ($model->status==2){?>
-					<li class="price">Цена: <?=number_format($model->dop->price_sell,0,' ',' ') ?> руб.</li>
+					<li><span class="price">Цена: <?=number_format($model->dop->price_sell,0,' ',' ') ?> руб.</span></li>
                     
                         <?if (!Yii::app()->user->isAdmin){?>
     					   <li><a href="#own-price" class="own-price"><span>Предложить свою цену</span></a></li>
