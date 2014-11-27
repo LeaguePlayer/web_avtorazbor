@@ -111,7 +111,7 @@ $(document).ready(function(){
 		})
 	})
 
-	$('#tabs-6').addClass('hide').removeClass('tab-active');
+	$('#tabs-5').addClass('hide').removeClass('tab-active');
 
 	$('.cat-auto .prev').click(function(){
 			$('.items-auto .items').data('owlCarousel').prev();

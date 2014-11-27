@@ -157,7 +157,7 @@
                 </dl>
                 <dl >
                     <dt>
-                        Цена (тыс. руб.):
+                        Цена (руб.):
                     </dt>
                     <dd>
                         <ul>
@@ -331,7 +331,7 @@
                 </dl>
                 <dl>
                     <dt>
-                        Цена (тыс. руб.):
+                        Цена (руб.):
                     </dt>
                     <dd>
                         <ul>
@@ -522,7 +522,7 @@
                 </dl>
                 <dl class="otdo">
                     <dt>
-                        Цена (тыс. руб.):
+                        Цена (руб.):
                     </dt>
                     <dd>
                         <ul>
@@ -610,7 +610,7 @@
 
                 <dl class="otdo">
                     <dt>
-                        Цена (тыс. руб.):
+                        Цена (руб.):
                     </dt>
                     <dd>
                         <ul>
@@ -792,7 +792,7 @@
                     <a href="#" class="next"></a>
                     <?=$this->renderPartial('/site/newsCarusel',array('dataProvider'=>$razbor))?>
                 </div>
-                <div id="tabs-5">
+                <div id="tabs-5" class="hide">
                     <a href="#" class="prev"></a>
                     <a href="#" class="next"></a>
                     <?=$this->renderPartial('/site/newsCarusel',array('dataProvider'=>$cars))?>

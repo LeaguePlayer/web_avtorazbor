@@ -7,6 +7,7 @@
 		$this->widget('appext.imagesgallery.GalleryManager', array(
 			'gallery' => $model->galleryBehaviorGallery->getGallery(),
 			'controllerRoute' => '/admin/gallery',
-		));
+			)
+		);
 	} ?>
 </div>

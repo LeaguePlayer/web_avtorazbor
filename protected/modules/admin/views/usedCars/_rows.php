@@ -35,7 +35,7 @@
 	
 
 	<?php echo $form->textFieldControlGroup($model,'force',array('class'=>'span8','maxlength'=>20)); ?>
-
+	<?php echo $form->textFieldControlGroup($model, 'capacity', array('class'=>'span8')); ?>
 
 	<div class='control-group'>
 		<?php echo CHtml::activeLabelEx($model, 'year'); ?>
@@ -79,7 +79,7 @@
 
 	<?php echo $form->dropDownListControlGroup($model, 'status', UsedCars::getStatusAliases(), array('class'=>'span8', 'displaySize'=>1, 'id' => 'type')); ?>
 	
-	<?php echo $form->textFieldControlGroup($model, 'capacity', array('class'=>'span8')); ?>
+	
 
 	<div class="dop">
 	<?php

@@ -224,7 +224,7 @@
 
     			<div class="tel">
     				<?=Settings::getValue('site_phone')?><br/>
-					<a href="mailto:Settings::getValue('site_mail')">
+					<a href="mailto:<?=Settings::getValue('site_mail')?>">
 						<?=Settings::getValue('site_mail')?>
 					</a>
     			</div>
