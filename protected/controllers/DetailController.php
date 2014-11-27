@@ -42,7 +42,7 @@ class DetailController extends FrontController
 	public function actionIndex()
 	{
 		$cs = Yii::app()->clientScript;
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/detail.js?v=2', CClientScript::POS_END);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/detail.js?v=4', CClientScript::POS_END);
 		$Brands=Parts::getExistsData(null,null,'brand');
 
 		$Brand=CHtml::listData(CarBrands::model()->findAll($Brands),'id','name');
@@ -158,7 +158,7 @@ class DetailController extends FrontController
 		$cs = Yii::app()->clientScript;
     	$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js?v=2', CClientScript::POS_END);
 	    $cs->registerScriptFile($this->getAssetsUrl().'/js/jquery.scrollTo.min.js', CClientScript::POS_END);
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js?v=2', CClientScript::POS_END);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/parts.js?v=3', CClientScript::POS_END);
 		Yii::app()->clientScript->registerMetaTag('123123', 'title', null, array('id'=>'meta_title'), 'meta_title');
 		$this->breadcrumbs=array('Запчасти'=>'/detail');
 		

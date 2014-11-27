@@ -7,7 +7,7 @@
 	$cs->registerCssFile($assetsUrl.'/css/reset.css');
 	$cs->registerCssFile($assetsUrl.'/css/fancybox/jquery.fancybox.css');
 
-	$cs->registerCssFile($assetsUrl.'/css/main.css?v=3');
+	$cs->registerCssFile($assetsUrl.'/css/main.css?v=4');
     $cs->registerCssFile($assetsUrl.'/css/jquery-ui.min.css?v=1');
 
 	$cs->registerCoreScript('jquery');

@@ -131,7 +131,7 @@ class CatalogController extends FrontController
 		$cs = Yii::app()->clientScript;
 		
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js?v=1', CClientScript::POS_END);
-		$cs->registerScriptFile($this->getAssetsUrl().'/js/Catalog.js?v=2', CClientScript::POS_END);
+		$cs->registerScriptFile($this->getAssetsUrl().'/js/Catalog.js?v=3', CClientScript::POS_END);
 
 		$model=UsedCars::model()->find('id=:id',array(':id'=>$id));
 		if (!$model)
