@@ -471,7 +471,7 @@ class Parts extends EActiveRecord implements IECartPosition
         $categories = Yii::app()->db->createCommand()
             ->select('distinct(part.category_id)')
             ->from('{{Parts}} part')
-            ->join('{{Categories}} c','c.parent!=0')
+            ->join('{{categories}} c','c.parent!=0')
             ->where('part.car_model_id = :id', array(':id' => $model_id))
             ->queryAll();
         
