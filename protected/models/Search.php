@@ -73,7 +73,7 @@
 			}
 
 			if ($this->scenario=="parts" || $this->scenario=="disc")
-				$this->criteria->addCondition('`t`.status=1');//>6 - для машин =1 - для запчастей
+				$this->criteria->addCondition('`t`.status=2');//>6 - для машин =1 - для запчастей
 			else 
 				$this->criteria->addCondition('`t`.status=2');//>6 - для машин =1 - для запчастей
 
@@ -210,10 +210,9 @@
 			$this->criteria=new CDbCriteria;
 			$this->criteria->addCondition('car_type='.$this->type);
 			$this->criteria->join=Parts::join();
-			$properties=array('id_country','brand','car_model_id');
 
+			$properties=array('id_country','brand','car_model_id');
 			foreach ($properties as $key => $value) {
-				
 				if (!empty($this->$value))
 				{
 					$column=$value;
@@ -221,48 +220,35 @@
 			}
 
 			if ($column){//если не выбран не 1 из критериев фильтра
-				$this->criteria->order=$this->sort;
-				$params=$this->category_id ? array('model_id'=>$this->$column,'cat_id'=>$category) : $this->$column;
-				$column=$this->category_id ? 'model_cat' : $column;
-				$this->criteria=Parts::model()->search_parts($column,$params);
-				if ($this->category_id)
-				{
-					$this->criteria->addCondition('category_id=:category');
-					$this->criteria->params[':category']=$this->category_id;
-				}
-					
 				if ($this->parent)
-				{
-					$this->criteria->addCondition('parent=:parent');
-					$this->criteria->params[':parent']=$this->parent;
-				}
-					
+					$column='parent';
+				if ($this->category_id)
+					$column='category_id';
+
+				$category=$this->category_id ? $this->category_id : ($this->parent  ? $this->parent : 0);
+				$params=$category ? array('model_id'=>$this->car_model_id,'cat_id'=>$category) : $this->$column;
+				$this->criteria=Parts::model()->search_parts($column,$params);
 			}
-			$criteria=$this->criteria;
 
 			if ($this->price_st)
 			{
-				$criteria->addCondition('price_sell>=:price_st');
-				$criteria->params[':price_st']=$this->price_st;
+				$this->criteria->addCondition('price_sell>=:price_st');
+				$this->criteria->params[':price_st']=$this->price_st;
 			}
+
 			if ($this->price_end)
 			{
-				$criteria->addCondition('price_sell<=:price_end');
-				$criteria->params[':price_end']=$this->price_end;
+				$this->criteria->addCondition('price_sell<=:price_end');
+				$this->criteria->params[':price_end']=$this->price_end;
 			}
+
 			if ($this->car_model_id)
 			{	
-				$select="`t`.id,`t`.name,`t`.alias, `t`.price_sell,`t`.price_buy,`t`.comment,`t`.category_id,`t`.car_model_id,`t`.location_id,`t`.supplier_id,`t`.create_time,`t`.update_time,`t`.status";
-
+				$select="`t`.id,`t`.name,`t`.alias, `t`.price_sell,`t`.price_buy,`t`.comment,`t`.category_id,`t`.car_model_id,`t`.location_id,`t`.supplier_id,`t`.create_time,`t`.update_time,`t`.status,`t`.gallery_id";
 				$select.=',`t`.car_model_id!='.$this->car_model_id.' as analog';
-				$criteria->select=$select;
-				if (!empty($this->category_id))
-					$criteria->addCondition('category_id='.$this->category_id);
-				if (!empty($this->parent))
-					$criteria->addCondition('parent='.$this->parent);
+				$this->criteria->select=$select;
 			}
-			//var_dump($criteria->condition);die();
-			$this->criteria=$criteria;
+			$this->criteria->order=$this->sort;
 		}
 
 		public function getDiscs()

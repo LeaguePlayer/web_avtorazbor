@@ -226,7 +226,7 @@ class Parts extends EActiveRecord implements IECartPosition
             ->join('tbl_country country','country.id=brand.id_country')
             ->join('tbl_categories cat','cat.id=category_id')
             ->from('{{Parts}} t')
-            ->where( ($id ? "($compareField=$id and status=7) or ($compareField=$id and status=1)" : 'status=7 or status=1')." and car_type=$type");
+            ->where( ($id ? "($compareField=$id status=2)" : 'status=1')." and car_type=$type");
         
         $result=$query->queryAll();
         $data=array();
@@ -465,43 +465,38 @@ class Parts extends EActiveRecord implements IECartPosition
         ));
     }
 
-    public function findAllModelsWithAnalogs($model_id)
+    public function findAllModelsWithAnalogs($model_id,$parent)
     {
-
         $categories = Yii::app()->db->createCommand()
-            ->select('distinct(part.category_id)')
-            ->from('{{Parts}} part')
-            ->join('{{categories}} c','c.id=part.category_id')
-            ->where('part.car_model_id = :id and c.parent!=part.category_id', array(':id' => $model_id))
+            ->select('distinct(a.cat_id) as category_id')
+            ->from('{{Analogs}} a')
+            ->join('{{categories}} c','c.id=a.cat_id')
+            ->where('c.parent=:parent', array(':parent' => $parent))
             ->queryAll();
+
+        $criteria=new CDbCriteria;
+        $criteria->addCondition('parent=:parent and car_model_id=:id');
+        $criteria->params=array(':parent'=>$parent,':id'=>$model_id);
+        $criteria->join="inner join {{categories}} c on c.id=t.category_id";
+        $data=CHtml::listData(Parts::model()->findAll($criteria),'id','id');
         
-        $data=array();
-        $modelCategory=array();
         foreach ($categories as $key => $cat_id) {
 
             $subCriteria=$this->getPartSearchCriteria($model_id,$cat_id['category_id']);
             $models=$this->findAll($subCriteria);
-
             foreach($models as $key=>$value)
             {
-                $data[$value->car_model_id]=$value->car_model_id;
-                $modelCategory[$value->category_id]=$value->category_id;
+                $data[$value->id]=$value->id;
             }
         }
-
         $criteria=new CDbCriteria;
         if ($data)
         {
-            $criteria->addInCondition('car_model_id',$data);
-            $criteria->addInCondition('category_id',$modelCategory);
-            //$criteria->addInCondition('parent',$modelCategory,'or');
+            $criteria->addInCondition('t.id',$data);
         }
 
-        $result['criteria']=$criteria;
-        $result['models']=$data;
-        $result['categories']=$modelCategory;
-
-        return $result;
+        
+        return $criteria;
     }
 
     public function getModelsByCountry($country_id,$pagination=false, $car_type=1)
@@ -510,32 +505,7 @@ class Parts extends EActiveRecord implements IECartPosition
         $criteria=new CDbCriteria;
         $criteria->addCondition('id_country='.$country_id);
         $criteria->addCondition('car_type='.$car_type);
-        // $countryBrands=Yii::app()->db->createCommand()
-        //     ->select('cb.id')
-        //     ->from('{{CarBrands}} cb')
-        //     ->where('cb.id_country = :id', array(':id' => $country_id))
-        //     ->queryAll();
 
-        // $brandModels=array();
-        // $data=array();
-        // $modelCategory=array();
-        // foreach ($countryBrands as $key => $value) {
-
-        //     $result=$this->getModelsByBrand($value['id'],$pagination);
-
-        //     // $models=Parts::model()->findAll($subCriteria);
-        //     $data=array_merge($data,$result['models']);
-        //     $modelCategory=array($modelCategory,$result['categories']);
-        // }
-        // if ($data)
-        // {
-        //     $criteria->addInCondition('car_model_id',$data);
-        //     $criteria->addInCondition('category_id',$modelCategory);
-        //     $criteria->addInCondition('parent',$modelCategory);
-        // }
-            
-        // else 
-        //     $criteria->addCondition('car_model_id=0');
         return $criteria;
     }
 
@@ -552,49 +522,15 @@ class Parts extends EActiveRecord implements IECartPosition
     {
 
         $criteria=new CDbCriteria;
-
-            // $brandModels = Yii::app()->db->createCommand()
-            //     ->select('cm.id')
-            //     ->from('{{CarModels}} cm')
-            //     ->leftJoin('{{CarBrands}} cb','cb.id = cm.brand')
-            //     ->where('cm.brand = :id', array(':id' => $brand_id))
-            //     ->queryAll();
         $criteria->addCondition('brand='.$brand_id);
-        //$criteria->addCondition('car_type='.$car_type);
         $criteria->join=$this->getJoin('brand');
-        // $data=array();
-        // $modelCategory=array();
-        // foreach ($brandModels as $key => $model) {
-
-        //     $result=$this->findAllModelsWithAnalogs($model['id']);
-
-        //     if (!empty($result['models']))
-        //     {
-        //         $data=array_merge($data,$result['models']);
-        //         $modelCategory=array_merge($modelCategory,$result['categories']);
-        //     }
-        // }
-
-        // if ($data)
-        // {
-        //     $criteria->addInCondition('car_model_id',$data);
-        //     $criteria->addInCondition('category_id',$modelCategory);
-        //     //$criteria->addInCondition('parent',$modelCategory,'or');
-        // }
-        // else 
-        //     $criteria->addCondition('car_model_id=0');
-
-        $result['criteria']=$criteria;
-        $result['models']=$data;
-        $result['categories']=$modelCategory;
-
-        return $result;
+        
+        return $criteria;
     }
 
     public function search_parts($searchType,$value)
     {
         $criteria=new CDbCriteria;
-
         $criteria->join=
             $this->getJoin('category_id');
 
@@ -610,32 +546,35 @@ class Parts extends EActiveRecord implements IECartPosition
             case 'brand':
                 {   
                     $result=$this->getModelsByBrand($value);
-                    $criteria->mergeWith($result['criteria']);
-                   
+                    $criteria->mergeWith($result);
                     return $criteria;
                 }
                 break;
             case 'car_model_id':
                 {
-
-                    $result=$this->findAllModelsWithAnalogs($value);
                     $criteria->join.=' '.$this->getJoin('car_model_id');
-                    $criteria->mergeWith($result['criteria']);
+                    $criteria->addCondition('car_model_id=:id');
+                    $criteria->params[':id']=$value;
                     return $criteria;
                 }
                 break;
-            case 'model_cat':
+            case 'parent':
                 {
-                    $result=$this->findAllModelsWithAnalogs($value['model_id']);
+                    $result=$this->findAllModelsWithAnalogs($value['model_id'],$value['cat_id']);
                     $criteria->join.=' '.$this->getJoin('car_model_id');
-                    $criteria->mergeWith($result['criteria']);
-
+                    $criteria->mergeWith($result);
+                    return $criteria;
+                }
+            case 'category_id':
+                {
+                    $result=$this->getPartSearchCriteria($value['model_id'],$value['cat_id']);
+                    $criteria->join.=' '.$this->getJoin('car_model_id');
+                    $criteria->mergeWith($result);
                     return $criteria;
                 }
             break;
             default:
                 {
-                    //$criteria->join.=' '.$this->getJoin('car_model_id');
                     return new CDbCriteria;
                 }
                 break;
