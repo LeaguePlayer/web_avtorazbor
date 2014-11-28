@@ -4,7 +4,8 @@ class DeleteAction extends AdminAction
 {
     public function run()
     {
-        $this->getModel()->delete();
+    	$model=$this->getModel();
+    	$model->delete();
         $this->redirect();
     }
 }

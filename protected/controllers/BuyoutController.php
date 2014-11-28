@@ -11,7 +11,6 @@ class BuyoutController extends FrontController
 			'accessControl', // perform access control for CRUD operations
 		);
 	}
-
 	
 	public function accessRules()
 	{
@@ -56,7 +55,11 @@ class BuyoutController extends FrontController
 		if (isset($_POST['Buyout']))
 		{
 			$model->attributes=$_POST['Buyout'];
+<<<<<<< HEAD
 			$model->images=CUploadedFile::getInstancesByName('images');
+=======
+			$images=CUploadedFile::getInstancesByName('images');
+>>>>>>> 7f7d7c78f3593916bc616407854fadfa17e80510
 			$valid=$model->validate();
 			if ($valid)
 			{
@@ -79,6 +82,24 @@ class BuyoutController extends FrontController
 				}
 
 				$model->save();
+				$path=Yii::getPathOfAlias('webroot.media.images.buyout').DIRECTORY_SEPARATOR.$model->id.DIRECTORY_SEPARATOR;
+				
+				if(!is_dir($path)) {
+					   mkdir($path);chmod($path, 0755); 
+				}
+
+				$photos=array();
+				$sp=DIRECTORY_SEPARATOR;
+				$safePath=str_replace(" ", "","$sp media $sp images $sp buyout".$sp.$model->id.$sp);
+				
+				foreach ($images as $key => $img) {
+					$photos[]=$safePath.$img->getName();
+					$img->saveAs($path.$img->getName());
+				}
+				$model->images=serialize($photos);
+				var_dump($model->save());
+				var_dump($model->images);die();
+
 				$this->redirect(array('/page/thanks'));
 			}
 		}

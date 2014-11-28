@@ -46,10 +46,35 @@ class Buyout extends CActiveRecord
         return '{{buyout}}';
     }
 
+    public function beforeDelete(){
+        parent::beforeDelete();
+
+        $path=Yii::getPathOfAlias('webroot.media.images.buyout').DIRECTORY_SEPARATOR.$this->id.DIRECTORY_SEPARATOR;
+        if (is_dir($path))
+        {
+            if($handle = opendir($path))
+            {
+                    while(false !== ($file = readdir($handle)))
+                            if($file != "." && $file != "..") unlink($path.$file);
+                    closedir($handle);
+            }
+            // $images=unserialize($this->images);
+            // if (is_array($images))
+            //     foreach ($images as $key => $img) {
+            //         if (file_exists($img))
+            //             unlink($img);
+            //     }
+            chmod($path, 0777);
+            rmdir($path);
+        }
+
+        return true;
+    }
+
     public function rules()
     {
         return array(
-            array('brand, year, transmission, car_model_id, status, sort', 'numerical', 'integerOnly'=>true),
+            array('brand, year, transmission, car_model_id, status, sort, gallery_id', 'numerical', 'integerOnly'=>true),
             array('name, phone, email, capacity', 'length', 'max'=>255),
             array('comment, images, brandName,carModelName, create_time, update_time', 'safe'),
             // The following rule is used by search().
@@ -84,8 +109,6 @@ class Buyout extends CActiveRecord
         return $aliases;
     }
 
-
-
     public function attributeLabels()
     {
         return array(
@@ -95,6 +118,7 @@ class Buyout extends CActiveRecord
             'email' => 'E-mail',
             'brandName'=>'Марка авто',
             'carModelName'=>'Модель авто',
+            'images'=>'Фотографии Вашего автомобиля',
             'transmissionName'=>'Тип КПП',
             'brand' => 'Марка авто',
             'car_model_id' => 'Модель авто',

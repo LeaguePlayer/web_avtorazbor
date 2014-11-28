@@ -22,7 +22,16 @@
 	<?php echo $form->dropDownListControlGroup($model,'car_model_id',
 		CHtml::listData(CarModels::model()->findAll('brand=:brand',array(':brand'=>$model->brand)),'id','name'),
 		array('class'=>'span8','maxlength'=>255)); ?>
-
+	<div class='control-group'>
+		<?
+			$images=unserialize($model->images);
+			foreach ($images as $key => $img) {
+				?>
+					<a href="<?=$img?>" class="fancy"><img width="150px" src="<?=$img?>" alt=""></a>
+				<?
+			}
+		?>
+	</div>
 	<?php echo $form->textFieldControlGroup($model,'year',array('class'=>'span8')); ?>
 
 	<?php echo $form->textFieldControlGroup($model,'capacity',array('class'=>'span8','maxlength'=>255)); ?>
