@@ -78,7 +78,6 @@ class Buyout extends CActiveRecord
             array('name, phone, email, capacity', 'length', 'max'=>255),
             array('comment, images, brandName,carModelName, create_time, update_time', 'safe'),
             // The following rule is used by search().
-            array('images', 'file', 'types'=>'jpg, gif, png','allowEmpty'=>true),
             array('name, phone, email, car_model_id, year','required'),
             array('phone','match','pattern'=>'/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/','message'=>'Указанный вами номер верен'),
             array('email','match','pattern'=>'/^(\w+\.)*\w+@(\w+\.)+[A-Za-z]+$/','message'=>'Указанный Вами адрес не является адресом электронной почты!'),
