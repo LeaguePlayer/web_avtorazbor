@@ -55,10 +55,32 @@ class BuyoutController extends FrontController
 		if (isset($_POST['Buyout']))
 		{
 			$model->attributes=$_POST['Buyout'];
+<<<<<<< HEAD
+			$model->images=CUploadedFile::getInstancesByName('images');
+=======
 			$images=CUploadedFile::getInstancesByName('images');
+>>>>>>> 7f7d7c78f3593916bc616407854fadfa17e80510
 			$valid=$model->validate();
 			if ($valid)
 			{
+				$photos=array();
+				$id=Yii::app()->db->createCommand()
+				->select('max(id)+1 as id')
+				->from()
+				->where()
+				->queryRow();
+
+				$path=Yii::getPathOfAlias('webroot.media.images.buyout')
+						.DIRECTORY_SEPARATOR.$id['id'];
+						.DIRECTORY_SEPARATOR;
+
+				if (!is_dir($path))
+					mkdir($path);
+				
+				foreach ($model->images as $key => $img) {
+					$img->saveAs($path.$img->getName());
+				}
+
 				$model->save();
 				$path=Yii::getPathOfAlias('webroot.media.images.buyout').DIRECTORY_SEPARATOR.$model->id.DIRECTORY_SEPARATOR;
 
@@ -86,4 +108,9 @@ class BuyoutController extends FrontController
 			)
 		);
 	}
+
+	public function savePhotos(){
+
+	}
+
 }

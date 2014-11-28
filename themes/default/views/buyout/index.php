@@ -98,7 +98,6 @@
 			                            <?php echo $form->textarea($model,'comment',array('class'=>'i-text','placeholder'=>'Текст сообщения...'));?>
 			                            <?php echo $form->error($model,'comment',array('style'=>'color:red;font-size:10px;'));?>
 			                        </li>
-
 			                        <li class="sub">
 			    	                    <? echo CHtml::submitButton('Отправить',array(
 			    	                            'class'=>'i-submit',
