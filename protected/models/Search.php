@@ -73,7 +73,7 @@
 			}
 
 			if ($this->scenario=="parts" || $this->scenario=="disc")
-				$this->criteria->addCondition('`t`.status=2');//>6 - для машин =1 - для запчастей
+				$this->criteria->addCondition('`t`.status=1');//>6 - для машин =1 - для запчастей
 			else 
 				$this->criteria->addCondition('`t`.status=2');//>6 - для машин =1 - для запчастей
 
