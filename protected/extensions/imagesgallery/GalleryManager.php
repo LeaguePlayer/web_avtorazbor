@@ -12,12 +12,12 @@ class GalleryManager extends CWidget
     /** @var string Route to gallery controller */
     public $controllerRoute = false;
     public $assets;
+    public $front=false;
 
     public function init()
     {
         $this->assets = Yii::app()->getAssetManager()->publish(dirname(__FILE__) . '/assets', false, -1, true);
     }
-
 
     public $htmlOptions = array();
 

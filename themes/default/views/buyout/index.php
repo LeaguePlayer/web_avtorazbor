@@ -12,15 +12,29 @@
 			            'id' => 'buyout-form',
 			            'action' => $this->createUrl('/buyout'),
 			            'enableClientValidation' => true,
+
 			            'clientOptions' => array(
 			                'validateOnType' => false,
 			                'validateOnSubmit' => true,
 			            ),
-			            'htmlOptions' => array('class' => 'erequest_form')
+			            'htmlOptions' => array('class' => 'erequest_form','enctype'=>"multipart/form-data",)
 			        )) ?>
 			        <dl>
 			        	<dd>
 			                <ul>
+			                		<li>
+			                        	<?php echo $form->labelEx($model,'images');?>
+			                            <? $this->widget('CMultiFileUpload', array(
+												'name' => 'images',
+												'accept' => 'jpeg|jpg|png', // jpeg|jpg|gif|png // useful for verifying files
+												'duplicate' => 'Дублирующиеся фото', // useful, i think
+												'denied' => 'Только jpeg и png', // useful, i think
+												'htmlOptions'=>array(
+													'multiple'=>true
+												)
+											)); ?>
+										<?php echo $form->error($model,'images'); ?>
+			                        </li>
 			                        <li>
 			                            <?php echo $form->labelEx($model,'name');?>
 			                            <?php echo $form->textField($model,'name',array('class'=>'i-text','maxlength'=>255,'placeholder'=>'Ваше Имя')); ?>
@@ -84,6 +98,7 @@
 			                            <?php echo $form->textarea($model,'comment',array('class'=>'i-text','placeholder'=>'Текст сообщения...'));?>
 			                            <?php echo $form->error($model,'comment',array('style'=>'color:red;font-size:10px;'));?>
 			                        </li>
+
 			                        <li class="sub">
 			    	                    <? echo CHtml::submitButton('Отправить',array(
 			    	                            'class'=>'i-submit',
