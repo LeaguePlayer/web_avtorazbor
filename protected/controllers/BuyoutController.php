@@ -61,18 +61,17 @@ class BuyoutController extends FrontController
 			{
 				$model->save();
 				$path=Yii::getPathOfAlias('webroot.media.images.buyout').DIRECTORY_SEPARATOR.$model->id.DIRECTORY_SEPARATOR;
-				
 				if(!is_dir($path)) {
 					   mkdir($path);chmod($path, 0755); 
 				}
-
 				$photos=array();
 				$sp=DIRECTORY_SEPARATOR;
 				$safePath=str_replace(" ", "","$sp media $sp images $sp buyout".$sp.$model->id.$sp);
-				
+
 				foreach ($images as $key => $img) {
 					$photos[]=$safePath.$img->getName();
 					$img->saveAs($path.$img->getName());
+					Yii::app()->phpThumb->create($path.$img->getName())->resize(800)->save($path.$img);
 				}
 				$model->images=serialize($photos);
 				$model->save();
