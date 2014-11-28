@@ -222,7 +222,7 @@
 
 			if ($column){//если не выбран не 1 из критериев фильтра
 				$this->criteria->order=$this->sort;
-				$category=$this->category_id ? $this->category_id : ($this->parent  ? $this->parent : 0);
+				$category=$this->category_id ? $this->category_id : 0;
 				$params=$category ? array('model_id'=>$this->$column,'cat_id'=>$category) : $this->$column;
 				$column=$category ? 'model_cat' : $column;
 				$this->criteria=Parts::model()->search_parts($column,$params);
