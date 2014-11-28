@@ -74,7 +74,7 @@ class Buyout extends CActiveRecord
     public function rules()
     {
         return array(
-            array('brand, year, transmission, car_model_id, status, sort, gallery_id', 'numerical', 'integerOnly'=>true),
+            array('brand, year, transmission, car_model_id, status, sort', 'numerical', 'integerOnly'=>true),
             array('name, phone, email, capacity', 'length', 'max'=>255),
             array('comment, images, brandName,carModelName, create_time, update_time', 'safe'),
             // The following rule is used by search().
