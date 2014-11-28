@@ -166,7 +166,7 @@
 			$criteria->addCondition('status=2');
 			$criteria->addCondition('car_type=1');
 			$criteria->join=UsedCars::join();
-			$this->criteria->addCondition('status=2');
+			//$this->criteria->addCondition('status=2');
 			$this->criteria = $criteria;
 
 		}
