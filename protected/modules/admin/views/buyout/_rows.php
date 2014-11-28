@@ -25,11 +25,12 @@
 	<div class='control-group'>
 		<?
 			$images=unserialize($model->images);
-			foreach ($images as $key => $img) {
-				?>
-					<a href="<?=$img?>" class="fancy"><img width="150px" src="<?=$img?>" alt=""></a>
-				<?
-			}
+			if ($images)
+				foreach ($images as $key => $img) {
+					?>
+						<a href="<?=$img?>" class="fancy"><img width="150px" src="<?=$img?>" alt=""></a>
+					<?
+				}
 		?>
 	</div>
 	<?php echo $form->textFieldControlGroup($model,'year',array('class'=>'span8')); ?>
