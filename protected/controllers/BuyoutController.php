@@ -61,7 +61,7 @@ class BuyoutController extends FrontController
 			{
 				$model->save();
 				$path=Yii::getPathOfAlias('webroot.media.images.buyout').DIRECTORY_SEPARATOR.$model->id.DIRECTORY_SEPARATOR;
-				
+
 				if(!is_dir($path)) {
 					   mkdir($path);chmod($path, 0755); 
 				}
@@ -75,8 +75,6 @@ class BuyoutController extends FrontController
 					$img->saveAs($path.$img->getName());
 				}
 				$model->images=serialize($photos);
-				var_dump($model->save());
-				var_dump($model->images);die();
 
 				$this->redirect(array('/page/thanks'));
 			}
