@@ -75,7 +75,7 @@ class BuyoutController extends FrontController
 					$img->saveAs($path.$img->getName());
 				}
 				$model->images=serialize($photos);
-
+				$model->save();
 				$this->redirect(array('/page/thanks'));
 			}
 		}
