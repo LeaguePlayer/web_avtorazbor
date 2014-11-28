@@ -72,11 +72,6 @@
 				$this->criteria=new CDbCriteria;
 			}
 
-			if ($this->scenario=="parts" || $this->scenario=="disc")
-				$this->criteria->addCondition('`t`.status=1');//>6 - для машин =1 - для запчастей
-			else 
-				$this->criteria->addCondition('`t`.status=2');//>6 - для машин =1 - для запчастей
-
 			$this->criteria->distinct='`t`.id';
 			$this->criteria->order= $this->scenario=='parts' && !$this->sort ? 'create_time' : $this->sort ;
 
@@ -171,6 +166,7 @@
 			$criteria->addCondition('status=2');
 			$criteria->addCondition('car_type=1');
 			$criteria->join=UsedCars::join();
+			$this->addCondition('status=2');
 			$this->criteria = $criteria;
 
 		}
@@ -201,6 +197,7 @@
 			$criteria->addCondition('status=2');
 			$criteria->addCondition('car_type=2');
 			$criteria->join=UsedCars::join();
+			$criteria->addCondition('status=2');
 			$this->criteria = $criteria;
 			
 		}
@@ -248,6 +245,7 @@
 				$select.=',`t`.car_model_id!='.$this->car_model_id.' as analog';
 				$this->criteria->select=$select;
 			}
+			$this->criteria->addCondition('status=1');
 			$this->criteria->order=$this->sort;
 		}
 
