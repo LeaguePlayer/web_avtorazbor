@@ -25,7 +25,7 @@ class UsedCarsController extends AdminController
 		
 		$max=Yii::app()->db->createCommand()->select('max(id) as id')->from('{{Parts}}')->queryRow();
 		$count=$id;
-		while($count<$max)
+		while($count<$max['id'])
 		{
 			$criteria=new CDbCriteria;
 			$criteria->addCondition('id>:count');
