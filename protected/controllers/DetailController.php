@@ -320,7 +320,6 @@ class DetailController extends FrontController
 		Yii::app()->clientScript->registerMetaTag($this->modelName, 'title', null, array('id'=>'meta_title'), 'meta_title');
 
 		$model=Parts::model()->find('alias=:alias',array(':alias'=>$alias));
-		var_dump($model);die();
 		if (!$model && $model->status!=1)
 		{
 			throw new CHttpException("По вашему запросу не было найдено данных", 404);
