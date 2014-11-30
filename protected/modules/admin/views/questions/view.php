@@ -20,7 +20,7 @@ $this->menu=array(
         'phone',
         'mail',
         'question',
-        'theme',
+        'themeName',
         'status',
         'create_time',
     ),

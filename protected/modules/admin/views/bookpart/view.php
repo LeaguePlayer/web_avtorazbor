@@ -11,7 +11,6 @@ $this->menu=array(
 
 <h1><?php echo $model->translition(); ?> - просмотр</h1>
 
-
 <?
 	$this->widget('zii.widgets.CDetailView', array(
     'data'=>$model,
@@ -25,7 +24,12 @@ $this->menu=array(
         'fuel',
         'vin',
         'parts',
-        'status',
+        array(
+            'label'=>'Статус',
+            'type'=>'raw',
+            'value'=>Bookpart::getStatusAliases($model->status)
+        )
+        
     ),
 ));
 ?>
