@@ -21,7 +21,7 @@ $this->menu=array(
         'phone',
         'mail',
         'Brand.name',
-        'modelName',
+        'Model.name',
         'mass',
         'distance',
         'create_time',
