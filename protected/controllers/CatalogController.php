@@ -122,7 +122,6 @@ class CatalogController extends FrontController
 		        'pageSize'=>$searchForm->display,
 		    ),
 		));
-
 		echo $this->renderPartial('//catalog/tabView',array('dataProvider'=>$dataProvider),true);
 	}
 
@@ -140,9 +139,11 @@ class CatalogController extends FrontController
 			die();
 		}
 		$this->title=$model->model->car_brand->name.'/'.$model->model->name;
-		 Yii::app()->clientScript->registerMetaTag($this->title, 'title', null, array('id'=>'meta_title'), 'meta_title');
-		$this->render('view',array('model'=>$model));
+		Yii::app()->clientScript->registerMetaTag($this->title, 'title', null, array('id'=>'meta_title'), 'meta_title');
+		
+		$ownPrice=new Ownprice;
+		$ownPrice->car_id=$id;
+		$this->render('view',array('model'=>$model,'ownPrice'=>$ownPrice));
 	}
-
 }
 

@@ -37,7 +37,6 @@
                     <?}?>
                     </div>
                 </div>
-
                 <div class="desc desc-view">
                     <ul>
                         <?
@@ -113,5 +112,5 @@
 
         <div class="clear"></div>
     </div>
-</div>  
-<?=$this->renderPartial('//forms/ownPrice',array('model'=>new Ownprice,'user_id'=>Yii::app()->user->id),true);?>
+</div> 
+<?=$this->renderPartial('//forms/ownPrice',array('model'=>$ownPrice,'user_id'=>Yii::app()->user->id),true);?>

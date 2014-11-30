@@ -240,7 +240,6 @@ class AjaxRequestsController extends FrontController
 	    if(isset($_POST['Ownprice']))
 	    {
 	        $model->attributes=$_POST['Ownprice'];
-	        
 	        if ($model->validate())
 	        {
 	        	$model->status=2;

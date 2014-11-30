@@ -113,10 +113,6 @@ $(function(){
 		},300)
 		return false;
 	});
-	
-	$('.own-price').on('click',function(){
-		$('#car_id').val($('.articul span').text());
-	})
 
 	$('.own-price').fancybox({	
 		fitToView	: true,
