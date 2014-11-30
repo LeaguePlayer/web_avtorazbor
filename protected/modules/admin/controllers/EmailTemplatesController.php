@@ -5,12 +5,12 @@ class EmailTemplatesController extends AdminController
 	public function actionGetAttributes($model){
 
 		$modelMap=array(
-			'questions'=>'Questions',
-			'ownprice'=>'Ownprice',
-			'bookpart'=>'Bookpart',
-			'evackuator'=>'Evackuator',
-			'buyout'=>'Buyout',
-			'vacansycallback'=>'VacansyCallBack',
+			'Questions'=>'Questions',
+			'Ownprice'=>'Ownprice',
+			'Bookpart'=>'Bookpart',
+			'Evackuator'=>'Evackuator',
+			'Buyout'=>'Buyout',
+			'VacansyCallBack'=>'VacansyCallBack',
 		);
 
 		$labels=$modelMap[$model]::model()->attributeLabels();
