@@ -110,7 +110,10 @@
 			}
 
 			if ($result)
+			{
 				$criteria->addInCondition('t.id',$iDs);
+			}
+				
 			else 
 				$criteria->addCondition('t.id=-1');
 

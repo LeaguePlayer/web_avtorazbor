@@ -34,6 +34,7 @@ class SearchController extends Controller
         }
         else {
             $id=(int)$str;
+
             $model=Parts::model()->findByPk($id);
             if (!$model && $model->status!=1)
             {
