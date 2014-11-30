@@ -20,7 +20,12 @@ $this->menu=array(
 	    'phone',
 	    'mail',
 	    'own_price',
-	    'car.name',
+	    array(
+	    	'label'=>'Автомобиль',
+	    	'type'=>'raw',
+	    	'value'=>CHtml::link($model->car->name,
+	    		Yii::app()->createUrl("/admin/usedCars/update",array("id"=>$model->car->id))),
+	    ),
 	    array(
 	    	'label'=>'Артикул Авто',
 	    	'type'=>'raw',

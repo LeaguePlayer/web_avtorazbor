@@ -5,6 +5,7 @@
 		public $type='NoticeAdmin';
 		public $viewAction='view';
 		public $contentField="content";
+		public $url="";
 		public $noticeMap=array(
 			'NoticeAdmin'=>array(
 				'settingName'=>'admin_mail',
@@ -23,6 +24,11 @@
 			foreach ($this->owner->attributeLabels() as $key => $label) {
 				$message=str_replace("{{$key}}", $this->owner->$key, $message);
 			}
+
+			$this->url=$this->url ? $this->url : 
+				Yii::app()->controller->createAbsoluteUrl('/').'/admin/'.get_class($this->owner).'/view/id/'.$this->owner->id;
+			$message.="<a href=\"".$this->url."\">Прейти к просмотру</a>";
+			var_dump($message);die();
 			SiteHelper::sendMail($template->subject,$message,$to,$sender);
 		}
 
