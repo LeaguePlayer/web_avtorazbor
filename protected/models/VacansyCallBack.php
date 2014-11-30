@@ -17,7 +17,7 @@
 class VacansyCallBack extends EActiveRecord
 {
 
-    public $_vacansyName;
+    private $_vacansyName;
 
     public function tableName()
     {
