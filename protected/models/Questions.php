@@ -32,7 +32,7 @@ class Questions extends EActiveRecord
         return array(
             array('status, sort', 'numerical', 'integerOnly'=>true),
             array('name, phone, mail, question', 'length', 'max'=>255),
-            array('theme, create_time, update_time', 'safe'),
+            array('theme, create_time, update_time, themeName', 'safe'),
             // The following rule is used by search().
             array('id, name, phone, mail, question, theme, status, sort, create_time, update_time', 'safe', 'on'=>'search'),
             array('name, phone, mail, question, theme','required'),
