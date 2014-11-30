@@ -271,7 +271,7 @@ class UsedCars extends EActiveRecord
 
     public function beforeSave(){
         paren::beforeSave();
-        
+        $this->alias=mb_strtolower(SiteHelper::translit($this->model->car_brand->name.'_'.$this->model->name.'_'.$this->id));
         return true;
     }
 

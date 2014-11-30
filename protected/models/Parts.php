@@ -418,7 +418,7 @@ class Parts extends EActiveRecord implements IECartPosition
         if($this->isNewRecord)
             $this->create_time = date("Y-m-d H:i:s");
 
-        $this->alias=SiteHelper::translit($this->car_model->car_brand->name.'_'.$this->car_model->name.'_'.$this->name.'_'.$this->id);
+        $this->alias=mb_strtolower(SiteHelper::translit($this->car_model->car_brand->name.'_'.$this->car_model->name.'_'.$this->name.'_'.$this->id));
         
         if (!$this->name)
             $this->createName();

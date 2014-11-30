@@ -33,7 +33,8 @@ class PartsController extends AdminController
 
 	public function actionChangeAlias($id=0){
 
-		die();
+		set_time_limit(30);
+
 		$max=Yii::app()->db->createCommand()->select('max(id) as id')->from('{{Parts}}')->queryRow();
 		$count=$id;
 		while($count<$max['id'])

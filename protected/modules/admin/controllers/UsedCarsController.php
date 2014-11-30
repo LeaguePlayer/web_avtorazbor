@@ -22,7 +22,8 @@ class UsedCarsController extends AdminController
 	}
 
 	public function actionChangeAlias($id=0){
-		
+			
+		set_time_limit(30);
 		$max=Yii::app()->db->createCommand()->select('max(id) as id')->from('{{Parts}}')->queryRow();
 		$count=$id;
 		while($count<$max['id'])
@@ -35,7 +36,7 @@ class UsedCarsController extends AdminController
 
 			foreach ($models as $key => $value) {
 				
-				$value->alias=SiteHelper::translit($value->model->car_brand->name.'_'.$value->model->name.'_'.$value->id);
+				$value->alias=mb_strtolower(SiteHelper::translit($value->model->car_brand->name.'_'.$value->model->name.'_'.$value->id));
 				Yii::app()->db->createCommand()->update('{{UsedCars}}',array('alias'=>$value->alias),'id='.$value->id);
 
 				echo $value->id.'<br>';
