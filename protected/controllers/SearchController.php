@@ -35,8 +35,13 @@ class SearchController extends Controller
         else {
             $id=(int)$str;
             $model=Parts::model()->findByPk($id);
+            if (!$model && $model->status!=1)
+            {
+                throw new CHttpException("По вашему запросу не было найдено данных", 404);
+                die();
+            }
             if ($model)
-                $this->redirect('/detail/'.$model->url.'/'.$model->id);
+                $this->redirect('/detail/'.$model->url);
             $this->render('emptyResult',array('table'=>'detail','section'=>'Запчастей'));
          }
     }

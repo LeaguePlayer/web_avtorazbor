@@ -21,31 +21,31 @@ class UsedCarsController extends AdminController
 		));	
 	}
 
-	public function actionChangeAlias($id=0){
+	// public function actionChangeAlias($id=0){
 			
-		set_time_limit(30);
-		$max=Yii::app()->db->createCommand()->select('max(id) as id')->from('{{Parts}}')->queryRow();
-		$count=$id;
-		while($count<$max['id'])
-		{
-			$criteria=new CDbCriteria;
-			$criteria->addCondition('id>:count');
-			$criteria->params[':count']=$count;
-			$criteria->limit=200;
-			$models=UsedCars::model()->findAll($criteria);
+	// 	set_time_limit(30);
+	// 	$max=Yii::app()->db->createCommand()->select('max(id) as id')->from('{{Parts}}')->queryRow();
+	// 	$count=$id;
+	// 	while($count<$max['id'])
+	// 	{
+	// 		$criteria=new CDbCriteria;
+	// 		$criteria->addCondition('id>:count');
+	// 		$criteria->params[':count']=$count;
+	// 		$criteria->limit=200;
+	// 		$models=UsedCars::model()->findAll($criteria);
 
-			foreach ($models as $key => $value) {
+	// 		foreach ($models as $key => $value) {
 				
-				$value->alias=mb_strtolower(SiteHelper::translit($value->model->car_brand->name.'_'.$value->model->name.'_'.$value->id));
-				Yii::app()->db->createCommand()->update('{{UsedCars}}',array('alias'=>$value->alias),'id='.$value->id);
+	// 			$value->alias=mb_strtolower(SiteHelper::translit($value->model->car_brand->name.'_'.$value->model->name.'_'.$value->id));
+	// 			Yii::app()->db->createCommand()->update('{{UsedCars}}',array('alias'=>$value->alias),'id='.$value->id);
 
-				echo $value->id.'<br>';
-			}
-			unset($models);
-			$count+=200;
-		}
-		echo "the fin";
-	}
+	// 			echo $value->id.'<br>';
+	// 		}
+	// 		unset($models);
+	// 		$count+=200;
+	// 	}
+	// 	echo "the fin";
+	// }
 
 	public function actionUpdate($id){
 

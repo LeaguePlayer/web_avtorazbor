@@ -31,29 +31,29 @@ class PartsController extends AdminController
 		));
 	}
 
-	public function actionChangeAlias($id=0){
+	// public function actionChangeAlias($id=0){
 
-		set_time_limit(30);
+	// 	set_time_limit(30);
 
-		$max=Yii::app()->db->createCommand()->select('max(id) as id')->from('{{Parts}}')->queryRow();
-		$count=$id;
-		while($count<$max['id'])
-		{
-			$criteria=new CDbCriteria;
-			$criteria->addCondition('id>:count');
-			$criteria->params[':count']=$count;
-			$criteria->limit=200;
-			$models=Parts::model()->findAll($criteria);
+	// 	$max=Yii::app()->db->createCommand()->select('max(id) as id')->from('{{Parts}}')->queryRow();
+	// 	$count=$id;
+	// 	while($count<$max['id'])
+	// 	{
+	// 		$criteria=new CDbCriteria;
+	// 		$criteria->addCondition('id>:count');
+	// 		$criteria->params[':count']=$count;
+	// 		$criteria->limit=200;
+	// 		$models=Parts::model()->findAll($criteria);
 
-			foreach ($models as $key => $value) {
-				$value->save();
-				echo $value->id.'<br>';
-			}
-			unset($models);
-			$count+=200;
-		}
-		echo "the fin";
-	}
+	// 		foreach ($models as $key => $value) {
+	// 			$value->save();
+	// 			echo $value->id.'<br>';
+	// 		}
+	// 		unset($models);
+	// 		$count+=200;
+	// 	}
+	// 	echo "the fin";
+	// }
 
 	//action update
 	public function actionUpdate($id){

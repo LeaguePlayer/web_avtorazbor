@@ -95,10 +95,11 @@
 		{	
 			$str='+'.trim($str);
 			$str=str_replace(" ", " +", $str);
+			$status=strtolower($table)=="parts" ? 1 : 2;
 			$result=Yii::app()->db->createCommand()
 				->select('id, name, MATCH (name) AGAINST (:str IN BOOLEAN MODE) as REL')
 				->from("tbl_$table")
-				->where('MATCH (name) AGAINST (:str IN BOOLEAN MODE) > 0',array(':str'=>$str))
+				->where('MATCH (name) AGAINST (:str IN BOOLEAN MODE) > 0 and status=:status',array(':str'=>$str,'status'=>$status))
 				->order('rel desc')
 				->queryAll();
 			$criteria=new CDbCriteria;
