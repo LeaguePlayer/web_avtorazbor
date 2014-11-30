@@ -16,6 +16,9 @@
 */
 class VacansyCallBack extends EActiveRecord
 {
+
+    public $_vacansyName;
+
     public function tableName()
     {
         return '{{vacansyCallBack}}';
@@ -49,7 +52,8 @@ class VacansyCallBack extends EActiveRecord
             'fio' => 'Ваше фио',
             'phone' => 'Контактный телефон',
             'email' => 'Ваш e-mail',
-            'vacansy_id' => 'Претендуемая вакансия',
+            'vacansy_id' => 'Претендуемая вакансия (ИД)',
+            'vacansyName' => 'Претендуемая вакансия',
             'status' => 'Статус',
             'comment'=>'Коментарий',
             'sort' => 'Вес для сортировки',
@@ -58,6 +62,11 @@ class VacansyCallBack extends EActiveRecord
         );
     }
 
+    public function getVacansyName(){
+        if (!$this->_vacansyName)
+            $this->_vacansyName=$this->vacansy->post;
+        return $this->_vacansyName;
+    }
 
     public function behaviors()
     {
