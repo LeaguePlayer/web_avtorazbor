@@ -28,7 +28,6 @@
 			$this->url=$this->url ? $this->url : 
 				Yii::app()->controller->createAbsoluteUrl('/').'/admin/'.get_class($this->owner).'/view/id/'.$this->owner->id;
 			$message.="<a href=\"".$this->url."\">Прейти к просмотру</a>";
-			var_dump($message);die();
 			SiteHelper::sendMail($template->subject,$message,$to,$sender);
 		}
 
