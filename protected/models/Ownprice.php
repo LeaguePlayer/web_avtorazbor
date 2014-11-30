@@ -16,6 +16,9 @@
 */
 class Ownprice extends EActiveRecord
 {
+
+    public $_carName;
+
     public function tableName()
     {
         return '{{ownPrice}}';
@@ -42,6 +45,12 @@ class Ownprice extends EActiveRecord
         );
     }
 
+    public function getCarName(){
+        if (!$this->_carName)
+            $this->_carName=$this->car->name;
+
+        return $this->_carName;
+    }
 
     public function attributeLabels()
     {
@@ -51,6 +60,7 @@ class Ownprice extends EActiveRecord
             'phone' => 'Контактный телефон',
             'mail' => 'Электронная почта',
             'own_price' => 'Ваша цена(руб.)',
+            'carName'=>'Название машины'
             'car_id' => 'Машина',
             'status' => 'Статус',
             'sort' => 'Вес для сортировки',
