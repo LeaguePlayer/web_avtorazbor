@@ -3,10 +3,10 @@
 		$image=$glr ? $glr[0]->getUrl('small') : '/media/images/parts/default.png';
 	?>
 <li>
-	<a href="/detail/<?=$data->url?>/<?=$data->id?>">
+	<a href="/detail/<?=$data->alias?>">
 		<img src="<?=$image?>" alt="" title="">
 	</a>
-	<a href="/detail/<?=$data->url?>/<?=$data->id?>" class="link">
+	<a href="/detail/<?=$data->alias?>" class="link">
 		<?=$data->name?>
 	</a>
 	

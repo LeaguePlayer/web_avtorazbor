@@ -198,6 +198,7 @@ class AjaxRequestsController extends FrontController
 	        
 	        if ($model->validate())
 	        {
+	        	$model->status=2;
 	        	$model->save();
 	        	echo CJSON::encode(array('success'=>true));
 	        }

@@ -4,9 +4,9 @@
     $image=$glr ? $glr[0]->getUrl('small') : '/media/images/parts/default.png';
 ?>
 <div>
-    <a href="/detail/<?=$data->url?>/<?=$data->id?>"><img src="<?=$image?>" alt="" title="" data-glr="<?=count($glr)?>"/></a>
+    <a href="/detail/<?=$data->alias?>"><img src="<?=$image?>" alt="" title="" data-glr="<?=count($glr)?>"/></a>
     
-    <a href="/detail/<?=$data->url?>/<?=$data->id?>" class="link">
+    <a href="/detail/<?=$data->alias?>" class="link">
         <?=$data->car_model->name.' '.$data->category->name?>
     </a>
     <span class="desc">

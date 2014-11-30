@@ -4,10 +4,10 @@
 ?>
 
 <li class="item">
-    <a href="/catalog/<?=$data->url?>/<?=$data->id?>"><img src="<?=$image?>" alt="" title=""></a>
+    <a href="/catalog/<?=$data->alias?>"><img src="<?=$image?>" alt="" title=""></a>
     <div >
         <span class="data"><?=$data->year?></span>
-        <a href="/catalog/<?=$data->url?>/<?=$data->id?>" class="name"> 
+        <a href="/catalog/<?=$data->alias?>" class="name"> 
             <?=$data->name?>
         </a>
         <p class="desc">

@@ -5,8 +5,8 @@
         $image= $glr ? $glr[0]->getUrl('small') : '/media/images/parts/default.jpg';
         //$image='/media/car.png';
     ?>
-    <a href="/catalog/<?=$data->url?>/<?=$data->id?>"><img height="100px" width="140px" src="<?=$image?>" alt="" title="" /></a>
-    <a href="/catalog/<?=$data->url?>/<?=$data->id?>" class="link">
+    <a href="/catalog/<?=$data->alias?>"><img height="100px" width="140px" src="<?=$image?>" alt="" title="" /></a>
+    <a href="/catalog/<?=$data->alias?>" class="link">
         <?=$data->name?>
     </a>
     <span class="desc">

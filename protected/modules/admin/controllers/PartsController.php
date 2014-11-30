@@ -31,6 +31,28 @@ class PartsController extends AdminController
 		));
 	}
 
+	public function actionChangeAlias($id=0){
+
+		$max=Yii::app()->db->createCommand()->select('max(id) as id')->from('{{Parts}}')->queryRow();
+		$count=$id;
+		while($count<$max)
+		{
+			$criteria=new CDbCriteria;
+			$criteria->addCondition('id>:count');
+			$criteria->params[':count']=$count;
+			$criteria->limit=200;
+			$models=Parts::model()->findAll($criteria);
+
+			foreach ($models as $key => $value) {
+				$value->save();
+				echo $value->id.'<br>';
+			}
+			unset($models);
+			$count+=200;
+		}
+		echo "the fin";
+	}
+
 	//action update
 	public function actionUpdate($id){
 

@@ -269,6 +269,12 @@ class UsedCars extends EActiveRecord
         return array_merge(array(array('id' => '', 'name' => 'Нет')), $data);
     }
 
+    public function beforeSave(){
+        paren::beforeSave();
+        
+        return true;
+    }
+
     public function beforeValidate(){
         
         $date = \DateTime::createFromFormat('d.m.Y', $this->enter_date);
@@ -280,8 +286,7 @@ class UsedCars extends EActiveRecord
     public function afterFind(){
         
         if($this->price) $this->price = number_format($this->price, 0, '', '');
-        $this->url=SiteHelper::translit($this->model->car_brand->name);
-        $this->url.='/'.SiteHelper::translit($this->model->name);
+        
         parent::afterFind();
     }
 

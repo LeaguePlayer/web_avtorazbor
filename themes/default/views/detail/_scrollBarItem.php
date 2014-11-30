@@ -8,13 +8,13 @@
         $image='/media/images/parts/default.png';
 ?>
 <li class="<?=$_GET["id"]==$data->id? 'active' : ''?>">
-    <a href="/detail/<?=$data->url?>/<?=$data->id?>" data-id="<?=$data->id?>"> 
+    <a href="/detail/<?=$data->alias?>" data-id="<?=$data->id?>"> 
     	<img  src="<?=$image?>" alt="" title="" />
     </a>
     <p class="section">
         Раздел: <?=$data->category->name?>
     </p>
-    <a href="/detail/<?=$data->url?>/<?=$data->id?>" data-id="<?=$data->id?>" class="name">
+    <a href="/detail/<?=$data->alias?>" data-id="<?=$data->id?>" class="name">
         <?=$data->name;?>
     </a>
     <span class="dsc" style="fron-size:16px;color:red;font-size:12px;"><?=$model['analog'] ? 'Аналог' : ''?></span>

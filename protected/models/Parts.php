@@ -394,9 +394,7 @@ class Parts extends EActiveRecord implements IECartPosition
         parent::afterFind();
         $this->price_sell = number_format($this->price_sell, 0, '', '');
         $this->price_buy = number_format($this->price_buy, 0, '', '');
-        $this->url=SiteHelper::translit($this->car_model->car_brand->name);
-        $this->url.='/'.SiteHelper::translit($this->car_model->name);
-        $this->url.='/'.SiteHelper::translit($this->category->name);
+        $this->url=$this->alias;
     }
 
     public function getJoin($key)
@@ -415,11 +413,13 @@ class Parts extends EActiveRecord implements IECartPosition
         return $joins[$key];
     }
 
-     public function beforeSave(){
+    public function beforeSave(){
         
         if($this->isNewRecord)
             $this->create_time = date("Y-m-d H:i:s");
 
+        $this->alias=SiteHelper::translit($this->car_model->car_brand->name.'_'.$this->car_model->name.'_'.$this->name.'_'.$this->id);
+        
         if (!$this->name)
             $this->createName();
 

@@ -21,7 +21,11 @@ $this->menu=array(
         'mail',
         'question',
         'themeName',
-        'status',
+        array(
+            'label'=>'Статус',
+            'type'=>'raw',
+            'value'=>Questions::getStatusAliases($model->status),
+        ),
         'create_time',
     ),
 ));

@@ -6,9 +6,9 @@
         // $imageBig='/media/car.png';
 ?>
 <div>
-    <a href="/detail/<?=$data->url?>/<?=$data->id?>"><img src="<?=$image?>" alt="" title="" /></a>
+    <a href="/detail/<?=$data->alias?>"><img src="<?=$image?>" alt="" title="" /></a>
     <div>
-        <a href="/detail/<?=$data->url?>/<?=$data->id?>" class="name">
+        <a href="/detail/<?=$data->alias?>" class="name">
             <?=$data->car_model->name.' '.$data->category->name?>
         </a>
         <span class="desc">

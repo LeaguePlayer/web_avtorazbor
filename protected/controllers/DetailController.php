@@ -313,13 +313,14 @@ class DetailController extends FrontController
 		}
 	}
 
-	public function actionView($id)
+	public function actionView($alias)
 	{
 		$cs = Yii::app()->clientScript;
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/partsView.js?v=2', CClientScript::POS_END);
 		Yii::app()->clientScript->registerMetaTag($this->modelName, 'title', null, array('id'=>'meta_title'), 'meta_title');
 
-		$model=Parts::model()->findByPk($id);
+		$model=Parts::model()->find('alias=:alias',array(':alias'=>$alias));
+		var_dump($model);die();
 		if (!$model && $model->status!=1)
 		{
 			throw new CHttpException("По вашему запросу не было найдено данных", 404);

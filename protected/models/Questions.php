@@ -39,6 +39,20 @@ class Questions extends EActiveRecord
         );
     }
 
+    public static function getStatusAliases($status = -1)
+    {
+        $aliases = array(
+            0 => 'Не задано', 
+            1 => 'Рассмотрено',
+            2 => 'Не Рассмотрено',
+        );
+
+        if ($status > -1)
+            return $aliases[$status];
+
+        return $aliases;
+    }
+    
     public function relations()
     {
         return array(

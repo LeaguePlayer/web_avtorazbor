@@ -40,7 +40,12 @@ $this->menu=array(
             'value'=>UsedCarInfo::transmissionList($model->transmission),
         ),
         'comment',
-        'status',
+        array(
+            'label'=>'Статус',
+            'type'=>'raw',
+            'value'=>Buyout::getStatusAliases($model->status)
+
+        ),
     ),
 ));
 ?>

@@ -18,7 +18,7 @@
 	<td>
 		<ul>
 			<li>
-				<a href="/detail/<?=$data->url?>/<?=$data->id?>">
+				<a href="/detail/<?=$data->alias?>">
 					<?=$data->name?>
 				</a>
 			</li>
