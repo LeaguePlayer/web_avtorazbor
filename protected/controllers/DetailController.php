@@ -4,14 +4,7 @@ class DetailController extends FrontController
 {
 	public $layout = '//layouts/simple';
 	public $modelName="Каталог Автозапчастей";
-	/**
-	 * Declares class-based actions.
-	 */
-	/**
-	 * This is the default 'index' action that is invoked
-	 * when an action is not explicitly requested by users.
-	 */
-
+	
 	public function filters()
 	{
 		return array(
@@ -274,6 +267,7 @@ class DetailController extends FrontController
 					),
 				)
 			);
+
 			//var_dump($searchForm->criteria->condition);die();
 			echo $this->renderPartial('//detail/tabParts',array('dataProvider'=>$dataProvider),true);
 			die();

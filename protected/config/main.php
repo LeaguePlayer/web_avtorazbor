@@ -145,6 +145,7 @@ return array(
                 'admin'=>'admin/start/index',
                 '/'=>'site/index',
                 'account/recoveryPassword/<hash:\w+>'=>'account/recoveryPassword',
+                'detail/ajaxUpdate|detail/ajaxupdate'=>'detail/ajaxUpdate',
                 'detail/<alias:[\w\-]+>'=>'detail/view',
                 'catalog/<alias:[\w\-]+>'=>'catalog/car',
                 'page/service'=>'page/service',

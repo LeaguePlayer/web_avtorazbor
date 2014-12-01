@@ -89,8 +89,6 @@
 			return true;
 		}
 
-
-
 		public static function searchByStr($str,$table)
 		{	
 			$str='+'.trim($str);
