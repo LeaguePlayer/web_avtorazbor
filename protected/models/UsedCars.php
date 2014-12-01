@@ -15,6 +15,7 @@ class UsedCars extends EActiveRecord
 {
     const STATUS_PARTS = 1;
     const STATUS_BUY = 2;
+    const STATUS_SOLD = 3;
     const STATUS_LIGHT = 1;
     const STATUS_CARGO = 2;
     public $url;
@@ -28,6 +29,7 @@ class UsedCars extends EActiveRecord
         $aliases = array(
             self::STATUS_PARTS => 'На запчасти',
             self::STATUS_BUY => 'На продажу',
+            self::STATUS_SOLD => 'Продано',
         );
 
         if ($status > -1)

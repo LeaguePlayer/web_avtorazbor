@@ -11,7 +11,7 @@
                             $gallery=$model->getGallery()->galleryPhotos;
                             $image=$gallery[0] ? $gallery[0]->getUrl('view') : '/media/images/default.png';
                         ?>
-                        <a class="imgFancy" href="<?=$gallery[0] ? $gallery[0]->getUrl('original') : '/media/images/default.png' ?>"><img width="100%" src="<?=$image?>" alt="" title="" /></a>
+                        <a class="imgFancy" rel="1" href="<?=$gallery[0] ? $gallery[0]->getUrl('original') : '/media/images/default.png' ?>"><img width="100%" src="<?=$image?>" alt="" title="" /></a>
                     </div>
                     <div class="min-img">
                     <?
@@ -21,8 +21,8 @@
                         <ul>
                             <?
                             $counter=0;
-                               foreach ($gallery as $key => $data) {
-
+                            for ($i=1; $i < count($gallery); $i++) { 
+                                $data=$gallery[$i];
                                     if (($counter+=1)<6)
                                     {
                                         ?>
