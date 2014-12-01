@@ -146,7 +146,7 @@ return array(
                 '/'=>'site/index',
                 'account/recoveryPassword/<hash:\w+>'=>'account/recoveryPassword',
                 'detail/ajaxUpdate|detail/ajaxupdate'=>'detail/ajaxUpdate',
-                'detail/disc/ajaxupdate'=>'detail/disc',
+                'detail/disc'=>'detail/disc',
                 'detail/<alias:[\w\-]+>'=>'detail/view',
                 'catalog/<alias:[\w\-]+>'=>'catalog/car',
                 'page/service'=>'page/service',
