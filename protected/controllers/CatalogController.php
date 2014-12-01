@@ -133,7 +133,7 @@ class CatalogController extends FrontController
 		$cs->registerScriptFile($this->getAssetsUrl().'/js/Catalog.js?v=3', CClientScript::POS_END);
 
 		$model=UsedCars::model()->find('alias=:alias',array(':alias'=>$alias));
-		if (!$model)
+		if (!$model && $model->status!=2)
 		{
 			throw new CHttpException("По вашему запросу не было найдено данных", 404);
 			die();
